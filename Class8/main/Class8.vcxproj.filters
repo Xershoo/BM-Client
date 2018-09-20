@@ -1,0 +1,1967 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;cxx;c;def</Extensions>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>moc;h;cpp</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Debug">
+      <UniqueIdentifier>{82e43688-c2eb-4287-a83f-b5aaa99943ae}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Release">
+      <UniqueIdentifier>{ac249847-15e6-4ecc-a2cb-42786967f944}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{9be5590e-ca77-49dc-9256-042ebe3a27ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+      <ParseFiles>true</ParseFiles>
+    </Filter>
+    <Filter Include="src\control">
+      <UniqueIdentifier>{6de11959-3838-4745-8f59-62e3994251a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\define">
+      <UniqueIdentifier>{6797f3ac-3485-4c4b-ad46-7bda14490ad9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Translation Files">
+      <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
+      <Extensions>ts</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="src\login">
+      <UniqueIdentifier>{7d5cba7c-c4f2-440e-a3d7-a2d8914af24c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="token">
+      <UniqueIdentifier>{0ff0b68b-8065-4718-bbdd-262ed3c9cd4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Media">
+      <UniqueIdentifier>{cf177355-78ff-4821-8b53-2e6f440682f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="biz">
+      <UniqueIdentifier>{c9b3d70a-08b9-49de-8451-bb915cf38712}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h</Extensions>
+      <ParseFiles>true</ParseFiles>
+    </Filter>
+    <Filter Include="src\chat">
+      <UniqueIdentifier>{635db3d9-d045-4cac-89ec-b990019db9d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\session">
+      <UniqueIdentifier>{f94abbbe-b0f0-4293-92fb-5accd7731d46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\userinfo">
+      <UniqueIdentifier>{4367c58b-14aa-4e33-83b5-63b4ef2c50aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\about">
+      <UniqueIdentifier>{d07de877-d5a9-4cae-b123-1093dead9e61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\banned">
+      <UniqueIdentifier>{665b79f0-2cc6-4c56-bd34-d63e841a1a46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\videoSave">
+      <UniqueIdentifier>{487f90fc-948a-41af-b2ee-36984890164f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\xml">
+      <UniqueIdentifier>{ec31685e-f0c3-4604-8727-cbf86a4ac962}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\noticWindow">
+      <UniqueIdentifier>{0ba57e24-0f4a-457c-ae31-118ce61c6c26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\systemTray">
+      <UniqueIdentifier>{cdb42471-e2ff-48ae-9636-ca85629aa769}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\config">
+      <UniqueIdentifier>{dc9344c8-3bee-4b78-89e3-482e59ba4339}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\coursewareTools">
+      <UniqueIdentifier>{a472531e-7303-43f8-a7bf-0b9836d99398}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PDF">
+      <UniqueIdentifier>{f286e07e-7ae7-413b-b0d7-0dc07b861af1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\videownd">
+      <UniqueIdentifier>{20b73ddc-d3c9-45d4-ad47-e9e7affe6d5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\SingleApp">
+      <UniqueIdentifier>{0c60f286-0590-42de-9eec-97c18f9ef567}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3rdparty">
+      <UniqueIdentifier>{79d45872-0648-461a-ad6b-68f6a4dccd3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3rdparty\qxtglobalshortcut">
+      <UniqueIdentifier>{36e4d186-7ca0-4b3c-8b8c-0a8ac03408d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\courseware">
+      <UniqueIdentifier>{c6679e43-b764-44ec-aaa9-63ccbdc14af4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\whiteboard">
+      <UniqueIdentifier>{c4c9d8af-3215-4d80-bdbd-ace741c551a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\soundMicophone">
+      <UniqueIdentifier>{e532f2df-34c8-4f8a-9187-445454dd16f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common Files">
+      <UniqueIdentifier>{0ca0bdde-885e-4ce4-943e-e5d1b72a69b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common Files\QuickMark">
+      <UniqueIdentifier>{c048e880-6aba-4822-b424-21bd1700c268}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common Files\inlude">
+      <UniqueIdentifier>{f7a4244d-aee4-4ecb-a8e5-315d439654b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\copyUpdate">
+      <UniqueIdentifier>{186f78d6-aff4-4e61-b301-3f9fe0dba697}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Resource Files\qss">
+      <UniqueIdentifier>{51054dbb-4a3a-49df-90d7-8d29c4624204}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\LoginByToken">
+      <UniqueIdentifier>{aeddc579-7c30-4e26-bcdf-dc155f5da3cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common Files\lang">
+      <UniqueIdentifier>{2d88511e-c10c-432a-88d6-ebaa67950f19}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\main\3rdparty\qxtglobalshortcut\qxtglobalshortcut.cpp">
+      <Filter>3rdparty\qxtglobalshortcut</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_qxtglobalshortcut.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_qxtglobalshortcut.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\3rdparty\qxtglobalshortcut\qxtglobalshortcut_win.cpp">
+      <Filter>3rdparty\qxtglobalshortcut</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\biz\BizCallBack.cpp">
+      <Filter>biz</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_BizCallBack.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_BizCallBack.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\biz\BizInterface.cpp">
+      <Filter>biz</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\common\quickmark\QR_Encode.cpp">
+      <Filter>Common Files\QuickMark</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\common\CL_Http_thread.cpp">
+      <Filter>Common Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_CL_Http_thread.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_CL_Http_thread.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\common\CppSQLite3.cpp">
+      <Filter>Common Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\common\Env.cpp">
+      <Filter>Common Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\common\HttpClient.cpp">
+      <Filter>Common Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\common\HttpSessionMgr.cpp">
+      <Filter>Common Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_HttpSessionMgr.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_HttpSessionMgr.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\common\Log.cpp">
+      <Filter>Common Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_Log.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_Log.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\common\md5.cpp">
+      <Filter>Common Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\common\rc4.cpp">
+      <Filter>Common Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\common\runtime.cpp">
+      <Filter>Common Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\common\Util.cpp">
+      <Filter>Common Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\LoginByToken\LoginByToken.cpp">
+      <Filter>src\LoginByToken</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\LoginByToken\qloginbttokendialog.cpp">
+      <Filter>src\LoginByToken</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_qloginbttokendialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_qloginbttokendialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\media\FilePlayer.cpp">
+      <Filter>Media</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_FilePlayer.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_FilePlayer.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\media\MediaInitThread.cpp">
+      <Filter>Media</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_MediaInitThread.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_MediaInitThread.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\media\MediaPublishMgr.cpp">
+      <Filter>Media</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_MediaPublishMgr.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_MediaPublishMgr.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\media\MediaRecord.cpp">
+      <Filter>Media</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\media\RtmpPlayer.cpp">
+      <Filter>Media</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\media\RtmpPublisher.cpp">
+      <Filter>Media</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\media\RtmpStream.cpp">
+      <Filter>Media</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\pdf\PDFShowUtil.cpp">
+      <Filter>PDF</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_PDFShowUtil.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_PDFShowUtil.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\token\LoginTokenMgr.cpp">
+      <Filter>token</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_LoginTokenMgr.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_LoginTokenMgr.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\token\UploadTokenMgr.cpp">
+      <Filter>token</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_UploadTokenMgr.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_UploadTokenMgr.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\about\aboutdialog.cpp">
+      <Filter>src\about</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_aboutdialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_aboutdialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\about\serveragreementdlg.cpp">
+      <Filter>src\about</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_serveragreementdlg.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_serveragreementdlg.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\banned\banneddialog.cpp">
+      <Filter>src\banned</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_banneddialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_banneddialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\chat\chat.cpp">
+      <Filter>src\chat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_chat.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_chat.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\chat\ChatHistoryMgr.cpp">
+      <Filter>src\chat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\chat\chatmanager.cpp">
+      <Filter>src\chat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_chatmanager.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_chatmanager.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\chat\chatupdownserver.cpp">
+      <Filter>src\chat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_chatupdownserver.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_chatupdownserver.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\chat\OperationDB.cpp">
+      <Filter>src\chat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\chat\privatechatwidget.cpp">
+      <Filter>src\chat</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_privatechatwidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_privatechatwidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\control\accountitem.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_accountitem.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_accountitem.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\control\beautybutton.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_beautybutton.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_beautybutton.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\control\c8commonwindow.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_c8commonwindow.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_c8commonwindow.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\control\c8popupwindow.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_c8popupwindow.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_c8popupwindow.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\control\chatwidget.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_chatwidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_chatwidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\control\chatwindowoutputedit.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_chatwindowoutputedit.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_chatwindowoutputedit.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\control\chatwindowtextedit.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_chatwindowtextedit.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_chatwindowtextedit.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\control\ClassWebView.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_ClassWebView.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_ClassWebView.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\control\clickablelabel.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_clickablelabel.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_clickablelabel.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\control\coursewaredownloadlistitemwidget.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_coursewaredownloadlistitemwidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_coursewaredownloadlistitemwidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\control\evaluatebutton.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_evaluatebutton.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_evaluatebutton.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\control\evaluationedit.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_evaluationedit.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_evaluationedit.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\control\faceselectwindowscene.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_faceselectwindowscene.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_faceselectwindowscene.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\control\fullccreenwidget.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_fullccreenwidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_fullccreenwidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\control\gificonpushbutton.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_gificonpushbutton.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_gificonpushbutton.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\control\graphicsfaceselectitem.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\control\hotkeyinputedit.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_hotkeyinputedit.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_hotkeyinputedit.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\control\MaskLabel.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\control\mulitcameralistitemwidget.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_mulitcameralistitemwidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_mulitcameralistitemwidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\control\pdfwnd.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_pdfwnd.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_pdfwnd.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\control\pictureviewer.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_pictureviewer.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_pictureviewer.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\control\PlayerSlider.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_PlayerSlider.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_PlayerSlider.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\control\qclassremindwindow.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_qclassremindwindow.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_qclassremindwindow.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\control\qimageshow.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_qimageshow.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_qimageshow.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\control\QPDFPreviewList.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_QPDFPreviewList.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_QPDFPreviewList.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\control\qsysnotifyitem.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_qsysnotifyitem.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_qsysnotifyitem.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\control\qsysnotifylist.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_qsysnotifylist.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_qsysnotifylist.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\control\searchuserlineedit.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_searchuserlineedit.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_searchuserlineedit.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\control\skyfilelistwidget.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_skyfilelistwidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_skyfilelistwidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\control\userlistitemwidget.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_userlistitemwidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_userlistitemwidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\control\userlistwidget.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_userlistwidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_userlistwidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\control\variablesizelabel.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_variablesizelabel.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_variablesizelabel.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\copyUpdate\copyUpdate.cpp">
+      <Filter>src\copyUpdate</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\copyUpdate\customThread.cpp">
+      <Filter>src\copyUpdate</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\Courseware\CL_thread.cpp">
+      <Filter>src\courseware</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_CL_thread.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_CL_thread.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\Courseware\courseware.cpp">
+      <Filter>src\courseware</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\Courseware\coursewaredatamgr.cpp">
+      <Filter>src\courseware</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_coursewaredatamgr.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_coursewaredatamgr.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\Courseware\CoursewarePanel.cpp">
+      <Filter>src\courseware</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_CoursewarePanel.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_CoursewarePanel.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\Courseware\coursewaretask.cpp">
+      <Filter>src\courseware</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_coursewaretask.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_coursewaretask.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\Courseware\coursewaretaskmgr.cpp">
+      <Filter>src\courseware</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_coursewaretaskmgr.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_coursewaretaskmgr.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\Courseware\SkyCursewaveData.cpp">
+      <Filter>src\courseware</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_SkyCursewaveData.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_SkyCursewaveData.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\coursewareTools\CourseAndWhitebMsg.cpp">
+      <Filter>src\coursewareTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_CourseAndWhitebMsg.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_CourseAndWhitebMsg.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\coursewareTools\coursewaretools.cpp">
+      <Filter>src\coursewareTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_coursewaretools.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_coursewaretools.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\coursewareTools\coursewaretoolsData.cpp">
+      <Filter>src\coursewareTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_coursewaretoolsData.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_coursewaretoolsData.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\coursewareTools\qcoursewarepreview.cpp">
+      <Filter>src\coursewareTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_qcoursewarepreview.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_qcoursewarepreview.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\coursewareTools\qmediaplaytool.cpp">
+      <Filter>src\coursewareTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_qmediaplaytool.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_qmediaplaytool.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\coursewareTools\qselectcolor.cpp">
+      <Filter>src\coursewareTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_qselectcolor.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_qselectcolor.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\coursewareTools\qselecttext.cpp">
+      <Filter>src\coursewareTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_qselecttext.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_qselecttext.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\coursewareTools\qshowclassstate.cpp">
+      <Filter>src\coursewareTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_qshowclassstate.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_qshowclassstate.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\coursewareTools\whiteboardtools.cpp">
+      <Filter>src\coursewareTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_whiteboardtools.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_whiteboardtools.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\define\chatwindowtextblockuserdata.cpp">
+      <Filter>src\define</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\login\CLSLoginUserManager.cpp">
+      <Filter>src\login</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\login\Login.cpp">
+      <Filter>src\login</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\noticWindow\noticwindow.cpp">
+      <Filter>src\noticWindow</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_noticwindow.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_noticwindow.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\session\classsession.cpp">
+      <Filter>src\session</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\SingleApp\SingleApp.cpp">
+      <Filter>src\SingleApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_SingleApp.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_SingleApp.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\soundMicophone\sliderwidget.cpp">
+      <Filter>src\soundMicophone</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_sliderwidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_sliderwidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\systemtray\systemmenue.cpp">
+      <Filter>src\systemTray</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_systemmenue.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_systemmenue.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\systemtray\systemtray.cpp">
+      <Filter>src\systemTray</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_systemtray.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_systemtray.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\userinfo\userinfomanager.cpp">
+      <Filter>src\userinfo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\videoSave\videosavedialog.cpp">
+      <Filter>src\videoSave</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_videosavedialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_videosavedialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\videownd\MediaPlayerShowWnd.cpp">
+      <Filter>src\videownd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_MediaPlayerShowWnd.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_MediaPlayerShowWnd.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\videownd\MultiChannelVideoShow.cpp">
+      <Filter>src\videownd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\videownd\StudentVideoWnd.cpp">
+      <Filter>src\videownd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_StudentVideoWnd.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_StudentVideoWnd.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\videownd\TeacherPublishVideoWnd.cpp">
+      <Filter>src\videownd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_TeacherPublishVideoWnd.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_TeacherPublishVideoWnd.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\videownd\TeacherVideoWnd.cpp">
+      <Filter>src\videownd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_TeacherVideoWnd.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_TeacherVideoWnd.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\videownd\UserPubliserVideoWnd.cpp">
+      <Filter>src\videownd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_UserPubliserVideoWnd.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_UserPubliserVideoWnd.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\videownd\UserSeatVideoWnd.cpp">
+      <Filter>src\videownd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_UserSeatVideoWnd.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_UserSeatVideoWnd.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\videownd\UserVideoWnd.cpp">
+      <Filter>src\videownd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_UserVideoWnd.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_UserVideoWnd.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\videownd\VideoShowBase.cpp">
+      <Filter>src\videownd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\whiteboard\QWhiteBoard.cpp">
+      <Filter>src\whiteboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_QWhiteBoard.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_QWhiteBoard.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\whiteboard\QWhiteBoardCurveItem.cpp">
+      <Filter>src\whiteboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_QWhiteBoardCurveItem.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_QWhiteBoardCurveItem.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\whiteboard\QWhiteBoardLarserItem.cpp">
+      <Filter>src\whiteboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_QWhiteBoardLarserItem.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_QWhiteBoardLarserItem.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\whiteboard\QWhiteBoardScene.cpp">
+      <Filter>src\whiteboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_QWhiteBoardScene.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_QWhiteBoardScene.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\whiteboard\QWhiteBoardTextItem.cpp">
+      <Filter>src\whiteboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_QWhiteBoardTextItem.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_QWhiteBoardTextItem.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\whiteboard\WhileBoardDataMgr.cpp">
+      <Filter>src\whiteboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_WhileBoardDataMgr.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_WhileBoardDataMgr.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\whiteboard\WhiteBoardData.cpp">
+      <Filter>src\whiteboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\xml\xmlmanager.cpp">
+      <Filter>src\xml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\addcoursewarewindow.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_addcoursewarewindow.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_addcoursewarewindow.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\addwhiteboarddialog.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_addwhiteboarddialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_addwhiteboarddialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\c8messagebox.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_c8messagebox.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_c8messagebox.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\classoverevaluate.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_classoverevaluate.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_classoverevaluate.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\coursewaredownloadlistwindow.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_coursewaredownloadlistwindow.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_coursewaredownloadlistwindow.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\faceselectwindow.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_faceselectwindow.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_faceselectwindow.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\privatechatdlg.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_privatechatdlg.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_privatechatdlg.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\recordSettingdialog.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_recordSettingdialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_recordSettingdialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\settingdialog.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_settingdialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_settingdialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\skyfiledialog.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_skyfiledialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_skyfiledialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\userinfowindow.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_userinfowindow.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_userinfowindow.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\userlistmenue.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_userlistmenue.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_userlistmenue.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\userlisttabpage.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_userlisttabpage.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_userlisttabpage.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\webcamerasettingpage.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_webcamerasettingpage.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_webcamerasettingpage.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\classroomdialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_classroomdialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_classroomdialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\classroomsetting.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_classroomsetting.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_classroomsetting.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\lobbydialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_lobbydialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_lobbydialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\logindialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_logindialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_logindialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Class8\qrc_Class8.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\stuvideolistwnd.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_stuvideolistwnd.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_stuvideolistwnd.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\common\Config.cpp">
+      <Filter>src\config</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CourseDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_CourseDialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_CourseDialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\control\QClassWebDialog.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_QClassWebDialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_QClassWebDialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\common\lang.cpp">
+      <Filter>Common Files\lang</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ClassWebBrowser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ClassWebWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_ClassWebWidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_ClassWebWidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\WebBrowser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_WaitDlg.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_WaitDlg.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\WaitDlg.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\main\3rdparty\qxtglobalshortcut\qxtglobalshortcut.h">
+      <Filter>3rdparty\qxtglobalshortcut</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\biz\BizCallBack.h">
+      <Filter>biz</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\common\CL_Http_thread.h">
+      <Filter>Common Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\common\HttpSessionMgr.h">
+      <Filter>Common Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\common\Log.h">
+      <Filter>Common Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\LoginByToken\qloginbttokendialog.h">
+      <Filter>src\LoginByToken</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\LoginByToken\qloginbttokendialog.ui">
+      <Filter>src\LoginByToken</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\media\FilePlayer.h">
+      <Filter>Media</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\media\MediaInitThread.h">
+      <Filter>Media</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\media\MediaPublishMgr.h">
+      <Filter>Media</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\pdf\PDFShowUtil.h">
+      <Filter>PDF</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\token\LoginTokenMgr.h">
+      <Filter>token</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\token\UploadTokenMgr.h">
+      <Filter>token</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\about\aboutdialog.h">
+      <Filter>src\about</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\about\aboutdialog.ui">
+      <Filter>src\about</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\about\serveragreementdlg.h">
+      <Filter>src\about</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\about\serveragreementdlg.ui">
+      <Filter>src\about</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\banned\banneddialog.h">
+      <Filter>src\banned</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\banned\banneddialog.ui">
+      <Filter>src\banned</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\chat\chat.h">
+      <Filter>src\chat</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\chat\chatmanager.h">
+      <Filter>src\chat</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\chat\chatupdownserver.h">
+      <Filter>src\chat</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\chat\privatechatwidget.h">
+      <Filter>src\chat</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\chat\privatechatwidget.ui">
+      <Filter>src\chat</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\control\accountitem.h">
+      <Filter>src\control</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\control\beautybutton.h">
+      <Filter>src\control</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\control\c8commonwindow.h">
+      <Filter>src\control</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\control\c8popupwindow.h">
+      <Filter>src\control</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\control\chatwidget.h">
+      <Filter>src\control</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\control\chatwidget.ui">
+      <Filter>src\control</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\control\chatwindowoutputedit.h">
+      <Filter>src\control</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\control\chatwindowtextedit.h">
+      <Filter>src\control</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\control\ClassWebView.h">
+      <Filter>src\control</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\control\clickablelabel.h">
+      <Filter>src\control</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\control\coursewaredownloadlistitemwidget.h">
+      <Filter>src\control</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\control\coursewaredownloadlistitemwidget.ui">
+      <Filter>src\control</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\control\evaluatebutton.h">
+      <Filter>src\control</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\control\evaluationedit.h">
+      <Filter>src\control</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\control\faceselectwindowscene.h">
+      <Filter>src\control</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\control\fullccreenwidget.h">
+      <Filter>src\control</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\control\gificonpushbutton.h">
+      <Filter>src\control</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\control\hotkeyinputedit.h">
+      <Filter>src\control</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\control\mulitcameralistitemwidget.h">
+      <Filter>src\control</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\control\mulitcameralistitemwidget.ui">
+      <Filter>src\control</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\control\pdfwnd.h">
+      <Filter>src\control</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\control\pictureviewer.h">
+      <Filter>src\control</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\control\pictureviewer.ui">
+      <Filter>src\control</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\control\PlayerSlider.h">
+      <Filter>src\control</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\control\qclassremindwindow.h">
+      <Filter>src\control</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\control\qclassremindwindow.ui">
+      <Filter>src\control</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\control\qimageshow.h">
+      <Filter>src\control</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\control\qimageshow.ui">
+      <Filter>src\control</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\control\QPDFPreviewList.h">
+      <Filter>src\control</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\control\qsysnotifyitem.h">
+      <Filter>src\control</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\control\qsysnotifyitem.ui">
+      <Filter>src\control</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\control\qsysnotifylist.h">
+      <Filter>src\control</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\control\searchuserlineedit.h">
+      <Filter>src\control</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\control\skyfilelistwidget.h">
+      <Filter>src\control</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\control\userlistitemwidget.h">
+      <Filter>src\control</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\control\userlistitemwidget.ui">
+      <Filter>src\control</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\control\userlistwidget.h">
+      <Filter>src\control</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\control\variablesizelabel.h">
+      <Filter>src\control</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\Courseware\CL_thread.h">
+      <Filter>src\courseware</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\Courseware\coursewaredatamgr.h">
+      <Filter>src\courseware</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\Courseware\CoursewarePanel.h">
+      <Filter>src\courseware</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\Courseware\coursewaretask.h">
+      <Filter>src\courseware</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\Courseware\coursewaretaskmgr.h">
+      <Filter>src\courseware</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\Courseware\SkyCursewaveData.h">
+      <Filter>src\courseware</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\coursewareTools\CourseAndWhitebMsg.h">
+      <Filter>src\coursewareTools</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\coursewareTools\coursewaretools.h">
+      <Filter>src\coursewareTools</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\coursewareTools\coursewaretools.ui">
+      <Filter>src\coursewareTools</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\coursewareTools\coursewaretoolsData.h">
+      <Filter>src\coursewareTools</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\coursewareTools\qcoursewarepreview.h">
+      <Filter>src\coursewareTools</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\coursewareTools\qcoursewarepreview.ui">
+      <Filter>src\coursewareTools</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\coursewareTools\qmediaplaytool.h">
+      <Filter>src\coursewareTools</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\coursewareTools\qmediaplaytool.ui">
+      <Filter>src\coursewareTools</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\coursewareTools\qselectcolor.h">
+      <Filter>src\coursewareTools</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\coursewareTools\qselectcolor.ui">
+      <Filter>src\coursewareTools</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\coursewareTools\qselecttext.h">
+      <Filter>src\coursewareTools</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\coursewareTools\qselecttext.ui">
+      <Filter>src\coursewareTools</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\coursewareTools\qshowclassstate.h">
+      <Filter>src\coursewareTools</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\coursewareTools\qshowclassstate.ui">
+      <Filter>src\coursewareTools</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\coursewareTools\whiteboardtools.h">
+      <Filter>src\coursewareTools</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\coursewareTools\whiteboardtools.ui">
+      <Filter>src\coursewareTools</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\noticWindow\noticwindow.h">
+      <Filter>src\noticWindow</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\noticWindow\noticwindow.ui">
+      <Filter>src\noticWindow</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\SingleApp\SingleApp.h">
+      <Filter>src\SingleApp</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\soundMicophone\sliderwidget.h">
+      <Filter>src\soundMicophone</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\soundMicophone\sliderwidget.ui">
+      <Filter>src\soundMicophone</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\systemtray\systemmenue.h">
+      <Filter>src\systemTray</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\systemtray\systemmenue.ui">
+      <Filter>src\systemTray</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\systemtray\systemtray.h">
+      <Filter>src\systemTray</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\videoSave\videosavedialog.h">
+      <Filter>src\videoSave</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\videoSave\videosavedialog.ui">
+      <Filter>src\videoSave</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\videownd\MediaPlayerShowWnd.h">
+      <Filter>src\videownd</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\videownd\StudentVideoWnd.h">
+      <Filter>src\videownd</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\videownd\TeacherPublishVideoWnd.h">
+      <Filter>src\videownd</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\videownd\TeacherVideoWnd.h">
+      <Filter>src\videownd</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\videownd\UserPubliserVideoWnd.h">
+      <Filter>src\videownd</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\videownd\UserSeatVideoWnd.h">
+      <Filter>src\videownd</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\videownd\UserVideoWnd.h">
+      <Filter>src\videownd</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\whiteboard\QWhiteBoard.h">
+      <Filter>src\whiteboard</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\whiteboard\QWhiteBoardCurveItem.h">
+      <Filter>src\whiteboard</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\whiteboard\QWhiteBoardLarserItem.h">
+      <Filter>src\whiteboard</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\whiteboard\QWhiteBoardScene.h">
+      <Filter>src\whiteboard</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\whiteboard\QWhiteBoardTextItem.h">
+      <Filter>src\whiteboard</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\whiteboard\WhileBoardDataMgr.h">
+      <Filter>src\whiteboard</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\addcoursewarewindow.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\addcoursewarewindow.ui">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\addwhiteboarddialog.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\addwhiteboarddialog.ui">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\c8messagebox.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\c8messagebox.ui">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\classoverevaluate.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\classoverevaluate.ui">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\coursewaredownloadlistwindow.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\coursewaredownloadlistwindow.ui">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\faceselectwindow.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\faceselectwindow.ui">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\privatechatdlg.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\privatechatdlg.ui">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\recordSettingdialog.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\recordSettingdialog.ui">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\settingdialog.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\settingdialog.ui">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\skyfiledialog.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\skyfiledialog.ui">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\userinfowindow.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\userinfowindow.ui">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\userlistmenue.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\userlistmenue.ui">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\userlisttabpage.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\userlisttabpage.ui">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\webcamerasettingpage.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\webcamerasettingpage.ui">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\classroomdialog.h">
+      <Filter>Source Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\classroomdialog.ui">
+      <Filter>Source Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\classroomsetting.h">
+      <Filter>Source Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\classroomsetting.ui">
+      <Filter>Source Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\lobbydialog.h">
+      <Filter>Source Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\lobbydialog.ui">
+      <Filter>Source Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\logindialog.h">
+      <Filter>Source Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\logindialog.ui">
+      <Filter>Source Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Class8.qrc">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\stuvideolistwnd.h">
+      <Filter>Source Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\stuvideolistwnd.ui">
+      <Filter>Source Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\CourseDialog.h">
+      <Filter>Source Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\CourseDialog.ui">
+      <Filter>Source Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\control\QClassWebDialog.ui">
+      <Filter>src\control</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\control\QClassWebDialog.h">
+      <Filter>src\control</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\ClassWebWidget.h">
+      <Filter>Source Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\WaitDlg.ui">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\WaitDlg.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="qss\coffee.qss">
+      <Filter>Resource Files\qss</Filter>
+    </None>
+    <None Include="qss\default.qss">
+      <Filter>Resource Files\qss</Filter>
+    </None>
+    <None Include="qss\pagefold.qss">
+      <Filter>Resource Files\qss</Filter>
+    </None>
+    <None Include="res\lang\lang_ch.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+    <None Include="res\image\default\Class8.ico" />
+    <None Include="..\..\main\3rdparty\qxtglobalshortcut\qxtglobalshortcut.pri">
+      <Filter>3rdparty\qxtglobalshortcut</Filter>
+    </None>
+    <None Include="res\lang\lang_en.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\control\MultiChannelVideoShow.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\main\3rdparty\qxtglobalshortcut\qxtglobal.h">
+      <Filter>3rdparty\qxtglobalshortcut</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\main\3rdparty\qxtglobalshortcut\qxtglobalshortcut_p.h">
+      <Filter>3rdparty\qxtglobalshortcut</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\main\biz\BizInterface.h">
+      <Filter>biz</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\main\common\include\CL8_EnumDefs.h">
+      <Filter>Common Files\inlude</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\main\common\quickmark\QR_Encode.h">
+      <Filter>Common Files\QuickMark</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\main\common\CppSQLite3.h">
+      <Filter>Common Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\main\common\decomp.h">
+      <Filter>Common Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\main\common\Env.h">
+      <Filter>Common Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\main\common\HttpClient.h">
+      <Filter>Common Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\main\common\macros.h">
+      <Filter>Common Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\main\common\md5.h">
+      <Filter>Common Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\main\common\rc4.h">
+      <Filter>Common Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\main\common\runtime.h">
+      <Filter>Common Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\main\common\Util.h">
+      <Filter>Common Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\main\common\varname.h">
+      <Filter>Common Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\main\src\LoginByToken\LoginByToken.h">
+      <Filter>src\LoginByToken</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_qloginbttokendialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\main\media\MediaRecord.h">
+      <Filter>Media</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\main\media\RtmpPlayer.h">
+      <Filter>Media</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\main\media\RtmpPublisher.h">
+      <Filter>Media</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\main\media\RtmpStream.h">
+      <Filter>Media</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\main\setdebugnew.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_aboutdialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_serveragreementdlg.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_banneddialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\main\src\chat\ChatHistoryMgr.h">
+      <Filter>src\chat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\main\src\chat\OperationDB.h">
+      <Filter>src\chat</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_privatechatwidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_chatwidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_coursewaredownloadlistitemwidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\main\src\control\graphicsfaceselectitem.h">
+      <Filter>src\control</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\main\src\control\MaskLabel.h">
+      <Filter>src\control</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_mulitcameralistitemwidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_pictureviewer.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_qclassremindwindow.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_qimageshow.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_qsysnotifyitem.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_userlistitemwidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\main\src\copyUpdate\copyUpdate.h">
+      <Filter>src\copyUpdate</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\main\src\copyUpdate\customThread.h">
+      <Filter>src\copyUpdate</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\main\src\Courseware\courseware.h">
+      <Filter>src\courseware</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_coursewaretools.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_qcoursewarepreview.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_qmediaplaytool.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_qselectcolor.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_qselecttext.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_qshowclassstate.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_whiteboardtools.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\main\src\define\chatwindowtextblockuserdata.h">
+      <Filter>src\define</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\main\src\define\publicdefine.h">
+      <Filter>src\define</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\main\src\login\CLSLoginUserManager.h">
+      <Filter>src\login</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\main\src\login\Login.h">
+      <Filter>src\login</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_noticwindow.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\main\src\session\classsession.h">
+      <Filter>src\session</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_sliderwidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_systemmenue.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\main\src\userinfo\userinfomanager.h">
+      <Filter>src\userinfo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_videosavedialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\main\src\videownd\MultiChannelVideoShow.h">
+      <Filter>src\videownd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\main\src\videownd\VideoShowBase.h">
+      <Filter>src\videownd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\main\src\whiteboard\WhiteBoardData.h">
+      <Filter>src\whiteboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\main\src\xml\xmlmanager.h">
+      <Filter>src\xml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_addcoursewarewindow.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_addwhiteboarddialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_c8messagebox.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_classoverevaluate.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_coursewaredownloadlistwindow.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_faceselectwindow.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_privatechatdlg.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_recordSettingdialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_settingdialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_skyfiledialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_userinfowindow.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_userlistmenue.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_userlisttabpage.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_webcamerasettingpage.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_classroomdialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_classroomsetting.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_lobbydialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_logindialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_stuvideolistwnd.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\main\common\Config.h">
+      <Filter>src\config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_CourseDialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_QClassWebDialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\main\common\lang.h">
+      <Filter>Common Files\lang</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ClassWebBrowser.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\WebBrowser.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_WaitDlg.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Class8.rc" />
+  </ItemGroup>
+</Project>

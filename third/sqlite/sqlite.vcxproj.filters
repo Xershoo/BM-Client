@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{92d4e5ab-fbdf-4fe8-96c6-d7ba39151800}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ext">
+      <UniqueIdentifier>{33b263b2-8c43-4753-b2b5-36b73a57d1c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\ext\fts2">
+      <UniqueIdentifier>{a1fcee29-f83d-4747-9610-0da7ec2ad401}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="amalgamation">
+      <UniqueIdentifier>{6a868c73-4906-4daf-aa65-4c2d5a6b655b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\ext\fts2\fts2.c">
+      <Filter>src\ext\fts2</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ext\fts2\fts2_hash.c">
+      <Filter>src\ext\fts2</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ext\fts2\fts2_icu.c">
+      <Filter>src\ext\fts2</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ext\fts2\fts2_porter.c">
+      <Filter>src\ext\fts2</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ext\fts2\fts2_tokenizer.c">
+      <Filter>src\ext\fts2</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ext\fts2\fts2_tokenizer1.c">
+      <Filter>src\ext\fts2</Filter>
+    </ClCompile>
+    <ClCompile Include="amalgamation\sqlite3.c">
+      <Filter>amalgamation</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\ext\fts2\fts2.h">
+      <Filter>src\ext\fts2</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ext\fts2\fts2_hash.h">
+      <Filter>src\ext\fts2</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ext\fts2\fts2_tokenizer.h">
+      <Filter>src\ext\fts2</Filter>
+    </ClInclude>
+    <ClInclude Include="amalgamation\sqlite3.h">
+      <Filter>amalgamation</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="sqlite.gyp" />
+  </ItemGroup>
+</Project>

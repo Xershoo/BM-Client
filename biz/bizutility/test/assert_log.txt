@@ -1,0 +1,2 @@
+[2013-12-31 19:47:21]	0, file: .\test_log\test_log2.cpp, lineno: 10. -> avf23
+[2013-12-31 19:47:21]	false, file: .\test_log\test_log2.cpp, lineno: 11. -> 

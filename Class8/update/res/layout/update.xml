@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<vbox name="main" frame_min_width="432" frame_min_height="360" bkgrd-image="image\update_bk.png">
+  <hbox height="33">
+    <obj name="TxtTitel" left="27" width="100" top="5" heigth="20" font="微软雅黑@18px#bold" font-color-disabled="255,255,255" font-color="255,255,255" />
+    <obj name="BtnMin"  top="4" height="17" image="image\min2.png@17x17" width="17" left="-42" />
+    <obj name="BtnClose"  top="4" height="17" image="image\close2.png@17x17" width="17" left="-25" />
+  </hbox>
+	<vbox name="Bkg2" left="1" top="0" bottom="-1">
+    <hbox left="0" top="0" height="327" >
+     <obj name="SldProgress" top="-40" height="3" backimage="image\update_SldProgress_bk.png@80x3"/>
+    </hbox>
+    <group>
+      <obj name="TxtPos" left="-38" top="-27" font="微软雅黑@18px" width="72" height="23" font-color="31,31,31"/>
+      <obj name="BtnOK" left="-100" top="-30" font="微软雅黑@18px" width="85" height="25" image="image\setting_btn_bk.png@65x25" bkgrd-stretch-mode="DIF_STRETCH | DIF_TRANSPARENT |DIF_ALPHA" image-inner="5,5,5,5" font-color="0,0,0" />
+    </group>    
+	</vbox>
+</vbox>

@@ -1,0 +1,39 @@
+1. 运行 manifest_creator_new.exe ，填写版本号，URL前缀，文件目录。URL前缀 为
+http://download.class8.com/update/0.8.1.1176/  最后一个 “/”必须带上
+更新日志可不填，点创建清单，会生成 latest_manifest 文件
+2. 将文件目录压缩打包，压缩成.zip格式
+
+3. 上传文件到服务器上，FTP： 183.131.144.227  端口：22 root / wyzlly829592
+  上传目录为 ： /data/export/edu_repos/file/data/update
+
+4. 上传的三个文件： 1）压缩好的.zip文件，即更新包源文件 2）latest_manifest  3)protocol_manifest （先修改该文件的内容，里面为版本号。修改版本号即可，不要回车换行
+
+//5. 通过Shell登录 221.228.193.39 端口：58022 tomcat / tomcat2015
+
+//6. 切换目录到命令 cd /data/export/edu_repos/file/data/update
+
+//7. 解压缩 unzip -d xxx.zip ./
+
+8. 完成
+
+
+自动更新、web：221.228.195.57、port：58022、fold：/export/edu_repos/file/data/update
+
+http://download.class8.com/update/1.0.0.1120/
+http://download.class8.com/update/DLMusic/1.0.0.1010/
+D:\Project\DLMusic\setup\nsis\DLMusic
+D:\Project\KClass\Class8\setup\bin\Class8
+E:\Work\Class8\Source\Client\KClass\Class8\setup\bin\Class8
+http://61.147.188.50/update_class8/1.0.0.1128/
+
+服务器地址：
+
+61.147.188.50 29022 
+
+tomcat
+tomcat123
+
+/export/update_class8
+
+D:\邦芒科技\Source\Client\Source\Class8\setup\bin\BMClass
+http://www.50ketang.com:12080/update/1.0.0.1104/

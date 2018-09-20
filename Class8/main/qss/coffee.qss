@@ -1,0 +1,3886 @@
+/*
+新細明體：PMingLiU
+細明體：MingLiU
+標楷體：DFKai-SB
+黑体：SimHei
+宋体：SimSun
+新宋体：NSimSun
+仿宋：FangSong
+楷体：KaiTi
+仿宋_GB2312：FangSong_GB2312
+楷体_GB2312：KaiTi_GB2312
+微軟正黑體：Microsoft JhengHei
+微软雅黑体：Microsoft YaHei
+*/
+
+QPushButton#btn_showCourse{
+	width: 81px;
+	height: 22px;
+	font-family: "Microsoft YaHei";
+	font-size: 12px;
+	color: rgb(255,255,255);
+	background-color: none;
+	image: url(:/res/res/image/default/showCourse_normal.png);
+}
+
+QPushButton#btn_showCourse:disabled{
+	background-color: none;
+	color: rgb(157,187,217);
+	image: url(:/res/res/image/default/showCourse_disabled.png);
+}
+
+QPushButton#btn_showCourse:hover{
+	background-color: none;
+	color: rgb(25,118,210);
+	image: url(:/res/res/image/default/showCourse_hover.png);
+}
+
+QPushButton#btn_showCourse:pressed{
+	background-color: none;
+	color: rgb(25,118,210);
+	image: url(:/res/res/image/default/showCourse_pressed.png);
+}
+
+/*聊天显示大图窗口PictureViewer*/
+QWidget#widget_picViewer {
+	background-color: rgba(0, 0, 0, 100);
+}
+
+QWidget#widget_picViewerTitleBar {
+	background-color: rgb(25, 118, 210);
+}
+
+QWidget#LobbyDialog {
+	background-color: rgb(25, 118, 210);
+}
+
+QLabel#label_picViewer {
+	font-family: "Microsoft YaHei";
+	font-size: 12px;
+	color: rgb(255, 255, 255);
+}
+
+QLabel#label_title {
+	font-family: "Microsoft YaHei";
+	font-size: 13px;
+	color: rgb(255, 255, 255);
+}
+
+QWidget#courseDlg_titleBar{
+	background-color: rgb(25, 118, 210);
+}
+
+QWidget#toolWidget{
+	background-color: rgb(25, 118, 210);
+}
+
+/*聊天显示大图窗口PictureViewer*/
+
+/*垂直滚动条*/
+QScrollBar:vertical {
+	background: url(:/res/res/image/default/scrollbar_vertical_bg.png);
+	width: 9px;
+	margin: 0px 0 0px 0;
+}
+
+QScrollBar::handle:vertical {
+	background: rgb(195, 195, 195);
+	min-height: 20px;
+	margin: 0 1px 0 2px;
+	border-radius: 3px;
+	border: none;
+}
+
+QScrollBar::add-line:vertical {
+	background: url(:/res/res/image/default/scrollbar_vertical_bg.png);
+	height: 0px;
+	subcontrol-position: bottom;
+	subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:vertical {
+	background: url(:/res/res/image/default/scrollbar_vertical_bg.png);
+	height: 0px;
+	subcontrol-position: top;
+	subcontrol-origin: margin;
+}
+
+QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
+	border: 1px solid grey;
+	width: 3px;
+	height: 3px;
+	background: white;
+}
+
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+	background: none;
+}
+
+/*水平滚动条*/
+QScrollBar:horizontal {
+	background: url(:/res/res/image/default/scrollbar_horizontal_bg.png);
+	height: 9px;
+	margin: 0px 0 0px 0;
+}
+
+QScrollBar::handle:horizontal {
+	background: rgb(195, 195, 195);
+	min-width: 20px;
+	margin: 2px 0px 1px 0px;
+	border-radius: 3px;
+	border: none;
+}
+QScrollBar::add-line:horizontal {
+	border: 0px solid grey;
+	background: #32CC99;
+	width: 0px;
+	subcontrol-position: right;
+	subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:horizontal {
+	border: 0px solid grey;
+	background: #32CC99;
+	width: 0px;
+	subcontrol-position: left;
+	subcontrol-origin: margin;
+}
+
+QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
+	background: none;
+}
+
+/*MessageBox*/
+QLabel#label_msgBoxTitle {
+	font-family: "Microsoft YaHei";
+	font-size: 12px;
+	color: rgb(255, 255, 255);
+}
+
+QLabel#label_detail {
+	font-family: "SimSun";
+	font-size: 12px;
+	color: rgb(60,60,60);
+}
+/*MessageBox*/
+
+QCheckBox {
+	color: rgb(60,60,60);
+	font-family: "SimSun";
+	font-size: 12px;
+}
+
+QLineEdit {
+	color: rgb(60,60,60);
+	font-family: "SimSun";
+	font-size: 12px;
+	border-width: 1px;
+	border-style: solid;
+	border-radius: 3px;
+	border-color: rgb(218,218,218);
+	padding: 1px 2px 1px 10px;
+	height: 26px;
+}
+QLineEdit:hover {
+	border-color: rgb(0, 126, 251);
+}
+QLineEdit:pressed {
+	border-color: rgb(25, 118, 210);
+}
+
+QComboBox {
+	font-family: "SimSun";
+	font-size: 12px;
+	color: rgb(60,60,60);
+	border-width: 1px;
+	border-bottom-style: solid;
+	border-radius:3px;
+	border-color: rgb(218,218,218);
+	padding: 1px 2px 1px 10px;
+}
+QComboBox:hover {
+	border-width: 1px;
+	border-bottom-style: solid;
+	border-color: rgb(0, 126, 251);
+}
+QComboBox:pressed {
+	border-width: 1px;
+	border-bottom-style: solid;
+	border-color: rgb(25, 118, 210);
+}
+
+QPushButton#pushButton_test_2:hover{
+	background: transparent;
+	text-decoration:underline;
+}
+QPushButton#pushButton_test_2:pressed{
+	background: transparent;
+	text-decoration:underline;
+	color: rgb(255, 0, 255);
+}
+
+QPushButton#pushButton_minSize {
+	width: 30px;
+	height: 30px;
+	background-color: none;
+	image: url(:/res/res/image/default/sys_minsize_normal.png);
+}
+QPushButton#pushButton_minSize:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/sys_minsize_hover.png);
+}
+QPushButton#pushButton_minSize:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/sys_minsize_pressed.png);
+}
+
+QPushButton#pushButton_close {
+	width: 30px;
+	height: 30px;
+	background-color: none;
+	image: url(:/res/res/image/default/sys_close_normal.png);
+}
+QPushButton#pushButton_close:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/sys_close_hover.png);
+}
+QPushButton#pushButton_close:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/sys_close_pressed.png);
+}
+
+QPushButton#pushButton_test_1:hover{
+	background: transparent;
+	text-decoration:underline;
+}
+QPushButton#pushButton_test_1:pressed{
+	background: transparent;
+	text-decoration:underline;
+	color: rgb(255, 0, 255);
+}
+
+/*课堂页面*/
+QFrame#line_classroom{
+	border-image: url(:/res/res/image/default/lock_Splitline.png);
+}
+
+QLabel#label_classroomTitle {
+	color: rgb(255,255,255);
+}
+QLabel#label_time {
+	font-family: "Microsoft YaHei";
+	font-size: 12px;
+	color: rgb(255, 255, 255);
+}
+QPushButton#pushButton_title {
+	width: 100px;
+	height: 29px;
+	background-color: none;
+	image: url(:/res/res/image/default/class_logo.png);
+}
+
+QPushButton#pushButton_showStuVideoListWnd {
+	width: 30px;
+	height: 40px;
+	background-color: none;
+	image: url(:/res/res/image/default/showStuVideoListWndBtn_normal.png);
+}
+QPushButton#pushButton_showStuVideoListWnd:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/showStuVideoListWndBtn_hover.png);
+}
+QPushButton#pushButton_showStuVideoListWnd:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/showStuVideoListWndBtn_pressed.png);
+}
+QPushButton#pushButton_showStuVideoListWnd:disabled {
+	background-color: none;
+	image: url(:/res/res/image/default/showStuVideoListWndBtn_disabled.png);
+}
+QPushButton#pushButton_showStuVideoListWnd:checked {
+	background-color: none;
+	image: url(:/res/res/image/default/showStuVideoListWndBtn_check.png);
+}
+	
+/*课堂页面*/
+/*老师视频窗口*/
+QWidget#widget_teaVideoToolBar_bk {
+	background-color: rgba(245, 249, 249, 204);
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-bottom-color: rgba(205, 223, 231, 100);
+}
+
+QPushButton#pushButton_webCameraSetting {
+	width: 28px;
+	height: 28px;
+	background-color: none;
+	image: url(:/res/res/image/default/webCameraBtn_normal.png);
+}
+QPushButton#pushButton_webCameraSetting:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/webCameraBtn_hover.png);
+}
+QPushButton#pushButton_webCameraSetting:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/webCameraBtn_pressed.png);
+}
+
+QPushButton#pushButton_mulitCamera {
+	width: 28px;
+	height: 28px;
+	background-color: none;
+	image: url(:/res/res/image/default/mulitCameraBtn_normal.png);
+}
+QPushButton#pushButton_mulitCamera:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/mulitCameraBtn_hover.png);
+}
+QPushButton#pushButton_mulitCamera:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/mulitCameraBtn_pressed.png);
+}
+
+QPushButton#pushButton_switchTeaVideoAndcourseware {
+	width: 28px;
+	height: 28px;
+	background-color: none;
+	image: url(:/res/res/image/default/switchTeaVideoAndCoursewareBtn_normal.png);
+}
+QPushButton#pushButton_switchTeaVideoAndcourseware:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/switchTeaVideoAndCoursewareBtn_hover.png);
+}
+QPushButton#pushButton_switchTeaVideoAndcourseware:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/switchTeaVideoAndCoursewareBtn_pressed.png);
+}
+	
+/*老师视频窗口*/
+/*课堂左下角工具条*/
+QWidget#widget_classroomToolBtns {
+	background-color: none;
+}
+
+QPushButton#pushButton_classBeginBtn, #pushButton_classOverBtn {
+	width: 40px;
+	height: 40px;
+	background-color: none;
+	image: url(:/res/res/image/default/classBeginBtn_normal.png);
+}
+QPushButton#pushButton_classBeginBtn:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/classBeginBtn_hover.png);
+}
+QPushButton#pushButton_classBeginBtn:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/classBeginBtn_pressed.png);
+}
+
+QPushButton#pushButton_classOverBtn {
+	width: 40px;
+	height: 40px;
+	background-color: none;
+	image: url(:/res/res/image/default/classOverBtn_normal.png);
+}
+QPushButton#pushButton_classOverBtn:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/classOverBtn_hover.png);
+}
+QPushButton#pushButton_classOverBtn:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/classOverBtn_pressed.png);
+}
+
+QPushButton#pushButton_recordClassBtn {
+	width: 40px;
+	height: 40px;
+	background-color: none;
+	image: url(:/res/res/image/default/recordClassBtn_normal.png);
+}
+QPushButton#pushButton_recordClassBtn:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/recordClassBtn_hover.png);
+}
+QPushButton#pushButton_recordClassBtn:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/recordClassBtn_pressed.png);
+}
+
+QPushButton#pushButton_stopRecordClassBtn {
+	width: 40px;
+	height: 40px;
+	background-color: none;
+	image: url(:/res/res/image/default/stopRecordClassBtn_normal.png);
+}
+QPushButton#pushButton_stopRecordClassBtn:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/stopRecordClassBtn_hover.png);
+}
+QPushButton#pushButton_stopRecordClassBtn:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/stopRecordClassBtn_pressed.png);
+}
+
+QPushButton#pushButton_showAddCoursewareWindow {
+	width: 40px;
+	height: 40px;
+	background-color: none;
+	image: url(:/res/res/image/default/showAddCoursewareWindow_normal.png);
+}
+QPushButton#pushButton_showAddCoursewareWindow:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/showAddCoursewareWindow_hover.png);
+}
+QPushButton#pushButton_showAddCoursewareWindow:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/showAddCoursewareWindow_pressed.png);
+}
+
+QPushButton#pushButton_disableHandsupBtn {
+	width: 40px;
+	height: 40px;
+	background-color: none;
+	image: url(:/res/res/image/default/disableHandsupBtn_normal.png);
+}
+QPushButton#pushButton_disableHandsupBtn:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/disableHandsupBtn_hover.png);
+}
+QPushButton#pushButton_disableHandsupBtn:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/disableHandsupBtn_pressed.png);
+}
+
+QPushButton#pushButton_allowHandsupBtn {
+	width: 40px;
+	height: 40px;
+	background-color: none;
+	image: url(:/res/res/image/default/allowHandsupBtn_normal.png);
+}
+QPushButton#pushButton_allowHandsupBtn:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/allowHandsupBtn_hover.png);
+}
+QPushButton#pushButton_allowHandsupBtn:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/allowHandsupBtn_pressed.png);
+}
+
+QPushButton#pushButton_disableSendMsgBtn {
+	width: 40px;
+	height: 40px;
+	background-color: none;
+	image: url(:/res/res/image/default/disableSendMsgBtn_normal.png);
+}
+QPushButton#pushButton_disableSendMsgBtn:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/disableSendMsgBtn_hover.png);
+}
+QPushButton#pushButton_disableSendMsgBtn:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/disableSendMsgBtn_pressed.png);
+}
+
+QPushButton#pushButton_allowSendMsgBtn {
+	width: 40px;
+	height: 40px;
+	background-color: none;
+	image: url(:/res/res/image/default/allowSendMsgBtn_normal.png);
+}
+QPushButton#pushButton_allowSendMsgBtn:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/allowSendMsgBtn_hover.png);
+}
+QPushButton#pushButton_allowSendMsgBtn:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/allowSendMsgBtn_pressed.png);
+}
+
+QPushButton#pushButton_showCoursewareDownlistWnd {
+	width: 40px;
+	height: 40px;
+	background-color: none;
+	image: url(:/res/res/image/default/downlistBtn_normal.png);
+}
+QPushButton#pushButton_showCoursewareDownlistWnd:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/downlistBtn_hover.png);
+}
+QPushButton#pushButton_showCoursewareDownlistWnd:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/downlistBtn_pressed.png);
+}
+QPushButton#pushButton_showCoursewareDownlistWnd:disabled {
+	background-color: none;
+	image: url(:/res/res/image/default/downlistBtn_disabled.png);
+}
+
+QPushButton#pushButton_stuHandsUp {
+	width: 40px;
+	height: 40px;
+	background-color: none;
+	image: url(:/res/res/image/default/stuHandsUpBtn_normal.png);
+}
+QPushButton#pushButton_stuHandsUp:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/stuHandsUpBtn_hover.png);
+}
+QPushButton#pushButton_stuHandsUp:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/stuHandsUpBtn_pressed.png);
+}
+QPushButton#pushButton_stuHandsUp:disabled {
+	background-color: none;
+	image: url(:/res/res/image/default/stuHandsUpBtn_disabled.png);
+}
+
+QPushButton#pushButton_stuHandsDown {
+	width: 40px;
+	height: 40px;
+	background-color: none;
+	image: url(:/res/res/image/default/stuHandsDownBtn_normal.png);
+}
+QPushButton#pushButton_stuHandsDown:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/stuHandsDownBtn_hover.png);
+}
+QPushButton#pushButton_stuHandsDown:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/stuHandsDownBtn_pressed.png);
+}
+QPushButton#pushButton_stuHandsDown:disabled {
+	background-color: none;
+	image: url(:/res/res/image/default/stuHandsDownBtn_disabled.png);
+}
+
+/*课堂左下角工具条*/
+/*课堂左侧边栏*/
+QWidget#widget_leftSildBar {
+	background-color: none;
+}
+
+QFrame#line_left{
+	border-image: url(:/res/res/image/default/left_line.png);
+}
+
+QWidget#widget_leftSildeToolBtns_bk {
+	background-color: rgb(241, 241, 241);
+}
+
+QPushButton#pushButton_classRoomLeftMoveBtn {
+	width: 28px;
+	height: 28px;
+	background-color: none;
+	image: url(:/res/res/image/default/leftSildeMoveBtn_normal.png);
+}
+QPushButton#pushButton_classRoomLeftMoveBtn:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/leftSildeMoveBtn_hover.png);
+}
+QPushButton#pushButton_classRoomLeftMoveBtn:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/leftSildeMoveBtn_pressed.png);
+}
+QPushButton#pushButton_classRoomLeftMoveBtn:disabled {
+	background-color: none;
+	image: url(:/res/res/image/default/leftSildeMoveBtn_disabled.png);
+}
+QPushButton#pushButton_classRoomLeftMoveBtn:checked {
+	background-color: none;
+	image: url(:/res/res/image/default/leftSildeMoveBtn_checked.png);
+}
+
+QPushButton#pushButton_classRoomLeftPenBtn {
+	width: 28px;
+	height: 28px;
+	background-color: none;
+	image: url(:/res/res/image/default/leftSildePenBtn_normal.png);
+}
+QPushButton#pushButton_classRoomLeftPenBtn:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/leftSildePenBtn_hover.png);
+}
+QPushButton#pushButton_classRoomLeftPenBtn:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/leftSildePenBtn_pressed.png);
+}
+QPushButton#pushButton_classRoomLeftPenBtn:disabled {
+	background-color: none;
+	image: url(:/res/res/image/default/leftSildePenBtn_disabled.png);
+}
+QPushButton#pushButton_classRoomLeftPenBtn:checked {
+	background-color: none;
+	image: url(:/res/res/image/default/leftSildePenBtn_checked.png);
+}
+
+QPushButton#pushButton_classRoomLeftTextBtn {
+	width: 28px;
+	height: 28px;
+	background-color: none;
+	image: url(:/res/res/image/default/leftSildeTextBtn_normal.png);
+}
+QPushButton#pushButton_classRoomLeftTextBtn:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/leftSildeTextBtn_hover.png);
+}
+QPushButton#pushButton_classRoomLeftTextBtn:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/leftSildeTextBtn_pressed.png);
+}
+QPushButton#pushButton_classRoomLeftTextBtn:disabled {
+	background-color: none;
+	image: url(:/res/res/image/default/leftSildeTextBtn_disabled.png);
+}
+QPushButton#pushButton_classRoomLeftTextBtn:checked {
+	background-color: none;
+	image: url(:/res/res/image/default/leftSildeTextBtn_checked.png);
+}
+
+QPushButton#pushButton_classRoomLeftColorBtn {
+	width: 28px;
+	height: 28px;
+	background-color: none;
+	image: url(:/res/res/image/default/leftSildeColorBtn_normal.png);
+}
+QPushButton#pushButton_classRoomLeftColorBtn:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/leftSildeColorBtn_hover.png);
+}
+QPushButton#pushButton_classRoomLeftColorBtn:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/leftSildeColorBtn_pressed.png);
+}
+QPushButton#pushButton_classRoomLeftColorBtn:disabled {
+	background-color: none;
+	image: url(:/res/res/image/default/leftSildeColorBtn_disabled.png);
+}
+QPushButton#pushButton_classRoomLeftColorBtn:checked {
+	background-color: none;
+	image: url(:/res/res/image/default/leftSildeColorBtn_checked.png);
+}
+
+QPushButton#pushButton_classRoomLeftEraserBtn {
+	width: 28px;
+	height: 28px;
+	background-color: none;
+	image: url(:/res/res/image/default/leftSildeEraserBtn_normal.png);
+}
+QPushButton#pushButton_classRoomLeftEraserBtn:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/leftSildeEraserBtn_hover.png);
+}
+QPushButton#pushButton_classRoomLeftEraserBtn:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/leftSildeEraserBtn_pressed.png);
+}
+QPushButton#pushButton_classRoomLeftEraserBtn:disabled {
+	background-color: none;
+	image: url(:/res/res/image/default/leftSildeEraserBtn_disabled.png);
+}
+QPushButton#pushButton_classRoomLeftEraserBtn:checked {
+	background-color: none;
+	image: url(:/res/res/image/default/leftSildeEraserBtn_checked.png);
+}
+
+QPushButton#pushButton_classRoomLeftUndoBtn {
+	width: 28px;
+	height: 28px;
+	background-color: none;
+	image: url(:/res/res/image/default/leftSildeUndoBtn_normal.png);
+}
+QPushButton#pushButton_classRoomLeftUndoBtn:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/leftSildeUndoBtn_hover.png);
+}
+QPushButton#pushButton_classRoomLeftUndoBtn:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/leftSildeUndoBtn_pressed.png);
+}
+QPushButton#pushButton_classRoomLeftUndoBtn:disabled {
+	background-color: none;
+	image: url(:/res/res/image/default/leftSildeUndoBtn_disabled.png);
+}
+
+QPushButton#pushButton_classRoomLeftClearAllBtn {
+	width: 28px;
+	height: 28px;
+	background-color: none;
+	image: url(:/res/res/image/default/leftSildeClearAllBtn_normal.png);
+}
+QPushButton#pushButton_classRoomLeftClearAllBtn:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/leftSildeClearAllBtn_hover.png);
+}
+QPushButton#pushButton_classRoomLeftClearAllBtn:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/leftSildeClearAllBtn_pressed.png);
+}
+QPushButton#pushButton_classRoomLeftClearAllBtn:disabled {
+	background-color: none;
+	image: url(:/res/res/image/default/leftSildeClearAllBtn_disabled.png);
+}
+
+QPushButton#pushButton_classRoomLeftShowPreviewBtn {
+	width: 28px;
+	height: 28px;
+	background-color: none;
+	image: url(:/res/res/image/default/leftSildeShowPreviewBtn_normal.png);
+}
+QPushButton#pushButton_classRoomLeftShowPreviewBtn:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/leftSildeShowPreviewBtn_hover.png);
+}
+QPushButton#pushButton_classRoomLeftShowPreviewBtn:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/leftSildeShowPreviewBtn_pressed.png);
+}
+QPushButton#pushButton_classRoomLeftShowPreviewBtn:disabled {
+	background-color: none;
+	image: url(:/res/res/image/default/leftSildeShowPreviewBtn_disabled.png);
+}
+
+QLabel#label_classRoomLeftHide {
+	width: 9px;
+	height: 66px;
+	background-color: none;
+	image: url(:/res/res/image/default/leftSildeHideBtn_normal.png);
+}
+QLabel#label_classRoomLeftHide:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/leftSildeHideBtn_hover.png);
+}
+QLabel#label_classRoomLeftHide:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/leftSildeHideBtn_pressed.png);
+}
+
+QFrame#line_2 {
+	border-width: 1px;
+	border-style: solid;
+	border-color: rgb(218, 218, 218);
+}
+QFrame#line_3 {
+	border-width: 1px;
+	border-style: solid;
+	border-color: rgb(218, 218, 218);
+}
+QFrame#line_leftSlideSpace {
+	height: 66px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: rgb(241, 241, 241);
+}
+
+/*课堂左侧边栏*/
+/*NoticWindow*/
+QWidget#widget_seeall{
+	background-color: rgb(237,238,242);
+}
+
+QLabel#label_see_all {
+	color: rgb(25,118,210);
+}
+
+QListWidget#listWidget_sysnotify {
+	border-style: none;
+}
+/*NoticWindow*/
+
+/*关于对话框*/
+QWidget#widget_aboutTitleBar {
+	background-color: none;
+}
+QWidget#widget_about_Wnd{
+	background-color: none;
+	background-image: url(:/res/res/image/default/login_back_old.png);
+}
+QPushButton#pushButton_link{
+	background: transparent;
+	color: rgb(25, 118, 210);
+	font-family: "Microsoft YaHei";
+	font-size: 12px;
+}
+
+QPushButton#pushButton_link:hover{
+	background: transparent;
+	text-decoration:underline;
+	font-family: "Microsoft YaHei";
+	font-size: 12px;
+}
+
+QLabel#protocol_text, #label_version, #label_CopyRight{
+	border-width: 0px;
+	font-family: "Microsoft YaHei";
+	font-size: 12px;
+	background: none;
+}
+
+QLabel#titleLable{
+	border-width: 0px;
+}
+/*关于对话框*/
+
+/*服务协议对话框*/
+QLabel#server_agree_title{
+	border-width: 0px;
+	font-family: "Microsoft YaHei";
+	font-size: 16px;
+}
+QLabel#server_agree_text{
+	border-width: 0px;
+	font-family: "SimSun";
+	font-size: 12px;
+}
+/*服务协议对话框*/
+
+/*录制保存对话框*/
+QPushButton#pushButton_select{
+	background: transparent;
+	color: rgb(25, 118, 210);
+	font-family: "Microsoft YaHei";
+	font-size: 12px;
+}
+
+QPushButton#pushButton_select:hover{
+	background: transparent;
+}
+
+QLabel#lable_videoSave_title{
+	color:rgb(255,255,255);
+	font-family: "Microsoft YaHei";
+	font-size: 16px;
+	font-weight:bold;
+}
+
+QLabel#path_titile{
+	font-family: "Microsoft YaHei";
+	font-size: 14px;
+}
+
+QLineEdit#edit_file_path{
+	font-family: "Microsoft YaHei";
+	font-size: 12px;
+	color: rgb(79,69,68);
+	border-radius:5px;
+	border-width: 1px;
+}
+/*录制保存对话框*/
+
+/*禁止举手对话框*/
+QWidget#widget_banned{
+	background-color:rgb(255,255,255);
+}
+
+QCheckBox#chatAble_CBox{
+	font-family: "Microsoft YaHei";
+	font-size: 12px;
+}
+
+QCheckBox#handsUpAble_CBox{
+	font-family: "Microsoft YaHei";
+	font-size: 12px;
+}
+/*禁止举手对话框*/
+
+.QWidget {
+	background-color: white;
+	/*border-radius: 4px;*/
+}
+.QWidget#widget_background_normal {
+	background-color: rgb(235, 235, 235);
+}
+
+.QWidget#widget_titleBar {
+	background-color: rgb(25, 118, 210);
+}
+
+/* 登陆窗口 标题没有填充色，用图片*/
+* {
+	font-family: "Microsoft YaHei";
+	font-size: 14px;
+}
+
+QWidget#widget_loginWnd, #widget_about{
+	background-color: rgb(237, 238, 242);
+}
+
+QWidget#widget_titleBar_nofill {
+	background-image: url(:/res/res/image/default/login_back.png);
+}
+
+QWidget#widget_logininfo {
+	background-color: rgb(83,199,147);
+}
+
+QLabel#label_error {
+	color: rgb(255, 255, 255);
+}
+
+/* Nice Windows-XP-style password character. */
+QLineEdit#lineEdit_pwd {
+	LineEdit_PasswordCharacter: 42;
+}
+
+QLabel#label_register, #label_forget_pwd {
+	font-family: "SimSun";
+	font-size: 12px;
+	color: rgb(23, 116, 200);
+	text-decoration:none;
+}
+
+QLabel#label_register:hover, #label_forget_pwd:hover {
+	color: rgb(0, 0, 255);
+}
+
+QLabel#label_name {
+	width: 21px;
+	height: 21px;
+	background-image: url(:/res/res/image/default/login_user_checked.png);
+}
+QLabel#label_name:disabled {
+	background-image: url(:/res/res/image/default/login_user_normal.png);
+}
+QLabel#label_pwd {
+	width: 21px;
+	height: 21px;
+	background-image: url(:/res/res/image/default/login_pwd_checked.png);
+}
+QLabel#label_pwd:disabled {
+	background-image: url(:/res/res/image/default/login_pwd.png);
+}
+
+QComboBox#comboBox_name {
+	width: 310px;
+	height: 32px;
+}
+
+QComboBox#comboBox_name:hover {
+	border-width: 1px;
+	border-bottom-style: solid;
+	border-color: rgb(0, 126, 251);
+}
+QComboBox#comboBox_name:pressed {
+	border-width: 1px;
+	border-bottom-style: solid;
+	border-color: rgb(25, 118, 210);
+}
+
+QComboBox QAbstractItemView::item{
+	color: black;
+	font-family: "SimSun";
+	font-size: 12px;
+	select-background-color:rgb(83,199,147);
+	background-color:white;
+	selection-color:white;
+}
+
+QComboBox QAbstractItemView::item:selected {
+	background: rgb(83,199,147);
+}
+QComboBox QAbstractItemView::item:hover {
+	background: rgb(83,199,147);
+}
+
+QComboBox#comboBox_name::drop-down {
+	border-style: none;
+	/*background-color: none;*/
+}
+
+QComboBox#comboBox_name::down-arrow {
+	image: url(:/res/res/image/default/list_down_normal.png);
+}
+
+QComboBox#comboBox_name::down-arrow:hover {
+	image: url(:/res/res/image/default/list_down_hover.png);
+}
+
+QComboBox#comboBox_name::down-arrow:pressed {
+	image: url(:/res/res/image/default/list_down_pressed.png);
+}
+
+QLineEdit#lineEdit_pwd {
+	width: 310px;
+	height: 32px;
+	font-size: 8px;
+	border-width: 1px;
+	border-style: solid;
+	padding: 1px 2px 1px 10px;
+}
+QLineEdit#lineEdit_pwd:hover {
+	border-color: rgb(0, 126, 251);
+}
+QLineEdit#lineEdit_pwd:pressed {
+	border-color: rgb(25, 118, 210);
+}
+
+QCheckBox#checkBox_autoLogin::indicator {
+	width: 14px;
+	height: 14px;
+}
+QCheckBox#checkBox_autoLogin::indicator:unchecked {
+	image: url(:/res/res/image/default/checkbox_unchecked.png);
+}
+QCheckBox#checkBox_autoLogin::indicator:unchecked:hover {
+	image: url(:/res/res/image/default/checkbox_unchecked_hover.png);
+}
+QCheckBox#checkBox_autoLogin::indicator:unchecked:pressed {
+	image: url(:/res/res/image/default/checkbox_unchecked_pressed.png);
+}
+QCheckBox#checkBox_autoLogin::indicator:checked {
+	image: url(:/res/res/image/default/login_checkbox_checked.png);
+}
+QCheckBox#checkBox_autoLogin::indicator:checked:hover {
+	image: url(:/res/res/image/default/login_checkbox_checked_hover.png);
+}
+QCheckBox#checkBox_autoLogin::indicator:checked:pressed {
+	image: url(:/res/res/image/default/login_checkbox_checked_pressed.png);
+}
+
+QCheckBox#checkBox_keepPwd::indicator {
+	width: 14px;
+	height: 14px;
+}
+QCheckBox#checkBox_keepPwd::indicator:unchecked {
+	image: url(:/res/res/image/default/checkbox_unchecked.png);
+}
+QCheckBox#checkBox_keepPwd::indicator:unchecked:hover {
+	image: url(:/res/res/image/default/checkbox_unchecked_hover.png);
+}
+QCheckBox#checkBox_keepPwd::indicator:unchecked:pressed {
+	image: url(:/res/res/image/default/checkbox_unchecked_pressed.png);
+}
+QCheckBox#checkBox_keepPwd::indicator:unchecked:disabled {
+	image: url(:/res/res/image/default/checkbox_unchecked_disabled.png);
+}
+QCheckBox#checkBox_keepPwd::indicator:checked {
+	image: url(:/res/res/image/default/login_checkbox_checked.png);
+}
+QCheckBox#checkBox_keepPwd::indicator:checked:hover {
+	image: url(:/res/res/image/default/login_checkbox_checked_hover.png);
+}
+QCheckBox#checkBox_keepPwd::indicator:checked:pressed {
+	image: url(:/res/res/image/default/login_checkbox_checked_pressed.png);
+}
+QCheckBox#checkBox_keepPwd::indicator:checked:disabled {
+	image: url(:/res/res/image/default/login_checkbox_checked_disabled.png);
+}
+
+QPushButton#pushButton_logIn {
+	width: 339px;
+	height: 38px;
+	font-family: "Microsoft YaHei";
+	font-size: 18px;
+	color: rgb(255,255,255);
+	border-radius: 5px;
+	background-color: rgb(25, 118, 210);
+}
+QPushButton#pushButton_logIn:hover {
+	background-color: rgb(48, 143, 235);
+}
+QPushButton#pushButton_logIn:pressed {
+	background-color: rgb(20, 104, 187);
+}
+QPushButton#pushButton_logIn:disabled {
+	background-color: rgb(131, 178, 226);
+}
+
+QPushButton#delBtn {
+	image: url(:/res/res/image/default/del_btn.png);
+	background-color:rgb(83,199,147);
+}
+
+QPushButton#downBtn {
+	image: url(:/res/res/image/default/downing.png);
+}
+
+QPushButton#gifpushButton_minSize {
+	width: 30px;
+	height: 30px;
+	background-color: none;
+	image: url(:/res/res/image/default/login_minsize_normal.gif);
+}
+QPushButton#gifpushButton_minSize:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/login_minsize_hover.gif);
+}
+QPushButton#gifpushButton_minSize:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/login_minsize_pressed.gif);
+}
+QPushButton#gifpushButton_close {
+	width: 30px;
+	height: 30px;
+	background-color: none;
+	image: url(:/res/res/image/default/login_close_normal.gif);
+}
+QPushButton#gifpushButton_close:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/login_close_hover.gif);
+}
+QPushButton#gifpushButton_close:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/login_close_pressed.gif);
+}
+
+QPushButton#pushButton_close_small {
+	background-color: none;
+	image: url(:/res/res/image/default/sys_close_small_normal.png);
+}
+QPushButton#pushButton_close_small:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/sys_close_small_hover.png);
+}
+QPushButton#pushButton_close_small:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/sys_close_small_pressed.png);
+}
+
+/*课程页*/
+QPushButton#pushButton_notify {
+	width: 40px;
+	height: 40px;
+	background-color: none;
+	image: url(:/res/res/image/default/sys_msg_normal.png);
+}
+QPushButton#pushButton_notify:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/sys_msg_hover.png);
+}
+QPushButton#pushButton_notify:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/sys_msg_pressed.png);
+}
+
+QPushButton#pushButton_setting {
+	width: 40px;
+	height: 40px;
+	background-color: none;
+	image: url(:/res/res/image/default/sys_set_normal.png);
+}
+QPushButton#pushButton_setting:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/sys_set_hover.png);
+}
+QPushButton#pushButton_setting:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/sys_set_pressed.png);
+}
+
+QLabel#label_userpic {
+	border-style: none;
+	border-color: rgb(218, 218, 218);
+	width: 30px;
+	height: 30px;
+	border-radius: 14px;
+}
+
+QLabel#titleLabel {
+	width: 90px;
+	height: 27px;
+	image: url(:/res/res/image/default/class_logo.png);
+}
+
+QLabel#label_username {
+	width: 60px;
+	height: 40px;
+	border-width: 0px;
+	color:rgb(255,255,255);
+	font-family: "Microsoft YaHei";
+	font-size: 12px;
+}
+
+QPushButton#pushButton_auth {
+	width: 60px;
+	height: 40px;
+	border-width: 0px;
+	color:rgb(255,255,255);
+	font-family: "Microsoft YaHei";
+	font-size: 12px;
+}
+
+QPushButton#pushButton_auth:hover {
+	background-color: none;
+	text-decoration:underline;
+}
+
+
+/*个人设置*/
+QLabel#label_settingTitle {
+	color: rgb(255, 255, 255);
+	font-family: "Microsoft YaHei";
+	font-size: 12px;
+}
+
+QLabel#label_selectDevice, #label_testMic, #label_definition, #label_face , #label_voiceInput, #label_voiceOutput, #label_voiceControl, #label_resetHotKey, #label_setHotKeyHint, #label_code  {
+	color: rgb(60, 60, 60);
+	font-family: "SimSun";
+	font-size: 12px;
+}
+
+QLabel#label_setHotKeyHint {
+	color: rgb(255, 255, 255);
+	font-family: "SimSun";
+	font-size: 12px;
+}
+
+QLabel#label_testMicIcon, #label_resetHoteyIcon {
+	image: url(:/res/res/image/default/classroomSettingHint.png);
+}
+
+QLabel#label_speakToTest {
+	color: rgb(172, 172, 172);
+	font-family: "SimSun";
+	font-size: 12px;
+}
+
+QPushButton#pushButton_hotkeySetting, #pushButton_voiceSetting, #pushButton_videoSetting {
+	height: 38px;
+	background-color: none;
+	color: rgb(60, 60, 60);
+	font-family: "SimSun";
+	font-size: 12px;
+}
+QPushButton#pushButton_hotkeySetting:pressed, #pushButton_voiceSetting:pressed, #pushButton_videoSetting:pressed {
+	background-color: rgb(255, 255, 255);
+}
+QPushButton#pushButton_hotkeySetting:hover, #pushButton_voiceSetting:hover, #pushButton_videoSetting:hover {
+	background-color: rgb(225, 226, 230);
+}
+QPushButton#pushButton_hotkeySetting:disabled, #pushButton_voiceSetting:disabled, #pushButton_videoSetting:disabled {
+	background-color: rgb(255, 255, 255);
+	color: rgb(25, 118, 210);
+}
+
+QPushButton#pushButton_fluent, #pushButton_highDefinition, #pushButton_superdefinition, #pushButton_resetHotkey {
+	width: 72px;
+	height: 26px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: rgb(218, 218, 218);
+	border-radius: 5px;
+	font-family: "SimSun";
+	font-size: 12px;
+	background-color: rgb(255, 255, 255);
+}
+
+QPushButton#pushButton_fluent:hover, #pushButton_highDefinition:hover, #pushButton_superdefinition:hover, #pushButton_resetHotkey:hover {
+	border-style: solid;
+	border-width: 1px;
+	border-color: rgb(25, 118, 210);
+	font-family: "SimSun";
+	font-size: 12px;
+	background-color: rgb(255, 255, 255);
+}
+
+QPushButton#pushButton_fluent:pressed, #pushButton_highDefinition:pressed, #pushButton_superdefinition:pressed, #pushButton_resetHotkey:pressed {
+	border-style: solid;
+	border-width: 2px;
+	border-color: rgb(25, 118, 210);
+	font-family: "SimSun";
+	font-size: 12px;
+	background-color: rgb(255, 255, 255);
+}
+
+QPushButton#pushButton_fluent:checked, #pushButton_highDefinition:checked, #pushButton_superdefinition:checked {
+	border-style: none;
+	border-width: 0px;
+	font-family: "SimSun";
+	font-size: 12px;
+	color: rgb(255, 255, 255);
+	background-color: rgb(83, 199, 147);
+}
+
+QPushButton#pushButton_fluent:disabled, #pushButton_highDefinition:disabled, #pushButton_superdefinition:disabled {
+	border-style: none;
+	border-width: 0px;
+	font-family: "SimSun";
+	font-size: 12px;
+	color: rgb(255, 255, 255);
+	background-color: rgb(83, 199, 147);
+}
+QPushButton#pushButton_micEnable {
+	width: 16px;
+	height: 16px;
+	background-color: none;
+	image: url(:/res/res/image/default/setting_mic_enable_normal.png);
+}
+QPushButton#pushButton_micEnable:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/setting_mic_enable_hover.png);
+}
+QPushButton#pushButton_micEnable:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/setting_mic_enable_pressed.png);
+}
+
+QPushButton#pushButton_micDisable {
+	width: 16px;
+	height: 16px;
+	background-color: none;
+	image: url(:/res/res/image/default/setting_mic_disable_normal.png);
+}
+QPushButton#pushButton_micDisable:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/setting_mic_disable_hover.png);
+}
+QPushButton#pushButton_micDisable:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/setting_mic_disable_pressed.png);
+}
+
+QPushButton#pushButton_soundEnable {
+	width: 16px;
+	height: 16px;
+	background-color: none;
+	image: url(:/res/res/image/default/setting_sound_enable_normal.png);
+}
+QPushButton#pushButton_soundEnable:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/setting_sound_enable_hover.png);
+}
+QPushButton#pushButton_soundEnable:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/setting_sound_enable_pressed.png);
+}
+
+QPushButton#pushButton_soundDisable {
+	width: 16px;
+	height: 16px;
+	background-color: none;
+	image: url(:/res/res/image/default/setting_sound_disable_normal.png);
+}
+QPushButton#pushButton_soundDisable:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/setting_sound_disable_hover.png);
+}
+QPushButton#pushButton_soundDisable:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/setting_sound_disable_pressed.png);
+}
+/*个人设置*/
+
+
+/*课堂设置*/
+QWidget#widget_classroomsetting {
+	border-radius: 10px;
+}
+
+QLabel#label_classroomSettingTitle {
+	font-family: "Microsoft YaHei";
+	font-size: 12px;
+	color: rgb(255, 255, 255);
+}
+
+QLabel#label_welcom {
+	font-family: "SimSun";
+	font-size: 12px;
+	color: rgb(60, 60, 60);
+}
+
+QLabel#label_videoRecordPath_2 {
+	font-family: "SimSun";
+	font-size: 12px;
+	color: rgb(60, 60, 60);
+}
+
+QWidget#widget_classroom_left_background {
+	background-color: rgb(237, 238, 242);
+}
+
+QPushButton#pushButton_roomSetting {
+	height: 38px;
+	background-color: none;
+	color: rgb(60, 60, 60);
+	font-family: "SimSun";
+	font-size: 12px;
+}
+QPushButton#pushButton_roomSetting:pressed {
+	background-color: none;
+}
+QPushButton#pushButton_roomSetting:hover {
+	background-color: rgb(225, 226, 230);
+}
+QPushButton#pushButton_roomSetting:disabled {
+	background-color: rgb(255, 255, 255);
+	color: rgb(25, 118, 210);
+}
+
+QCheckBox#checkBox_forbidObserver {
+	color: rgb(60, 60, 60);
+	font-family: "SimSun";
+	font-size: 12px;
+}
+
+QCheckBox#checkBox_forbidSrtSwitchCourseware {
+	color: rgb(60, 60, 60);
+	font-family: "SimSun";
+	font-size: 12px;
+}
+
+QCheckBox#checkBox_forbidStuPopupWnd {
+	color: rgb(60, 60, 60);
+	font-family: "SimSun";
+	font-size: 12px;
+}
+
+QCheckBox#checkBox_forbidStuSendPicture {
+	color: rgb(60, 60, 60);
+	font-family: "SimSun";
+	font-size: 12px;
+}
+
+QCheckBox#checkBox_forbidStuSendLink {
+	color: rgb(60, 60, 60);
+	font-family: "SimSun";
+	font-size: 12px;
+}
+
+QLabel#label_forbidObserver {
+	color: rgb(172, 172, 172);
+	font-family: "SimSun";
+	font-size: 12px;
+}
+
+QLabel#label_forbidSrtSwitchCourseware {
+	color: rgb(172, 172, 172);
+	font-family: "SimSun";
+	font-size: 12px;
+}
+
+QLabel#label_forbidStuPopupWnd {
+	color: rgb(172, 172, 172);
+	font-family: "SimSun";
+	font-size: 12px;
+}
+
+QPushButton#pushButton_privilegeSetting {
+	height: 38px;
+	background-color: none;
+	color: rgb(60, 60, 60);
+	font-family: "SimSun";
+	font-size: 12px;
+}
+QPushButton#pushButton_privilegeSetting:pressed {
+	background-color: none;
+}
+QPushButton#pushButton_privilegeSetting:hover {
+	background-color: rgb(225, 226, 230);
+}
+QPushButton#pushButton_privilegeSetting:disabled {
+	background-color: rgb(255, 255, 255);
+	color: rgb(25, 118, 210);
+}
+
+QPushButton#pushButton_cameraSetting {
+	height: 38px;
+	font-family: "SimSun";
+	font-size: 12px;
+	background-color: none;
+	color: rgb(60, 60, 60);
+}
+QPushButton#pushButton_cameraSetting:pressed {
+	background-color: none;
+}
+QPushButton#pushButton_cameraSetting:hover {
+	background-color: rgb(225, 226, 230);
+}
+QPushButton#pushButton_cameraSetting:disabled {
+	background-color: rgb(255, 255, 255);
+	color: rgb(25, 118, 210);
+}
+
+QPushButton#pushButton_changeVideoRecordPath, #pushButton_change {
+	background-color: none;
+	font-family: "SimSun";
+	font-size: 12px;
+	color: rgb(25, 118, 210);
+}
+QLineEdit#lineEdit_videoPath {
+	border-width: 1px;
+	border-style: solid;
+	padding: 1px 2px 1px 10px;
+}
+
+QFrame#line_classroomSetting_1 {
+	border-style: dashed;
+	border-width: 1px;
+	border-color: rgb(230, 230, 230);
+}
+QFrame#line_classroomSetting_2 {
+	border-style: dashed;
+	border-width: 1px;
+	border-color: rgb(230, 230, 230);
+}
+/*课堂设置*/
+
+/*多机位设置*/
+QLabel#label_webCameraSettingTitle {
+	font-family: "Microsoft YaHei";
+	font-size: 12px;
+	color: rgb(255, 255, 255);
+}
+
+QLabel#label_codeIcon {
+	background-color: none;
+}
+
+QPushButton#pushButton_pos1 {
+	width: 72px;
+	height: 26px;
+	color: rgb(60, 60, 60);
+	font-family: "SimSun";
+	font-size: 12px;
+	background-color: rgb(255, 255, 255);
+	border-width: 1px;
+	border-color: rgb(218, 218, 218);
+	border-style: solid;
+	border-radius: 5px;
+}
+
+QPushButton#pushButton_pos1:hover {
+	color: rgb(60, 60, 60);
+	font-family: "SimSun";
+	font-size: 12px;
+	background-color: rgb(255, 255, 255);
+	border-width: 1px;
+	border-color: rgb(25, 118, 210);
+	border-style: solid;
+	border-radius: 5px;
+}
+
+QPushButton#pushButton_pos1:pressed {
+	color: rgb(60, 60, 60);
+	font-family: "SimSun";
+	font-size: 12px;
+	background-color: rgb(255, 255, 255);
+	border-width: 2px;
+	border-color: rgb(25, 118, 210);
+	border-style: solid;
+	border-radius: 5px;
+}
+
+QPushButton#pushButton_pos1:disabled {
+	color: rgb(255, 255, 255);
+	font-family: "SimSun";
+	font-size: 12px;
+	background-color: rgb(83, 199, 147);
+	border-style: none;
+	border-radius: 5px;
+}
+
+QPushButton#pushButton_pos2 {
+	width: 72px;
+	height: 26px;
+	color: rgb(60, 60, 60);
+	font-family: "SimSun";
+	font-size: 12px;
+	background-color: rgb(255, 255, 255);
+	border-width: 1px;
+	border-color: rgb(218, 218, 218);
+	border-style: solid;
+	border-radius: 5px;
+}
+
+QPushButton#pushButton_pos2:hover {
+	color: rgb(60, 60, 60);
+	font-family: "SimSun";
+	font-size: 12px;
+	background-color: rgb(255, 255, 255);
+	border-width: 1px;
+	border-color: rgb(25, 118, 210);
+	border-style: solid;
+	border-radius: 5px;
+}
+
+QPushButton#pushButton_pos2:pressed {
+	color: rgb(60, 60, 60);
+	font-family: "SimSun";
+	font-size: 12px;
+	background-color: rgb(255, 255, 255);
+	border-width: 2px;
+	border-color: rgb(25, 118, 210);
+	border-style: solid;
+	border-radius: 5px;
+}
+
+QPushButton#pushButton_pos2:disabled {
+	color: rgb(255, 255, 255);
+	font-family: "SimSun";
+	font-size: 12px;
+	background-color: rgb(83, 199, 147);
+	border-style: none;
+	border-radius: 5px;
+}
+
+QPushButton#pushButton_pos3 {
+	width: 72px;
+	height: 26px;
+	color: rgb(60, 60, 60);
+	font-family: "SimSun";
+	font-size: 12px;
+	background-color: rgb(255, 255, 255);
+	border-width: 1px;
+	border-color: rgb(218, 218, 218);
+	border-style: solid;
+	border-radius: 5px;
+}
+
+QPushButton#pushButton_pos3:hover {
+	color: rgb(60, 60, 60);
+	font-family: "SimSun";
+	font-size: 12px;
+	background-color: rgb(255, 255, 255);
+	border-width: 1px;
+	border-color: rgb(25, 118, 210);
+	border-style: solid;
+	border-radius: 5px;
+}
+
+QPushButton#pushButton_pos3:pressed {
+	color: rgb(60, 60, 60);
+	font-family: "SimSun";
+	font-size: 12px;
+	background-color: rgb(255, 255, 255);
+	border-width: 2px;
+	border-color: rgb(25, 118, 210);
+	border-style: solid;
+	border-radius: 5px;
+}
+
+QPushButton#pushButton_pos3:disabled {
+	color: rgb(255, 255, 255);
+	font-family: "SimSun";
+	font-size: 12px;
+	background-color: rgb(83, 199, 147);
+	border-style: none;
+	border-radius: 5px;
+}
+
+QLabel#label_videoFormat {
+	color: rgb(60, 60, 60);
+	font-family: "SimSun";
+	font-size: 12px;
+}
+
+QRadioButton#radioButton_4_3 {
+	color: rgb(60, 60, 60);
+	font-family: "SimSun";
+	font-size: 12px;
+}
+
+QRadioButton#radioButton_16_9 {
+	color: rgb(60, 60, 60);
+	font-family: "SimSun";
+	font-size: 12px;
+}
+
+QLabel#label_classroomSettingHint {
+	width: 17px;
+	height: 17px;
+	image: url(:/res/res/image/default/classroomSettingHint.png);
+}
+
+QLabel#label_QRCodeDetail {
+	color: rgb(172, 172, 172);
+	font-family: "SimSun";
+	font-size: 12px;
+}
+
+QListWidget#listWidget_webCameraList {
+	border-style: none;
+	outline:0px;
+	background-color: rgb(255, 255, 255);
+}
+
+QListWidget#listWidget_webCameraList::item {
+	height: 38px;
+	background-color: rgb(255, 255, 255);
+}
+
+/*多机位设置*/
+
+/*签到窗口*/
+QPushButton#pushButton_signIn {
+	height: 50px;
+}
+/*签到窗口*/
+
+/*签退窗口*/
+QLabel#label_classEvaluation {
+	font-family: "Microsoft YaHei";
+	font-size: 12px;
+	color: rgb(255, 255, 255);
+}
+
+QLabel#label_timesUp_classOver, #label_Composite, #label_evaluate, #label_TextCount {
+	font-family: "SinSum";
+	font-size: 12px;
+	color: rgb(60, 60, 60);
+}
+
+QPushButton#pushButton_submitAndSignout {
+	height: 26px;
+	width: 72px;
+}
+
+QPushButton#pushButton_evaluateButton {
+	height: 15px;
+	width: 95px;
+}
+
+QTextEdit#textEdit_evaluate {
+	font-family: "SinSum";
+	font-size: 12px;
+	color: rgb(60, 60, 60);
+	border-style: solid;
+	border-width: 1px;
+	border-color: rgb(218, 218, 218);
+}
+/*签退窗口*/
+
+/*添加课件窗口*/
+QPushButton#pushButton_localFile {
+	width: 90px;
+	height: 90px;
+	background-color: none;
+	border-image: url(:/res/res/image/default/addLoaclFile_normal.png);
+}
+QPushButton#pushButton_localFile:hover {
+	background-color: none;
+	border-image: url(:/res/res/image/default/addLoaclFile_hover.png);
+}
+QPushButton#pushButton_localFile:pressed {
+	background-color: none;
+	border-image: url(:/res/res/image/default/addLoaclFile_pressed.png);
+}
+
+QPushButton#pushButton_skyFile {
+	width: 90px;
+	height: 90px;
+	background-color: none;
+	border-image: url(:/res/res/image/default/addSkyFile_normal.png);
+}
+QPushButton#pushButton_skyFile:hover {
+	background-color: none;
+	border-image: url(:/res/res/image/default/addSkyFile_hover.png);
+}
+QPushButton#pushButton_skyFile:pressed {
+	background-color: none;
+	border-image: url(:/res/res/image/default/addSkyFile_pressed.png);
+}
+
+QPushButton#pushButton_whiteBoard {
+	width: 90px;
+	height: 90px;
+	background-color: none;
+	border-image: url(:/res/res/image/default/addWhiteBoard_normal.png);
+}
+QPushButton#pushButton_whiteBoard:hover {
+	background-color: none;
+	border-image: url(:/res/res/image/default/addWhiteBoard_hover.png);
+}
+QPushButton#pushButton_whiteBoard:pressed {
+	background-color: none;
+	border-image: url(:/res/res/image/default/addWhiteBoard_pressed.png);
+}
+/*添加课件窗口*/
+
+/*网盘文件dialog*/
+QLabel#label_title {
+	color: rgb(255, 255, 255);
+	font-family: "Microsoft YaHei";
+	font-size: 12px;
+}
+
+QWidget#widget_skyFileBottom {
+	height: 40px;
+	background-color: rgb(215, 215, 215);
+}
+
+QPushButton#pushButton_download, #pushButton_cancel {
+	background-color: none;
+	font-family: "Microsoft YaHei";
+	font-size: 12px;
+	color: rgb(60,60,60);
+}
+
+QListWidget#listWidget_skyFile {
+	border-style: none;
+}
+QListWidget#listWidget_skyFile::item {
+	height: 55px;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-bottom-color: rgb(207, 216, 220);
+	selection-color: transparent;
+	selection-background-color: transparent;
+}
+QListWidget#listWidget_skyFile::item:selected {
+	background-color: rgb(230, 240, 250);
+}
+QListWidget#listWidget_skyFile::item:hover {
+	background-color: rgb(239, 246, 253);
+}
+
+QLabel#skyFileItemFileName {
+	width: 480px;
+}
+QLabel#skyFileItemCheckIcon {
+	height: 25px;
+	width: 25px;
+	image: url(:/res/res/image/default/skyFileListItemSelectIcon.png);
+}
+
+QLabel#skyFileItemIcon_0 {
+	height: 20px;
+	width: 18px;
+	image: url(:/res/res/image/default/skyFileListItemIcon_0.png);
+}
+
+QLabel#skyFileItemIcon_1 {
+	height: 20px;
+	width: 18px;
+	image: url(:/res/res/image/default/skyFileListItemIcon_1.png);
+}
+
+QLabel#skyFileItemIcon_2 {
+	height: 20px;
+	width: 18px;
+	image: url(:/res/res/image/default/skyFileListItemIcon_2.png);
+}
+
+QLabel#skyFileItemIcon_3 {
+	height: 20px;
+	width: 18px;
+	image: url(:/res/res/image/default/skyFileListItemIcon_3.png);
+}
+
+QLabel#skyFileItemIcon_4 {
+	height: 20px;
+	width: 18px;
+	image: url(:/res/res/image/default/skyFileListItemIcon_4.png);
+}
+
+QLabel#skyFileItemIcon_5 {
+	height: 20px;
+	width: 18px;
+	image: url(:/res/res/image/default/skyFileListItemIcon_5.png);
+}
+
+QLabel#skyFileItemIcon_6 {
+	height: 20px;
+	width: 18px;
+	image: url(:/res/res/image/default/skyFileListItemIcon_6.png);
+}
+
+QLabel#skyFileItemIcon_7 {
+	height: 20px;
+	width: 18px;
+	image: url(:/res/res/image/default/skyFileListItemIcon_7.png);
+}
+/*网盘窗口*/
+
+	
+/*用户列表*/
+
+QWidget#widget_UserListTabPage_bk {
+	background-color: rgb(237, 238, 242);
+}
+
+QWidget#widget_serachUser_bk {
+	background-color: rgb(237, 238, 242);
+}
+
+QLabel#label_userCount {
+	font-family: "SimSun";
+	font-size: 12px;
+	color: rgb(82, 77, 77);
+	background-color: rgb(237, 238, 242);
+}
+
+QLineEdit#lineEdit_searchUser {
+	font-family: "SimSun";
+	font-size: 12px;
+	border-style: none;
+	background-color: rgb(255, 255, 255);
+	color: rgb(181, 180, 180);
+}
+
+QPushButton#pushButton_searchUser {
+	background-color: none;
+	width: 21px;
+	height: 21px;
+	image: url(:/res/res/image/default/pushButton_searchUser_normal.png);
+}
+QPushButton#pushButton_searchUser:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/pushButton_searchUser_hover.png);
+}
+QPushButton#pushButton_searchUser:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/pushButton_searchUser_pressed.png);
+}
+QPushButton#pushButton_searchUser:checked {
+	background-color: none;
+	image: url(:/res/res/image/default/pushButton_searchUser_checked.png);
+}
+
+QListWidget#listWidget_userList {
+	border-style: none;
+	outline:0px;
+	width: 340px;
+	background-color: rgb(237, 238, 242);
+}
+QListWidget#listWidget_userList::item {
+	height: 56px;
+	width: 340px;
+	background-color: rgb(237, 238, 242);
+}
+
+QFrame#line_userList {
+	border-style: solid;
+	border-width: 2px;
+	border-color: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(224, 225, 226, 255), stop:1 rgba(249, 249, 251, 255));
+
+}
+
+QLabel#label_userNameTea {
+	font-family: "SimSun";
+	font-size: 12px;
+	color: rgb(25, 118, 210);
+}
+
+QLabel#label_userNameStu {
+	font-family: "SimSun";
+	font-size: 12px;
+	color: rgb(82, 77, 77);
+}
+
+QLabel#label_headIcon {
+	height: 32px;
+	width: 32px;
+	/*image: url(:/res/res/image/default/userListHeadIcon_0.png);*/
+}
+
+QLabel#label_speakState {
+	height: 16px;
+	width: 16px;
+	/*image: url(:/res/res/image/default/userListLoginType_0.png);*/
+}
+
+QLabel#label_userLoginType {
+	height: 16px;
+	width: 16px;
+	image: url(:/res/res/image/default/userListLoginType_0.png);
+}
+
+QLabel#label_handsUp {
+	height: 16px;
+	width: 16px;
+	image: url(:/res/res/image/default/label_handsUp.png);
+}
+
+QLabel#label_mic {
+	height: 16px;
+	width: 16px;
+	image: url(:/res/res/image/default/label_mic.png);
+}
+
+QLabel#label_camera {
+	height: 16px;
+	width: 16px;
+	image: url(:/res/res/image/default/label_camera.png);
+}
+/*用户列表*/
+
+/*课件下载列表*/
+QListWidget#listWidget_coursewareDownloadList {
+	border-style: none;
+}
+QListWidget#listWidget_coursewareDownloadList::item {
+	height: 45px;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-bottom-color: rgb(205, 223, 231);
+}
+QListWidget#listWidget_coursewareDownloadList::item:selected {
+	background-color: transparent;
+}
+QListWidget#listWidget_coursewareDownloadList::item:hover {
+	background-color: transparent;
+}
+
+QLabel#coursewareDownloadListIcon_0 {
+	image: url(:/res/res/image/default/coursewareDownloadListItemIcon_0.png);
+}
+QLabel#coursewareDownloadListIcon_1 {
+	image: url(:/res/res/image/default/coursewareDownloadListItemIcon_1.png);
+}
+QLabel#coursewareDownloadListIcon_2 {
+	image: url(:/res/res/image/default/coursewareDownloadListItemIcon_2.png);
+}
+QLabel#coursewareDownloadListIcon_3 {
+	image: url(:/res/res/image/default/coursewareDownloadListItemIcon_3.png);
+}
+QLabel#coursewareDownloadListIcon_4 {
+	image: url(:/res/res/image/default/coursewareDownloadListItemIcon_4.png);
+}
+QLabel#coursewareDownloadListIcon_5 {
+	image: url(:/res/res/image/default/coursewareDownloadListItemIcon_5.png);
+}
+QLabel#coursewareDownloadListIcon_6 {
+	image: url(:/res/res/image/default/coursewareDownloadListItemIcon_6.png);
+}
+/*课件下载列表*/
+
+/*classroom主界面*/
+
+QLabel#label_classroomBottom {
+	max-height: 8px;
+	background-color: rgb(81, 164, 219);
+}
+
+QStackedWidget#stackedWidget_main {
+	border-style:none;
+}
+
+QTabWidget#tabWidget_classroom::pane{
+	border-width: 1px;
+	border-left-style: solid;
+	border-left-color: rgb(218, 218, 218);
+	border-top-style: solid;
+	border-top-color: rgb(218, 218, 218);
+	background-color: rgb(237, 238, 242);
+	background-color: rgb(237, 238, 242);
+}
+
+QTabWidget#listWidget_userList::tab-bar {
+	alignment:center;
+}
+
+QTabBar#tabWidget_classroomTabBar::tab {
+	width:169px;
+	background-color: rgb(255, 255, 255);
+	color:white;
+	height: 43px;
+}
+
+QTabBar#tabWidget_classroomTabBar::tab:last {
+	width:168px;
+	background-color: rgb(255, 255, 255);
+	color:white;
+	height: 43px;
+	image: url(:/res/res/image/default/userlist_icon_normal.png);
+}
+
+QTabBar#tabWidget_classroomTabBar::tab:last:hover {
+	image: url(:/res/res/image/default/userlist_icon_hover.png);
+}
+
+QTabBar#tabWidget_classroomTabBar::tab:last:selected {
+	image: url(:/res/res/image/default/userlist_icon_selected.png);
+}
+
+QTabBar#tabWidget_classroomTabBar::tab:last:selected:hover {
+	image: url(:/res/res/image/default/userlist_icon_hover_.png);
+}
+
+QTabBar#tabWidget_classroomTabBar::tab:first {
+	border-width: 1px;
+	border-left-style: solid;
+	border-left-color: rgb(218, 218, 218);
+	image: url(:/res/res/image/default/chaticon_normal.png);
+}
+
+QTabBar#tabWidget_classroomTabBar::tab:first:hover {
+	image: url(:/res/res/image/default/chaticon_hover.png);
+}
+
+QTabBar#tabWidget_classroomTabBar::tab:first:selected {
+	image: url(:/res/res/image/default/chaticon_selected.png);
+}
+
+QTabBar#tabWidget_classroomTabBar::tab:first:selected:hover {
+	image: url(:/res/res/image/default/chaticon_hover_.png);
+}
+
+/*classroom主界面*/
+QCheckBox {
+	spacing: 5px;
+}
+
+QCheckBox::indicator {
+	width: 13px;
+	height: 13px;
+}
+
+QCheckBox::indicator:unchecked {
+	image: url(:/res/res/image/default/checkbox_unchecked.png);
+}
+
+QCheckBox::indicator:unchecked:hover {
+	image: url(:/res/res/image/default/checkbox_unchecked_hover.png);
+}
+
+QCheckBox::indicator:unchecked:pressed {
+	image: url(:/res/res/image/default/checkbox_unchecked_pressed.png);
+}
+
+QCheckBox::indicator:checked {
+	image: url(:/res/res/image/default/checkbox_checked.png);
+}
+
+QCheckBox::indicator:checked:hover {
+	image: url(:/res/res/image/default/checkbox_checked_hover.png);
+}
+
+QCheckBox::indicator:checked:pressed {
+	image: url(:/res/res/image/default/checkbox_checked_pressed.png);
+}
+
+AddCoursewareWindow{
+	background-image: url(:/res/res/image/default/AddCoursewareWindow.png);
+}
+
+CoursewareDownloadListWindow {
+	background-image: url(:/res/res/image/default/CoursewareDownloadListWindow.png);
+}
+
+/* We provide a min-width and min-height for push buttons
+so that they look elegant regardless of the width of the text. */
+QPushButton {
+	background-color: rgb(25, 118, 210);
+	border-width: 0px;
+	border-color: darkkhaki;
+	border-style: solid;
+	padding: 0px;
+	min-width: 9ex;
+	min-height: 2.5ex;
+}
+
+QPushButton:hover {
+	background-color: rgb(72, 151, 219);
+}
+
+/* Increase the padding, so the text is shifted when the button is pressed.*/
+QPushButton:pressed {
+	padding-left: 0px;
+	padding-top: 0px;
+	background-color: rgb(25, 107, 188);
+}
+
+QLabel, QAbstractButton {
+	font: normal;
+}
+
+/* Mark mandatory fields with a brownish color. */
+.mandatory {
+	color: brown;
+}
+
+/* Bold text on status bar looks awful. */
+QStatusBar QLabel {
+	font: normal;
+}
+
+QStatusBar::item {
+	border-width: 1px;
+	border-color: darkkhaki;
+	border-style: solid;
+}
+
+QComboBox {
+	border-width: 1px;
+	border-style: solid;
+	border-color: rgb(186, 197, 204);
+}
+QComboBox::drop-down {
+	border-style: none;
+}
+
+QComboBox::drop-down{  
+	width:30px;  
+}
+
+QComboBox::down-arrow {
+	image: url(:/res/res/image/default/list_down_checked.png);
+}
+QComboBox::down-arrow:hover {
+	image: url(:/res/res/image/default/list_down_hover.png);
+}
+QComboBox::down-arrow:pressed {
+	image: url(:/res/res/image/default/list_down_pressed.png);
+}
+
+QComboBox QAbstractItemView::item {
+	height: 25px;
+	selection-background-color: rgb(83, 199, 147);
+}
+
+QTableWidget {
+	font-family: "SimSun";
+	font-size: 12px;
+	color: rgb(60, 60, 60);
+	selection-background-color: rgb(83, 199, 147);
+	selection-color: rgb(255, 255, 255);
+}
+
+QTableWidget::item {
+	height: 32px;
+}
+
+QHeaderView {
+	font-family: "SimSun";
+	font-size: 12px;
+	color: rgb(60, 60, 60);
+	background-color: rgb(237, 238, 242);
+}
+
+QHeaderView::section:first {
+	height: 33px;
+	border-top-style: none;
+	border-left-style: none;
+	border-bottom-style: none;
+	border-right-style: solid;
+	border-right-width: 1px;
+	border-color: rgb(218, 218, 218);
+	background: rgb(237, 238, 242);
+	padding-left: 10px;
+}
+
+QHeaderView::section:second {
+	height: 33px;
+	border-top-style: none;
+	border-left-style: none;
+	border-bottom-style: none;
+	border-right-style: none;
+	background: rgb(237, 238, 242);
+	padding-left: 10px;
+}
+
+
+QListView {
+	show-decoration-selected: 1;
+}
+
+QListView::item:hover {
+	background-color: wheat;
+}
+
+/* We reserve 1 pixel space in padding. When we get the focus,
+we kill the padding and enlarge the border. This makes the items glow. */
+/*
+QLineEdit {
+	border-width: 1px;
+	padding: 1px;
+	border-style: solid;
+	border-color: rgb(186, 197, 204);
+}
+*/
+
+/* As mentioned above, eliminate the padding and increase the border. */
+QLineEdit:focus, QFrame:focus {
+	border-width: 0px;
+	padding: 0px;
+}
+
+/* A QLabel is a QFrame ...*/
+QLabel {
+	border: none;
+	padding: 0;
+	background: none;
+}
+
+QLabel#label_videoPreview {
+	border-style: solid;
+	border-color: rgb(186, 197, 204);
+	border-width: 1px;
+}
+
+QLabel#C8MSGBOX_ICONINFO {
+	border-image: url(:/res/res/image/default/c8msgbox_icon_info.png);
+}
+
+QLabel#C8MSGBOX_ICONWARNING {
+	border-image: url(:/res/res/image/default/c8msgbox_icon_warning.png);
+}
+
+QLabel#C8MSGBOX_ICONCRITICAL {
+	background-image: url(:/res/res/image/default/c8msgbox_icon_critical.png);
+}
+
+QLabel#C8MSGBOX_ICONQUESTION {
+	background-image: url(:/res/res/image/default/c8msgbox_icon_question.png);
+}
+
+/* Nice to have the background color change when hovered. */
+QRadioButton:hover{
+	background-color: wheat;
+}
+
+/* Force the dialog's buttons to follow the Windows guidelines. */
+QDialogButtonBox {
+	button-layout: 0;
+}
+
+QProgressBar#progressBar {
+	border-style: none;
+}
+QProgressBar#progressBar::chunk{
+	background-color: rgb(83, 199, 147);
+	width: 3px;
+	margin: 1px;
+}
+
+/*创建白板对话框*/
+QLabel#label_whiteboardtitle{
+	border-width: 0px;
+	font-family: "Microsoft YaHei";
+	font-size: 12px;
+	color: rgb(255, 255, 255);
+}
+
+QLabel#label_whiteboard{
+	border-width: 0px;
+	font-family: "Microsoft YaHei";
+	font-size: 12px;
+	color: rgb(60, 60, 60);
+}
+
+QLineEdit#lineEdit_whiteboardname {
+	height: 26px;
+	border-width: 1px;
+	border-style: solid;
+	padding: 1px 2px 1px 10px;
+	color: rgb(60, 60, 60);
+}
+
+/*课件预览列表窗口*/
+QListWidget#listWidget_PdfPreview::item {
+	height: 80px;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	border-bottom-color: rgb(207, 216, 220);
+	selection-color: transparent;
+	selection-background-color: transparent;
+}
+QListWidget#listWidget_PdfPreview::item:selected {
+	background-color: rgb(230, 240, 250);
+}
+QListWidget#listWidget_PdfPreview::item:hover {
+	background-color: rgb(239, 246, 253);
+}
+
+
+/*chatWidget聊天*/
+QWidget#chat_webView_background_widget{
+}
+
+QSlider::groove:vertical {
+	border: 0px;
+	background: rgb(25,118,210);
+	width: 7px;
+	border-radius: 2px;
+	padding-left:-1px;
+	padding-right:-1px;
+	padding-top:-2px;
+	padding-bottom:-2px;
+}
+
+QSlider::sub-page:vertical {
+	background: rgb(255,255,255);
+	border: 0px;
+	width: 5px;
+	border-radius: 2px;
+}
+
+QSlider::add-page:vertical {
+	background: qlineargradient(x1: 0, y1: 0.2, x2: 1, y2: 1,
+	stop: 0 rgb(25,118,210), stop: 1 rgb(25,118,210));
+	border: 0px;
+	width: 5px;
+	border-radius: 2px;
+}
+
+QSlider::handle:vertical
+{
+	background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5,
+	stop:0.6 rgb(25,118,210),stop:0.778409 rgb(25,118,210));
+	height: 9px;
+	margin-left: -2px;
+	margin-right: -2px;
+	border-radius: 4px;
+}
+
+QSlider::sub-page:vertical:disabled {
+	background: #00009C;
+	border-color: #999;
+}
+
+QSlider::add-page:vertical:disabled {
+	background: #eee;
+	border-color: #999;
+}
+
+QSlider::handle:vertical:disabled {
+	background: #eee;
+	border: 1px solid #aaa;
+	border-radius: 4px;
+}
+
+QSlider::groove:horizontal {
+	border: 0px;
+	background: rgb(237,238,242);
+	height: 12px;
+	border-radius: 1px;
+	padding-left:-1px;
+	padding-right:-1px;
+	padding-top:-1px;
+	padding-bottom:-1px;
+}
+
+QSlider::sub-page:horizontal { 
+	background: rgb(25,118,210);
+	border: 0px;  
+	height: 10px;  
+	border-radius: 4px;  
+}
+
+QSlider::add-page:horizontal {  
+	background: rgb(237,238,242);  
+	border: 0px solid #777;  
+	height: 10px;  
+	border-radius: 4px;  
+}
+
+QSlider::handle:horizontal {  
+	background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5,
+	stop:0.6 rgb(25,118,210),stop:0.778409 rgb(25,118,210));
+	border: 0px solid #777;  
+	width: 5px;  
+	margin-top: -1px;  
+	margin-bottom: -1px;  
+	border-radius: 2px;  
+}
+
+
+QWidget#SliderWidget{
+	border-image: url(:/res/res/image/default/mic_speaker_background.png);
+	border: 1px solid rgb(218,218,218);  
+	border-width: 2px;
+	border-color: blue;
+	width:19px;
+	height: 144px;
+}
+
+QWidget#ChatWidget{
+	background-color:rgb(241,241,241);
+}
+
+QWebView#webView{
+	background-color:rgb(250,250,250);
+}
+
+ChatWindowOutPutEdit#textEdit_input{
+	border-style: none;
+	height:72px;
+	background-color:rgb(255,255,255);
+}
+
+QWidget#menue_widget{
+	background-color:rgb(241,241,241);
+}
+
+QWidget#below_widget{
+	background-color:rgb(255,255,255);
+}
+
+QPushButton#micEnable_pushBtn:hover{
+	background-color: none;
+	height: 17px;
+	width: 17px;
+	image: url(:/res/res/image/default/chatMicrophoneBtn_hover.png);
+}
+QPushButton#micEnable_pushBtn:pressed{
+	background-color: none;
+	height: 17px;
+	width: 17px;
+	image: url(:/res/res/image/default/chatMicrophoneBtn_pressed.png);
+}
+QPushButton#micEnable_pushBtn:disabled{
+	background-color: none;
+	height: 17px;
+	width: 17px;
+	image: url(:/res/res/image/default/chatMicrophoneBtn_disabled.png);
+}
+QPushButton#micEnable_pushBtn{
+	background-color: none;
+	height: 17px;
+	width: 17px;
+	image: url(:/res/res/image/default/chatMicrophoneBtn_normal.png);
+}
+QPushButton#micEnable_pushBtn:checked{
+	background-color: none;
+	height: 17px;
+	width: 17px;
+	image: url(:/res/res/image/default/chatMicrophoneBtn_checked.png);;
+}
+
+QPushButton#micDisable_pushBtn:hover{
+	background-color: none;
+	height: 17px;
+	width: 17px;
+	image: url(:/res/res/image/default/chatMicDisableBtn_hover .png);
+}
+QPushButton#micDisable_pushBtn:pressed{
+	background-color: none;
+	height: 17px;
+	width: 17px;
+	image: url(:/res/res/image/default/chatMicDisableBtn_pressed.png);
+}
+QPushButton#micDisable_pushBtn:disabled{
+	background-color: none;
+	height: 17px;
+	width: 17px;
+	image: url(:/res/res/image/default/chatMicDisableBtn_disabled.png);
+}
+QPushButton#micDisable_pushBtn{
+	background-color: none;
+	height: 17px;
+	width: 17px;
+	image: url(:/res/res/image/default/chatMicDisableBtn_normal.png);
+}
+QPushButton#micDisable_pushBtn:checked{
+	background-color: none;
+	height: 17px;
+	width: 17px;
+	image: url(:/res/res/image/default/chatMicDisableBtn_checked.png);;
+}
+
+QPushButton#soundEnable_pushBtn:hover{
+	background-color: none;
+	height: 17px;
+	width: 17px;
+	image: url(:/res/res/image/default/chatSpeakerBtn_hover.png);
+}
+QPushButton#soundEnable_pushBtn:pressed{
+	background-color: none;
+	height: 17px;
+	width: 17px;
+	image: url(:/res/res/image/default/chatSpeakerBtn_pressed.png);
+}
+QPushButton#soundEnable_pushBtn:disabled{
+	background-color: none;
+	height: 17px;
+	width: 17px;
+	image: url(:/res/res/image/default/chatSpeakerBtn_disabled.png);
+}
+QPushButton#soundEnable_pushBtn{
+	background-color: none;
+	height: 17px;
+	width: 17px;
+	image: url(:/res/res/image/default/chatSpeakerBtn_normal.png);
+}
+QPushButton#soundEnable_pushBtn:checked{
+	background-color: none;
+	height: 17px;
+	width: 17px;
+	image: url(:/res/res/image/default/chatSpeakerBtn_checked.png);;
+}
+
+QPushButton#soundDisable_pushBtn:hover{
+	background-color: none;
+	height: 17px;
+	width: 17px;
+	image: url(:/res/res/image/default/chatDisSpeakerBtn_hover.png);
+}
+QPushButton#soundDisable_pushBtn:pressed{
+	background-color: none;
+	height: 17px;
+	width: 17px;
+	image: url(:/res/res/image/default/chatDisSpeakerBtn_pressed.png);
+}
+QPushButton#soundDisable_pushBtn:disabled{
+	background-color: none;
+	height: 17px;
+	width: 17px;
+	image: url(:/res/res/image/default/chatDisSpeakerBtn_disabled.png);
+}
+QPushButton#soundDisable_pushBtn{
+	background-color: none;
+	height: 17px;
+	width: 17px;
+	image: url(:/res/res/image/default/chatDisSpeakerBtn_normal.png);
+}
+QPushButton#soundDisable_pushBtn:checked{
+	background-color: none;
+	height: 17px;
+	width: 17px;
+	image: url(:/res/res/image/default/chatDisSpeakerBtn_checked.png);;
+}
+
+QPushButton#showFaceSelectWindow_pushBtn:hover{
+	background-color: none;
+	height: 17px;
+	width: 17px;
+	image: url(:/res/res/image/default/chatExpressionBtn_hover.png);
+}
+QPushButton#showFaceSelectWindow_pushBtn:pressed{
+	background-color: none;
+	height: 17px;
+	width: 17px;
+	image: url(:/res/res/image/default/chatExpressionBtn_pressed.png);
+}
+QPushButton#showFaceSelectWindow_pushBtn:disabled{
+	background-color: none;
+	height: 17px;
+	width: 17px;
+	image: url(:/res/res/image/default/chatExpressionBtn_disabled.png);
+}
+QPushButton#showFaceSelectWindow_pushBtn{
+	background-color: none;
+	height: 17px;
+	width: 17px;
+	image: url(:/res/res/image/default/chatExpressionBtn_normal.png);
+}
+QPushButton#showFaceSelectWindow_pushBtn:checked{
+	background-color: none;
+	height: 17px;
+	width: 17px;
+	image: url(:/res/res/image/default/chatExpressionBtn_checked.png);;
+}
+
+QPushButton#screenShot_pushBtn:checked{
+	background-color: none;
+	height: 17px;
+	width: 17px;
+	image: url(:/res/res/image/default/chatScreenShotBtn_checked.png);
+}
+QPushButton#screenShot_pushBtn:disabled{
+	background-color: none;
+	height: 17px;
+	width: 17px;
+	image: url(:/res/res/image/default/chatScreenShotBtn_disabled.png);
+}
+QPushButton#screenShot_pushBtn:hover{
+	background-color: none;
+	height: 17px;
+	width: 17px;
+	image: url(:/res/res/image/default/chatScreenShotBtn_hover.png);
+}
+QPushButton#screenShot_pushBtn{
+	background-color: none;
+	height: 17px;
+	width: 17px;
+	image: url(:/res/res/image/default/chatScreenShotBtn_normal.png);
+}
+QPushButton#screenShot_pushBtn:pressed{
+	background-color: none;
+	height: 17px;
+	width: 17px;
+	image: url(:/res/res/image/default/chatScreenShotBtn_pressed.png);;
+}
+
+QPushButton#camera_pushBtn:checked{
+	background-color: none;
+	height: 17px;
+	width: 17px;
+	image: url(:/res/res/image/default/chatCameraBtn_checked.png);
+}
+QPushButton#camera_pushBtn:disabled{
+	background-color: none;
+	height: 17px;
+	width: 17px;
+	image: url(:/res/res/image/default/chatCameraBtn_disabled.png);
+}
+QPushButton#camera_pushBtn:hover{
+	background-color: none;
+	height: 17px;
+	width: 17px;
+	image: url(:/res/res/image/default/chatCameraBtn_hover.png);
+}
+QPushButton#camera_pushBtn{
+	background-color: none;
+	height: 17px;
+	width: 17px;
+	image: url(:/res/res/image/default/chatCameraBtn_normal.png);
+}
+QPushButton#camera_pushBtn:pressed{
+	background-color: none;
+	height: 17px;
+	width: 17px;
+	image: url(:/res/res/image/default/chatCameraBtn_pressed.png);;
+}
+
+QPushButton#cameraDisabel_pushBtn:checked{
+	background-color: none;
+	height: 17px;
+	width: 17px;
+	image: url(:/res/res/image/default/chatDisCameraBtn_checked.png);
+}
+QPushButton#cameraDisabel_pushBtn:disabled{
+	background-color: none;
+	height: 17px;
+	width: 17px;
+	image: url(:/res/res/image/default/chatDisCameraBtn_disabled.png);
+}
+QPushButton#cameraDisabel_pushBtn:hover{
+	background-color: none;
+	height: 17px;
+	width: 17px;
+	image: url(:/res/res/image/default/chatDisCameraBtn_hover.png);
+}
+QPushButton#cameraDisabel_pushBtn{
+	background-color: none;
+	height: 17px;
+	width: 17px;
+	image: url(:/res/res/image/default/chatDisCameraBtn_normal.png);
+}
+QPushButton#cameraDisabel_pushBtn:pressed{
+	background-color: none;
+	height: 17px;
+	width: 17px;
+	image: url(:/res/res/image/default/chatDisCameraBtn_pressed.png);;
+}
+
+QPushButton#send_pushBtn:checked{
+	background-color: none;
+	height: 50px;
+	width: 50px;
+	image: url(:/res/res/image/default/chatSendBtn_checked.png);
+}
+QPushButton#send_pushBtn:disabled{
+	background-color: none;
+	height: 50px;
+	width: 50px;
+	image: url(:/res/res/image/default/chatSendBtn_disabled.png);
+}
+QPushButton#send_pushBtn:hover{
+	background-color: none;
+	height: 50px;
+	width: 50px;
+	image: url(:/res/res/image/default/chatSendBtn_hover.png);
+}
+QPushButton#send_pushBtn{
+	background-color: none;
+	height: 50px;
+	width: 50px;
+	image: url(:/res/res/image/default/chatSendBtn_normal.png);
+}
+QPushButton#send_pushBtn:pressed{
+	background-color: none;
+	height: 50px;
+	width: 50px;
+	image: url(:/res/res/image/default/chatSendBtn_pressed.png);
+}
+
+/*privateChat私聊*/
+
+QWebView#private_webView{
+	border-style:solid;
+	border-width:2px;
+	border-color:rgb(218,218,218);
+	background-color:rgb(237,238,242);
+	height:220px;
+}
+
+QWidget#privateChat_webView_background_widget{
+	border-style:solid;
+	border-width:2px;
+	border-color:rgb(218,218,218);
+}
+
+ChatWindowOutPutEdit#private_textEdit_input{
+	border-style:solid;
+	border-width:1px;
+	border-color:rgb(218,218,218);
+	height:86px;
+	background-color:rgb(237,238,242);
+}
+
+QLabel#privateChat_title_label{
+	color:rgb(255,255,255);
+	font-family: "SimSun";
+	font-size: 12px;
+}
+
+QWidget#privateChat_title{
+	background-color: rgb(24,112,198);
+}
+
+QWidget#private_wnd_widget{
+	color:white;
+	background-color: rgb(255, 255, 255);
+}
+
+QPushButton#privateChat_send_pushBtn {
+	font-family: "SimSun";
+	font-size: 12px;
+	spacing: 4px;
+	width: 72px;
+	height: 26px;
+	border-radius:5px;
+	color: rgb(255, 255, 255);
+	background-color: rgb(83, 199, 147);
+}
+QPushButton#privateChat_send_pushBtn:hover {
+	background-color: rgb(113, 217, 170);
+}
+QPushButton#privateChat_send_pushBtn:pressed {
+	background-color: rgb(55, 175, 121);
+}
+QPushButton#privateChat_send_pushBtn:disabled {
+	background-color: rgb(169, 227, 201);
+}
+
+QPushButton#privateChat_cancel_pushBtn {
+	font-family: "SimSun";
+	font-size: 12px;
+	spacing: 4px;
+	width: 72px;
+	height: 26px;
+	border-radius:5px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: rgb(218, 218, 218);
+	background-color: rgb(255, 255, 255);
+	color: rgb(60, 60, 60);
+}
+QPushButton#privateChat_cancel_pushBtn:hover {
+	border-width: 1px;
+	border-color: rgb(25, 118, 210);
+}
+QPushButton#privateChat_cancel_pushBtn:pressed {
+	border-width: 2px;
+	border-color: rgb(25, 118, 210);
+}
+QPushButton#privateChat_cancel_pushBtn:disabled {
+	border-width: 1px;
+	border-color: rgb(236, 236, 236);
+}
+
+
+/*课件列表widget*/
+
+QWidget#widget_listTools {
+	background-color: rgba(255,255,255,204);
+	border-bottom-style: solid;
+	border-bottom-color: rgba(205, 223, 231, 100);
+	border-radius:4px;
+}
+
+QWidget#widget_coursewarelist {
+	background-color: transparent;
+}
+
+QLabel#label_page {
+	width: 40;
+	font-family: "SimSun";
+	font-size: 12px;
+	color: rgb(60,60,60);
+}
+
+QComboBox#comboBox_listcourseware {
+	background-color: transparent;
+	border-style: none;
+}
+QComboBox#comboBox_listcourseware QAbstractItemView{
+	color: black;
+	select-background-color:rgb(83,199,147);
+	background-color:white;
+	selection-color:white;
+}
+
+QComboBox#comboBox_listcourseware QAbstractItemView::item:selected {
+	background: rgb(83,199,147);
+}
+QComboBox#comboBox_listcourseware QAbstractItemView::item:hover {
+	background: rgb(83,199,147);
+}
+
+QComboBox#comboBox_listcourseware::down-arrow {
+	border-style: none;
+	image: url(:/res/res/image/default/list_down_normal.png);
+}
+QComboBox#comboBox_listcourseware::down-arrow:hover {
+	border-style: none;
+	image: url(:/res/res/image/default/list_down_hover.png);
+}
+QComboBox#comboBox_listcourseware::down-arrow:pressed {
+	border-style: none;
+	image: url(:/res/res/image/default/list_down_pressed.png);
+}
+
+QPushButton#pushButton_left {
+	width: 22px;
+	height: 22px;
+	background-color: none;
+	image: url(:/res/res/image/default/pdf_left.png);
+}
+QPushButton#pushButton_left:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/pdf_left_hover.png);
+}
+QPushButton#pushButton_left:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/pdf_left_pressed.png);
+}
+
+QPushButton#pushButton_right {
+	width: 22px;
+	height: 22px;
+	background-color: none;
+	image: url(:/res/res/image/default/pdf_right.png);
+}
+QPushButton#pushButton_right:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/pdf_right_hover.png);
+}
+QPushButton#pushButton_right:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/pdf_right_pressed.png);
+}
+
+QWidget#widget_coursewareTools_bk {
+	background: none;
+}
+
+QPushButton#pushButton_in {
+	width: 22px;
+	height: 22px;
+	background-color: none;
+	image: url(:/res/res/image/default/pdf_in_normal.png);
+}
+QPushButton#pushButton_in:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/pdf_in_hover.png);
+}
+QPushButton#pushButton_in:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/pdf_in_pressed.png);
+}
+
+QPushButton#pushButton_out {
+	width: 22px;
+	height: 22px;
+	background-color: none;
+	image: url(:/res/res/image/default/pdf_out_normal.png);
+}
+QPushButton#pushButton_out:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/pdf_out_hover.png);
+}
+QPushButton#pushButton_out:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/pdf_out_pressed.png);
+}
+
+QPushButton#pushButton_move {
+	width: 22px;
+	height: 22px;
+	background-color: none;
+	image: url(:/res/res/image/default/pdf_move_normal.png);
+}
+QPushButton#pushButton_move:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/pdf_move_hover.png);
+}
+QPushButton#pushButton_move:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/pdf_move_pressed.png);
+}
+
+QLabel#label_page_size {
+	width: 50px;
+	height: 20px;
+	color:rgb(65,127,197);
+	font-family: "Microsoft YaHei";
+	font-size: 16px;
+	font-weight:bold;
+}
+
+QCoursewarePreview{
+	background-color: rgb(237,238,242);
+	border-width: 1px;
+	border-style: solid;
+	border-color: rgb(218,218,218);
+}
+
+QPDFPreviewList#widget_preview {
+	background-color: rgb(237,238,242);
+	border-style: none;
+}
+
+/*颜色选择框select color popwindow*/
+QWidget#widget_color{
+	background-color: rgb(241,241,241);
+}
+
+QPushButton#pushButton_red {
+	width: 28px;
+	height: 28px;
+	background-color: none;
+	image: url(:/res/res/image/default/red_normal.png);
+}
+QPushButton#pushButton_red:checked {
+	background-color: none;
+	image: url(:/res/res/image/default/red_checked.png);
+}
+QPushButton#pushButton_red:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/red_hover.png);
+}
+QPushButton#pushButton_red:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/red_pressed.png);
+}
+
+QPushButton#pushButton_yellow {
+	width: 28px;
+	height: 28px;
+	background-color: none;
+	image: url(:/res/res/image/default/yellow_normal.png);
+}
+QPushButton#pushButton_yellow:checked {
+	background-color: none;
+	image: url(:/res/res/image/default/yellow_checked.png);
+}
+QPushButton#pushButton_yellow:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/yellow_hover.png);
+}
+QPushButton#pushButton_yellow:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/yellow_pressed.png);
+}
+
+QPushButton#pushButton_blue {
+	width: 28px;
+	height: 28px;
+	background-color: none;
+	image: url(:/res/res/image/default/blue_normal.png);
+}
+QPushButton#pushButton_blue:checked {
+	background-color: none;
+	image: url(:/res/res/image/default/blue_checked.png);
+}
+QPushButton#pushButton_blue:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/blue_hover.png);
+}
+QPushButton#pushButton_blue:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/blue_pressed.png);
+}
+
+QPushButton#pushButton_green {
+	width: 28px;
+	height: 28px;
+	background-color: none;
+	image: url(:/res/res/image/default/green_normal.png);
+}
+QPushButton#pushButton_green:checked {
+	background-color: none;
+	image: url(:/res/res/image/default/green_checked.png);
+}
+QPushButton#pushButton_green:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/green_hover.png);
+}
+QPushButton#pushButton_green:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/green_pressed.png);
+}
+
+QPushButton#pushButton_white {
+	width: 28px;
+	height: 28px;
+	background-color: none;
+	image: url(:/res/res/image/default/white_normal.png);
+}
+QPushButton#pushButton_white:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/white_hover.png);
+}
+QPushButton#pushButton_white:checked {
+	background-color: none;
+	image: url(:/res/res/image/default/white_checked.png);
+}
+QPushButton#pushButton_white:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/white_pressed.png);
+}
+
+/*字体选择框select text popwindow*/
+QWidget#widget_text{
+	background-color: rgb(241,241,241);
+}
+
+QPushButton#pushButton_big {
+	width: 28px;
+	height: 28px;
+	background-color: none;
+	image: url(:/res/res/image/default/big_normal.png);
+}
+QPushButton#pushButton_big:checked {
+	background-color: none;
+	image: url(:/res/res/image/default/big_checked.png);
+}
+QPushButton#pushButton_big:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/big_hover.png);
+}
+QPushButton#pushButton_big:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/big_pressed.png);
+}
+
+QPushButton#pushButton_middle {
+	width: 28px;
+	height: 28px;
+	background-color: none;
+	image: url(:/res/res/image/default/middle_normal.png);
+}
+QPushButton#pushButton_middle:checked {
+	background-color: none;
+	image: url(:/res/res/image/default/middle_checked.png);
+}
+QPushButton#pushButton_middle:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/middle_hover.png);
+}
+QPushButton#pushButton_middle:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/middle_pressed.png);
+}
+
+QPushButton#pushButton_small {
+	width: 28px;
+	height: 28px;
+	background-color: none;
+	image: url(:/res/res/image/default/small_normal.png);
+}
+QPushButton#pushButton_small:checked {
+	background-color: none;
+	image: url(:/res/res/image/default/small_checked.png);
+}
+QPushButton#pushButton_small:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/small_hover.png);
+}
+QPushButton#pushButton_small:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/small_pressed.png);
+}
+
+QPushButton#pushButton_OK {
+	font-family: "Microsoft YaHei";
+	font-size: 12px;
+	spacing: 4px;
+	width: 72px;
+	height: 26px;
+	border-radius:5px;
+	color: rgb(255, 255, 255);
+	background-color: rgb(83, 199, 147);
+}
+QPushButton#pushButton_OK:hover {
+	background-color: rgb(113, 217, 170);
+}
+QPushButton#pushButton_OK:pressed {
+	background-color: rgb(55, 175, 121);
+}
+QPushButton#pushButton_OK:disabled {
+	background-color: rgb(169, 227, 201);
+}
+
+QPushButton#pushButton_Cancel {
+	font-family: "Microsoft YaHei";
+	font-size: 12px;
+	spacing: 4px;
+	width: 72px;
+	height: 26px;
+	border-radius:5px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: rgb(218, 218, 218);
+	background-color: rgb(255, 255, 255);
+	color: rgb(60, 60, 60);
+}
+QPushButton#pushButton_Cancel:hover {
+	border-width: 1px;
+	border-color: rgb(25, 118, 210);
+}
+QPushButton#pushButton_Cancel:pressed {
+	border-width: 2px;
+	border-color: rgb(25, 118, 210);
+}
+QPushButton#pushButton_Cancel:disabled {
+	border-width: 1px;
+	border-color: rgb(236, 236, 236);
+}
+
+/*系统消息提示*/
+QPushButton#pushButton_pic {
+	background-color: none;
+}
+QPushButton#pushButton_pic:hover {
+	background-color: none;
+}
+QPushButton#pushButton_pic:pressed {
+	background-color: none;
+}
+
+/*用户信息窗口*/
+QLabel#label_useInfoHeadIcon {
+	border-width: 3px;
+	border-style: solid;
+	border-color: rgb(218, 218, 218);
+	width: 122;
+	height: 122;
+	border-radius: 61px;
+}
+
+QLabel#label_useInfoTea {
+	color: rgb(25,118,210);
+	font-family: "SimSun";
+	font-size: 12px;
+	font-weight:bold;
+}
+
+QLabel#label_swicher_pic {
+	image: url(:/res/res/image/default/swicher.png);
+}
+
+QLabel#label_homepage_pic {
+	image: url(:/res/res/image/default/roomSetting_pressed.png);
+}
+
+QLabel#label_teacher_id, #label_teacher_nickname, #label_teacher_name, #label_teacher_sex, #label_teacher_flag, #label_home_page, #label_whisper {
+	color: rgb(60,60,60);
+	font-family: "SimSun";
+	font-size: 12px;
+}
+
+/*用户信息窗口*/
+
+/*课堂消息提醒*/
+QLabel#label_remding_title {
+	color: rgb(255,255,255);
+}
+QLabel#label_class_remind, #label_class_remind_2, #label_class_remind_3, #label_class_remind_4 {
+	width: 37px;
+	height: 37px;
+	background-color: none;
+	image: url(:/res/res/image/default/c8msgbox_icon_warning.png);
+}
+
+QLabel#label_classover_remind, #label_plan_time, #label_actual_time, #label_latency_time, #label_wait_startclass, #label_isclassover_info, #label_planclassover{
+	color: rgb(60,60,60);
+	font-family: "SimSun";
+	font-size: 12px;
+}
+
+QLabel#label_plan_remind {
+	color: rgb(154,154,154);
+	font-family: "SimSun";
+	font-size: 12px;
+}
+
+QPushButton#pushButton_iknow, #pushButton_iknow_2 {
+	font-family: "Microsoft YaHei";
+	font-size: 12px;
+	spacing: 4px;
+	width: 72px;
+	height: 26px;
+	border-radius:5px;
+	color: rgb(255, 255, 255);
+	background-color: rgb(83, 199, 147);
+}
+QPushButton#pushButton_iknow:hover {
+	background-color: rgb(113, 217, 170);
+}
+QPushButton#pushButton_iknow:pressed {
+	background-color: rgb(55, 175, 121);
+}
+QPushButton#pushButton_iknow:disabled {
+	background-color: rgb(169, 227, 201);
+}
+
+QPushButton#pushButton_iknow_2 {
+	font-family: "Microsoft YaHei";
+	font-size: 12px;
+	spacing: 4px;
+	width: 72px;
+	height: 26px;
+	border-radius:5px;
+	color: rgb(255, 255, 255);
+	background-color: rgb(83, 199, 147);
+}
+QPushButton#pushButton_iknow_2:hover {
+	background-color: rgb(113, 217, 170);
+}
+QPushButton#pushButton_iknow_2:pressed {
+	background-color: rgb(55, 175, 121);
+}
+QPushButton#pushButton_iknow_2:disabled {
+	background-color: rgb(169, 227, 201);
+}
+
+QPushButton#pushButton_retard_classover {
+	font-family: "Microsoft YaHei";
+	font-size: 12px;
+	spacing: 4px;
+	width: 106px;
+	height: 26px;
+	border-radius:5px;
+	color: rgb(255, 255, 255);
+	background-color: rgb(83, 199, 147);
+}
+QPushButton#pushButton_retard_classover:hover {
+	background-color: rgb(113, 217, 170);
+}
+QPushButton#pushButton_retard_classover:pressed {
+	background-color: rgb(55, 175, 121);
+}
+QPushButton#pushButton_retard_classover:disabled {
+	background-color: rgb(169, 227, 201);
+}
+
+QPushButton#pushButton_plan_classover {
+	font-family: "Microsoft YaHei";
+	font-size: 12px;
+	spacing: 4px;
+	width: 106px;
+	height: 26px;
+	border-radius:5px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: rgb(218, 218, 218);
+	background-color: rgb(255, 255, 255);
+	color: rgb(60, 60, 60);
+}
+QPushButton#pushButton_plan_classover:hover {
+	border-width: 1px;
+	border-color: rgb(25, 118, 210);
+}
+QPushButton#pushButton_plan_classover:pressed {
+	border-width: 2px;
+	border-color: rgb(25, 118, 210);
+}
+QPushButton#pushButton_plan_classover:disabled {
+	border-width: 1px;
+	border-color: rgb(236, 236, 236);
+}
+
+/*QLoginBtTokenDialog web启动*/
+QWidget#widget_backgroup {
+	background-color: none;
+	image: url(:/res/res/image/default/loginbytoken_bk.png);
+}
+
+QLabel#label_loginbytoken {
+	font-family: "SimSun";
+	font-size: 12px;
+	color: rgb(60,60,60);
+}
+
+/*SystemMenue*/
+QWidget#systemMenue_content{
+	background-image: url(:/res/res/image/default/menue_background.png);
+	background-repeat: repeat-y;
+	border-style: solid;
+	border-width:2px;
+	border-color:rgb(218,218,218);
+}
+
+QPushButton#openMainWindows_Btn{
+	padding-left:34px;
+	background:none;
+	text-align:left; 
+	font-family: "SimSun";
+	font-size: 12px;
+	color: rgb(60, 60, 60);
+}
+QPushButton#openMainWindows_Btn:hover{
+	background: rgb(83,199,147);
+	background-color: rgb(83,199,147);
+}
+
+QPushButton#openMainWindows_Btn:disabled{
+	color: rgb(172,172,172);
+}
+
+QPushButton#systemSetting_Btn{
+	padding-left:34px;
+	background:none;
+	text-align:left;
+	font-family: "SimSun";
+	font-size: 12px;
+	color: rgb(60, 60, 60);
+}
+QPushButton#systemSetting_Btn:hover{
+	background: rgb(83,199,147);
+	background-color: rgb(83,199,147);
+}
+QPushButton#systemSetting_Btn:disabled{
+	color: rgb(172,172,172);
+}
+
+QPushButton#feedBack_Btn{
+	padding-left:34px;
+	background:none;
+	text-align:left;
+	font-family: "SimSun";
+	font-size: 12px;
+	color: rgb(60, 60, 60);
+}
+QPushButton#feedBack_Btn:hover{
+	background: rgb(83,199,147);
+	background-color: rgb(83,199,147);
+}
+
+QPushButton#help_Btn{
+	padding-left:34px;
+	background:none;
+	text-align:left;
+	font-family: "SimSun";
+	font-size: 12px;
+	color: rgb(60, 60, 60);
+}
+QPushButton#help_Btn:hover{
+	background: rgb(83,199,147);
+	background-color: rgb(83,199,147);
+}
+
+QPushButton#showAboutDlg_Btn{
+	padding-left:34px;
+	background:none;
+	text-align:left;
+	font-family: "SimSun";
+	font-size: 12px;
+	color: rgb(60, 60, 60);
+}
+QPushButton#showAboutDlg_Btn:hover{
+	background: rgb(83,199,147);
+	background-color: rgb(83,199,147);
+}
+
+QPushButton#logout_Btn{
+	padding-left:34px;
+	background:none;
+	text-align:left;
+	font-family: "SimSun";
+	font-size: 12px;
+	color: rgb(60, 60, 60);
+}
+QPushButton#logout_Btn:hover{
+	background: rgb(83,199,147);
+	background-color: rgb(83,199,147);
+}
+QPushButton#logout_Btn:disabled{
+	color: rgb(172,172,172);
+}
+
+QPushButton#quit_Btn{
+	padding-left:34px;
+	background:none;
+	text-align:left;
+	font-family: "SimSun";
+	font-size: 12px;
+	color: rgb(60, 60, 60);
+}
+
+QPushButton#quit_Btn:hover{
+	background: rgb(83,199,147);
+	background-color: rgb(83,199,147);
+}
+QFrame#line_systemMenue_1{
+	color:rgb(218,218,218);
+}
+QFrame#line_systemMenue_2{
+	color:rgb(218,218,218);
+}
+
+/*UserListMenue*/
+QWidget#userListMenue_content{
+	background-image: url(:/res/res/image/default/menue_background.png);
+	background-repeat: repeat-y;
+	border-style: solid;
+	border-width:2px;
+	border-color:rgb(218,218,218);
+}
+
+QPushButton#promotedToAssistant_Btn{
+	padding-left:34px;
+	background:none;
+	text-align:left; 
+	font-family: "SimSun";
+	font-size: 12px;
+	color: rgb(60, 60, 60);
+}
+QPushButton#promotedToAssistant_Btn:hover{
+	background: rgb(83,199,147);
+	background-color: rgb(83,199,147);
+}
+QPushButton#promotedToAssistant_Btn:disabled{
+	color: rgb(172,172,172);
+}
+
+QPushButton#ask_Btn{
+	padding-left:34px;
+	background:none;
+	text-align:left;
+	font-family: "SimSun";
+	font-size: 12px;
+	color: rgb(60, 60, 60);
+}
+QPushButton#ask_Btn:hover{
+	background: rgb(83,199,147);
+	background-color: rgb(83,199,147);
+}
+QPushButton#ask_Btn:disabled{
+	color: rgb(172,172,172);
+}
+
+QPushButton#chatWith_Btn{
+	padding-left:34px;
+	background:none;
+	text-align:left;
+	font-family: "SimSun";
+	font-size: 12px;
+	color: rgb(60, 60, 60);
+}
+QPushButton#chatWith_Btn:hover{
+	background: rgb(83,199,147);
+	background-color: rgb(83,199,147);
+}
+
+QPushButton#viewProfile_Btn{
+	padding-left:34px;
+	background:none;
+	text-align:left;
+	font-family: "SimSun";
+	font-size: 12px;
+	color: rgb(60, 60, 60);
+}
+QPushButton#viewProfile_Btn:hover{
+	background: rgb(83,199,147);
+	background-color: rgb(83,199,147);
+}
+
+QPushButton#disableSpeak_Btn{
+	padding-left:34px;
+	background:none;
+	text-align:left;
+	font-family: "SimSun";
+	font-size: 12px;
+	color: rgb(60, 60, 60);
+}
+QPushButton#disableSpeak_Btn:hover{
+	background: rgb(83,199,147);
+	background-color: rgb(83,199,147);
+}
+
+QPushButton#kickout_Btn{
+	padding-left:34px;
+	background:none;
+	text-align:left;
+	font-family: "SimSun";
+	font-size: 12px;
+	color: rgb(60, 60, 60);
+}
+QPushButton#kickout_Btn:hover{
+	background: rgb(83,199,147);
+	background-color: rgb(83,199,147);
+}
+QPushButton#kickout_Btn:disabled{
+	color: rgb(172,172,172);
+}
+
+QFrame#line_userListMenue_1{
+	margin-top:3px;
+	margin-bottom:3px;
+	color:rgb(218,218,218);
+}
+QFrame#line_userListMenue_2{
+	margin-top:3px;
+	margin-bottom:3px;
+	color:rgb(218,218,218);
+}
+
+/*Media tool*/
+QWidget#widget_mediatool {
+	background-color: transparent;
+}
+
+QPushButton#pushButton_Rew {
+	width: 20px;
+	height: 20px;
+	background-color: none;
+	image: url(:/res/res/image/default/media_rewind.png);
+}
+QPushButton#pushButton_Rew:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/media_rewind_hover.png);
+}
+QPushButton#pushButton_Rew:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/media_rewind_pressed.png);
+}
+QPushButton#pushButton_Rew:disabled {
+	background-color: none;
+	image: url(:/res/res/image/default/media_rewind_disabled.png);
+}
+
+QPushButton#pushButton_play {
+	width: 20px;
+	height:20px;
+	background-color: none;
+	image: url(:/res/res/image/default/media_play.png);
+}
+QPushButton#pushButton_play:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/media_play_hover.png);
+}
+QPushButton#pushButton_play:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/media_play_pressed.png);
+}
+QPushButton#pushButton_play:disabled {
+	background-color: none;
+	image: url(:/res/res/image/default/media_play_disabled.png);
+}
+
+QPushButton#pushButton_pause {
+	width: 20px;
+	height:20px;
+	background-color: none;
+	image: url(:/res/res/image/default/media_pause.png);
+}
+QPushButton#pushButton_pause:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/media_pause_hover.png);
+}
+QPushButton#pushButton_pause:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/media_pause_pressed.png);
+}
+QPushButton#pushButton_pause:disabled {
+	background-color: none;
+	image: url(:/res/res/image/default/media_pause_disabled.png);
+}
+
+QPushButton#pushButton_FF {
+	width: 20px;
+	height: 20px;
+	background-color: none;
+	image: url(:/res/res/image/default/media_ff.png);
+}
+QPushButton#pushButton_FF:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/media_ff_hover.png);
+}
+QPushButton#pushButton_FF:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/media_ff_pressed.png);
+}
+QPushButton#pushButton_FF:disabled {
+	background-color: none;
+	image: url(:/res/res/image/default/media_ff_disabled.png);
+}
+
+QLabel#label_now_time, #label_totle_time {
+	font-family: "Agency FB";
+	font-size: 9px;
+	color: rgb(60,60,60);
+}
+
+QSlider#horizontalSlider_play::groove:horizontal {
+	border: 1px solid #C0C0C0;
+	background: #C0C0C0;
+	height: 7px;
+	border-radius: 2px;
+	padding-left:-2px;
+	padding-right:-2px;
+	padding-top:-2px;
+	padding-bottom:-2px;
+}
+
+QSlider#horizontalSlider_play::sub-page:horizontal {
+	background: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+	stop:0 rgb(31,156,207), stop:1 rgb(44,203,231));
+	background: qlineargradient(x1: 0, y1: 0.2, x2: 1, y2: 1,
+	stop:0 rgb(31,156,207), stop: 1 rgb(44,203,231));
+	border: 1px solid #4A708B;
+	height: 10px;
+	border-radius: 2px;
+	border-color: rgb(92,132,43);
+}
+
+QSlider#horizontalSlider_play::add-page:horizontal {
+	background: #575757;
+	border: 0px solid #777;
+	height: 10px;
+	border-radius: 2px;
+}
+
+QSlider#horizontalSlider_play::handle:horizontal
+{
+	/*
+	background-color: none;
+	image: url(:/res/res/image/default/media_handle.png);
+	*/
+	background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5,
+	stop:0.6 #1BA6CC, stop:0.778409 rgba(255, 255, 255, 255));
+	width: 11px;
+	margin-top: -3px;
+	margin-bottom: -3px;
+	border-radius: 5px;
+	border-color: rgb(27,166,204);
+}
+
+QSlider#horizontalSlider_play::handle:horizontal:hover {
+	/*
+	background-color: none;
+	image: url(:/res/res/image/default/media_handle_hover.png);
+	*/
+	background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0.6 #27C8FF,
+	stop:0.778409 rgba(255, 255, 255, 255));
+	width: 11px;
+	margin-top: -3px;
+	margin-bottom: -3px;
+	border-radius: 5px;
+}
+
+QSlider#horizontalSlider_play::handle:horizontal:pressed {
+	background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0.6 #1FB8D6,
+	stop:0.778409 rgba(255, 255, 255, 255));
+	width: 11px;
+	margin-top: -3px;
+	margin-bottom: -3px;
+	border-radius: 5px;
+}
+
+QSlider#horizontalSlider_play::sub-page:horizontal:disabled {
+	background: #00009C;
+	border-color: #999;
+}
+
+QSlider#horizontalSlider_play::add-page:horizontal:disabled {
+	background: #eee;
+	border-color: #999;
+}
+
+QSlider#horizontalSlider_play::handle:horizontal:disabled {
+	/*
+	background-color: none;
+	image: url(:/res/res/image/default/media_handle_disabled.png);
+	*/
+	background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0.6 #737373,
+	stop:0.778409 rgba(255, 255, 255, 255));
+	width: 11px;
+	margin-top: -3px;
+	margin-bottom: -3px;
+	border-radius: 5px;
+}
+
+QLabel#label_line_1, #label_line_2 {
+	background-color: none;
+	image: url(:/res/res/image/default/media_line.png);
+}
+
+/*学生视频列表*/
+QWidget#widget_stu_video_list {
+	background-color: rgb(241,241,241);
+}
+
+/*课件进度*/
+QProgressBar#progressBar_progress {
+	width:480px;
+	height:12px;
+	border:none;
+	background:rgb(237, 238, 242);
+	border-radius:3px;
+	color: rgb(24, 183, 243);
+}
+QProgressBar#progressBar_progress::chunk {
+	background:rgb(24, 183, 243);
+	border-radius:3px;
+}
+
+QProgressBar#micValumeBar {
+	border-style: none;
+}
+QProgressBar#micValumeBar::chunk{
+	background-color: rgb(83, 199, 147);
+	width: 4px;
+	margin: 1px;
+}
+
+QProgressBar#progressBar_progress {
+	width:480px;
+	height:12px;
+	border:none;
+	background:rgb(237, 238, 242);
+	border-radius:5px;
+	color: rgb(24, 183, 243);
+}
+QProgressBar#progressBar_progress::chunk {
+	background:rgb(24, 183, 243);
+	border-radius:5px;
+}
+
+QTextEdit#textEdit {
+	border-width: 1px;
+	border-style: solid;
+	border-color: rgb(218,218,218);
+}
+
+QGraphicsView#graphicsView {
+	background:rgb(246, 251, 254);
+	border-width: 1px;
+	border-style: solid;
+	border-color: rgb(211,228,240);
+}
+
+/*xiewb 2018.09.05*/
+QWidget#waitDlg_mainWidget{
+	background-color:rgba(255,255,255,168);
+}
+
+QLabel#waitDlg_txtLabel {
+	font-family: "Microsoft YaHei";
+	font-size: 16px;
+	color: rgb(96, 133, 183);
+	background-color: none;
+}
+
+QLabel#waitDlg_gifLabel {
+	background-color: none;
+	width: 200px;
+	height: 40px;
+	margin: 0px 0 0px 0;
+}
+
+QPushButton#waitDlg_okButton{
+	width: 120px;
+	height: 30px;
+	font-family: "Microsoft YaHei";
+	font-size: 16px;
+	color: rgb(255,255,255);
+	border-radius: 5px;
+	background-color: rgb(138,166,212);
+}
+
+QPushButton#waitDlg_okButton:hover:!pressed {
+	background-color: rgb(173,192,218);
+}
+
+QPushButton#waitDlg_okButton:pressed {
+	background-color: rgb(96, 133, 183);
+}
+
+QPushButton#waitDlg_okButton:disabled {
+	background-color: rgb(192, 192, 192);
+}

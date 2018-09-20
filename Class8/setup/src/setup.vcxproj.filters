@@ -1,0 +1,378 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Translation Files">
+      <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
+      <Extensions>ts</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Resource Files\image">
+      <UniqueIdentifier>{6bc3162d-c0ca-4bb0-9f69-07f684f186f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\style">
+      <UniqueIdentifier>{37fddf49-d664-49d4-9666-114e5270811c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\lang">
+      <UniqueIdentifier>{dc14d592-0128-4784-a8a8-3b26220394b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generated Files\Release">
+      <UniqueIdentifier>{7a7385dc-034c-43c1-8b7d-1a0e3d4d6268}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Debug">
+      <UniqueIdentifier>{df6e843d-6a3e-4c29-a903-a55775bf2118}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Source Files\lang">
+      <UniqueIdentifier>{13c355f1-7c22-4303-b9be-6d29de81fd41}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="rec.qrc">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\setup\basewidget.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\setup\welcomewidget.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\setup\dialog.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\setup\finishwidget.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\setup\msgdlg.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\setup\processwidget.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\setup\pushpicwidget.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\setup\selectpathwidget.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\setup\serveragreementwidget.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\setup\setup.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\setup\dialog.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\setup\finishwidget.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\setup\msgdlg.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\setup\processwidget.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\setup\pushpicwidget.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\setup\selectpathwidget.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\setup\serveragreementwidget.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\..\setup\welcomewidget.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="setup.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\lang\setup_zh.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+    <None Include="res\image\checkBox_disabel1.png">
+      <Filter>Resource Files\image</Filter>
+    </None>
+    <None Include="res\image\install_start.png">
+      <Filter>Resource Files\image</Filter>
+    </None>
+    <None Include="res\image\checkBox_disabel2.png">
+      <Filter>Resource Files\image</Filter>
+    </None>
+    <None Include="res\image\checkBox_hover1.png">
+      <Filter>Resource Files\image</Filter>
+    </None>
+    <None Include="res\image\checkBox_hover2.png">
+      <Filter>Resource Files\image</Filter>
+    </None>
+    <None Include="res\image\checkBox_normal1.png">
+      <Filter>Resource Files\image</Filter>
+    </None>
+    <None Include="res\image\checkBox_normal2.png">
+      <Filter>Resource Files\image</Filter>
+    </None>
+    <None Include="res\image\checkBox_pressed1.png">
+      <Filter>Resource Files\image</Filter>
+    </None>
+    <None Include="res\image\checkBox_pressed2.png">
+      <Filter>Resource Files\image</Filter>
+    </None>
+    <None Include="res\image\finish.png">
+      <Filter>Resource Files\image</Filter>
+    </None>
+    <None Include="res\image\MainBig.ico">
+      <Filter>Resource Files\image</Filter>
+    </None>
+    <None Include="res\image\scrollbar_vertical_bg.png">
+      <Filter>Resource Files\image</Filter>
+    </None>
+    <None Include="res\image\sys_close_hover.png">
+      <Filter>Resource Files\image</Filter>
+    </None>
+    <None Include="res\image\warning.png">
+      <Filter>Resource Files\image</Filter>
+    </None>
+    <None Include="res\image\sys_close_normal.png">
+      <Filter>Resource Files\image</Filter>
+    </None>
+    <None Include="res\image\sys_close_pressed.png">
+      <Filter>Resource Files\image</Filter>
+    </None>
+    <None Include="res\image\sys_minsize_hover.png">
+      <Filter>Resource Files\image</Filter>
+    </None>
+    <None Include="res\image\sys_minsize_normal.png">
+      <Filter>Resource Files\image</Filter>
+    </None>
+    <None Include="res\image\sys_minsize_pressed.png">
+      <Filter>Resource Files\image</Filter>
+    </None>
+    <None Include="res\image\title_0.png">
+      <Filter>Resource Files\image</Filter>
+    </None>
+    <None Include="res\image\title_1.png">
+      <Filter>Resource Files\image</Filter>
+    </None>
+    <None Include="res\image\title_2.png">
+      <Filter>Resource Files\image</Filter>
+    </None>
+    <None Include="res\style\stylesheet.qss">
+      <Filter>Resource Files\style</Filter>
+    </None>
+    <None Include="res\lang\setup_zh.qm">
+      <Filter>Resource Files\lang</Filter>
+    </None>
+    <None Include="res\lang\readme.txt">
+      <Filter>Resource Files\lang</Filter>
+    </None>
+    <None Include="res\lang\setup_en.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+    <None Include="res\lang\setup_en.qm">
+      <Filter>Resource Files\lang</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\setup\basewidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\setup\configfile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\setup\dialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\setup\finishwidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\setup\inifile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\setup\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\setup\msgdlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\setup\processwidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\setup\pushpicwidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\setup\registryfile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\setup\selectpathwidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\setup\serveragreementwidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\setup\setup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\setup\welcomewidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\build\GeneratedFiles\Class8_setup\qrc_rec.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\build\GeneratedFiles\Release\Class8_setup\moc_basewidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\build\GeneratedFiles\Debug\Class8_setup\moc_basewidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\build\GeneratedFiles\Release\Class8_setup\moc_dialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\build\GeneratedFiles\Debug\Class8_setup\moc_dialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\build\GeneratedFiles\Release\Class8_setup\moc_finishwidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\build\GeneratedFiles\Debug\Class8_setup\moc_finishwidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\build\GeneratedFiles\Release\Class8_setup\moc_msgdlg.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\build\GeneratedFiles\Debug\Class8_setup\moc_msgdlg.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\build\GeneratedFiles\Release\Class8_setup\moc_processwidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\build\GeneratedFiles\Debug\Class8_setup\moc_processwidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\build\GeneratedFiles\Release\Class8_setup\moc_pushpicwidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\build\GeneratedFiles\Debug\Class8_setup\moc_pushpicwidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\build\GeneratedFiles\Release\Class8_setup\moc_selectpathwidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\build\GeneratedFiles\Debug\Class8_setup\moc_selectpathwidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\build\GeneratedFiles\Release\Class8_setup\moc_serveragreementwidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\build\GeneratedFiles\Debug\Class8_setup\moc_serveragreementwidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\build\GeneratedFiles\Release\Class8_setup\moc_setup.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\build\GeneratedFiles\Debug\Class8_setup\moc_setup.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\build\GeneratedFiles\Release\Class8_setup\moc_welcomewidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\build\GeneratedFiles\Debug\Class8_setup\moc_welcomewidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\main\common\lang.cpp">
+      <Filter>Source Files\lang</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\setup\configfile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\setup\env.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\setup\inifile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\setup\registryfile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\build\GeneratedFiles\Class8_setup\ui_dialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\build\GeneratedFiles\Class8_setup\ui_finishwidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\build\GeneratedFiles\Class8_setup\ui_msgdlg.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\build\GeneratedFiles\Class8_setup\ui_processwidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\build\GeneratedFiles\Class8_setup\ui_pushpicwidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\build\GeneratedFiles\Class8_setup\ui_selectpathwidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\build\GeneratedFiles\Class8_setup\ui_serveragreementwidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\build\GeneratedFiles\Class8_setup\ui_welcomewidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\main\common\lang.h">
+      <Filter>Source Files\lang</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

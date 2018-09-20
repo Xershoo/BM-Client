@@ -1,0 +1,468 @@
+/*
+新細明體：PMingLiU
+細明體：MingLiU
+標楷體：DFKai-SB
+黑体：SimHei
+宋体：SimSun
+新宋体：NSimSun
+仿宋：FangSong
+楷体：KaiTi
+仿宋_GB2312：FangSong_GB2312
+楷体_GB2312：KaiTi_GB2312
+微軟正黑體：Microsoft JhengHei
+微软雅黑体：Microsoft YaHei
+*/
+
+QDialog#Dialog{
+background-color:black;
+}
+
+QPushButton#close_Btn {
+width: 30px;
+height: 30px;
+background: none;
+border-image: url(:/image/res/image/sys_close_normal.png);
+}
+QPushButton#close_Btn:hover {
+background: none;
+border-image: url(:/image/res/image/sys_close_hover.png);
+}
+QPushButton#close_Btn:pressed {
+background: none;
+border-image: url(:/image/res/image/sys_close_pressed.png);
+}
+
+QPushButton#min_Btn {
+width: 30px;
+height: 30px;
+background: none;
+border-image: url(:/image/res/image/sys_minsize_normal.png);
+}
+QPushButton#min_Btn:hover {
+background: none;
+border-image: url(:/image/res/image/sys_minsize_hover.png);
+}
+QPushButton#min_Btn:pressed {
+background: none;
+border-image: url(:/image/res/image/sys_minsize_pressed.png);
+}
+
+QWidget#below_widget{
+background-color: rgb(255, 255, 255);
+border-radius:10px;
+border-top-left-radius: 0px;
+border-top-right-radius: 0px;
+border-bottom-left-radius: 4px;
+border-bottom-right-radius: 4px;
+}
+
+/*serverAgreement*/
+QWidget#serverAgreement_titleBat_widget{
+background-color: rgb(25, 118, 210);
+border-top-left-radius: 2px;
+border-top-right-radius: 2px;
+}
+
+QPushButton#cancle_Btn {
+font-family: "SimSun";
+font-size: 12px;
+spacing: 4px;
+width: 72px;
+height: 26px;
+border-radius:5px;
+border-width: 1px;
+border-style: solid;
+border-color: rgb(218, 218, 218);
+background-color: rgb(255, 255, 255);
+color: rgb(60,60,60);
+}
+QPushButton#cancle_Btn:hover {
+border-width: 1px;
+border-color: rgb(25, 118, 210);
+}
+QPushButton#cancle_Btn:pressed {
+border-width: 2px;
+border-color: rgb(25, 118, 210);
+}
+QPushButton#cancle_Btn:disabled {
+border-width: 1px;
+border-color: rgb(236, 236, 236);
+}
+
+QLabel#agreement_label{
+color:rgb(60,60,60);
+background-color: rgb(237, 238, 242);
+border-width:1px;
+border-color:rgb(218,218,218);
+}
+
+/*welcome*/
+QWidget#welcome_title_widget{
+background-color: rgb(170, 255, 255);
+border-image: url(:/image/res/image/install_start.png);
+}
+
+QWidget#WelcomeWidget{
+background-color: black;
+}
+
+QPushButton#fast_install_Btn {
+font-family: "Microsoft YaHei";
+font-size: 20pt;
+spacing: 4px;
+width: 202px;
+height: 59px;
+border-radius:5px;
+color: rgb(255,255,255);
+background-color: rgb(83, 199, 147);
+}
+QPushButton#fast_install_Btn:hover {
+background-color: rgb(113, 217, 170);
+}
+QPushButton#fast_install_Btn:pressed {
+background-color: rgb(55, 175, 121);
+}
+QPushButton#fast_install_Btn:disabled {
+background-color: rgb(169, 227, 201);
+}
+
+QPushButton#customInstall_Btn{
+font-family: "SimSun";
+font-size: 12px;
+color: rgb(25, 118, 210);
+background: transparent;
+}
+QPushButton#customInstall_Btn:hover{
+text-decoration:underline;
+}
+
+QCheckBox#selfStart_checkBox{
+font-family: "SimSun";
+font-size: 12px;
+}
+QCheckBox#accept_checkBox{
+font-family: "SimSun";
+font-size: 12px;
+color:rgb(60, 60, 60);
+}
+
+QCheckBox#langSelect_Btn{
+font-family: "SimSun";
+font-size: 12px;
+color:rgb(60, 60, 60);
+}
+
+QPushButton#link_Btn{
+background: transparent;
+color: rgb(25, 118, 210);
+font-family: "SimSun";
+font-size: 12px;
+border-width:0px;
+text-align: left;
+}
+QPushButton#link_Btn:hover{
+text-decoration:underline;
+}
+
+/*finish*/
+QWidget#finish_title_widget{
+background-color: rgb(170, 255, 255);
+border-image: url(:/image/res/image/finish.png);
+}
+
+QPushButton#startNow_Btn {
+font-family: "Microsoft YaHei";
+font-size: 16px;
+spacing: 4px;
+width: 72px;
+height: 26px;
+border-radius:5px;
+color: rgb(255, 255, 255);
+background-color: rgb(83, 199, 147);
+}
+QPushButton#startNow_Btn:hover {
+background-color: rgb(113, 217, 170);
+}
+QPushButton#startNow_Btn:pressed {
+background-color: rgb(55, 175, 121);
+}
+QPushButton#startNow_Btn:disabled {
+background-color: rgb(169, 227, 201);
+}
+QPushButton#finish_Btn {
+font-family: "Microsoft YaHei";
+font-size: 16px;
+color:rgb(60, 60, 60);
+spacing: 4px;
+width: 72px;
+height: 26px;
+border-radius:5px;
+border-width: 1px;
+border-style: solid;
+border-color: rgb(218, 218, 218);
+background-color: rgb(255, 255, 255);
+}
+QPushButton#finish_Btn:hover {
+border-width: 1px;
+border-color: rgb(25, 118, 210);
+}
+QPushButton#finish_Btn:pressed {
+border-width: 2px;
+border-color: rgb(25, 118, 210);
+}
+QPushButton#finish_Btn:disabled {
+border-width: 1px;
+border-color: rgb(236, 236, 236);
+}
+QCheckBox#shortcut_checkBox{
+font-family: "SimSun";
+font-size: 12px;
+color:rgb(60,60,60);
+}
+
+/*process*/
+PushPicWidget#process_title_widget{
+background-color: rgb(170, 255, 255);
+}
+
+QLabel#process_label{
+font-family: "SimSun";
+font-size: 12px;
+color:rgb(60, 60, 60);
+}
+QProgressBar{
+   border-width:0px;
+   border-radius: 5px;
+   background-color: rgb(237,238,242);
+   color:rgb(60, 60, 60);
+   height:12px;
+   border-radius: 5px;
+   text-align: center;
+}
+QProgressBar::chunk {
+   background-color: rgb(83, 199, 147);
+   border-top-left-radius: 5px;
+   border-bottom-left-radius: 5px;
+}
+
+/*select*/
+PushPicWidget#select_title_widget{
+background-color: rgb(170, 255, 255);
+border-top-left-radius: 10px;
+border-top-right-radius: 10px;
+background-image:url(:/image/res/image/title_0.png);
+}
+QLabel#select_label{
+font-color:rgb(60, 60, 60);
+font-family: "SimSun";
+font-size: 12px;
+}
+QPushButton#install_Btn {
+font-family: "SimSun";
+font-size: 12px;
+spacing: 4px;
+width: 72px;
+height: 26px;
+border-radius:5px;
+color: rgb(255, 255, 255);
+background-color: rgb(83, 199, 147);
+}
+QPushButton#install_Btn:hover {
+background-color: rgb(113, 217, 170);
+}
+QPushButton#install_Btn:pressed {
+background-color: rgb(55, 175, 121);
+}
+QPushButton#install_Btn:disabled {
+background-color: rgb(169, 227, 201);
+}
+
+QPushButton#return_Btn{
+color:rgb(60, 60, 60);
+font-family: "SimSun";
+font-size: 12px;
+spacing: 4px;
+width: 72px;
+height: 26px;
+border-radius:5px;
+border-width: 1px;
+border-style: solid;
+border-color: rgb(218, 218, 218);
+background-color: rgb(255, 255, 255);
+}
+QPushButton#return_Btn:hover {
+border-width: 1px;
+border-color: rgb(25, 118, 210);
+}
+QPushButton#return_Btn:pressed {
+border-width: 2px;
+border-color: rgb(25, 118, 210);
+}
+QPushButton#return_Btn:disabled {
+border-width: 1px;
+border-color: rgb(236, 236, 236);
+}
+
+
+QPushButton#browse_Btn{
+color:rgb(60, 60, 60);
+font-family: "SimSun";
+font-size: 12px;
+spacing: 4px;
+width: 72px;
+height: 26px;
+border-radius:5px;
+border-width: 1px;
+border-style: solid;
+border-color: rgb(218, 218, 218);
+background-color: rgb(255, 255, 255);
+}
+QPushButton#browse_Btn:hover {
+border-width: 1px;
+border-color: rgb(25, 118, 210);
+}
+QPushButton#browse_Btn:pressed {
+border-width: 2px;
+border-color: rgb(25, 118, 210);
+}
+QPushButton#browse_Btn:disabled {
+border-width: 1px;
+border-color: rgb(236, 236, 236);
+}
+
+
+QLineEdit#path_Edit{
+border: 1px solid rgb(218, 218, 218);
+border-radius: 3px;
+height: 26px;
+background: white;
+padding-left: 5px;
+}
+
+QLineEdit#path_Edit:hover{
+border: 1px solid #18b7f3; 
+}
+
+QCheckBox#select_shortCutToMenue_checkBox{
+font-family: "SimSun";
+font-size: 12px;
+color:rgb(60, 60, 60);
+}
+
+/*垂直滚动条*/
+QScrollBar:vertical {
+background: url(:/image/res/image/scrollbar_vertical_bg.png);
+background: rgb(237, 238, 242);
+width: 15px;
+margin: 0px 0 0px 0;
+}
+QScrollBar::handle:vertical {
+background: rgb(191, 191, 191);
+min-height: 20px;
+width:9px;
+margin: 0px 4px 0px 0px;
+border-radius: 5px;
+border: none;
+}
+QScrollBar::add-line:vertical {
+background: rgb(191, 191, 191);
+height: 0px;
+subcontrol-position: bottom;
+subcontrol-origin: margin;
+}
+QScrollBar::sub-line:vertical {
+background: rgb(191, 191, 191);
+height: 0px;
+subcontrol-position: top;
+subcontrol-origin: margin;
+}
+QScrollBar::up-arrow:vertical, QScrollBar::down-arrow:vertical {
+border: 1px solid grey;
+width: 3px;
+height: 3px;
+background: white;
+}
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+background: none;
+}
+
+QScrollArea#scrollArea{
+background-color: rgb(237, 238, 242);
+}
+
+QWidget#scrollAreaWidgetContents{
+background-color: rgb(237, 238, 242);
+border-color:rgb(218,218,218);
+}
+
+.QCheckBox::indicator:unchecked {
+image: url(:/image/res/image/checkBox_normal1.png);
+}
+.QCheckBox::indicator:unchecked:hover {
+image: url(:/image/res/image/checkBox_hover1.png);
+}
+.QCheckBox::indicator:unchecked:pressed {
+image: url(:/image/res/image/checkBox_pressed1.png);
+}
+.QCheckBox::indicator:unchecked:disabled {
+image: url(:/image/res/image/checkBox_disabel1.png);
+}
+
+.QCheckBox::indicator:checked {
+image: url(:/image/res/image/checkBox_normal2.png);
+}
+.QCheckBox::indicator:checked:hover {
+image: url(:/image/res/image/checkBox_hover2.png);
+}
+.QCheckBox::indicator:checked:pressed {
+image: url(:/image/res/image/checkBox_pressed2.png);
+}
+
+.QCheckBox::indicator:checked:disabled {
+image: url(:/image/res/image/checkBox_disabel2);
+}
+
+/*MsgDlg*/
+QWidget#msgDlg_titleBat_widget{
+background-color: rgb(25, 118, 210);
+border-top-left-radius: 2px;
+border-top-right-radius: 2px;
+}
+
+QWidget#msgDlg{
+background-color: rgb(255,255,255);
+border-top-left-radius: 2px;
+border-top-right-radius: 2px;
+}
+
+QPushButton#msg_know_Btn {
+font-family: "SimSun";
+font-size: 12px;
+spacing: 4px;
+width: 72px;
+height: 26px;
+border-radius:5px;
+color: rgb(255, 255, 255);
+background-color: rgb(83, 199, 147);
+}
+QPushButton#msg_know_Btn:hover {
+background-color: rgb(113, 217, 170);
+}
+QPushButton#msg_know_Btn:pressed {
+background-color: rgb(55, 175, 121);
+}
+QPushButton#msg_know_Btn:disabled {
+background-color: rgb(169, 227, 201);
+}
+
+QLabel#msg_Pic_label{
+border-image: url(:/image/res/image/warning.png);
+width:37px;
+height:37px;
+}
+
+QLabel#msg_text_label{
+font-color:rgb(60, 60, 60);
+font-family: "SimSun";
+font-size: 12px;
+}

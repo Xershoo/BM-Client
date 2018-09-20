@@ -1,0 +1,6 @@
+<server>
+  <ip value="61.147.188.61" port="6000" />
+  <httpweb up="http://upload.class8.com/" foldup="eduup2c/up/user_file/" down="http://download.class8.com/" folddown="Cursewave" localtrans="0"/>    
+  <chat up="http://upload.class8.com/" foldup="eduup2c/up/chat_img/" down="http://download.class8.com/" folddown="edudown/img/chat/"/>    
+  <classurl value="http://hn.class8.com/"/>
+</server>

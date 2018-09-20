@@ -1,0 +1,81 @@
+/*
+新細明體：PMingLiU
+細明體：MingLiU
+標楷體：DFKai-SB
+黑体：SimHei
+宋体：SimSun
+新宋体：NSimSun
+仿宋：FangSong
+楷体：KaiTi
+仿宋_GB2312：FangSong_GB2312
+楷体_GB2312：KaiTi_GB2312
+微軟正黑體：Microsoft JhengHei
+微软雅黑体：Microsoft YaHei
+*/
+
+QPushButton#pushButton_close {
+width: 30px;
+height: 30px;
+background: none;
+border-image: url(:/Image/res/image/close_normal.png);
+}
+QPushButton#pushButton_close:hover {
+background: none;
+border-image: url(:/Image/res/image/close_hover.png);
+}
+QPushButton#pushButton_close:pressed {
+background: none;
+border-image: url(:/Image/res/image/close_pressed.png);
+}
+
+QPushButton#pushButton_min {
+width: 30px;
+height: 30px;
+background: none;
+border-image: url(:/Image/res/image/minsize_normal.png);
+}
+QPushButton#pushButton_min:hover {
+background: none;
+border-image: url(:/Image/res/image/minsize_hover.png);
+}
+QPushButton#pushButton_min:pressed {
+background: none;
+border-image: url(:/Image/res/image/pressed.png);
+}
+
+/*main-title*/
+QWidget#title_widget{
+background-color: rgb(170, 255, 255);
+border-image: url(:/Image/res/image/logo.png);
+}
+
+QWidget#widget_bottom{
+background-color: rgb(255, 255, 255);
+border-radius:5px;
+}
+
+QPushButton#pushButton_uninstall {
+font-family: "Microsoft YaHei";
+font-size: 20pt;
+spacing: 4px;
+width: 200px;
+height: 60px;
+border-radius:5px;
+color: rgb(255,255,255);
+background-color: rgb(83, 199, 147);
+}
+QPushButton#pushButton_uninstall:hover {
+background-color: rgb(113, 217, 170);
+}
+QPushButton#pushButton_uninstall:pressed {
+background-color: rgb(55, 175, 121);
+}
+QPushButton#pushButton_uninstall:disabled {
+background-color: rgb(169, 227, 201);
+}
+
+QLabel#labTxt_uninstall {
+font-family: "Microsoft YaHei";
+font-size: 15px;
+color: rgb(32, 32, 32);
+}

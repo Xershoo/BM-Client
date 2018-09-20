@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="test_log\log_test2.cpp">
+      <Filter>test_log</Filter>
+    </ClCompile>
+    <ClCompile Include="test_log\log_test.cpp">
+      <Filter>test_log</Filter>
+    </ClCompile>
+    <ClCompile Include="test_log\test_log2.cpp">
+      <Filter>test_log</Filter>
+    </ClCompile>
+    <ClCompile Include="test_log\test_log.cpp">
+      <Filter>test_log</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="test_func_dispatcher.h" />
+    <ClInclude Include="test_thread_lock.h" />
+    <ClInclude Include="test_timerqueue.h" />
+    <ClInclude Include="test_log\log_test2.h">
+      <Filter>test_log</Filter>
+    </ClInclude>
+    <ClInclude Include="test_log\log_test.h">
+      <Filter>test_log</Filter>
+    </ClInclude>
+    <ClInclude Include="test_log\test_log2.h">
+      <Filter>test_log</Filter>
+    </ClInclude>
+    <ClInclude Include="test_log\test_log.h">
+      <Filter>test_log</Filter>
+    </ClInclude>
+    <ClInclude Include="test_signal\test_sigslot0.h">
+      <Filter>test_signal</Filter>
+    </ClInclude>
+    <ClInclude Include="test_signal\test_sigslot1.h">
+      <Filter>test_signal</Filter>
+    </ClInclude>
+    <ClInclude Include="test_signal\test_sigslot2.h">
+      <Filter>test_signal</Filter>
+    </ClInclude>
+    <ClInclude Include="test_signal\test_sigslot3.h">
+      <Filter>test_signal</Filter>
+    </ClInclude>
+    <ClInclude Include="test_signal\test_sigslot4.h">
+      <Filter>test_signal</Filter>
+    </ClInclude>
+    <ClInclude Include="test_signal\test_signal1_1.h">
+      <Filter>test_signal</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="test_log">
+      <UniqueIdentifier>{22cf678a-8fed-425d-8c10-ed000e42a87a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="test_signal">
+      <UniqueIdentifier>{d8025702-a4b5-4588-a511-56f1918f561a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

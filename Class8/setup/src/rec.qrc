@@ -1,0 +1,34 @@
+<RCC>
+    <qresource prefix="/image">
+        <file>res/image/MainBig.ico</file>
+        <file>res/image/sys_close_hover.png</file>
+        <file>res/image/sys_close_normal.png</file>
+        <file>res/image/sys_close_pressed.png</file>
+        <file>res/image/sys_minsize_hover.png</file>
+        <file>res/image/sys_minsize_normal.png</file>
+        <file>res/image/sys_minsize_pressed.png</file>
+        <file>res/image/scrollbar_vertical_bg.png</file>
+        <file>res/image/title_0.png</file>
+        <file>res/image/title_1.png</file>
+        <file>res/image/title_2.png</file>
+        <file>res/image/finish.png</file>
+        <file>res/image/install_start.png</file>
+        <file>res/image/checkBox_disabel1.png</file>
+        <file>res/image/checkBox_disabel2.png</file>
+        <file>res/image/checkBox_hover1.png</file>
+        <file>res/image/checkBox_hover2.png</file>
+        <file>res/image/checkBox_normal1.png</file>
+        <file>res/image/checkBox_normal2.png</file>
+        <file>res/image/checkBox_pressed1.png</file>
+        <file>res/image/checkBox_pressed2.png</file>
+        <file>res/image/warning.png</file>
+    </qresource>
+    <qresource prefix="/lang">
+        <file>res/lang/setup_zh.qm</file>
+        <file>res/lang/readme.txt</file>
+        <file>res/lang/setup_en.qm</file>
+    </qresource>
+    <qresource prefix="/style">
+        <file>res/style/stylesheet.qss</file>
+    </qresource>
+</RCC>

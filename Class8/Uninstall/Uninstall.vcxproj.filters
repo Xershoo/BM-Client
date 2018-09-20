@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;cxx;c;def</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h</Extensions>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>moc;h;cpp</Extensions>
+      <ParseFiles>true</ParseFiles>
+    </Filter>
+    <Filter Include="Translation Files">
+      <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
+      <Extensions>ts</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Generated Files\Debug">
+      <UniqueIdentifier>{f3512b61-17b3-4f69-a30f-5070d018d401}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Release">
+      <UniqueIdentifier>{3754ea76-d381-4b64-bb87-5c76d10f4199}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Resource Files\image">
+      <UniqueIdentifier>{80677ec7-80d6-4cff-b093-442cb9fa11ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\style">
+      <UniqueIdentifier>{cba7236e-6462-4fbc-a52e-de13a0532b28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\lang">
+      <UniqueIdentifier>{651e1a84-54bd-4029-baa5-b9de93e35357}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\lang">
+      <UniqueIdentifier>{95c36dd3-9d06-4a8b-80ee-cfeaf4e7912c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Uninstall\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Uninstall\MainDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Uninstall\SingleApp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Uninstall\Util.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8_Uninstall\moc_MainDlg.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8_Uninstall\moc_MainDlg.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8_Uninstall\moc_SingleApp.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8_Uninstall\moc_SingleApp.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Class8_Uninstall\qrc_Uninstall.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\common\lang.cpp">
+      <Filter>Source Files\lang</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\..\Uninstall\MainDlg.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Uninstall\SingleApp.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="Uninstall.qrc">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\Uninstall\MainDlg.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\lang\uninstall_zh.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+    <None Include="res\image\uninstall.ico" />
+    <None Include="res\image\close_hover.png">
+      <Filter>Resource Files\image</Filter>
+    </None>
+    <None Include="res\image\minsize_pressed.png">
+      <Filter>Resource Files\image</Filter>
+    </None>
+    <None Include="res\image\close_normal.png">
+      <Filter>Resource Files\image</Filter>
+    </None>
+    <None Include="res\image\close_pressed.png">
+      <Filter>Resource Files\image</Filter>
+    </None>
+    <None Include="res\image\logo.png">
+      <Filter>Resource Files\image</Filter>
+    </None>
+    <None Include="res\image\minsize_hover.png">
+      <Filter>Resource Files\image</Filter>
+    </None>
+    <None Include="res\image\minsize_normal.png">
+      <Filter>Resource Files\image</Filter>
+    </None>
+    <None Include="res\image\uninstall.gif">
+      <Filter>Resource Files\image</Filter>
+    </None>
+    <None Include="res\style\uninstall.qss">
+      <Filter>Resource Files\style</Filter>
+    </None>
+    <None Include="res\lang\uninstall_zh.qm">
+      <Filter>Resource Files\lang</Filter>
+    </None>
+    <None Include="res\lang\uninstall_en.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Uninstall.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Uninstall\Util.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8_Uninstall\ui_MainDlg.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\main\common\lang.h">
+      <Filter>Source Files\lang</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,184 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{D4BA9BF0-B6A5-4CBA-A917-EB422FA7B6C5}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)lib\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)build\$(Configuration)\$(ProjectName)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)lib\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)build\$(Configuration)\$(ProjectName)\</IntDir>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..;../scripts;../jpeg9;../openjpeg;../../third;../jbig2dec;../freetype;./fitz;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_WIN32;WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>..;../scripts;../jpeg9;../openjpeg;../../third;../jbig2dec;../freetype;./fitz;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Lib>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="draw\draw_affine.c" />
+    <ClCompile Include="draw\draw_blend.c" />
+    <ClCompile Include="draw\draw_device.c" />
+    <ClCompile Include="draw\draw_edge.c" />
+    <ClCompile Include="draw\draw_glyph.c" />
+    <ClCompile Include="draw\draw_mesh.c" />
+    <ClCompile Include="draw\draw_paint.c" />
+    <ClCompile Include="draw\draw_path.c" />
+    <ClCompile Include="draw\draw_scale.c" />
+    <ClCompile Include="draw\draw_simple_scale.c" />
+    <ClCompile Include="draw\draw_unpack.c" />
+    <ClCompile Include="pdf\pdf_annot.c" />
+    <ClCompile Include="pdf\pdf_cmap.c" />
+    <ClCompile Include="pdf\pdf_cmap_load.c" />
+    <ClCompile Include="pdf\pdf_cmap_parse.c" />
+    <ClCompile Include="pdf\pdf_cmap_table.c" />
+    <ClCompile Include="pdf\pdf_colorspace.c" />
+    <ClCompile Include="pdf\pdf_crypt.c" />
+    <ClCompile Include="pdf\pdf_encoding.c" />
+    <ClCompile Include="pdf\pdf_font.c" />
+    <ClCompile Include="pdf\pdf_fontfile.c" />
+    <ClCompile Include="pdf\pdf_function.c" />
+    <ClCompile Include="pdf\pdf_image.c" />
+    <ClCompile Include="pdf\pdf_interpret.c" />
+    <ClCompile Include="pdf\pdf_lex.c" />
+    <ClCompile Include="pdf\pdf_metrics.c" />
+    <ClCompile Include="pdf\pdf_nametree.c" />
+    <ClCompile Include="pdf\pdf_object.c" />
+    <ClCompile Include="pdf\pdf_outline.c" />
+    <ClCompile Include="pdf\pdf_page.c" />
+    <ClCompile Include="pdf\pdf_parse.c" />
+    <ClCompile Include="pdf\pdf_pattern.c" />
+    <ClCompile Include="pdf\pdf_repair.c" />
+    <ClCompile Include="pdf\pdf_shade.c" />
+    <ClCompile Include="pdf\pdf_store.c" />
+    <ClCompile Include="pdf\pdf_stream.c" />
+    <ClCompile Include="pdf\pdf_type3.c" />
+    <ClCompile Include="pdf\pdf_unicode.c" />
+    <ClCompile Include="pdf\pdf_write.c" />
+    <ClCompile Include="pdf\pdf_xobject.c" />
+    <ClCompile Include="pdf\pdf_xref.c" />
+    <ClCompile Include="pdf\pdf_xref_aux.c" />
+    <ClCompile Include="fitz\base_context.c" />
+    <ClCompile Include="fitz\base_error.c" />
+    <ClCompile Include="fitz\base_geometry.c" />
+    <ClCompile Include="fitz\base_getopt.c" />
+    <ClCompile Include="fitz\base_hash.c" />
+    <ClCompile Include="fitz\base_memory.c" />
+    <ClCompile Include="fitz\base_string.c" />
+    <ClCompile Include="fitz\base_time.c" />
+    <ClCompile Include="fitz\crypt_aes.c" />
+    <ClCompile Include="fitz\crypt_arc4.c" />
+    <ClCompile Include="fitz\crypt_md5.c" />
+    <ClCompile Include="fitz\crypt_sha2.c" />
+    <ClCompile Include="fitz\dev_bbox.c" />
+    <ClCompile Include="fitz\dev_list.c" />
+    <ClCompile Include="fitz\dev_null.c" />
+    <ClCompile Include="fitz\dev_text.c" />
+    <ClCompile Include="fitz\dev_trace.c" />
+    <ClCompile Include="fitz\doc_document.c" />
+    <ClCompile Include="fitz\doc_link.c" />
+    <ClCompile Include="fitz\doc_outline.c" />
+    <ClCompile Include="fitz\filt_basic.c" />
+    <ClCompile Include="fitz\filt_dctd.c" />
+    <ClCompile Include="fitz\filt_faxd.c" />
+    <ClCompile Include="fitz\filt_flate.c" />
+    <ClCompile Include="fitz\filt_jbig2d.c" />
+    <ClCompile Include="fitz\filt_lzwd.c" />
+    <ClCompile Include="fitz\filt_predict.c" />
+    <ClCompile Include="fitz\image_jpeg.c" />
+    <ClCompile Include="fitz\image_jpx.c">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename)1.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="fitz\image_md5.c" />
+    <ClCompile Include="fitz\image_png.c" />
+    <ClCompile Include="fitz\image_save.c" />
+    <ClCompile Include="fitz\image_tiff.c" />
+    <ClCompile Include="fitz\memento.c" />
+    <ClCompile Include="fitz\res_bitmap.c" />
+    <ClCompile Include="fitz\res_colorspace.c" />
+    <ClCompile Include="fitz\res_font.c" />
+    <ClCompile Include="fitz\res_halftone.c" />
+    <ClCompile Include="fitz\res_path.c" />
+    <ClCompile Include="fitz\res_pixmap.c" />
+    <ClCompile Include="fitz\res_shade.c" />
+    <ClCompile Include="fitz\res_store.c" />
+    <ClCompile Include="fitz\res_text.c" />
+    <ClCompile Include="fitz\stm_buffer.c" />
+    <ClCompile Include="fitz\stm_open.c" />
+    <ClCompile Include="fitz\stm_read.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="fitz\fitz-internal.h" />
+    <ClCompile Include="fitz\fitz.h" />
+    <ClInclude Include="fitz\memento.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

@@ -1,0 +1,20 @@
+<RCC>
+    <qresource prefix="/Image">
+        <file>res/image/close_hover.png</file>
+        <file>res/image/close_normal.png</file>
+        <file>res/image/close_pressed.png</file>
+        <file>res/image/logo.png</file>
+        <file>res/image/minsize_hover.png</file>
+        <file>res/image/minsize_normal.png</file>
+        <file>res/image/minsize_pressed.png</file>
+        <file>res/image/uninstall.ico</file>
+        <file>res/image/uninstall.gif</file>
+    </qresource>
+    <qresource prefix="/style">
+        <file>res/style/uninstall.qss</file>
+    </qresource>
+    <qresource prefix="/lang">
+        <file>res/lang/uninstall_zh.qm</file>
+        <file>res/lang/uninstall_en.qm</file>
+    </qresource>
+</RCC>

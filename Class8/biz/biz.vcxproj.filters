@@ -1,0 +1,234 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="interface">
+      <UniqueIdentifier>{5cc74ee1-6286-435f-be2c-bd782814df23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="protocol">
+      <UniqueIdentifier>{8b237ea4-aeb0-481f-9ecb-0bf4411fb4e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="data">
+      <UniqueIdentifier>{0f431933-aab6-40d4-b571-d8d2f854514a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="interface\callback.h">
+      <Filter>interface</Filter>
+    </ClInclude>
+    <ClInclude Include="interface\data.h">
+      <Filter>interface</Filter>
+    </ClInclude>
+    <ClInclude Include="interface\interface.h">
+      <Filter>interface</Filter>
+    </ClInclude>
+    <ClInclude Include="biz.h" />
+    <ClInclude Include="convert.h" />
+    <ClInclude Include="log_biz.h" />
+    <ClInclude Include="protocol\rpcgen_edu.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="interface\IUserInfoData.h">
+      <Filter>interface</Filter>
+    </ClInclude>
+    <ClInclude Include="data\CLUserInfoData.h">
+      <Filter>data</Filter>
+    </ClInclude>
+    <ClInclude Include="interface\IClassRoomInfoContainer.h">
+      <Filter>interface</Filter>
+    </ClInclude>
+    <ClInclude Include="interface\IClassRoomInfo.h">
+      <Filter>interface</Filter>
+    </ClInclude>
+    <ClInclude Include="data\CLClassRoomInfo.h">
+      <Filter>data</Filter>
+    </ClInclude>
+    <ClInclude Include="data\CLClassRoomInfoContainer.h">
+      <Filter>data</Filter>
+    </ClInclude>
+    <ClInclude Include="data\CLCourseInfoContainer.h">
+      <Filter>data</Filter>
+    </ClInclude>
+    <ClInclude Include="interface\ICourseInfoContainer.h">
+      <Filter>interface</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\AddCourseWare_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\ClassAction_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\ClassInfoRsp_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\CreateTalkGroup_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\CreateWhiteBoard_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\Error_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\EvaluateClass_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\FeedBack_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\KickOut_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\Login_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\LoginRet_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\NotifyVideoList_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\QueryCourse_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\QueryPreCWares_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\QueryPreCWaresResp_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\QueryToken_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\QueryUser_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\QueryUserEdu_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\QueryUserListResp_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\ReturnCourse_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\ReturnToken_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\ReturnUser_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\ReturnUserEdu_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\SendTextMsg_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\SetClassMode_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\SetClassState_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\SwitchClassShow_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\TokenValidate_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\TokenValidateResp_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\UserEnter_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\UserLeave_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\UserWelcome_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\WhiteBoardEvent_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\SetTeacherVedio_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\RefreshVideoListReq_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\RefreshVideoListResp_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\UpdateCodeReq_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\UpdateCodeResp_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\ChooseMobile_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\ChooseMobileResp_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\MobileConnectClassReq_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\MobileConnectClassResp_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\Kick_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\MesgReq_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\MesgResp_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\AutoLoginTokenRsp_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\QueryAutoLoginToken_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\ClassGoOn_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\MesgReminder_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\ClassDelayTimeOut_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="protocol\SetMainShow_p.h">
+      <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="BizSession.h" />
+    <ClInclude Include="Ping.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="biz.cpp" />
+    <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="log_biz.cpp" />
+    <ClCompile Include="protocol\rpcgen_edu.cpp">
+      <Filter>protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="data\CLUserInfoData.cpp">
+      <Filter>data</Filter>
+    </ClCompile>
+    <ClCompile Include="data\CLClassRoomInfoContainer.cpp">
+      <Filter>data</Filter>
+    </ClCompile>
+    <ClCompile Include="data\CLClassRoomInfo.cpp">
+      <Filter>data</Filter>
+    </ClCompile>
+    <ClCompile Include="bizProtocol.cpp" />
+    <ClCompile Include="convert.cpp" />
+    <ClCompile Include="data\CLCourseInfoContainer.cpp">
+      <Filter>data</Filter>
+    </ClCompile>
+    <ClCompile Include="BizSession.cpp" />
+    <ClCompile Include="Ping.cpp" />
+  </ItemGroup>
+</Project>

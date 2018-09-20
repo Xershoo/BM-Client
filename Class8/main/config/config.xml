@@ -1,0 +1,6 @@
+<server>
+  <ip value="221.228.195.60" port="6000" />
+  <httpip value="221.228.195.57" upport="8063" foldup="eduup2c/up/user_file/" downport="12080" folddown="Cursewave" localtrans="0"/>  
+  <chat up="http://221.228.195.57:8063/" foldup="eduup2c/up/chat_img/" down="http://221.228.195.57:12080/" folddown="edudown/img/chat/"/>    
+  <classurl value="http://2c.class8.com/"/>
+</server>

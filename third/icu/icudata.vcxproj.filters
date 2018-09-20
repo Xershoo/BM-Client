@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="windows">
+      <UniqueIdentifier>{558a046c-0280-4d1b-86eb-85f4598ea07f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mac">
+      <UniqueIdentifier>{82bf7c95-6a71-4e09-88d3-d2c2c4bd9b42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mac\_excluded_files">
+      <UniqueIdentifier>{2e75a91a-c565-4839-845d-7b8730ebac47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="linux">
+      <UniqueIdentifier>{648a1654-f23e-4c33-81b8-76b63b1a86de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="linux\_excluded_files">
+      <UniqueIdentifier>{00555caf-cf99-4ec8-89b3-f6c8e162ec01}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="mac\icudt46l_dat.S">
+      <Filter>mac\_excluded_files</Filter>
+    </None>
+    <None Include="linux\icudt46l_dat.S">
+      <Filter>linux\_excluded_files</Filter>
+    </None>
+    <None Include="icu.gyp" />
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="windows\icudt.dll">
+      <Filter>windows</Filter>
+    </CustomBuild>
+  </ItemGroup>
+</Project>

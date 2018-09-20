@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="func_dispatcher">
+      <UniqueIdentifier>{9a49a649-b5d3-4f32-913f-3d9c176d1294}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="log">
+      <UniqueIdentifier>{b3d0bb26-6f49-4d8f-87b1-4fe2a91064e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="sigslot">
+      <UniqueIdentifier>{a1737ffe-053c-468e-88d0-bee8726022f9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="func_dispatcher\func_binder.h">
+      <Filter>func_dispatcher</Filter>
+    </ClInclude>
+    <ClInclude Include="func_dispatcher\func_dispatcher.h">
+      <Filter>func_dispatcher</Filter>
+    </ClInclude>
+    <ClInclude Include="log\assert_log.h">
+      <Filter>log</Filter>
+    </ClInclude>
+    <ClInclude Include="log\consolelog.hpp">
+      <Filter>log</Filter>
+    </ClInclude>
+    <ClInclude Include="log\filelog.hpp">
+      <Filter>log</Filter>
+    </ClInclude>
+    <ClInclude Include="log\log.h">
+      <Filter>log</Filter>
+    </ClInclude>
+    <ClInclude Include="log\log.hpp">
+      <Filter>log</Filter>
+    </ClInclude>
+    <ClInclude Include="log\nulllog.hpp">
+      <Filter>log</Filter>
+    </ClInclude>
+    <ClInclude Include="sigslot\sigslot0.h">
+      <Filter>sigslot</Filter>
+    </ClInclude>
+    <ClInclude Include="sigslot\sigslot1.h">
+      <Filter>sigslot</Filter>
+    </ClInclude>
+    <ClInclude Include="sigslot\sigslot2.h">
+      <Filter>sigslot</Filter>
+    </ClInclude>
+    <ClInclude Include="sigslot\sigslot3.h">
+      <Filter>sigslot</Filter>
+    </ClInclude>
+    <ClInclude Include="sigslot\sigslot4.h">
+      <Filter>sigslot</Filter>
+    </ClInclude>
+    <ClInclude Include="sigslot\sigslot5.h">
+      <Filter>sigslot</Filter>
+    </ClInclude>
+    <ClInclude Include="sigslot\sigslot6.h">
+      <Filter>sigslot</Filter>
+    </ClInclude>
+    <ClInclude Include="sigslot\sigslot7.h">
+      <Filter>sigslot</Filter>
+    </ClInclude>
+    <ClInclude Include="sigslot\sigslot8.h">
+      <Filter>sigslot</Filter>
+    </ClInclude>
+    <ClInclude Include="sigslot\sigslot.h">
+      <Filter>sigslot</Filter>
+    </ClInclude>
+    <ClInclude Include="timerqueue.h" />
+    <ClInclude Include="interpreter.h" />
+    <ClInclude Include="str2type.h" />
+    <ClInclude Include="string_convert.h" />
+    <ClInclude Include="thread_lock.h" />
+    <ClInclude Include="file.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="func_dispatcher\func_dispatcher.cpp">
+      <Filter>func_dispatcher</Filter>
+    </ClCompile>
+    <ClCompile Include="log\assert_log.cpp">
+      <Filter>log</Filter>
+    </ClCompile>
+    <ClCompile Include="string_convert.cpp" />
+    <ClCompile Include="timerqueue.cpp" />
+    <ClCompile Include="sigslot\sigslot.cpp">
+      <Filter>sigslot</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bizutility.vcxproj.user" />
+  </ItemGroup>
+</Project>

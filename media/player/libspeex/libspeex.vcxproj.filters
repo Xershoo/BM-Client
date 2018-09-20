@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="src\bits.c" />
+    <ClCompile Include="src\buffer.c" />
+    <ClCompile Include="src\cb_search.c" />
+    <ClCompile Include="src\exc_5_64_table.c" />
+    <ClCompile Include="src\exc_5_256_table.c" />
+    <ClCompile Include="src\exc_8_128_table.c" />
+    <ClCompile Include="src\exc_10_16_table.c" />
+    <ClCompile Include="src\exc_10_32_table.c" />
+    <ClCompile Include="src\exc_20_32_table.c" />
+    <ClCompile Include="src\fftwrap.c" />
+    <ClCompile Include="src\filterbank.c" />
+    <ClCompile Include="src\filters.c" />
+    <ClCompile Include="src\gain_table.c" />
+    <ClCompile Include="src\gain_table_lbr.c" />
+    <ClCompile Include="src\hexc_10_32_table.c" />
+    <ClCompile Include="src\hexc_table.c" />
+    <ClCompile Include="src\high_lsp_tables.c" />
+    <ClCompile Include="src\jitter.c" />
+    <ClCompile Include="src\kiss_fft.c" />
+    <ClCompile Include="src\kiss_fftr.c" />
+    <ClCompile Include="src\lpc.c" />
+    <ClCompile Include="src\lsp.c" />
+    <ClCompile Include="src\lsp_tables_nb.c" />
+    <ClCompile Include="src\ltp.c" />
+    <ClCompile Include="src\mdf.c" />
+    <ClCompile Include="src\modes.c" />
+    <ClCompile Include="src\modes_wb.c" />
+    <ClCompile Include="src\nb_celp.c" />
+    <ClCompile Include="src\preprocess.c" />
+    <ClCompile Include="src\quant_lsp.c" />
+    <ClCompile Include="src\resample.c" />
+    <ClCompile Include="src\sb_celp.c" />
+    <ClCompile Include="src\smallft.c" />
+    <ClCompile Include="src\speex.c" />
+    <ClCompile Include="src\speex_callbacks.c" />
+    <ClCompile Include="src\speex_header.c" />
+    <ClCompile Include="src\stereo.c" />
+    <ClCompile Include="src\vbr.c" />
+    <ClCompile Include="src\vq.c" />
+    <ClCompile Include="src\window.c" />
+  </ItemGroup>
+</Project>

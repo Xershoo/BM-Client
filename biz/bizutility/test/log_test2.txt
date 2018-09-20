@@ -1,0 +1,3 @@
+----- log head for test log 2 -----
+[2013-12-31 19:47:21]	Set log id: 12345
+[12345] [2013-12-31 19:47:21]	test output for log2

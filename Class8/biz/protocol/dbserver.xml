@@ -1,0 +1,384 @@
+﻿<application name="gnet" shareHome="../../../share" pvids="">
+   <bean name="UserEduInfo">
+    <enum name="NOT_VERIFYED" value="0" />                 <!-- 试听者,非注册用户 -->
+    <enum name="VERIFY_CODE_SEND" value="1" />             <!-- 旁听者,注册用户,非课程学生 -->
+    <enum name="VERIFYED" value="100" />
+    <enum name="VERIFY_FAILED" value="99" />
+    
+    <variable name="university" type="octets" />        <!-- 学校 -->
+    <variable name="college" type="octets" />           <!-- 学院 -->
+    <variable name="grade" type="octets" />             <!-- 班级 -->
+    <variable name="majorr" type="octets" />             <!-- 专业 -->
+    <variable name="studentno" type="octets" />         <!-- 学号 -->
+    <variable name="verifystatus" type="int" />         <!-- 认证信息 -->
+  </bean>
+  
+  <bean name="UserInfo">
+    <enum name="VISITOR" value="1" />                 <!-- 试听者,非注册用户 -->
+    <enum name="OBSERVER" value="10" />                <!-- 旁听者,注册用户,非课程学生 -->
+    <enum name="MONITOR" value="20" />                 <!-- 管理员,校长,领导 -->  
+    <enum name="STUDENT" value="30" />                <!-- 学生 -->
+    <enum name="ASSISTANT" value="31" />              <!-- 助教 -->    
+    <enum name="TEACHER" value="40" />                <!-- 老师 -->
+
+    <enum name="ASK_SPEAK" value="1" />
+    <enum name="SPEAK" value="2" />
+    <enum name="USE_VOICE" value="4" />               <!-- 是否使用自己的声音 -->
+    <enum name="USE_VIDEO" value="8" />               <!-- 是否使用自己的视频 -->
+    <enum name="MUTE" value="16" />                   <!-- 1:禁言,0:没有禁言 -->
+
+    <enum name="UNKNOW_GENDER" value="0" />
+    <enum name="MALE" value="1" />
+    <enum name="FEMALE" value="2" />
+
+    <variable name="userid" type="long" />
+    <variable name="authority" type="int" />
+    <variable name="nickname" type="octets" />
+    <variable name="realname" type="octets" />
+    <variable name="signature" type="octets" />
+    <variable name="gender" type="int" />
+    <variable name="pic" type="octets" />
+    <variable name="bantype" type="int" />            <!-- 封禁类型0:正常,1:被封 -->
+    <variable name="mobile" type="octets" />
+    <variable name="email" type="octets" />
+    
+    <variable name="device" type="int"/>  <!-- 登陆设备 -->
+    <variable name="state" type="int"/>                 <!-- ASK_SPEAK举手状态, SPEAK发言状态̬ -->
+    <variable name="pushaddr" type="octets"/>
+    <variable name="pulladdr" type="octets"/>
+  </bean>
+
+  <bean name="CourseInfo">
+    <variable name="courseid" type="long"/>
+    <variable name="name" type="octets" />
+    <variable name="description" type="octets" />
+    <variable name="userheadurl" type="octets" />
+    <variable name="coverurl" type="octets"/>
+    <variable name="snapshoturl" type="octets"/>
+    <variable name="compulsorytype" type="int"/>
+    <variable name="coursecredit" type="int"/>
+    <variable name="teacherid" type="long"/>
+    <variable name="hostuniversity" type="octets"/>
+    <variable name="hostcollege" type="octets"/>
+    <variable name="hostmajor" type="octets"/>
+    <variable name="schoolyear" type="octets"/>
+    <variable name="schoolterm" type="octets"/>
+    <variable name="onlinetype" type="int"/>
+    <variable name="opentype" type="int"/>
+    <variable name="offline_classroomaddress" type="octets"/>
+    <variable name="asidetype" type="int"/>             <!-- 能否旁听 -->
+    <variable name="max_asidecount" type="int"/>        <!-- 旁听最大人数 -->
+    <variable name="guesttype" type="int"/>             <!-- 能否试听 -->
+    <variable name="max_aguestcount" type="int"/>       <!-- 旁听最大人数 -->
+    <variable name="studentsid" type="vector" value="long"/>    <!-- 学生列表 -->
+    <variable name="code" type="octets" />
+  </bean>
+  
+  <bean name="ClassInfoBean">
+    <enum name="CLASS_WAIT_ON" value="1" />        <!-- 准备中 --> 
+    <enum name="CLASS_ON_NOT_BEGIN" value="2" />   <!-- 正在进行,但未上课 -->
+    <enum name="CLASS_ON_AND_BEGIN" value="4" />   <!-- 上课中 -->
+  	
+    <variable name="courseid" type="long"/>
+    <variable name="classid" type="long" />
+    <variable name="classname" type="octets" />  <!-- 课节名字 -->
+    <variable name="userheadurl" type="octets" />
+    <variable name="code" type="octets" />
+    <variable name="classstate" type="byte"/>
+    <variable name="durationtime" type="int" /> <!-- 已经上课多长时间,单位(秒) -->
+    <variable name="record" type="int" />  <!-- 是否需要录像 0：否 1：是-->
+  </bean>
+    
+  <bean name="PreCourseInfo">    
+    <variable name="name" type="octets" />
+    <variable name="url" type="octets" />
+  </bean>
+  
+  <bean name="NfcMessage">    
+    <variable name="title" type="octets" />
+    <variable name="content" type="octets" />
+    <variable name="url" type="octets" />
+  </bean>
+  
+  <protocol name="Login" type="201" maxsize="1024" prior="1">
+  	<enum name="PC" value="0" />
+    <enum name="IOS" value="1" />
+    <enum name="WEB" value="2" />
+    <enum name="ANDROID" value="3" />
+    
+    <enum name="NAMEPASSWD" value="3" />
+    <enum name="TOKEN" value="4" />
+    
+    <variable name="sid" type="int"/>
+    <variable name="logintype" type="int"/>
+    <variable name="username" type="octets"/>           <!-- 登录用户名 -->
+    <variable name="passwordmd5" type="octets"/>        <!-- 登录用户密码MD5 -->
+    <variable name="devicetype" type="int"/>
+    <variable name="devicename" type="octets"/> 
+    <variable name="userid" type="long" /> 
+    <variable name="token" type="octets"/> 
+    <variable name="ip" type="octets"/>
+  </protocol>
+
+  <protocol name="LoginRet" type="202" maxsize="1024" prior="1">
+    <enum name="OK" value="0" />
+    <enum name="INVALID_PARAM" value="-1" />
+    <enum name="INVALID_USERNAME" value="-2" />
+    <enum name="INVALID_PASSWORD" value="-3" />
+    <enum name="INVALID_TOKEN" value="-4" />
+    <enum name="UIDDEVICE_NOT_EXIST" value="-5" />
+    <enum name="USER_FROZEN" value="-6" />
+    <enum name="LOGIN_ERR_MUCH_OF_DAY" value="-7" />
+    <enum name="SERVER_ERROR" value="-100" />
+    
+    <enum name="CNC" value="0" />
+    <enum name="CT" value="1" />
+    <enum name="CNCANDCT" value="2" />
+    <enum name="OTHER" value="3" />
+
+    <variable name="sid" type="int"/>
+    <variable name="retcode" type="int" />
+    <variable name="userid" type="long" />              <!-- 用户id -->
+    <variable name="usertype" type="int" />             <!-- 用户身份 -->
+    <variable name="token" type="octets"/> 
+    <variable name="link" type="octets"/>               <!-- ip:port -->
+    <variable name="netisp" type="byte"/>               <!-- 网络提供商 -->    
+  </protocol>
+  
+  <protocol name="LoginRet_DB" type="203" maxsize="1024" prior="1">
+    <enum name="OK" value="0" />
+    <enum name="INVALID_PARAM" value="-1" />
+    <enum name="INVALID_USERNAME" value="-2" />
+    <enum name="INVALID_PASSWORD" value="-3" />
+    <enum name="INVALID_TOKEN" value="-4" />
+    <enum name="UIDDEVICE_NOT_EXIST" value="-5" />
+    <enum name="USER_FROZEN" value="-6" />
+    <enum name="LOGIN_ERR_MUCH_OF_DAY" value="-7" />
+    <enum name="SERVER_ERROR" value="-100" />
+
+    <variable name="sid" type="int"/>
+    <variable name="retcode" type="int" />
+    <variable name="userid" type="long" />              <!-- 用户id -->
+    <variable name="usertype" type="int" />             <!-- 用户身份 -->
+    <variable name="token" type="octets"/>   
+  </protocol> 
+  
+  <protocol name="TokenValidate" type="205" maxsize="1024" prior="1">
+  	<enum name="PC" value="0" />
+    <enum name="IOS" value="1" />
+    <enum name="WEB" value="2" />
+    <enum name="ANDROID" value="3" />   
+    
+    <variable name="linksid" type="int"/>
+    <variable name="userid" type="long" />
+    <variable name="devicetype" type="int"/>
+    <variable name="devicename" type="octets"/> 
+    <variable name="token" type="octets"/>
+  </protocol>
+  
+  <protocol name="TokenValidateResp" type="206" maxsize="1024" prior="1">
+  	<variable name="linksid" type="int"/>
+  	<variable name="retcode" type="int"/>  <!-- 0：success -1:failure -->
+    <variable name="userid" type="long" />
+  </protocol>
+
+  <protocol name="QueryUser" type="2001" maxsize="1024" prior="1">
+    <variable name="sid" type="int"/>
+    <variable name="userid" type="long" />
+  </protocol>
+
+  <protocol name="ReturnUser" type="2002"  maxsize="1024" prior="1">
+    <variable name="sid" type="int"/>
+    <variable name="retcode" type="int"/>
+    <variable name="userinfo" type="UserInfo" />
+  </protocol>
+  
+  <protocol name="QueryUserList" type="1025" maxsize="102400" prior="1"> <!-- 获取课堂的成员列表详细信息 -->
+  	<variable name="userid" type="long"/>
+    <variable name="cid" type="long" />
+    <variable name="userlist" type="vector" value="long"/>
+  </protocol>
+  
+  <protocol name="QueryUserListResp" type="1026" maxsize="655350" prior="1">
+  	<variable name="userid" type="long"/>
+    <variable name="cid" type="long" />
+  <variable name="userlist" type="vector" value="UserInfo"/>
+</protocol>
+
+  <protocol name="QueryUserEdu" type="2003" maxsize="1024" prior="1">
+    <variable name="sid" type="int"/>
+    <variable name="userid" type="long" />
+  </protocol>
+
+  <protocol name="ReturnUserEdu" type="2004"  maxsize="65535" prior="1">
+    <variable name="sid" type="int"/>
+    <variable name="retcode" type="int"/>
+    <variable name="userid" type="long" />
+    <variable name="eduinfolist" type="vector" value="UserEduInfo"/>
+  </protocol>
+  
+  <protocol name="QueryCourse" type="2005"  maxsize="1024" prior="1">
+    <variable name="userid" type="long"/>
+    <variable name="device" type="int"/>
+  	<variable name="token" type="octets"/>
+  	<variable name="netisp" type="byte"/> 
+    <variable name="courseid" type="long"/>
+  </protocol>
+
+  <protocol name="ReturnCourse" type="2006" maxsize="655350" prior="1">
+    <enum name="OK" value="0" />
+    <enum name="COURSE_ERROR" value="-1" />           <!-- 课程错误 -->
+  
+    <variable name="userid" type="long"/>
+    <variable name="device" type="int"/>
+    <variable name="token" type="octets"/>
+    <variable name="netisp" type="byte"/> 
+    <variable name="retcode" type="int"/>
+    <variable name="course" type="CourseInfo"/>
+  </protocol>
+  
+  <protocol name="QueryToken" type="2021" maxsize="1024" prior="1">
+    <variable name="sid" type="int"/>            <!-- 上传文件，一次性 -->
+    <variable name="userid" type="long"/>
+  </protocol>
+
+  <protocol name="ReturnToken" type="2022"  maxsize="1024" prior="1">
+    <variable name="sid" type="int"/>
+    <variable name="userid" type="long"/>
+    <variable name="retcode" type="int"/>
+    <variable name="token" type="octets"/>
+    <variable name="validatetime" type="int"/>
+  </protocol>
+
+  <protocol name="FeedBack" type="2023" maxsize="1024" prior="1">
+    <variable name="userid" type="long"/>
+    <variable name="fbtype" type="int"/>
+    <variable name="title" type="octets"/>
+    <variable name="content" type="octets" />
+    <variable name="mobile" type="octets" />
+  </protocol>
+  
+  <protocol name="QueryPreCWares" type="1023" maxsize="1024" prior="1">
+    <variable name="tid" type="long"/>
+    <variable name="cid" type="long"/> 
+  </protocol>
+  
+  <protocol name="QueryPreCWaresResp" type="1024" maxsize="65535" prior="1">
+    <variable name="tid" type="long"/>
+  	<variable name="cid" type="long"/> 
+    <variable name="courselist" type="vector" value="PreCourseInfo"/> 
+  </protocol>  
+  
+  <protocol name="TranCursewave" type="3001" maxsize="1024" prior="1">
+    <variable name="srcurl" type="octets"/>
+    <variable name="decurl" type="octets"/>
+    <variable name="extern" type="octets"/>
+  </protocol>
+  
+  <protocol name="RTranCursewave" type="3002" maxsize="1024" prior="1">
+    <enum name="TOK" value="0" />
+    <enum name="TFAILED" value="1" />
+    <variable name="rcode" type="byte" />
+    <variable name="srcurl" type="octets" />
+    <variable name="decurl" type="octets" />
+    <variable name="extern"  type="octets" />
+  </protocol> 
+	
+  <protocol name="MesgReq" type="3004" maxsize="1024" prior="1"> <!-- 消息请求 -->
+  	<enum name="System" value="1" />
+    <enum name="Personal" value="2" />
+
+    <variable name="msgtype" type="byte"/>   <!-- 消息类型 -->
+    <variable name="userid" type="long" />
+  </protocol>
+  
+  <protocol name="MesgResp" type="3005" maxsize="65535" prior="1"> <!-- 消息回应 -->  	
+    <variable name="msgtype" type="byte"/>
+    <variable name="userid" type="long" />   
+    <variable name="message" type="vector" value="NfcMessage"/>   
+  </protocol> 
+  
+  <protocol name="QueryAutoLoginToken" type="3006" maxsize="1024" prior="1"> <!-- 获取自动登录token -->
+    <variable name="userid" type="long" />
+    <variable name="devicetype" type="int"/>
+    <variable name="devicename" type="octets"/> 
+  </protocol>
+
+  <protocol name="AutoLoginTokenRsp" type="3007"  maxsize="2048" prior="1">
+    <variable name="retcode" type="int"/>
+    <variable name="userid" type="long"/>
+    <variable name="token" type="octets"/>
+  </protocol>
+  
+  <protocol name="OnLineNotify" type="3008"  maxsize="1024" prior="1">
+    <variable name="courseid" type="long"/>
+    <variable name="number" type="int"/>
+  </protocol>
+  
+  <protocol name="UserEnter" type="1001" maxsize="2048" prior="1">
+    <variable name="receiver" type="long"/>         <!-- 表示协议的接收者ID,客户端不用 -->
+  	<variable name="cid" type="long"/>
+  	<variable name="classid" type="long" />
+  	<variable name="device" type="int"/>
+  	<variable name="netisp" type="byte"/>     <!-- 网络提供商 -->
+    <variable name="userinfo" type="UserInfo"/>
+  </protocol> 
+  
+  <protocol name="UserEnterResp" type="1051" maxsize="2048" prior="1">
+    <enum name="SUCCESS" value="0" />
+    <enum name="ENTERTIME_NOT_COME" value="1" />
+    <enum name="CLASS_END" value="2" />  
+    <enum name="AUTHORITY_ERR" value="3" />
+    
+    <variable name="receiver" type="long"/>
+    <variable name="ret" type="int"/>           <!-- 0成功 1未到进入课堂时间,2课已结束,3权限不够 -->
+  	<variable name="cid" type="long"/>
+  	<variable name="classid" type="long" />
+  	<variable name="cname" type="octets" />  <!-- 课节名字 -->
+  	<variable name="feedback" type="int"/>  <!--  是否评价过本节课 0：未评价 1：已评价-->
+  	<variable name="device" type="int"/>
+  	<variable name="netisp" type="byte"/>
+    <variable name="userinfo" type="UserInfo"/>  
+  </protocol>
+  
+  <protocol name="UserLeave" type="1003" maxsize="1024" prior="1">
+    <variable name="receiver" type="long"/>
+  	<variable name="userid" type="long"/>
+    <variable name="cid" type="long" />
+    <variable name="intime" type="long" /> <!-- 本次进入到离开课堂的时长(秒) --> 
+  </protocol>
+  
+  <protocol name="ClassRecord" type="1049" maxsize="1024" prior="1">   <!-- 课堂录像完毕通知 -->
+    <variable name="courseid" type="long" />
+    <variable name="classid" type="long" />
+    <variable name="url" type="octets"/>
+  </protocol>
+  
+  <protocol name="MesgReminder" type="1046" maxsize="1024" prior="1">   <!-- 消息提醒 -->
+  	<enum name="SIGN" value="1" />         <!-- 开课前10分钟 -->
+    <enum name="CLASS_ON" value="2" />     <!-- 开课 -->
+    <enum name="CLASS_DELAY" value="3" />  <!-- 下课前5分钟 -->
+    <enum name="CLASS_END" value="4" />    <!-- 下课 -->
+
+    <variable name="receiver" type="long"/>
+    <variable name="msgtype" type="byte"/>
+    <variable name="classinfo" type="ClassInfoBean" />
+  </protocol>
+  
+  <protocol name="EvaluateClass" type="1014" maxsize="1024" prior="1">
+    <variable name="userid" type="long"/>
+    <variable name="cid" type="long"/>
+    <variable name="rank" type="int" />
+    <variable name="description" type="octets" />
+  </protocol>  
+
+  <protocol name="QueryOnClasses" type="1030" maxsize="1024" prior="1">
+    <variable name="sid" type="int"/>
+  </protocol>
+  
+  <protocol name="OnClassesResp" type="1031" maxsize="655350" prior="1">
+  	<variable name="sid" type="int"/>
+    <variable name="classlist" type="vector" value="ClassInfoBean"/>
+  </protocol>
+
+</application>

@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{72C62FD4-ACE0-404D-A920-C88F3CA50080}</ProjectGuid>
+    <RootNamespace>libPublish</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <UseOfMfc>Static</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>Static</UseOfMfc>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)dll\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)build\$(Configuration)\$(ProjectName)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)dll\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)build\$(Configuration)\$(ProjectName)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\tool\OpenSSL-Win32\include;D:\Program Files\Microsoft DirectX SDK (August 2009)\Utilities\Bin\x86;D:\Program Files\Microsoft DirectX SDK (August 2009)\Include;$(IncludePath)</IncludePath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\tool\OpenSSL-Win32\lib;D:\Program Files\Microsoft DirectX SDK (August 2009)\Lib\x86;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>./;./include;./amcap;./../librtmp/include;./../libx264;./../libvoe;./../libfaac;./../directshow/common;./../directshow/baseclasses;./../../SDL/include;./../libave/include;./../../ffmpeg/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;LIBPUBLISH_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>dsound.lib;dxguid.lib;ddraw.lib;SDLmain.lib;SDL.lib;ws2_32.lib;libeay32.lib;ssleay32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;librtmp.lib;strmiids.lib;quartz.lib;Strmbasd.lib;winmm.lib;libave.lib;Msacm32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\$(Configuration)\publish\;$(SolutionDir)lib\$(Configuration)\;$(SolutionDir)lib\</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>libcmt.lib;msvcrt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <ImportLibrary>$(SolutionDir)lib\$(Configuration)\$(TargetName).lib</ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+      <ProgramDatabaseFile>$(TargetDir)$(TargetName).pdb</ProgramDatabaseFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>Full</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;LIBPUBLISH_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalIncludeDirectories>./;./include;./amcap;./../librtmp/include;./../libx264;./../libvoe;./../libfaac;./../directshow/common;./../directshow/baseclasses;./../../SDL/include;./../libave/include;./../../ffmpeg/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>false</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\$(Configuration)\publish\;$(SolutionDir)lib\$(Configuration)\;$(SolutionDir)lib\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>dsound.lib;dxguid.lib;ddraw.lib;SDLmain.lib;SDL.lib;ws2_32.lib;libeay32.lib;ssleay32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;librtmp.lib;strmiids.lib;quartz.lib;Strmbase.lib;winmm.lib;Msacm32.lib;libave.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ImportLibrary>$(SolutionDir)lib\$(Configuration)\$(TargetName).lib</ImportLibrary>
+      <IgnoreSpecificDefaultLibraries>LIBCMTD.lib;msvcrt.lib</IgnoreSpecificDefaultLibraries>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\aacencoder.cpp" />
+    <ClCompile Include="src\AVE_AUDIO_RESAMPLE.cpp" />
+    <ClCompile Include="src\CaptureVideo.cpp" />
+    <ClCompile Include="src\CUDPClient.cpp" />
+    <ClCompile Include="src\datautils.cpp" />
+    <ClCompile Include="src\FlvFileOperate.cpp" />
+    <ClCompile Include="src\flv_file.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\h264encoder.cpp" />
+    <ClCompile Include="src\InBufPacket.cpp" />
+    <ClCompile Include="src\loadffmpeg.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\MediaConfig.cpp" />
+    <ClCompile Include="src\Mixer.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\OutBufPacket.cpp" />
+    <ClCompile Include="src\PlayAudio.cpp" />
+    <ClCompile Include="src\PublishInterface.cpp" />
+    <ClCompile Include="src\PublishUnit.cpp" />
+    <ClCompile Include="src\RtmpPublish.cpp" />
+    <ClCompile Include="src\SaveFile.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\sc_Cond.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\sc_CSLock.cpp" />
+    <ClCompile Include="src\sc_Thread.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\SourAudio.cpp" />
+    <ClCompile Include="src\SourCamera.cpp" />
+    <ClCompile Include="src\SourDataManager.cpp" />
+    <ClCompile Include="src\SourFile.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\SourScreen.cpp" />
+    <ClCompile Include="src\timerqueue.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\transcode.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="src\TimeUtils.cpp" />
+    <ClCompile Include="amcap\amcap.cpp" />
+    <ClCompile Include="amcap\crossbar.cpp" />
+    <ClCompile Include="amcap\SampleCGB.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\aacencoder.h" />
+    <ClInclude Include="include\AVE_AUDIO_RESAMPLE.h" />
+    <ClInclude Include="include\bufferqueue.h" />
+    <ClInclude Include="include\CalculationInterval.h" />
+    <ClInclude Include="include\CaptureVideo.h" />
+    <ClInclude Include="include\datautils.h" />
+    <ClInclude Include="include\ffmpeg_header.h" />
+    <ClInclude Include="include\FlvFileOperate.h" />
+    <ClInclude Include="include\flv_file.h" />
+    <ClInclude Include="include\globalconfig.h" />
+    <ClInclude Include="include\h264encoder.h" />
+    <ClInclude Include="include\loadffmpeg.h" />
+    <ClInclude Include="include\MediaConfig.h" />
+    <ClInclude Include="include\Mixer.h" />
+    <ClInclude Include="include\PrvHeader.h" />
+    <ClInclude Include="include\PublishInterface.h" />
+    <ClInclude Include="include\PublishUnit.h" />
+    <ClInclude Include="include\RtmpPublish.h" />
+    <ClInclude Include="include\SaveFile.h" />
+    <ClInclude Include="include\sc_Cond.h" />
+    <ClInclude Include="include\sc_CSLock.h" />
+    <ClInclude Include="include\sc_Thread.h" />
+    <ClInclude Include="include\SourAudio.h" />
+    <ClInclude Include="include\SourCamera.h" />
+    <ClInclude Include="include\SourData.h" />
+    <ClInclude Include="include\SourFile.h" />
+    <ClInclude Include="include\SourScreen.h" />
+    <ClInclude Include="include\timerqueue.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="include\StreamHeader.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="include\TimeUtils.h" />
+    <ClInclude Include="amcap\amcap.h" />
+    <ClInclude Include="amcap\crossbar.h" />
+    <ClInclude Include="amcap\SampleCGB.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\librtmp\librtmp.vcxproj" />
+    <None Include="ReadMe.txt" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

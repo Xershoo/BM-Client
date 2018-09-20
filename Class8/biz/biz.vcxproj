@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{731A44CC-5E43-4935-9430-C8BEC15AAC41}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>biz</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)\Class8\bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)build\$(Configuration)\Class8\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)\Class8\bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)build\$(Configuration)\Class8\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>BIZ_EXPORTS;WIN32;_DEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;..\..\biz\;..;</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ImportLibrary>$(SolutionDir)lib\$(Configuration)\Class8\$(TargetName).lib</ImportLibrary>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>Disabled</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>BIZ_EXPORTS;WIN32;NDEBUG;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;..\..\biz\;..;</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <ImportLibrary>$(SolutionDir)lib\$(Configuration)\Class8\$(TargetName).lib</ImportLibrary>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="biz.h" />
+    <ClInclude Include="BizSession.h" />
+    <ClInclude Include="convert.h" />
+    <ClInclude Include="data\CLClassRoomInfo.h" />
+    <ClInclude Include="data\CLClassRoomInfoContainer.h" />
+    <ClInclude Include="data\CLCourseInfoContainer.h" />
+    <ClInclude Include="data\CLUserInfoData.h" />
+    <ClInclude Include="interface\callback.h" />
+    <ClInclude Include="interface\data.h" />
+    <ClInclude Include="interface\IClassRoomInfo.h" />
+    <ClInclude Include="interface\IClassRoomInfoContainer.h" />
+    <ClInclude Include="interface\ICourseInfoContainer.h" />
+    <ClInclude Include="interface\interface.h" />
+    <ClInclude Include="interface\IUserInfoData.h" />
+    <ClInclude Include="log_biz.h" />
+    <ClInclude Include="Ping.h" />
+    <ClInclude Include="protocol\AddCourseWare_p.h" />
+    <ClInclude Include="protocol\AutoLoginTokenRsp_p.h" />
+    <ClInclude Include="protocol\ChooseMobileResp_p.h" />
+    <ClInclude Include="protocol\ChooseMobile_p.h" />
+    <ClInclude Include="protocol\ClassAction_p.h" />
+    <ClInclude Include="protocol\ClassDelayTimeOut_p.h" />
+    <ClInclude Include="protocol\ClassGoOn_p.h" />
+    <ClInclude Include="protocol\ClassInfoRsp_p.h" />
+    <ClInclude Include="protocol\CreateTalkGroup_p.h" />
+    <ClInclude Include="protocol\CreateWhiteBoard_p.h" />
+    <ClInclude Include="protocol\Error_p.h" />
+    <ClInclude Include="protocol\EvaluateClass_p.h" />
+    <ClInclude Include="protocol\FeedBack_p.h" />
+    <ClInclude Include="protocol\KickOut_p.h" />
+    <ClInclude Include="protocol\Kick_p.h" />
+    <ClInclude Include="protocol\LoginRet_p.h" />
+    <ClInclude Include="protocol\Login_p.h" />
+    <ClInclude Include="protocol\MesgReminder_p.h" />
+    <ClInclude Include="protocol\MesgReq_p.h" />
+    <ClInclude Include="protocol\MesgResp_p.h" />
+    <ClInclude Include="protocol\MobileConnectClassReq_p.h" />
+    <ClInclude Include="protocol\MobileConnectClassResp_p.h" />
+    <ClInclude Include="protocol\NotifyVideoList_p.h" />
+    <ClInclude Include="protocol\QueryAutoLoginToken_p.h" />
+    <ClInclude Include="protocol\QueryCourse_p.h" />
+    <ClInclude Include="protocol\QueryPreCWaresResp_p.h" />
+    <ClInclude Include="protocol\QueryPreCWares_p.h" />
+    <ClInclude Include="protocol\QueryToken_p.h" />
+    <ClInclude Include="protocol\QueryUserEdu_p.h" />
+    <ClInclude Include="protocol\QueryUserListResp_p.h" />
+    <ClInclude Include="protocol\QueryUser_p.h" />
+    <ClInclude Include="protocol\RefreshVideoListReq_p.h" />
+    <ClInclude Include="protocol\RefreshVideoListResp_p.h" />
+    <ClInclude Include="protocol\ReturnCourse_p.h" />
+    <ClInclude Include="protocol\ReturnToken_p.h" />
+    <ClInclude Include="protocol\ReturnUserEdu_p.h" />
+    <ClInclude Include="protocol\ReturnUser_p.h" />
+    <ClInclude Include="protocol\rpcgen_edu.h" />
+    <ClInclude Include="protocol\SendTextMsg_p.h" />
+    <ClInclude Include="protocol\SetClassMode_p.h" />
+    <ClInclude Include="protocol\SetClassState_p.h" />
+    <ClInclude Include="protocol\SetMainShow_p.h" />
+    <ClInclude Include="protocol\SetTeacherVedio_p.h" />
+    <ClInclude Include="protocol\SwitchClassShow_p.h" />
+    <ClInclude Include="protocol\TokenValidateResp_p.h" />
+    <ClInclude Include="protocol\TokenValidate_p.h" />
+    <ClInclude Include="protocol\UpdateCodeReq_p.h" />
+    <ClInclude Include="protocol\UpdateCodeResp_p.h" />
+    <ClInclude Include="protocol\UserEnter_p.h" />
+    <ClInclude Include="protocol\UserLeave_p.h" />
+    <ClInclude Include="protocol\UserWelcome_p.h" />
+    <ClInclude Include="protocol\WhiteBoardEvent_p.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="biz.cpp" />
+    <ClCompile Include="bizProtocol.cpp" />
+    <ClCompile Include="BizSession.cpp" />
+    <ClCompile Include="convert.cpp" />
+    <ClCompile Include="data\CLClassRoomInfo.cpp" />
+    <ClCompile Include="data\CLClassRoomInfoContainer.cpp" />
+    <ClCompile Include="data\CLCourseInfoContainer.cpp" />
+    <ClCompile Include="data\CLUserInfoData.cpp" />
+    <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="log_biz.cpp" />
+    <ClCompile Include="Ping.cpp" />
+    <ClCompile Include="protocol\rpcgen_edu.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\biz\bizutility\bizutility.vcxproj">
+      <Project>{98487193-d1d0-4ff4-83ab-7062de197a36}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\biz\gnet\gnet.vcxproj">
+      <Project>{1a185103-a8c6-43d2-9c8c-ab9d9ac924bf}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\biz\tinyxml\tinyxml.vcxproj">
+      <Project>{908ba8b6-f4e9-4e91-8d4d-7e4466fee9a5}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

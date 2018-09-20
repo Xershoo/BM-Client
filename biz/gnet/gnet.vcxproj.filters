@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="boo.h" />
+    <ClInclude Include="byteorder.h" />
+    <ClInclude Include="byteorder_i386.h" />
+    <ClInclude Include="lock.h" />
+    <ClInclude Include="log_gnet.h" />
+    <ClInclude Include="marshal.h" />
+    <ClInclude Include="marshal_i386.h" />
+    <ClInclude Include="octets.h" />
+    <ClInclude Include="platform.h" />
+    <ClInclude Include="protocol.h" />
+    <ClInclude Include="aliasing.h" />
+    <ClInclude Include="pipe\pipe_protocol.h">
+      <Filter>pipe</Filter>
+    </ClInclude>
+    <ClInclude Include="socket\security.h">
+      <Filter>socket</Filter>
+    </ClInclude>
+    <ClInclude Include="socket\socket_protocol.h">
+      <Filter>socket</Filter>
+    </ClInclude>
+    <ClInclude Include="socket\streamcompress.h">
+      <Filter>socket</Filter>
+    </ClInclude>
+    <ClInclude Include="socket\net.h">
+      <Filter>socket</Filter>
+    </ClInclude>
+    <ClInclude Include="socket\perf.h">
+      <Filter>socket</Filter>
+    </ClInclude>
+    <ClInclude Include="pipe\spipe\iothread.h">
+      <Filter>pipe\spipe</Filter>
+    </ClInclude>
+    <ClInclude Include="pipe\spipe\message.h">
+      <Filter>pipe\spipe</Filter>
+    </ClInclude>
+    <ClInclude Include="pipe\spipe\pipe.h">
+      <Filter>pipe\spipe</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="log_gnet.cpp" />
+    <ClCompile Include="octets.cpp" />
+    <ClCompile Include="protocol.cpp" />
+    <ClCompile Include="pipe\pipe_protocol.cpp">
+      <Filter>pipe</Filter>
+    </ClCompile>
+    <ClCompile Include="socket\security.cpp">
+      <Filter>socket</Filter>
+    </ClCompile>
+    <ClCompile Include="socket\net.cpp">
+      <Filter>socket</Filter>
+    </ClCompile>
+    <ClCompile Include="pipe\spipe\iothread.cpp">
+      <Filter>pipe\spipe</Filter>
+    </ClCompile>
+    <ClCompile Include="pipe\spipe\pipe.cpp">
+      <Filter>pipe\spipe</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="pipe">
+      <UniqueIdentifier>{5096223f-fe56-417a-92c3-b5be7d542256}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="pipe\spipe">
+      <UniqueIdentifier>{ae6f6385-98d4-4488-821f-234bc223b4a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="socket">
+      <UniqueIdentifier>{c4422211-6fae-4ffe-8674-fc72a3d4b517}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

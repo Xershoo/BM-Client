@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClInclude Include="pipe_server.h" />
+    <ClInclude Include="log_test.h" />
+    <ClInclude Include="pipe_client.h" />
+    <ClInclude Include="protocols\CreateDsoundBuffer_p.h">
+      <Filter>protocols</Filter>
+    </ClInclude>
+    <ClInclude Include="protocols\rpcgen_voice.h">
+      <Filter>protocols</Filter>
+    </ClInclude>
+    <ClInclude Include="protocols\SendVoiceData_p.h">
+      <Filter>protocols</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="log_test.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="protocols\rpcgen_voice.cpp">
+      <Filter>protocols</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="protocols">
+      <UniqueIdentifier>{d0037676-a14b-4c0c-864e-2c0241529872}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

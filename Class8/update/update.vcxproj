@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{96D606A3-6415-4D14-957E-CFE6F32BBCA3}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>update</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>false</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)\Class8\bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)build\$(Configuration)\Class8\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)\Class8\bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)build\$(Configuration)\Class8\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Create</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;STRICT;_DEBUG;_DEBUG_DUMP_LAYOUT;MARKUP_STL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>./;../;../biz;../../third/wtl;../../third/gui;../../third/common;../../third/jason;../../third/gui/xlayout/interface;../../third/gui/xctrl;../../third/gui/xctrl/interface;../../third/gui/ctrl;../../update/;$(SolutionDir)third\;$(SolutionDir)third\zlib\;$(SolutionDir)main\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
+      <AdditionalDependencies>wininet.lib;dnsapi.lib;ws2_32.lib;psapi.lib;dbghelp.lib;winmm.lib;shlwapi.lib;urlmon.lib;xlayout.lib;xctrl.lib;resloader.lib;extractzip.lib;jason.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\;$(SolutionDir)lib\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <UACExecutionLevel>AsInvoker</UACExecutionLevel>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;MARKUP_STL;STRICT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>./;../;../biz;../../third/wtl;../../third/gui;../../third/common;../../third/jason;../../third/gui/xlayout/interface;../../third/gui/xctrl;../../third/gui/xctrl/interface;../../third/gui/ctrl;../../update/;$(SolutionDir)third\;$(SolutionDir)third\zlib\;$(SolutionDir)main\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>wininet.lib;dnsapi.lib;ws2_32.lib;psapi.lib;dbghelp.lib;winmm.lib;shlwapi.lib;urlmon.lib;xlayout.lib;xctrl.lib;resloader.lib;extractzip.lib;jason.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)lib\;$(SolutionDir)lib\$(Configuration)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
+      <ProgramDatabaseFile>$(SolutionDir)Class8\pdb\$(TargetName).pdb</ProgramDatabaseFile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\main\common\Config.h" />
+    <ClInclude Include="..\..\main\common\lang.h" />
+    <ClInclude Include="..\..\third\common\LayoutEncrypt.h" />
+    <ClInclude Include="..\..\third\common\Markup.h" />
+    <ClInclude Include="..\..\third\gui\ctrl\Progress.h" />
+    <ClInclude Include="..\..\update\CLFile.h" />
+    <ClInclude Include="..\..\update\ClUpdater.h" />
+    <ClInclude Include="..\..\update\DeComp.h" />
+    <ClInclude Include="..\..\update\download_service.h" />
+    <ClInclude Include="..\..\update\EC_HttpGet.h" />
+    <ClInclude Include="..\..\update\Env.h" />
+    <ClInclude Include="..\..\update\HiddenWnd.h" />
+    <ClInclude Include="..\..\update\Log.h" />
+    <ClInclude Include="..\..\update\md5.h" />
+    <ClInclude Include="..\..\update\rc4.h" />
+    <ClInclude Include="..\..\update\ShortCut.h" />
+    <ClInclude Include="..\..\update\skinloader.h" />
+    <ClInclude Include="..\..\update\stdafx.h" />
+    <ClInclude Include="..\..\update\StringHelper.h" />
+    <ClInclude Include="..\..\update\updatedlg.h" />
+    <ClInclude Include="..\..\update\xlayout.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="liveupdate.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\extractzip\extractzip.vcxproj">
+      <Project>{1e744557-492e-4335-a485-d1b83b6e4620}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\layoutenc\LayoutEnc.vcxproj">
+      <Project>{43b9afbb-fb38-4983-a114-3be9fca970cd}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\resloader\resloader.vcxproj">
+      <Project>{6c9d9fb1-dc35-44cf-b656-e0a2b3d737f2}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\xctrl\xctrl.vcxproj">
+      <Project>{86216d64-9ca5-4bdb-9f82-f0ff9d50734c}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\xlayout\xlayout.vcxproj">
+      <Project>{6ecf0945-d027-44e3-9c21-08f933424019}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\layout\update.xml" />
+    <None Include="res\xlayoutappbig.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\main\common\Config.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\..\main\common\lang.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\..\third\common\LayoutEncrypt.cpp" />
+    <ClCompile Include="..\..\third\common\Markup.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\..\third\gui\ctrl\Progress.cpp" />
+    <ClCompile Include="..\..\update\CLFile.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\..\update\ClUpdater.cpp" />
+    <ClCompile Include="..\..\update\DeComp.cpp" />
+    <ClCompile Include="..\..\update\download_service.cpp" />
+    <ClCompile Include="..\..\update\EC_HttpGet.cpp" />
+    <ClCompile Include="..\..\update\Env.cpp" />
+    <ClCompile Include="..\..\update\HiddenWnd.cpp" />
+    <ClCompile Include="..\..\update\Log.cpp" />
+    <ClCompile Include="..\..\update\main.cpp" />
+    <ClCompile Include="..\..\update\md5.cpp" />
+    <ClCompile Include="..\..\update\rc4.cpp" />
+    <ClCompile Include="..\..\update\ShortCut.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\..\update\stdafx.cpp" />
+    <ClCompile Include="..\..\update\StringHelper.cpp" />
+    <ClCompile Include="..\..\update\updatedlg.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

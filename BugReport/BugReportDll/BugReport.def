@@ -1,0 +1,8 @@
+; BugReport.def : Declares the module parameters for the DLL.
+
+LIBRARY      "BugReport"
+DESCRIPTION  'BugReport Windows Dynamic Link Library'
+
+EXPORTS
+	SetExceptionHandler PRIVATE
+	CreateClientVersionInfo PRIVATE

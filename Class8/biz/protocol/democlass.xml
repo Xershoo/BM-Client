@@ -1,0 +1,610 @@
+﻿<application name="gnet" >
+   <bean name="UserEduInfo">
+    <enum name="NOT_VERIFYED" value="0" />                 <!-- 试听者,非注册用户 -->
+    <enum name="VERIFY_CODE_SEND" value="1" />             <!-- 旁听者,注册用户,非课程学生 -->
+    <enum name="VERIFYED" value="100" />
+    <enum name="VERIFY_FAILED" value="99" />
+    
+    <variable name="university" type="octets" />        <!-- 学校 -->
+    <variable name="college" type="octets" />           <!-- 学院 -->
+    <variable name="grade" type="octets" />             <!-- 班级 -->
+    <variable name="majorr" type="octets" />             <!-- 专业 -->
+    <variable name="studentno" type="octets" />         <!-- 学号 -->
+    <variable name="verifystatus" type="int" />         <!-- 认证信息 -->
+  </bean>
+  
+  <bean name="UserInfo">
+    <enum name="VISITOR" value="1" />                 <!-- 试听者,非注册用户 -->
+    <enum name="OBSERVER" value="10" />                <!-- 旁听者,注册用户,非课程学生 -->
+    <enum name="MONITOR" value="20" />                 <!-- 管理员,校长,领导 -->  
+    <enum name="STUDENT" value="30" />                <!-- 学生 -->
+    <enum name="ASSISTANT" value="31" />              <!-- 助教 -->    
+    <enum name="TEACHER" value="40" />                <!-- 老师 -->
+
+    <enum name="ASK_SPEAK" value="1" />
+    <enum name="SPEAK" value="2" />
+    <enum name="USE_VOICE" value="4" />               <!-- 是否使用自己的声音 -->
+    <enum name="USE_VIDEO" value="8" />               <!-- 是否使用自己的视频 -->
+    <enum name="MUTE" value="16" />                   <!-- 1:禁言,0:没有禁言 -->
+
+    <enum name="UNKNOW_GENDER" value="0" />
+    <enum name="MALE" value="1" />
+    <enum name="FEMALE" value="2" />
+
+    <variable name="userid" type="long" />
+    <variable name="authority" type="int" />
+    <variable name="nickname" type="octets" />
+    <variable name="realname" type="octets" />
+    <variable name="signature" type="octets" />
+    <variable name="gender" type="int" />
+    <variable name="pic" type="octets" />
+    <variable name="bantype" type="int" />            <!-- 封禁类型0:正常,1:被封 -->
+    <variable name="mobile" type="octets" />
+    <variable name="email" type="octets" />    
+    
+    <variable name="device" type="int"/>  <!-- 登陆设备 -->
+    <variable name="state" type="int"/>                 <!-- ASK_SPEAK举手状态, SPEAK发言状态̬ -->
+    <variable name="pushaddr" type="octets"/>
+    <variable name="pulladdr" type="octets"/>
+  </bean>
+
+  <bean name="CourseInfo">
+    <variable name="courseid" type="long"/>
+    <variable name="name" type="octets" />   
+    <variable name="description" type="octets" />
+    <variable name="userheadurl" type="octets" />
+    <variable name="coverurl" type="octets"/>
+    <variable name="snapshoturl" type="octets"/>
+    <variable name="compulsorytype" type="int"/>
+    <variable name="coursecredit" type="int"/>
+    <variable name="teacherid" type="long"/>
+    <variable name="hostuniversity" type="octets"/>
+    <variable name="hostcollege" type="octets"/>
+    <variable name="hostmajor" type="octets"/>
+    <variable name="schoolyear" type="octets"/>
+    <variable name="schoolterm" type="octets"/>
+    <variable name="onlinetype" type="int"/>
+    <variable name="opentype" type="int"/>
+    <variable name="offline_classroomaddress" type="octets"/>
+    <variable name="asidetype" type="int"/>             <!-- 能否旁听 -->
+    <variable name="max_asidecount" type="int"/>        <!-- 旁听最大人数 -->
+    <variable name="guesttype" type="int"/>             <!-- 能否试听 -->
+    <variable name="max_aguestcount" type="int"/>       <!-- 旁听最大人数 -->
+    <variable name="studentsid" type="vector" value="long"/>    <!-- 学生列表 -->
+    <variable name="superadmins" type="vector" value="long"/>    <!-- 超级管理员列表 -->
+    <variable name="code" type="octets" />
+    <variable name="max_members" type="int"/>       <!-- 课程最多人数 -->
+   </bean>  
+   
+   <bean name="ClassInfoBean">
+    <enum name="CLASS_WAIT_ON" value="1" />        <!-- 准备中 --> 
+    <enum name="CLASS_ON_NOT_BEGIN" value="2" />   <!-- 正在进行,但未上课 -->
+    <enum name="CLASS_ON_AND_BEGIN" value="4" />   <!-- 上课中 -->
+  	
+    <variable name="courseid" type="long"/>
+    <variable name="classid" type="long" />
+    <variable name="classname" type="octets" />  <!-- 课节名字 -->
+    <variable name="userheadurl" type="octets" />
+    <variable name="code" type="octets" />
+    <variable name="classstate" type="byte"/>
+    <variable name="durationtime" type="int" /> <!-- 已经上课多长时间,单位(秒) -->
+    <variable name="record" type="int" />  <!-- 是否需要录像 0：否 1：是-->
+  </bean> 
+
+  <bean name="ShowInfo">
+  	<enum name="BLANK" value="0" />                 <!-- 初始界面 -->
+    <enum name="COURSEWARE" value="1" />
+    <enum name="WHITEBOARD" value="2" />
+    
+    <variable name="showtype" type="byte" />
+    <variable name="name" type="octets" />
+    <variable name="page" type="int" />
+  </bean>
+
+  <bean name="UIDList">
+    <variable name="uidlist" type="vector" value="long"/>
+  </bean>
+  
+  <bean name="PreCourseInfo">    
+    <variable name="name" type="octets" />
+    <variable name="url" type="octets" />
+  </bean>
+  
+  <bean name="WhiteBoardAction">
+    <variable name="userid" type="long"/>
+    <variable name="cid" type="long"/>
+    <variable name="oweruid" type="long"/>
+    <variable name="pageId" type="int"/>
+    <variable name="paintId" type="int"/>
+    <variable name="paintype" type="byte"/>
+    <variable name="arguments" type="octets" />
+  </bean>
+
+  <protocol name="UserEnter" type="1001" maxsize="1024" prior="1">
+    <variable name="receiver" type="long"/>         <!-- 表示协议的接收者ID,客户端不用 -->
+  	<variable name="cid" type="long"/>
+  	<variable name="classid" type="long" />
+  	<variable name="device" type="int"/>
+  	 <variable name="netisp" type="byte"/>     <!-- 网络提供商 -->
+    <variable name="userinfo" type="UserInfo"/>
+  </protocol>
+  
+  <protocol name="UserEnterResp" type="1051" maxsize="2048" prior="1">
+  	<enum name="SUCCESS" value="0" />
+    <enum name="ENTERTIME_NOT_COME" value="1" />
+    <enum name="CLASS_END" value="2" />  
+    <enum name="AUTHORITY_ERR" value="3" />
+    
+    <variable name="receiver" type="long"/>
+    <variable name="ret" type="int"/>           <!-- 0成功 1未到进入课堂时间,2课已结束,3权限不够 -->
+  	<variable name="cid" type="long"/>
+  	<variable name="classid" type="long" />
+  	<variable name="cname" type="octets" />  <!-- 课节名字 -->
+  	<variable name="feedback" type="int"/>  <!--  是否评价过本节课 0：未评价 1：已评价-->
+  	<variable name="device" type="int"/>
+  	<variable name="netisp" type="byte"/>
+    <variable name="userinfo" type="UserInfo"/>  
+  </protocol>   
+
+  <protocol name="UserWelcome" type="1002" maxsize="655350" prior="1">
+    <enum name="SPEAKABLE" value="1" />
+    <enum name="TEXTABLE" value="2" />
+    <enum name="ASIDEABLE" value="4" />
+    
+    <enum name="CLASS_NOT_ON" value="0" />            <!-- 未开始 -->
+    <enum name="CLASS_WAIT_ON" value="1" />           <!-- 准备中 -->
+    <enum name="CLASS_ON_NOT_BEGIN" value="2" />      <!-- 正在进行,但未上课 -->
+    <enum name="CLASS_ON_AND_BEGIN" value="4" />      <!-- 上课中 -->
+       
+    <enum name="CHAT_ALLOW" value="1" />
+    <enum name="SendIMAGE" value="2" />
+    
+    <enum name="SUCCESS" value="0" />
+    <enum name="ENTERTIME_NOT_COME" value="1" />
+    <enum name="CLASS_END" value="2" />  
+    <enum name="AUTHORITY_ERR" value="3" />
+    <enum name="BLACKLIST" value="4" />  
+    <enum name="CLASSROOM_LOCKED" value="5" />
+
+    <variable name="receiver" type="long"/>
+  	<variable name="ret" type="int"/>           <!-- 0成功 1未到进入课堂时间,2课已结束,3权限不够,4黑名单禁止入课堂,5课堂加锁-->
+    <variable name="cid" type="long"/>
+    <variable name="classid" type="long" />
+    <variable name="cname" type="octets" />  <!-- 课节名字 -->
+    <variable name="userheadurl" type="octets" />
+    <variable name="feedback" type="int"/>  <!--  是否评价过本节课 0：未评价 1：已评价-->
+    <variable name="userlist" type="vector" value="UserInfo"/>  <!-- UserInfo中只填写了userid，authority，state，pushadd,pulladdr -->
+    <variable name="topvideolist" type="vector" value="long"/>  <!-- 顶部学生坐席区视屏列表 -->
+    <variable name="cousewarelist" type="vector" value="octets"/>
+    <variable name="whiteboard" type="vector" value="WhiteBoardAction"/>
+    <variable name="mainshow" type="byte" />
+    <variable name="currentshow" type="ShowInfo" />
+    <variable name="classstate" type="byte"/>   <!-- 是否上课,按位取值 -->
+    <variable name="classmode" type="byte"/>    <!-- 是否能够举手发言,文字聊天 -->
+    <variable name="timebeforeclass" type="int"/>    <!-- 离计划上课还有多长时间，单位(分) -->
+    <variable name="durationtime" type="int" /> <!-- 开课持续时间,单位(分),从点上课按钮算起 -->
+    <variable name="teachervedio" type="int"/>  <!--  显示老师第几路视频，默认值0，代表第一路 -->
+    <variable name="code" type="octets" />
+  </protocol>
+  
+  <protocol name="UserLeave" type="1003" maxsize="1024" prior="1">
+    <variable name="receiver" type="long"/>
+  	<variable name="userid" type="long"/>
+    <variable name="cid" type="long" />
+    <variable name="intime" type="long" /> <!-- 本次进入到离开课堂的时长(秒) --> 
+  </protocol>
+
+  
+  <protocol name="SetMainShow" type="1052" maxsize="1024" prior="1">  <!-- 设置主显示区模式 -->                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               axsize="1024" prior="1">  <!-- 设置主显示区模式 -->
+  	<enum name="CW_WB" value="1" />  <!-- 课件、白板 -->
+    <enum name="VEDIO" value="2" />  <!-- 视频 -->
+    
+    <variable name="receiver" type="long"/>
+    <variable name="teacher" type="long"/>
+    <variable name="classid" type="long" />
+    <variable name="showtype" type="byte" />
+  </protocol>
+  
+  <protocol name="SwitchClassShow" type="1004" maxsize="1024" prior="1">
+    <variable name="receiver" type="long"/>
+    <variable name="userid" type="long"/>
+    <variable name="cid" type="long" />
+    <variable name="currentshow" type="ShowInfo" />
+  </protocol>
+
+  <protocol name="CreateWhiteBoard" type="1005" maxsize="1024" prior="1">
+    <enum name="ADD" value="1" />
+    <enum name="DEL" value="2" />
+    <enum name="MODIFY" value="3" />  <!-- 修改名字 -->
+    <variable name="receiver" type="long"/>
+    <variable name="actionytype" type="byte"/>
+    <variable name="userid" type="long"/>
+    <variable name="cid" type="long" />
+    <variable name="wbid" type="int" />     <!-- white board ID -->
+    <variable name="wbname" type="octets" /><!-- white board name -->
+  </protocol>
+
+  <protocol name="AddCourseWare" type="1006" maxsize="1024" prior="1">
+    <enum name="ADD" value="1" />
+    <enum name="DEL" value="2" />
+    <enum name="CLOSE" value="3" />
+    
+    <enum name="CLIENT" value="1" />
+    <enum name="WEBSERVER" value="2" />
+    
+    <variable name="receiver" type="long"/>
+    <variable name="actiontype" type="byte"/>
+    <variable name="sender" type="byte"/>      
+    <variable name="userid" type="long"/>
+    <variable name="cid" type="long" />
+    <variable name="cwtype" type="octets" />  <!-- course ware type 课件类型 -->
+    <variable name="cwname" type="octets" />  <!-- course ware name 课件名称 -->
+  </protocol>
+
+  <protocol name="CreateTalkGroup" type="1007" maxsize="1024" prior="1">
+    <enum name="START" value="1" />
+    <enum name="END" value="2" />
+    <enum name="PRECREATE" value="3" />
+    <enum name="CANCEL" value="4" />
+    
+    <variable name="receiver" type="long"/>
+    <variable name="ret" type="int"/> <!-- 0成功 1失败 -->
+    <variable name="actionytype" type="byte"/>
+    <variable name="userid" type="long"/>
+    <variable name="cid" type="long" />
+    <variable name="membercount" type="int"/>
+    <variable name="grouplist" type="map" key="int" value="UIDList"/>
+    <variable name="topic" type="octets" />
+  </protocol>
+
+  <protocol name="SetClassState" type="1008" maxsize="1024" prior="1">  <!-- 上下课 -->
+    <enum name="CLASS_BEGIN" value="2" />
+    <enum name="CLASS_END" value="4" />
+
+    <variable name="receiver" type="long"/>
+    <variable name="ret" type="int"/> <!-- 0成功 1失败 -->
+    <variable name="userid" type="long"/>
+    <variable name="cid" type="long" />
+    <variable name="classid" type="long" />
+    <variable name="classstate" type="byte"/>
+  </protocol>
+
+  <protocol name="SetClassMode" type="1009" maxsize="1024" prior="1"> <!-- 可否举手,聊天，发送图片 -->
+    <enum name="UNSPEAKABLE" value="0" /> <!-- 禁止举手 -->
+    <enum name="SPEAKABLE" value="1" />   <!-- 可举手 -->
+    <enum name="TEXTABLE" value="2" />    <!-- 可聊天 -->
+    <enum name="UTEXTABLE" value="3" />   <!-- 禁止聊天 -->
+    <enum name="ASIDEABLE" value="4" />   <!-- 可旁听 -->
+    <enum name="UNASIDEABLE" value="5" /> <!-- 禁止旁听 -->    
+    <enum name="SEND_PIC" value="8" />   <!-- 可发送图片 -->
+    <enum name="UNSEND_PIC" value="9" /> <!-- 禁止发送图片 -->
+    <enum name="LOCK" value="16" />  <!-- 课堂加锁 -->
+    <enum name="UNLOCK" value="17" />  <!-- 课堂解锁 -->
+    
+    <variable name="receiver" type="long"/>
+    <variable name="userid" type="long"/>
+    <variable name="cid" type="long" />
+    <variable name="classmode" type="byte"/>
+  </protocol>
+
+  <protocol name="SendTextMsg" type="1010" maxsize="65536" prior="1">
+    <enum name="CLASS" value="1" />
+    <enum name="GROUP" value="2" />
+    <enum name="USER" value="3" />
+
+    <variable name="receiver" type="long"/>
+    <variable name="recvtype" type="byte"/> <!-- 接收者的类型:整个课堂,小组,用户私聊 -->
+    <variable name="userid" type="long"/>
+    <variable name="recvid" type="long"/>
+    <variable name="cid" type="long" />
+    <variable name="recvgroupid" type="int"/>
+    <variable name="message" type="octets" />
+    <variable name="time" type="long"/>
+  </protocol>
+
+  <protocol name="ClassAction" type="1011" maxsize="1024" prior="1">
+    <enum name="ASK_SPEAK" value="1" />         <!-- 学生:举手 -->
+    <enum name="CANCEL_SPEAK" value="2" />      <!-- 学生:取消举手 -->
+    <enum name="ALLOW_SPEAK" value="3" />       <!-- 老师:允许发言 -->
+    <enum name="CLEAN_SPEAK" value="4" />       <!-- 老师:清除举手或发言状态 -->
+    <enum name="KICKOUT" value="5" />           <!-- 老师:把学生踢出房间 -->
+    <enum name="ADD_STUDENT_VIDEO" value="6" /> <!-- 老师:把学生添加到坐席区 -->
+    <enum name="DEL_STUDENT_VIDEO" value="7" /> <!-- 老师:把学生从坐席区删除 -->
+    <enum name="OPEN_VOICE" value="8" />        <!-- 打开声音 -->
+    <enum name="CLOSE_VOICE" value="9" />       <!-- 关闭声音 -->
+    <enum name="OPEN_VIDEO" value="10" />       <!-- 打开视频 -->
+    <enum name="CLOSE_VIDEO" value="11" />      <!-- 关闭视屏 -->
+    <enum name="MUTE" value="12" />             <!-- 禁言 -->
+    <enum name="UNMUTE" value="13" />           <!-- 关闭禁言 -->
+    <enum name="ENTER_GROUP" value="14" />      <!-- 进入分组 -->
+    <enum name="LEAVE_GROUP" value="15" />      <!-- 离开分组 -->
+    <enum name="CALL_TEACHER" value="16" />     <!-- 呼叫老师 -->
+
+    <variable name="receiver" type="long"/>
+    <variable name="actiontype" type="byte"/>
+    <variable name="userid" type="long"/>       <!-- 进入和离开分组的时候，这个userid表示为分组的id -->
+    <variable name="cid" type="long" />
+    <variable name="teacheruid" type="long"/>
+  </protocol>
+
+  <protocol name="WhiteBoardEvent" type="1012" maxsize="65536" prior="1">
+    <enum name="PEN" value="1" />
+    <enum name="ERASOR" value="2" />
+    <enum name="TXT" value="3" />
+    <enum name="LASER_POINT" value="4" />   <!-- 激光指示 -->
+    <enum name="UNDO" value="103" />
+
+    <variable name="receiver" type="long"/>
+    <variable name="action" type="WhiteBoardAction"/>
+  </protocol>
+
+  <protocol name="Error" type="1013" maxsize="1024" prior="1">
+    <enum name="CLASS_SERVER_DISCONNECT" value="1" />
+    <enum name="CLASS_NOT_SAVE" value="2" />
+    <enum name="CLASS_NOT_EXIST" value="3" />
+
+    <variable name="errtype" type="int"/>
+    <variable name="userid" type="long"/>      <!-- 激光指示 -->
+    <variable name="cid" type="long"/>
+    <variable name="device" type="int"/>
+  	<variable name="token" type="octets"/>
+  	<variable name="netisp" type="byte"/>  	
+  </protocol>
+
+  <protocol name="EvaluateClass" type="1014" maxsize="1024" prior="1">
+    <variable name="userid" type="long"/>
+    <variable name="cid" type="long"/>
+    <variable name="rank" type="int" />
+    <variable name="description" type="octets" />
+  </protocol>
+ 
+  <protocol name="KickOut" type="1016" maxsize="1024" prior="1">
+    <variable name="userid" type="long" />
+  </protocol>  
+  
+  <protocol name="MediaServerReq" type="1017" maxsize="1024" prior="1">  <!-- 请求音视频服务器地址 -->
+    <enum name="STUDENT" value="30" />
+    <enum name="TEACHER" value="40" />
+    
+    <enum name="CNC" value="0" />
+    <enum name="CT" value="1" />
+    <enum name="CNCANDCT" value="2" />
+    <enum name="OTHER" value="3" />
+
+    <variable name="cid" type="long" />
+    <variable name="netisp" type="byte"/>     <!-- 网络提供商 -->
+    <variable name="device" type="int"/>
+    <variable name="stu2vip" type="int"/>
+    <variable name="userinfo" type="UserInfo"/>    
+  </protocol>
+  
+  <protocol name="MediaServerResp" type="1018" maxsize="4098" prior="1"> <!-- 音视频服务器地址回应 -->  
+    <variable name="cid" type="long" />
+  	<variable name="netisp" type="byte"/>
+  	<variable name="device" type="int"/>
+  	<variable name="stu2vip" type="int"/>
+  	<variable name="userinfo" type="UserInfo"/> 
+  </protocol>
+  
+  <protocol name="MediaAddrNotify" type="1053" maxsize="4098" prior="1"> <!-- 通知录像服务器音视频服务器地址 --> 
+  	<enum name="CLASS_BEGIN" value="2" />
+    <enum name="CLASS_END" value="4" />
+    
+    <enum name="STUDENT" value="30" />
+    <enum name="TEACHER" value="40" />
+     
+    <variable name="classid" type="long" />
+    <variable name="userid" type="long"/>
+    <variable name="pushaddr" type="octets"/>
+    <variable name="pulladdr" type="octets"/>
+    <variable name="classstate" type="byte"/>
+    variable name="authority" type="byte"/>
+  </protocol>
+  
+  <protocol name="NotifyTalkGroup" type="1019" maxsize="1024" prior="1">  <!-- 分组通知 -->
+  	<enum name="START" value="1" />
+    <enum name="END" value="2" />
+    <enum name="ENTER_GROUP" value="14" />      <!-- 进入分组 -->
+    <enum name="LEAVE_GROUP" value="15" />      <!-- 离开分组 -->
+    
+        
+    <variable name="actionytype" type="byte"/>
+    <variable name="cid" type="long" />
+    <variable name="grouplist" type="map" key="int" value="UIDList"/>
+    <variable name="userid" type="long"/>
+    <variable name="membercount" type="int"/>
+    <variable name="topic" type="octets" />
+    <variable name="groupid" type="int"/>  <!-- 老师进入和离开分组的id -->
+  </protocol>
+  
+  <protocol name="NotifyTalkGroupResp" type="1020" maxsize="1024" prior="1"> 
+  	<enum name="START" value="1" />
+    <enum name="END" value="2" />
+    <enum name="ENTER_GROUP" value="14" />      <!-- 进入分组 -->
+    <enum name="LEAVE_GROUP" value="15" />      <!-- 离开分组 -->
+        
+    <variable name="actionytype" type="byte"/>
+    <variable name="cid" type="long" />
+	  <variable name="ret" type="int"/> 
+	  <variable name="userid" type="long"/>
+    <variable name="membercount" type="int"/>
+    <variable name="topic" type="octets" />
+  </protocol>
+  
+  <protocol name="NotifyVideoList" type="1021" maxsize="1024" prior="1">  <!-- 定时刷新顶部学生坐席区 -->  
+  	<variable name="receiver" type="long"/>   
+    <variable name="cid" type="long" />
+	  <variable name="topvideolist" type="vector" value="long"/> 
+  </protocol>  
+  
+  <protocol name="QueryPreCWares" type="1023" maxsize="1024" prior="1">
+    <variable name="tid" type="long"/>
+    <variable name="cid" type="long"/> 
+  </protocol>
+  
+  <protocol name="QueryPreCWaresResp" type="1024" maxsize="65535" prior="1">
+    <variable name="tid" type="long"/>
+  	<variable name="cid" type="long"/> 
+    <variable name="courselist" type="vector" value="PreCourseInfo"/> 
+  </protocol>  
+  
+  <protocol name="SetTeacherVedio" type="1027" maxsize="1024" prior="1"> <!-- 设置老师视频切换路数 -->
+    <variable name="receiver" type="long"/>
+    <variable name="userid" type="long"/>
+    <variable name="cid" type="long" />
+    <variable name="teachervedio" type="int"/>
+  </protocol>
+  
+  <protocol name="KeepAlive" type="1029" maxsize="1024" prior="1"> <!-- 心跳包 -->
+    <variable name="code" type="long"/>
+  </protocol>  
+ 
+  <protocol name="RefreshVideoListReq" type="1032" maxsize="1024" prior="1">  <!-- 请求刷新顶部学生坐席区--> 
+    <variable name="cid" type="long" />
+    <variable name="teacherid" type="long"/>
+  </protocol>
+  
+  <protocol name="RefreshVideoListResp" type="1033" maxsize="1024" prior="1">  
+  	<variable name="receiver" type="long"/>   
+    <variable name="cid" type="long" />
+	  <variable name="topvideolist" type="vector" value="long"/> 
+  </protocol> 
+  
+  <!-- 手机连课堂 -->
+  <protocol name="MobileConnectClassReq" type="1034" maxsize="1024" prior="1">  
+    <variable name="userid" type="long" />
+	  <variable name="devicename" type="octets" />
+	  <variable name="code" type="octets" />  
+  </protocol>
+  
+  <protocol name="MobileConnectClassResp" type="1035" maxsize="1024" prior="1">  
+  	<enum name="OK" value="0" />
+  	<enum name="CODE_INVALID" value="1" />
+    <enum name="TEACHER_NOT_EXIST" value="2" />
+    <enum name="CONNECTION_OUT_OF_RANGE" value="3" />
+
+  	<variable name="receiver" type="long"/> 
+  	<variable name="ret" type="int" /> 
+    <variable name="userid" type="long" />   
+    <variable name="tid" type="long" />
+	  <variable name="devicename" type="octets" />
+	  <variable name="cid" type="long" />
+  </protocol>
+  
+  <protocol name="UpdateCodeReq" type="1036" maxsize="1024" prior="1">  <!-- 更新课堂code码 -->
+    <variable name="tid" type="long" />
+		<variable name="cid" type="long" />
+  </protocol>
+  
+  <protocol name="UpdateCodeResp" type="1037" maxsize="1024" prior="1"> 
+    <variable name="tid" type="long" />
+		<variable name="cid" type="long" />
+		<variable name="code" type="octets" />  <!-- 小写字母+数字 6位 -->
+  </protocol> 
+  
+  <protocol name="ChooseMobile" type="1038" maxsize="1024" prior="1"> <!-- 选择手机 -->
+  	<enum name="STOP" value="0" />
+  	<enum name="CHOOSE" value="1" />
+  	
+    <variable name="tid" type="long" />
+		<variable name="userid" type="long" />
+		<variable name="actiontype" type="byte"/>
+		<variable name="pushaddr" type="octets"/>	
+  </protocol>
+  
+  <protocol name="ChooseMobileResp" type="1039" maxsize="1024" prior="1"> 
+  	<variable name="ret" type="int" />
+    <variable name="tid" type="long" />
+		<variable name="userid" type="long" />
+		<variable name="actiontype" type="byte"/>
+  </protocol>
+  
+  <protocol name="Kick" type="1040" maxsize="1024" prior="1">
+  	<enum name="DELETE_DEVICE" value="0" />       <!-- 设备列表删除接入的手机 -->
+  	<enum name="CLASS_END" value="1" />           <!-- 通知接入的手机 -->
+  	<enum name="MOBILE_OFF" value="2" />          <!-- 接入的手机掉线 -->
+  	<enum name="TEACHER_LEAVE" value="3" />       <!-- 上课中老师离开 -->
+  	
+    <variable name="tid" type="long" />
+    <variable name="userid" type="long" />
+    <variable name="notifytype" type="byte"/>
+  </protocol>
+  
+  <protocol name="PromoteAsAssistant" type="1041" maxsize="1024" prior="1"> 
+  	<enum name="SUCCESS" value="1" />
+    <enum name="ASSISTANT_EXISTED" value="2" />
+    	
+  	<variable name="receiver" type="long"/>	
+  	<variable name="ret" type="int" />
+    <variable name="tid" type="long" />
+    <variable name="userid" type="long" />
+    <variable name="cid" type="long"/>
+  </protocol>
+  
+  <protocol name="CancelAssistant" type="1042" maxsize="1024" prior="1">
+  	<variable name="receiver" type="long"/>   	
+    <variable name="tid" type="long" />
+    <variable name="userid" type="long" />
+    <variable name="cid" type="long"/>
+  </protocol>  
+ 
+  <protocol name="MesgReminder" type="1046" maxsize="1024" prior="1">   <!-- 消息提醒 -->
+  	<enum name="SIGN" value="1" />         <!-- 开课前10分钟 -->
+    <enum name="CLASS_ON" value="2" />     <!-- 开课 -->
+    <enum name="CLASS_DELAY" value="3" />  <!-- 下课前5分钟 -->
+    <enum name="CLASS_END" value="4" />    <!-- 下课 -->
+
+    <variable name="receiver" type="long"/>
+    <variable name="msgtype" type="byte"/>
+    <variable name="classinfo" type="ClassInfoBean" />
+  </protocol>
+  
+  <protocol name="UpdateCourseInfo" type="1047" maxsize="655350" prior="1">   <!-- 更新课程信息 -->
+    <variable name="courseid" type="long" />
+    <variable name="teacher" type="long"/>
+    <variable name="students" type="vector" value="long"/>
+    <variable name="max_members" type="int"/>       <!-- 课程最多人数 -->
+  </protocol>
+  
+  <protocol name="ClassGoOn" type="1048" maxsize="1024" prior="1">   <!-- 继续上课通知 -->
+    <variable name="courseid" type="long" />
+    <variable name="classid" type="long" />  
+    <variable name="teacher" type="long"/>
+  </protocol>
+  
+  <protocol name="ClassRecord" type="1049" maxsize="1024" prior="1">   <!-- 课堂录像完毕通知 -->
+    <variable name="courseid" type="long" />
+    <variable name="classid" type="long" />
+    <variable name="url" type="octets"/>
+  </protocol>
+  
+  <protocol name="ClassDelayTimeOut" type="1050" maxsize="1024" prior="1">   <!-- 拖堂时限10分钟已到通知 -->
+    <variable name="courseid" type="long" />
+    <variable name="classid" type="long" />
+    <variable name="teacher" type="long"/>
+  </protocol>   
+  
+  <protocol name="CommitCourseWares" type="1054" maxsize="2048" prior="1">   <!-- 告知录像服务器老师上课前上传的课件信息 -->
+    <variable name="teacherid" type="long"/>
+  	<variable name="classid" type="long"/> 
+    <variable name="courselist" type="vector" value="octets"/> 
+  </protocol> 
+  
+ <protocol name="MobileConnectReq" type="1055" maxsize="1024" prior="1">  <!-- 手机code码登录地址请求 -->
+ 	  <variable name="sid" type="int"/>
+    <variable name="userid" type="long" />    <!-- 手机标识 -->
+  </protocol>
+  
+  <protocol name="MobileConnectResp" type="1056" maxsize="1024" prior="1">  
+  	<variable name="sid" type="int"/>
+  	<variable name="ret" type="int" /> 
+  	<variable name="userid" type="long" />  
+    <variable name="link" type="octets"/>               <!-- ip:port -->
+  </protocol>
+  
+  <protocol name="MobileOff" type="1057" maxsize="1024" prior="1">
+    <variable name="userid" type="long" />
+	  <variable name="classid" type="long" />  
+  </protocol>
+       
+ </application>
