@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>604</width>
-    <height>438</height>
+    <width>590</width>
+    <height>424</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -19,9 +19,21 @@
   <property name="windowTitle">
    <string>Setting</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout_9">
-   <item>
-    <widget class="QWidget" name="widget" native="true">
+  <layout class="QGridLayout" name="gridLayout">
+   <property name="leftMargin">
+    <number>2</number>
+   </property>
+   <property name="topMargin">
+    <number>2</number>
+   </property>
+   <property name="rightMargin">
+    <number>2</number>
+   </property>
+   <property name="bottomMargin">
+    <number>2</number>
+   </property>
+   <item row="0" column="0">
+    <widget class="QWidget" name="settingDlgMainWidget" native="true">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
        <horstretch>0</horstretch>
@@ -320,7 +332,7 @@
                </size>
               </property>
               <property name="currentIndex">
-               <number>1</number>
+               <number>0</number>
               </property>
               <widget class="QWidget" name="page">
                <layout class="QVBoxLayout" name="verticalLayout_10">
@@ -594,7 +606,7 @@
                   <x>4</x>
                   <y>0</y>
                   <width>499</width>
-                  <height>392</height>
+                  <height>397</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_5">

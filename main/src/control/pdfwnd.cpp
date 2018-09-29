@@ -28,11 +28,12 @@ QPDFWnd::QPDFWnd(QWidget* parent):QWidget(parent)
     ,m_fileName("")
     ,m_userId(0)
     ,m_courseId(0)
-    ,m_curWhiteBoardView(NULL)
+    ,m_viewWhiteBoard(NULL)
 	,m_wbCtrl(WB_CTRL_NONE)
 	,m_numOperation(0)
 {
 	initPDFApp();
+	initWhiteBoardView();
     setFocusPolicy(Qt::ClickFocus);    
 }
 
@@ -144,7 +145,7 @@ void QPDFWnd::closeFile(bool needDelete /* = true */)
 		}
 				
 		m_fileName = QString("");
-		m_lstWhiteBoardView.clear();
+		freeWBItemParamsList();
 
 		if(needDelete)
 		{
@@ -160,7 +161,7 @@ void QPDFWnd::closeFile(bool needDelete /* = true */)
 	emit doCloseFile(m_fileName);
 	
 	m_fileName = QString("");
-	m_lstWhiteBoardView.clear();
+	freeWBItemParamsList();
 }
 
 int QPDFWnd::getPageCount()
@@ -246,11 +247,13 @@ void QPDFWnd::paintEvent(QPaintEvent * event)
         return;
     }
 
-    if(m_curWhiteBoardView)
+	/* xiewb 2017.09.27
+    if(m_viewWhiteBoard)
     {
         return;
     }
-    
+    */
+
 	QPDFApp* app = QPDFThread::getPDFApp();
 	if(NULL == app)
 	{
@@ -390,7 +393,7 @@ void QPDFWnd::pdfHandledEvent(const QString& file,int ctl,bool ret)
 
 			m_fileOpen = PDF_FILE_OPEN;
 			
-			initWhiteBoardViewList();						
+			initWBItemParamsList();						
 			setPreviewImage();
 			resizeEvent(NULL);
 		}
@@ -456,22 +459,31 @@ void QPDFWnd::setPreviewImage()
 	}
 }
 
-void QPDFWnd::initWhiteBoardViewList()
+void QPDFWnd::initWBItemParamsList()
 {
 	if(!isFileOpen())
 	{
 		return;
 	}
 
-	int count =getPageCount();
+	if(m_viewWhiteBoard){
+		__int64 idOwner = (__int64)calcFileId();
+		m_viewWhiteBoard->setOwnerId(idOwner);
+		m_viewWhiteBoard->setEnable((WBCtrl)m_wbCtrl);
+	}
 
+	int count =getPageCount();
     if( count <= 0)
     {
         return;
     }
-    __int64 idOwner = (__int64)calcFileId(); 
+    
     for(int i= 0;i<count;i++)
     {
+		QWbItemParamList * lstItemParam = new QWbItemParamList();
+		m_lstWBItemParams.push_back(lstItemParam);
+
+		/* change for pdf whiteboard xiewb 2018.09.27
         QWhiteBoardView * wbView = new QWhiteBoardView(this,false);
         wbView->setUserId(m_userId);
         wbView->setPageId(i);
@@ -485,6 +497,7 @@ void QPDFWnd::initWhiteBoardViewList()
         wbView->setTextSize(WB_SIZE_SMALL);
 
         m_lstWhiteBoardView.push_back(wbView);
+		*/
     }
 }
 
@@ -534,6 +547,63 @@ void QPDFWnd::initPDFApp()
 
 void QPDFWnd::setWhiteBoardViewShow()
 {
+	if(NULL == m_viewWhiteBoard){
+		return;
+	}
+
+	m_viewWhiteBoard->hide();
+	
+	int curPage = getCurPage();
+	int prePage = m_viewWhiteBoard->getPageId();
+	
+	do 
+	{
+		if(m_lstWBItemParams.empty())
+		{
+			break;
+		}
+
+		QWbItemParamList* lstParam = m_lstWBItemParams.at(prePage);
+		if(NULL!=lstParam)
+		{
+			m_viewWhiteBoard->getItemParamList(*lstParam);
+		}
+
+		m_viewWhiteBoard->reset();
+		
+		lstParam = m_lstWBItemParams.at(curPage);
+		if(NULL!=lstParam)
+		{
+			m_viewWhiteBoard->setItemParamList(*lstParam);
+		}
+
+		QPDFApp* app = QPDFThread::getPDFApp();
+		if(NULL == app)
+		{
+			break ;
+		}
+
+		pdf_show_image showImage;
+		bool br = app->getCurImage(m_fileName,&showImage);
+		if(!br)
+		{
+			break;
+		}
+
+		if(showImage._image == NULL || showImage._image->isNull())
+		{
+			break;
+		}
+		
+		QRect   rcView(showImage._xPos,showImage._yPos,showImage._width,showImage._height);
+		m_viewWhiteBoard->setSizeAndSceneRect(rcView); 
+	} while (false);
+	
+	m_viewWhiteBoard->setPageId(curPage);
+	m_viewWhiteBoard->show();
+	m_viewWhiteBoard->setFocus();
+
+	/*
     if(m_lstWhiteBoardView.empty())
     {
         return;
@@ -562,7 +632,7 @@ void QPDFWnd::setWhiteBoardViewShow()
 		{
 			continue ;
 		}
-
+		
 		pdf_show_image showImage;
 		bool br = app->getCurImage(m_fileName,&showImage);
 		if(!br)
@@ -584,11 +654,12 @@ void QPDFWnd::setWhiteBoardViewShow()
 		//xiewb 2018.07.24 如果不设置焦点将无法快捷翻页
 		wbView->setFocus();
     }
+	*/
 }
 
 bool QPDFWnd::eventFilter(QObject * obj, QEvent * event)
 {
-    if(obj != m_curWhiteBoardView)
+    if(obj != m_viewWhiteBoard)
     {
         return false;
     }
@@ -596,8 +667,36 @@ bool QPDFWnd::eventFilter(QObject * obj, QEvent * event)
     if(event->type() == QEvent::KeyPress)
     {
         keyPressEvent((QKeyEvent*)event);
-        m_curWhiteBoardView->setFocus();
+        m_viewWhiteBoard->setFocus();
     }
 
     return false;
+}
+
+void QPDFWnd::initWhiteBoardView()
+{
+	if(NULL != m_viewWhiteBoard){
+		return;
+	}
+
+	m_viewWhiteBoard = new QWhiteBoardView(this,false);
+	m_viewWhiteBoard->setUserId(m_userId);
+	m_viewWhiteBoard->setCourseId(m_courseId);
+	m_viewWhiteBoard->hide();
+	m_viewWhiteBoard->installEventFilter(this);
+	m_viewWhiteBoard->setColor(WB_COLOR_BLUE);
+	m_viewWhiteBoard->setMode(WB_MODE_CURVE);
+	m_viewWhiteBoard->setTextSize(WB_SIZE_SMALL);
+	m_viewWhiteBoard->setEnable((WBCtrl)m_wbCtrl);
+	m_viewWhiteBoard->setBackColor(QColor(255,255,255,2));
+}
+
+void QPDFWnd::freeWBItemParamsList()
+{
+	if(m_lstWBItemParams.empty()){
+		return;
+	}
+
+	qDeleteAll(m_lstWBItemParams); 
+	m_lstWBItemParams.clear();
 }

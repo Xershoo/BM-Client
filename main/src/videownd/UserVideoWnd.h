@@ -1,5 +1,5 @@
 //**********************************************************************
-//	Copyright （c） 2018,浙江邦芒数据有限公司. All rights reserved.
+//	Copyright （c） 2015,北京微恩科技有限公司. All rights reserved.
 //	文件名称：UserVideoWnd.h
 //	版本号：1.0
 //	作者：谢文兵
@@ -14,13 +14,17 @@
 
 #include <QtWidgets/QWidget>
 #include "RtmpPlayer.h"
+#include "OpenGLVideoWidget.h"
 
+/*
 class UserVideoWnd : public QWidget,
 	public CRTMPStreamShow
+*/
+class UserVideoWnd :public CRTMPStreamShow
 {
-    Q_OBJECT
 public:
-    UserVideoWnd(QWidget * parent);
+    //UserVideoWnd(QWidget * parent,int videoType);
+	UserVideoWnd();
 
 public:
     virtual bool start(void);
@@ -49,6 +53,7 @@ public:
 protected:
     CRTMPPlayer    m_rtmpPlayer;
 	__int64		   m_nPlayerId;
+	bool		   m_isDoStart;
 };
 
 bool UserVideoWnd::isStart()

@@ -11,12 +11,14 @@
 
 
 SkyFileDialog::SkyFileDialog(QWidget *parent)
-    : C8CommonWindow(parent)
+    : C8CommonWindow(parent,SHADOW_QT)
 {
     ui.setupUi(this);
     setWindowRoundCorner(ui.widget);
     setModal(true);
     addItem();
+
+	resetContentsMargin(ui.formLayout_2);
 }
 
 SkyFileDialog::~SkyFileDialog()

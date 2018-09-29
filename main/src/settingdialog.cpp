@@ -10,13 +10,13 @@
 #include "setdebugnew.h"
 
 SettingDialog::SettingDialog(QWidget *parent)
-    : C8CommonWindow(parent)
+	: C8CommonWindow(parent)
     , m_idLoadMediaDevTimer(0)
 	, m_idGetMicValumeTimer(0)
     , m_selMicIndex(0)
 {
     ui.setupUi(this);
-    setWindowRoundCorner(ui.widget);
+    setWindowRoundCorner(this);
     initStyleSheet();
 
     ui.pushButton_minSize->hide();

@@ -62,6 +62,13 @@ public:
 
     void resizeKeepRadio();
 	void setSizeAndSceneRect(const QRect& rect);
+
+public:
+	//add for multiple page pdf-whiteboard xiewb 2018.09.27
+	void reset();
+	void getItemParamList(QWbItemParamList& listParam);
+	void setItemParamList(const QWbItemParamList& listParam);
+
 public:
     void undo();
     void clear();

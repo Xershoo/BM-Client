@@ -1,7 +1,7 @@
 #include "serveragreementdlg.h"
 
 ServerAgreementDlg::ServerAgreementDlg(QWidget *parent)
-	: C8CommonWindow(parent)
+	: C8CommonWindow(parent,SHADOW_AERO)
 {
 	ui.setupUi(this);
 	ui.server_agree_text->adjustSize();
@@ -10,6 +10,8 @@ ServerAgreementDlg::ServerAgreementDlg(QWidget *parent)
 	ui.scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
 	connect(ui.pushButton_minSize, SIGNAL(clicked()), this, SLOT(showMinimized()));
 	connect(ui.pushButton_close, SIGNAL(clicked()), this, SLOT(close()));
+
+	resetContentsMargin(ui.verticalLayout);
 }
 
 ServerAgreementDlg::~ServerAgreementDlg()

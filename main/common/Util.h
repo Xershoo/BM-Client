@@ -76,6 +76,8 @@ namespace Util
 	//获取磁盘信息
 	extern QString getMaxFreeSpaceDisk();
 	extern qint64 getDiskFreeSpace(const QString& strDisk);
+
+	extern bool IsXPHigher();
 };
 
 #endif

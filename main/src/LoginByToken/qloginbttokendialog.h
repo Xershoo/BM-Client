@@ -10,7 +10,7 @@ class QLoginBtTokenDialog : public C8CommonWindow
 
 public:
     static QLoginBtTokenDialog* getInstance();
-    static void FreeInstan();
+    static void freeInstance();
     ~QLoginBtTokenDialog();
 
 private:
@@ -19,6 +19,8 @@ private:
 protected:
     virtual void setTitleBarRect() override;
 
+protected:
+	static QLoginBtTokenDialog*   m_instance;
 private:
     Ui::QLoginBtTokenDialog ui;
 };

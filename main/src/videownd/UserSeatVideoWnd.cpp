@@ -5,12 +5,16 @@
 #include <QtCore/QCoreApplication>
 #include "MediaPublishMgr.h"
 
-UserSeatVideoWnd::UserSeatVideoWnd(QWidget* parent):QWidget(parent),VideoShowBase(VideoType_Tea)
+//UserSeatVideoWnd::UserSeatVideoWnd(QWidget* parent):QWidget(parent),VideoShowBase(VideoType_Tea)
+UserSeatVideoWnd::UserSeatVideoWnd(QWidget* parent):OpenGLVideoWidget(parent,VIDEO_TEACHER)
 {
 	m_seat = -1;
+	
+	/*
 	m_refreshTimerId = 0;
 	m_paintTimerId = this->startTimer(TIME_UPDATE_VIDEO,Qt::PreciseTimer);
-		
+	*/
+
 	CMediaPublishMgr* mgrMediaPublish = CMediaPublishMgr::getInstance();
 	if (NULL!=mgrMediaPublish)
 	{		
@@ -57,10 +61,13 @@ bool UserSeatVideoWnd::setSeatIndex(int nIndex)
 
 void UserSeatVideoWnd::showRtmpVideoBuf(const RtmpVideoBuf& videoData)
 {
-	QMutexLocker autoLock(&m_mutexVideoBuf);
-	copyAndTransVideoData(m_showVideoBuf,videoData);
+	//QMutexLocker autoLock(&m_mutexVideoBuf);
+	//copyAndTransVideoData(m_showVideoBuf,videoData);
+
+	showVideoBuffer(videoData.videoWidth,videoData.videoHeight,videoData.isYUVData,videoData.buffsize,videoData.videoBuff);
 }
 
+/*
 void UserSeatVideoWnd::paintEvent(QPaintEvent * event)
 {
 	if(!this->isVisible())
@@ -87,9 +94,11 @@ void UserSeatVideoWnd::paintEvent(QPaintEvent * event)
 
 	return;
 }
+*/
 
 void UserSeatVideoWnd::timerEvent(QTimerEvent * event)
 {
+	/*
 	if(NULL == event)
 	{
 		return;
@@ -118,7 +127,7 @@ void UserSeatVideoWnd::timerEvent(QTimerEvent * event)
 
 		return;
 	}
-
+	*/
 	return;
 }
 

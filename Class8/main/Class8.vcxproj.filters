@@ -915,12 +915,6 @@
     <ClCompile Include="..\..\main\src\videownd\UserVideoWnd.cpp">
       <Filter>src\videownd</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_UserVideoWnd.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_UserVideoWnd.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\main\src\videownd\VideoShowBase.cpp">
       <Filter>src\videownd</Filter>
     </ClCompile>
@@ -1205,6 +1199,24 @@
     </ClCompile>
     <ClCompile Include="..\..\main\src\WaitDlg.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\videownd\OpenGLVideoWidget.cpp">
+      <Filter>src\videownd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_OpenGLVideoWidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_OpenGLVideoWidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_MultiChannelVideoShow.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_MultiChannelVideoShow.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\common\QtAeroWin.cpp">
+      <Filter>Common Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1667,6 +1679,12 @@
     <CustomBuild Include="..\..\main\src\WaitDlg.h">
       <Filter>src</Filter>
     </CustomBuild>
+    <CustomBuild Include="..\..\main\src\videownd\OpenGLVideoWidget.h">
+      <Filter>src\videownd</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\videownd\MultiChannelVideoShow.h">
+      <Filter>src\videownd</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <None Include="qss\coffee.qss">
@@ -1870,9 +1888,6 @@
     <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_videosavedialog.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\main\src\videownd\MultiChannelVideoShow.h">
-      <Filter>src\videownd</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\main\src\videownd\VideoShowBase.h">
       <Filter>src\videownd</Filter>
     </ClInclude>
@@ -1959,6 +1974,9 @@
     </ClInclude>
     <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_WaitDlg.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\main\common\QtAeroWin.h">
+      <Filter>Common Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

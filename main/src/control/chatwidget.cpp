@@ -522,8 +522,12 @@ void ChatWidget::clearMsg()
 void ChatWidget::getScreenShotPix(const QPixmap& pix)
 {
 	QTextDocumentFragment fragment; 
-	QString picCachePath = Env::GetUserPicCachePath(ClassSeeion::GetInst()->_nUserId)+"tmp1.jpg";
-	pix.save(picCachePath, "JPG", 100);
+	QString picCachePath = Env::GetUserPicCachePath(ClassSeeion::GetInst()->_nUserId)+"tmp1.png";
+	if(picCachePath.isEmpty() || picCachePath.isNull()){
+		picCachePath = Env::GetTempPath();
+	}
+
+	pix.save(picCachePath, "png", 70);
 	QFile file(picCachePath);
 	QString md5Path = ChatUpDownServer::getMd5Path(picCachePath);
 	file.rename(md5Path);

@@ -1,10 +1,34 @@
 #include "pictureviewer.h"
 
+PictureViewer * PictureViewer::m_instance = NULL;
+
+PictureViewer* PictureViewer::getInstance()
+{
+	if(NULL==m_instance){
+		m_instance = new PictureViewer(NULL);
+	}
+
+	return m_instance;
+}
+
+void PictureViewer::freeInstance()
+{
+	if(NULL == m_instance)
+	{
+		return;
+	}
+
+	delete m_instance;
+	m_instance = NULL;
+}
+
 PictureViewer::PictureViewer(QWidget *parent)
-    : C8CommonWindow(parent)
+    : C8CommonWindow(parent,SHADOW_QT)
 {
     ui.setupUi(this);
     connect(ui.label_picViewerImage, SIGNAL(clicked()), this, SLOT(closeBtnClicked()));
+
+	resetContentsMargin(ui.gridLayout);
 }
 
 PictureViewer::~PictureViewer()
@@ -16,12 +40,6 @@ void PictureViewer::setTitleBarRect()
 {
     QPoint pt = ui.widget_picViewerTitleBar->mapTo(this, QPoint(0, 0));
     m_titlRect = QRect(pt, ui.widget_picViewerTitleBar->size());
-}
-
-PictureViewer* PictureViewer::getInstance()
-{
-    static PictureViewer instance;
-    return &instance;
 }
 
 void PictureViewer::openImage(QString path)
@@ -40,7 +58,9 @@ void PictureViewer::openImage(QString path)
     ui.label_picViewerImage->update();
     this->show();
     qApp->processEvents();
-    this->activateWindow();    
+    this->activateWindow();
+
+	centerWindow();
     //qApp->processEvents();
 }
 

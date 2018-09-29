@@ -32,6 +32,9 @@ whiteboardtools::whiteboardtools(QWidget *parent)
 
     int nHeight = ui.widget_leftSildBar->height()/2 - 66/2;
     QRect rect = ui.label_classRoomLeftHide->rect(); 
+
+	//xiewb 2018.09.29
+	ui.pushButton_showStuVideoListWnd->hide();
 }
 
 whiteboardtools::~whiteboardtools()

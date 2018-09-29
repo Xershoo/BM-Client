@@ -25,9 +25,10 @@
 #include "UserVideoWnd.h"
 #include "VideoShowBase.h"
 #include "clickablelabel.h"
+#include "OpenGLVideoWidget.h"
 
-class StudentVideoWnd : public UserVideoWnd,
-    public VideoShowBase
+class StudentVideoWnd : public OpenGLVideoWidget
+	,public UserVideoWnd//public VideoShowBase
 {
 	enum
 	{
@@ -68,10 +69,12 @@ public:
 	};
 
 protected:
-    void paintEvent(QPaintEvent * event);
-	virtual void timerEvent(QTimerEvent * event);
-    virtual void mouseDoubleClickEvent(QMouseEvent * event);
+    //void paintEvent(QPaintEvent * event);
+	//virtual void timerEvent(QTimerEvent * event);
+    
+	virtual void mouseDoubleClickEvent(QMouseEvent * event);
 
+	virtual void getRenderImage();
 protected slots: 
 	void onSpeakBtnClicked();
 	void onSpeakLabClicked();
@@ -85,11 +88,11 @@ signals:
 	void stuSpeakBtnClicked(__int64 userId,bool speak);
 
 protected:
-    QMutex              m_mutexVideoBuf;
-    RtmpVideoBuf        m_showVideoBuf;
-
-	int					m_refreshTimerId;
-	int					m_paintTimerId;
+//     QMutex              m_mutexVideoBuf;
+//     RtmpVideoBuf        m_showVideoBuf;
+// 
+// 	int					m_refreshTimerId;
+// 	int					m_paintTimerId;
 
 protected:
 	int					m_videoIndex;

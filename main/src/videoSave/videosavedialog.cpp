@@ -11,6 +11,8 @@ VideoSaveDialog::VideoSaveDialog(QWidget *parent)
 	connect(ui.pushButton_close, SIGNAL(clicked()), this, SLOT(close()));
 	connect(ui.pushButton_OK, SIGNAL(clicked()), this, SLOT(save()));
 	connect(ui.pushButton_select, SIGNAL(clicked()), this, SLOT(showFileDlg()));
+
+	resetContentsMargin(ui.gridLayout_2);
 }
 
 VideoSaveDialog::~VideoSaveDialog()

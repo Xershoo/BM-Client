@@ -157,20 +157,21 @@ void AddCoursewareWindow::addSkyFileBtnClicked()
 
 void AddCoursewareWindow::addLoacalFileBtnClicked()
 {
-    if(!m_showAddTipDlg)
-    {
-        this->hide();
-        
-        AddCoursewareTipDlg* tipDlg = new AddCoursewareTipDlg(ClassRoomDialog::getInstance());
-        if(tipDlg)
-        {
-            m_showAddTipDlg = true;
-            tipDlg->exec();
-
-            delete tipDlg;
-            tipDlg = NULL;
-        }
-    }
+	/* xiewb 2018.09.28*/
+//     if(!m_showAddTipDlg)
+//     {
+//         this->hide();
+//         
+//         AddCoursewareTipDlg* tipDlg = new AddCoursewareTipDlg(ClassRoomDialog::getInstance());
+//         if(tipDlg)
+//         {
+//             m_showAddTipDlg = true;
+//             tipDlg->exec();
+// 
+//             delete tipDlg;
+//             tipDlg = NULL;
+//         }
+//     }
 
     int nCount = CoursewareTaskMgr::getInstance()->GetCoursewareCount() +
                  WhiteBoardDataMgr::getInstance()->GetWhiteboardCount();

@@ -18,13 +18,12 @@ public:
     ~LoginDialog();
 
 	void loginByTokenUid(QString acc, QString token, __int64 uid);
-
-
 signals:
     void showcoursepage(__int64 nUserID);
 
 protected:
     virtual void setTitleBarRect() override;
+	
 	void showHistoryAccount();
     bool eventFilter(QObject *, QEvent *);
 

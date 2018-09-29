@@ -2,7 +2,7 @@
 #include "chatwidget.h"
 
 PrivateChatWidget::PrivateChatWidget(QWidget *parent)
-	: C8CommonWindow(parent)
+	: C8CommonWindow(parent,SHADOW_QT)
 {
 	ui.setupUi(this);
     if (!ui.private_innerChatWidget->isLoadFinished())
@@ -16,7 +16,7 @@ PrivateChatWidget::PrivateChatWidget(QWidget *parent)
 	connect(this->ui.privateChat_cancel_pushBtn, SIGNAL(clicked()), this, SLOT(sl_click_close()));
 	connect(this->ui.pushButton_minSize, SIGNAL(clicked()), this, SLOT(sl_click_min()));
 
-    
+    resetContentsMargin(ui.verticalLayout_2);
 }
 
 PrivateChatWidget::~PrivateChatWidget()

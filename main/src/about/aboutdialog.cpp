@@ -3,7 +3,7 @@
 #include "common/Env.h"
 
 AboutDialog::AboutDialog(QWidget *parent)
-	: C8CommonWindow(parent)
+	: C8CommonWindow(parent,SHADOW_AERO)
 {
 	ui.setupUi(this);
 	ui.pushButton_link->adjustSize();
@@ -13,6 +13,8 @@ AboutDialog::AboutDialog(QWidget *parent)
     setWindowRoundCorner(ui.widget_about_Wnd, 2, 2);
     QString version = QString("%1").arg(ui.label_version->text()).arg(Env::GetGTVersion());
     ui.label_version->setText(version);
+
+	resetContentsMargin(ui.verticalLayout);
 }
 
 

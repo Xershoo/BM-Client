@@ -3,12 +3,14 @@
 #include <QFileDialog>
 
 ClassroomSetting::ClassroomSetting(QWidget *parent)
-    : C8CommonWindow(parent)
+    : C8CommonWindow(parent,SHADOW_QT)
 {
     ui.setupUi(this);
     setWindowRoundCorner(ui.widget_classroomsetting);
     initStyleSheet();
     classroomSettingBtnClicked();
+
+	resetContentsMargin(ui.verticalLayout);
 }
 
 ClassroomSetting::~ClassroomSetting()

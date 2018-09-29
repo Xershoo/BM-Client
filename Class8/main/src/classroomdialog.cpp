@@ -75,130 +75,31 @@ bool ClassRoomDialog::isValid()
 ClassRoomDialog::ClassRoomDialog(QWidget *parent)
     : C8CommonWindow(parent)
 	, m_dlgWait(NULL)
+	, m_popupDlg(NULL)
+	, m_rtmpSpeakPlayer(NULL)
+	, m_nClassProcessSec(0)
+	, m_nClassOverCountDown(0)
+	, m_bISCoundDown(false)
+	, m_typeMainShow(biz::eMainShow_CWWB)
+	, m_nLatencyTime (0)
+	, m_nStartTimeSec(0)
+	, m_bISAutoClassOver(false)
+	, m_nBenginTimer(0)
+	, m_nClassTimer(0)
+	, m_nCountDownTimer(0)
+	, m_nFlushSysMsgTimer(0)
+	, m_initEnterClassRoom(false)
+	, m_bIsSetUI(false)
+	, m_isShowNormal(true)
 {
     ui.setupUi(this);
-    this->setFixedSize( this->width (),this->height ());
-
-	m_popupDlg = NULL;
-    m_typeMainShow = biz::eMainShow_CWWB;
-	m_rtmpSpeakPlayer = NULL;
-    m_nClassProcessSec = 0;
-    m_nClassOverCountDown = 0;
-    m_bISCoundDown = false;
-
-    m_nLatencyTime = 0;
-    m_nStartTimeSec = 0;
-    m_bISAutoClassOver = false;
-
-	ui.pushButton_webCameraSetting->hide();
-	ui.pushButton_mulitCamera->hide();
-
-    ui.widget_listTools->setStyleSheet ("venus--TitleBar {background-color: rgb(0,0,0);color: rgb(255,255,255);}");
-    ui.widget_listTools->setWindowOpacity(0.6);
-
-    connect(ui.widget_leftSildBar, SIGNAL(show_stu_video_list()), this, SLOT(showStuVideoListWndBtnClicked()));
-   
-    connect(getBizCallBack(), SIGNAL(UserEnter(__int64)), this, SLOT(onUserEnter(__int64)),Qt::AutoConnection);
-    connect(getBizCallBack(), SIGNAL(UpdateUserInfo(__int64)), this, SLOT(onUpdateUserInfo(__int64)));
-    connect(getBizCallBack(), SIGNAL(RecvStudentVideoList(StudentVideoListInfo)), this, SLOT(onRecvStuVideoList(StudentVideoListInfo)),Qt::AutoConnection);
-    connect(getBizCallBack(), SIGNAL(ClassStateChanged(ClassStateChangeInfo)), this, SLOT(onClassStateChange(ClassStateChangeInfo)),Qt::AutoConnection);
-    connect(getBizCallBack(), SIGNAL(UserLeave(UserLeaveInfo)), this, SLOT(onUserLeave(UserLeaveInfo)),Qt::AutoConnection);
-    connect(getBizCallBack(), SIGNAL(UserSpeakAction(UserSpeakActionInfo)), this, SLOT(onUserSpeakAction(UserSpeakActionInfo)),Qt::AutoConnection);
-    connect(getBizCallBack(), SIGNAL(RecvClassMsgReminder(ClassMsgReminderInfo)), this, SLOT(onRecvClassMsgReminder(ClassMsgReminderInfo)),Qt::AutoConnection);
-    connect(getBizCallBack(), SIGNAL(SetClassMode(SetClassModeInfo)), this, SLOT(onSetClassMode(SetClassModeInfo)),Qt::AutoConnection);
-    connect(getBizCallBack(), SIGNAL(MainShowChanged(ClassMainShowInfo)),this,SLOT(onMainShowChanged(ClassMainShowInfo)),Qt::AutoConnection);
-	connect(getBizCallBack(), SIGNAL(ConnectServerError(ServerErrorInfo )),this,SLOT(onConnectServerError(ServerErrorInfo)),Qt::AutoConnection);
-	connect(getBizCallBack(), SIGNAL(RecvSetAssistantMsg(SetAssistantInfo )),this,SLOT(onRecvSetAssistantMsg(SetAssistantInfo )),Qt::AutoConnection);
-	connect(getBizCallBack(), SIGNAL(TeacherSwitchVideo(TeacherSwitchVideoInfo )),this,SLOT(onSwitchTeacherVideo(TeacherSwitchVideoInfo )),Qt::AutoConnection);
-
-    QString pixPath = Env::currentThemeResPath() + "widget_leftSildBar_mask.png";
-    QPixmap pix(pixPath);
+	initUI();
+	initNetMsgNotify();
+	initUiMsgNotify();
+	initHotkey();
+	this->installEventFilter(this);
     
-    ui.widget_leftSildBar->setRegion();
-
-    pixPath = Env::currentThemeResPath() + "widget_classroomToolBtns_mask.png";
-    QPixmap pixBtnToolsMask(pixPath);
-    ui.widget_classroomToolBtns->setMask(pixBtnToolsMask.mask());
-
-    ui.widget_stuVideoListWnd->hide();
-    ui.widget_teaVideo->hide();
-
-    ui.pushButton_allowHandsupBtn->hide();
-    ui.pushButton_allowSendMsgBtn->hide();
-    ui.pushButton_showCoursewareDownlistWnd->hide();
-
-	ui.gifIconPushButton_lock->hide();
-
-    QString iconPath = Env::currentThemeResPath();
-    ui.gifIconPushButton_close->setIconPath(iconPath + "gificon_close_normal.gif", iconPath + "gificon_close_hover.gif", iconPath + "gificon_close_pressed.gif");
-    ui.gifIconpushButton_minSize->setIconPath(iconPath + "gificon_minSize_normal.gif", iconPath + "gificon_minSize_hover.gif", iconPath + "gificon_minSize_pressed.gif");
-    ui.gifIconpushButton_max_normalSize->setIconPath(iconPath + "gificon_maxSize_normal.gif", iconPath + "gificon_maxSize_hover.gif", iconPath + "gificon_maxSize_pressed.gif");
-    ui.gifIconpushButton_showSettingDlg->setIconPath(iconPath + "gificon_setting_normal.gif", iconPath + "gificon_setting_hover.gif", iconPath + "gificon_setting_pressed.gif");
-
-	ui.gifIconPushButton_lock->setIconPath(iconPath + "lock_normal.gif", iconPath + "lock_hover.gif", iconPath + "lock_pressed.gif");
-	ui.gifIconPushButton_unlock->setIconPath(iconPath + "unlock_normal.gif", iconPath + "unlock_hover.gif", iconPath + "unlock_pressed.gif");
-	
-    ui.tabWidget_classroom->tabBar()->setObjectName("tabWidget_classroomTabBar");
-		
-    //创建化定时器
-    m_nBenginTimer = 0;
-    m_nClassTimer = -1;
-    m_nCountDownTimer = -1;
-    m_nFlushSysMsgTimer = -1;
-
-	m_initEnterClassRoom = false;
-    m_bIsSetUI = false;
-
-    connect(ui.pushButton_title, SIGNAL(clicked()), this, SLOT(classSettingBtnClicked()));
-    connect(ui.label_classroomTitle, SIGNAL(linkActivated(QString)), this, SLOT(doClassSetting(QString)));
-    connect(ui.pushButton_recordClassBtn, SIGNAL(clicked()), this, SLOT(recordBtnClicked()));
-	connect(ui.pushButton_stopRecordClassBtn, SIGNAL(clicked()), this, SLOT(stopRecordBtnClicked()));
-
-	connect(ui.tab_userList,SIGNAL(sg_privateChatCreate(__int64)),this,SLOT(showPrivateChatWidght(__int64)));
-	Chat *classChat = m_chatManager.createChatObj();
-	classChat->setChatData(ChatData(ClassSeeion::GetInst()->_nUserId,0,ClassSeeion::GetInst()->_nClassRoomId,biz::eTestMsgType_class,0));
-	classChat->setWidget(ui.tab_chatWiget,CLASS_CHAT);
-
-    connect(ui.pushButton_stuHandsUp, SIGNAL(clicked()), this, SLOT(handUpStuBtnClicked()));
-    connect(ui.pushButton_stuHandsDown, SIGNAL(clicked()), this, SLOT(handDownStuBtnClicked()));
-    connect(ui.pushButton_classOverBtn, SIGNAL(clicked()), this, SLOT(classOverBtnClicked()));
-	connect(ui.gifIconPushButton_lock, SIGNAL(clicked()), this, SLOT(lockClass()));
-	connect(ui.gifIconPushButton_unlock, SIGNAL(clicked()), this, SLOT(unlockClass()));
-
-    connect(ui.pushButton_in, SIGNAL(clicked()), this, SLOT(zoomInBtnClicked()));
-    connect(ui.pushButton_out, SIGNAL(clicked()), this, SLOT(zoomOutBtnClicked()));
-
-    g_systemTray->setSysSettingActionEnable(true);
-    g_systemTray->setLogoutActionEnable(true);
-
-    m_show_hideMainWnd = new QxtGlobalShortcut(this);
-    connect(m_show_hideMainWnd, SIGNAL(activated()), this, SLOT(showHideMainWnd()));
-
-    m_curScreenShortcut = new QShortcut(this);
-    connect(m_curScreenShortcut, SIGNAL(activated()), ui.tabWidget_classroom->widget(0), SLOT(screenShotBtnClicked()));
-    
-    m_open_closeSound = new QShortcut(this);
-    connect(m_open_closeSound, SIGNAL(activated()), ui.tabWidget_classroom->widget(0), SLOT(open_closeSound()));
-
-    m_open_closeMIc = new QShortcut(this);
-    connect(m_open_closeMIc, SIGNAL(activated()), ui.tabWidget_classroom->widget(0), SLOT(open_closeMic()));
-
-    m_incressSound = new QShortcut(this);
-    connect(m_incressSound, SIGNAL(activated()), ui.tabWidget_classroom->widget(0), SLOT(incressSound()));
-
-    m_decressSound = new QShortcut(this);
-    connect(m_decressSound, SIGNAL(activated()), ui.tabWidget_classroom->widget(0), SLOT(decressSound()));
-
-    m_handsUpDown = new QShortcut(this);
-    connect(m_handsUpDown, SIGNAL(activated()), this, SLOT(handsUpDown()));
-    adjustElementPos();
-    initHotkey();
-    m_isShowNormal = true;
-    ui.widget_mediatool->hide();
-	ui.widget_leftSildBar->showUI(false);
-
-    this->installEventFilter(this);
-    CoursewareDataMgr::GetInstance();
+	CoursewareDataMgr::GetInstance();
     CSkyCursewaveData::getInstance();
     CHttpSessionMgr::GetInstance();
     WhiteBoardDataMgr::getInstance();
@@ -209,11 +110,148 @@ ClassRoomDialog::ClassRoomDialog(QWidget *parent)
 	{
 		connect(pMediaMgr,SIGNAL(initFinished()),this,SLOT(onMediaInitFinish()));
 	}
+
+	this->windowShowMaxmized();
 }
 
 ClassRoomDialog::~ClassRoomDialog()
 {
-    
+	
+}
+
+void ClassRoomDialog::initNetMsgNotify()
+{
+	CBizCallBack* bizCallback = getBizCallBack();
+	if(NULL==bizCallback){
+		return;
+	}
+
+	connect(bizCallback, SIGNAL(UserEnter(__int64)), this, SLOT(onUserEnter(__int64)),Qt::AutoConnection);
+	connect(bizCallback, SIGNAL(UpdateUserInfo(__int64)), this, SLOT(onUpdateUserInfo(__int64)));
+	connect(bizCallback, SIGNAL(RecvStudentVideoList(StudentVideoListInfo)), this, SLOT(onRecvStuVideoList(StudentVideoListInfo)),Qt::AutoConnection);
+	connect(bizCallback, SIGNAL(ClassStateChanged(ClassStateChangeInfo)), this, SLOT(onClassStateChange(ClassStateChangeInfo)),Qt::AutoConnection);
+	connect(bizCallback, SIGNAL(UserLeave(UserLeaveInfo)), this, SLOT(onUserLeave(UserLeaveInfo)),Qt::AutoConnection);
+	connect(bizCallback, SIGNAL(UserSpeakAction(UserSpeakActionInfo)), this, SLOT(onUserSpeakAction(UserSpeakActionInfo)),Qt::AutoConnection);
+	connect(bizCallback, SIGNAL(RecvClassMsgReminder(ClassMsgReminderInfo)), this, SLOT(onRecvClassMsgReminder(ClassMsgReminderInfo)),Qt::AutoConnection);
+	connect(bizCallback, SIGNAL(SetClassMode(SetClassModeInfo)), this, SLOT(onSetClassMode(SetClassModeInfo)),Qt::AutoConnection);
+	connect(bizCallback, SIGNAL(MainShowChanged(ClassMainShowInfo)),this,SLOT(onMainShowChanged(ClassMainShowInfo)),Qt::AutoConnection);
+	connect(bizCallback, SIGNAL(ConnectServerError(ServerErrorInfo )),this,SLOT(onConnectServerError(ServerErrorInfo)),Qt::AutoConnection);
+	connect(bizCallback, SIGNAL(RecvSetAssistantMsg(SetAssistantInfo )),this,SLOT(onRecvSetAssistantMsg(SetAssistantInfo )),Qt::AutoConnection);
+	connect(bizCallback, SIGNAL(TeacherSwitchVideo(TeacherSwitchVideoInfo )),this,SLOT(onSwitchTeacherVideo(TeacherSwitchVideoInfo )),Qt::AutoConnection);
+}
+
+void ClassRoomDialog::unitNetMsgNotify()
+{
+	CBizCallBack* bizCallback = getBizCallBack();
+	if(NULL==bizCallback){
+		return;
+	}
+
+	disconnect(bizCallback,NULL,this,NULL);
+
+}
+
+void ClassRoomDialog::initUI()
+{
+	//left slide bar
+	QString pixPath = Env::currentThemeResPath() + "widget_leftSildBar_mask.png";
+	QPixmap pix(pixPath);
+	ui.widget_leftSildBar->setRegion();
+	ui.widget_leftSildBar->showUI(false);
+
+	pixPath = Env::currentThemeResPath() + "widget_classroomToolBtns_mask.png";
+	QPixmap pixBtnToolsMask(pixPath);
+	ui.widget_classroomToolBtns->setMask(pixBtnToolsMask.mask());
+
+	//Gif button set
+	QString iconPath = Env::currentThemeResPath();
+	ui.gifIconPushButton_close->setIconPath(iconPath + "gificon_close_normal.gif", iconPath + "gificon_close_hover.gif", iconPath + "gificon_close_pressed.gif");
+	ui.gifIconpushButton_minSize->setIconPath(iconPath + "gificon_minSize_normal.gif", iconPath + "gificon_minSize_hover.gif", iconPath + "gificon_minSize_pressed.gif");
+	ui.gifIconpushButton_max_normalSize->setIconPath(iconPath + "gificon_maxSize_normal.gif", iconPath + "gificon_maxSize_hover.gif", iconPath + "gificon_maxSize_pressed.gif");
+	ui.gifIconpushButton_showSettingDlg->setIconPath(iconPath + "gificon_setting_normal.gif", iconPath + "gificon_setting_hover.gif", iconPath + "gificon_setting_pressed.gif");
+	ui.gifIconPushButton_lock->setIconPath(iconPath + "lock_normal.gif", iconPath + "lock_hover.gif", iconPath + "lock_pressed.gif");
+	ui.gifIconPushButton_unlock->setIconPath(iconPath + "unlock_normal.gif", iconPath + "unlock_hover.gif", iconPath + "unlock_pressed.gif");
+
+	//widget list tool bar set
+	ui.widget_listTools->setStyleSheet ("venus--TitleBar {background-color: rgb(0,0,0);color: rgb(255,255,255);}");
+	ui.widget_listTools->setWindowOpacity(0.6);
+
+	//chat
+	Chat *classChat = m_chatManager.createChatObj();
+	classChat->setChatData(ChatData(ClassSeeion::GetInst()->_nUserId,0,ClassSeeion::GetInst()->_nClassRoomId,biz::eTestMsgType_class,0));
+	classChat->setWidget(ui.tab_chatWiget,CLASS_CHAT);
+
+	//set system menu
+	g_systemTray->setSysSettingActionEnable(true);
+	g_systemTray->setLogoutActionEnable(true);
+
+	//shortcut key
+	m_show_hideMainWnd = new QxtGlobalShortcut(this);
+	m_curScreenShortcut = new QShortcut(this);
+	m_open_closeSound = new QShortcut(this);
+	m_open_closeMIc = new QShortcut(this);
+	m_incressSound = new QShortcut(this);
+	m_decressSound = new QShortcut(this);
+	m_handsUpDown = new QShortcut(this);
+
+	//set hide interface child control
+	ui.pushButton_webCameraSetting->hide();
+	ui.pushButton_mulitCamera->hide();
+	ui.widget_stuVideoListWnd->hide();
+	ui.widget_teaVideo->hide();
+	ui.pushButton_allowHandsupBtn->hide();
+	ui.pushButton_allowSendMsgBtn->hide();
+	ui.pushButton_showCoursewareDownlistWnd->hide();
+	ui.gifIconPushButton_lock->hide();
+	ui.widget_mediatool->hide();
+	ui.widget_teaVideoToolBar_bk->hide();  //2018.09.28
+}
+
+void ClassRoomDialog::initUiMsgNotify()
+{
+	//bottom bar button
+	connect(ui.pushButton_stuHandsUp, SIGNAL(clicked()), this, SLOT(handUpStuBtnClicked()));
+	connect(ui.pushButton_stuHandsDown, SIGNAL(clicked()), this, SLOT(handDownStuBtnClicked()));
+	connect(ui.pushButton_showAddCoursewareWindow, SIGNAL(clicked()), this, SLOT(showCoursewareWindow()));
+	connect(ui.pushButton_classOverBtn, SIGNAL(clicked()), this, SLOT(classOverBtnClicked()));
+	connect(ui.pushButton_classBeginBtn,SIGNAL(clicked()), this, SLOT(classBeginBtnClicked()));
+	connect(ui.pushButton_recordClassBtn, SIGNAL(clicked()), this, SLOT(recordBtnClicked()));
+	connect(ui.pushButton_stopRecordClassBtn, SIGNAL(clicked()), this, SLOT(stopRecordBtnClicked()));
+	connect(ui.pushButton_disableHandsupBtn, SIGNAL(clicked()), this, SLOT(disableHandsUpBtnClicked()));
+	connect(ui.pushButton_allowHandsupBtn,SIGNAL(clicked()), this, SLOT(enableHandsUpBtnClicked()));
+	connect(ui.pushButton_disableSendMsgBtn, SIGNAL(clicked()), this, SLOT(disableSendMsgBtnClicked()));
+	connect(ui.pushButton_allowSendMsgBtn,SIGNAL(clicked()), this, SLOT(enableSendMsgBtnClicked()));
+	connect(ui.pushButton_showCoursewareDownlistWnd,SIGNAL(clicked()), this, SLOT(showCoursewareDownloadWindow()));
+	connect(ui.pushButton_webCameraSetting,SIGNAL(clicked()), this, SLOT(webCameraSettingBtnClicked()));
+	connect(ui.pushButton_mulitCamera,SIGNAL(clicked()), this, SLOT(showTeaMulitVideoBtnClicked()));
+	connect(ui.pushButton_switchMainShow,SIGNAL(clicked()), this, SLOT(switchVideoAndCourseware()));
+
+	//title bar button
+	connect(ui.pushButton_title, SIGNAL(clicked()), this, SLOT(classSettingBtnClicked()));
+	connect(ui.gifIconpushButton_showSettingDlg,SIGNAL(clicked()), this, SLOT(showSettingDlg()));
+	connect(ui.gifIconPushButton_lock, SIGNAL(clicked()), this, SLOT(lockClass()));
+	connect(ui.gifIconPushButton_unlock, SIGNAL(clicked()), this, SLOT(unlockClass()));
+	connect(ui.gifIconpushButton_minSize, SIGNAL(clicked()), this, SLOT(showMinimized()));
+	connect(ui.gifIconPushButton_close, SIGNAL(clicked()), this, SLOT(close()));
+	connect(ui.gifIconpushButton_max_normalSize, SIGNAL(clicked()), this, SLOT(max_minSizeBtnClicked()));
+
+	//list tool bar button
+	connect(ui.pushButton_in, SIGNAL(clicked()), this, SLOT(zoomInBtnClicked()));
+	connect(ui.pushButton_out, SIGNAL(clicked()), this, SLOT(zoomOutBtnClicked()));
+
+	//widget custom signal
+	connect(ui.widget_leftSildBar, SIGNAL(show_stu_video_list()), this, SLOT(showStuVideoListWndBtnClicked()));
+	connect(ui.label_classroomTitle, SIGNAL(linkActivated(QString)), this, SLOT(doClassSetting(QString)));
+	connect(ui.tab_userList,SIGNAL(sg_privateChatCreate(__int64)),this,SLOT(showPrivateChatWidght(__int64)));
+
+	//shortcut key
+	connect(m_show_hideMainWnd, SIGNAL(activated()), this, SLOT(showHideMainWnd()));
+	connect(m_curScreenShortcut, SIGNAL(activated()), ui.tabWidget_classroom->widget(0), SLOT(screenShotBtnClicked()));
+	connect(m_open_closeSound, SIGNAL(activated()), ui.tabWidget_classroom->widget(0), SLOT(open_closeSound()));
+	connect(m_open_closeMIc, SIGNAL(activated()), ui.tabWidget_classroom->widget(0), SLOT(open_closeMic()));
+	connect(m_incressSound, SIGNAL(activated()), ui.tabWidget_classroom->widget(0), SLOT(incressSound()));
+	connect(m_decressSound, SIGNAL(activated()), ui.tabWidget_classroom->widget(0), SLOT(decressSound()));
+	connect(m_handsUpDown, SIGNAL(activated()), this, SLOT(handsUpDown()));
 }
 
 void ClassRoomDialog::setTitleBarRect()
@@ -239,6 +277,8 @@ bool ClassRoomDialog::eventFilter(QObject *o, QEvent *e)
 
 void ClassRoomDialog::closeWnd()
 {
+	unitNetMsgNotify();
+
 	::savePushDataToLocalFlvFileEnd();
     
     CSkyCursewaveData::freeInstance();
@@ -249,6 +289,7 @@ void ClassRoomDialog::closeWnd()
 
     ui.widget_coursewaretools->clearData();
 	
+	//......
 	//m_mediaRecord.stop();
 
     ui.widget_teaVideo->stop();
@@ -265,6 +306,7 @@ void ClassRoomDialog::closeWnd()
 	}
 
 	m_chatManager.closeAllChat();
+	PictureViewer::freeInstance();
 
 	if(m_popupDlg)
 	{
@@ -420,16 +462,16 @@ void ClassRoomDialog::switchVideoAndCourseware()
         teaVideoToolsLayout->insertWidget(1, ui.widget_coursewaretools);
         teaVideoToolsLayout->insertSpacerItem(2, new QSpacerItem(40, 20, QSizePolicy::Expanding));
 
-        //teaVideoToolsLayout->removeWidget(ui.pushButton_webCameraSetting);
-        //teaVideoToolsLayout->removeWidget(ui.pushButton_mulitCamera);
-        teaVideoToolsLayout->removeWidget(ui.pushButton_switchTeaVideoAndcourseware);
+        teaVideoToolsLayout->removeWidget(ui.pushButton_webCameraSetting);
+        teaVideoToolsLayout->removeWidget(ui.pushButton_mulitCamera);
+        teaVideoToolsLayout->removeWidget(ui.pushButton_switchMainShow);
 
-        coursewareLayout->insertWidget(0, ui.pushButton_switchTeaVideoAndcourseware);
+        coursewareLayout->insertWidget(0, ui.pushButton_switchMainShow);
         coursewareLayout->insertWidget(0, ui.pushButton_mulitCamera);
         coursewareLayout->insertWidget(0, ui.pushButton_webCameraSetting);
 		
-        //teaVideoLayout->removeWidget(ui.widget_teaPublishVideo);
-        //teaVideoLayout->removeWidget(ui.widget_teaVideo);
+        teaVideoLayout->removeWidget(ui.widget_teaPublishVideo);
+        teaVideoLayout->removeWidget(ui.widget_teaVideo);
         courseMainLayout->insertWidget(0, ui.widget_teaPublishVideo);
         courseMainLayout->insertWidget(1, ui.widget_teaVideo);
         courseMainLayout->removeWidget(ui.stackedWidget_main);
@@ -452,12 +494,12 @@ void ClassRoomDialog::switchVideoAndCourseware()
     else if (m_typeMainShow == biz::eMainShow_VIDEO)
     {
         // 课件换到左边，视频换到右边
-        //coursewareLayout->removeWidget(ui.pushButton_webCameraSetting);
-        //coursewareLayout->removeWidget(ui.pushButton_mulitCamera);
-        coursewareLayout->removeWidget(ui.pushButton_switchTeaVideoAndcourseware);
-        //teaVideoToolsLayout->insertWidget(1, ui.pushButton_webCameraSetting);
-        //teaVideoToolsLayout->insertWidget(2, ui.pushButton_mulitCamera);
-        teaVideoToolsLayout->insertWidget(3, ui.pushButton_switchTeaVideoAndcourseware);
+        coursewareLayout->removeWidget(ui.pushButton_webCameraSetting);
+        coursewareLayout->removeWidget(ui.pushButton_mulitCamera);
+        coursewareLayout->removeWidget(ui.pushButton_switchMainShow);
+        teaVideoToolsLayout->insertWidget(1, ui.pushButton_webCameraSetting);
+        teaVideoToolsLayout->insertWidget(2, ui.pushButton_mulitCamera);
+        teaVideoToolsLayout->insertWidget(3, ui.pushButton_switchMainShow);
 
         teaVideoToolsLayout->removeWidget(ui.widget_coursewaretools);
         coursewareLayout->insertWidget(1, ui.widget_coursewaretools);
@@ -1099,7 +1141,7 @@ void ClassRoomDialog::setUserUI()
         ui.pushButton_allowSendMsgBtn->hide();
         ui.pushButton_webCameraSetting->hide();
         ui.pushButton_mulitCamera->hide();
-        ui.pushButton_switchTeaVideoAndcourseware->show();
+        ui.pushButton_switchMainShow->show();
 
         ui.widget_coursewaretools->showUI();
         ui.widget_leftSildBar->showUI(false);
@@ -2209,28 +2251,28 @@ void ClassRoomDialog::handsUpDown()
 void ClassRoomDialog::windowShowMaxmized() 
 {
     QString iconPath = Env::currentThemeResPath();
-    if (this->layout())
+	if (this->layout()&& getShadow() != SHADOW_AERO)
     {
         this->layout()->setMargin(0);
     }
     m_titlRect = QRect(-2, -1, 1, 1);
     ui.gifIconpushButton_max_normalSize->setToolTip(tr("restoreSize"));
     ui.gifIconpushButton_max_normalSize->setIconPath(iconPath + "gificon_showNormal_normal.gif", iconPath + "gificon_showNormal_hover.gif", iconPath + "gificon_showNormal_pressed.gif");
-    C8CommonWindow::showMaximized();
+    QDialog::showMaximized();
     m_isShowNormal = false;
 }
 
 void ClassRoomDialog::windowShowNormal() 
 {
     QString iconPath = Env::currentThemeResPath();
-    if (this->layout())
+    if (this->layout() && getShadow() != SHADOW_AERO)
     {
         this->layout()->setMargin(9);
     }
     setTitleBarRect();
     ui.gifIconpushButton_max_normalSize->setToolTip(tr("maxSize"));
     ui.gifIconpushButton_max_normalSize->setIconPath(iconPath + "gificon_maxSize_normal.gif", iconPath + "gificon_maxSize_hover.gif", iconPath + "gificon_maxSize_pressed.gif");        
-    C8CommonWindow::showNormal(); 
+    QDialog::showNormal(); 
     m_isShowNormal = true;
 }
 
@@ -2242,19 +2284,32 @@ void ClassRoomDialog::showHideMainWnd()
     }
     else
     {
-        if(m_isShowNormal)
+        if(m_isShowNormal){
             windowShowNormal();
-        else
+		}
+        else {
             windowShowMaxmized();
+		}
     }
 }
 
 void ClassRoomDialog::adjustElementPos()
 {
-    QSize size = ui.widget_classroomMain->size();
+    QSize size = ui.widget_classroomLeft->size();
     ui.widget_main->setFixedSize(size);
     ui.stackedWidget_main->setFixedSize(size);
-    ui.stackedWidget_main->currentWidget()->setFixedSize(size);
+
+	//xiewb 2018.09.29
+	int ncount = ui.stackedWidget_main->count();
+	for (int i = 0; i < ncount; i++)
+	{ 
+		ui.stackedWidget_main->widget(i)->setFixedSize(size);
+		if (QShowClassState *showClassState = qobject_cast<QShowClassState*>(ui.stackedWidget_main->widget(i)))
+		{
+			showClassState->updatePic(size);
+		}
+		ui.stackedWidget_main->widget(i)->update();
+	}
 
     QRect rcListTools;
     rcListTools.setX(ui.widget_main->width() - ui.widget_listTools->width() - 20);
@@ -2296,8 +2351,6 @@ void ClassRoomDialog::max_minSizeBtnClicked()
     {
         windowShowMaxmized();
     }
-
-    adjustElementPos();
 }
 
 void ClassRoomDialog::lockClass()
@@ -2871,4 +2924,10 @@ void ClassRoomDialog::updateUserHead()
     headPixmap = headPixmap.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     ui.label_userpic2->clear();
     ui.label_userpic2->setPixmap(headPixmap.scaled(size));
+}
+
+void ClassRoomDialog::resizeEvent(QResizeEvent * event)
+{
+	QDialog::resizeEvent(event);
+	adjustElementPos();
 }

@@ -104,6 +104,10 @@
         <source>VersionString</source>
         <translation type="unfinished">1.0.0.1118</translation>
     </message>
+    <message>
+        <source>titleSetup</source>
+        <translation type="unfinished">邦芒培训课堂1.0</translation>
+    </message>
 </context>
 <context>
     <name>SelectPathWidget</name>

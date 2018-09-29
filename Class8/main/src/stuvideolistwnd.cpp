@@ -493,7 +493,7 @@ void StuVideoListWnd::setVideoWidget(StudentVideoWnd* videoWidget,__int64 userId
 
     QString userName;
     bool	userSpeak = false;
-    bool	userHand = false;
+    int		userHand = false;
 
     if(userId > 0)
     {

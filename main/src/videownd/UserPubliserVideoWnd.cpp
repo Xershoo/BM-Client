@@ -11,19 +11,28 @@
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QSizePolicy>
+#include <QOpenGLFunctions>
+#include <QDebug>
 #include "MediaPublishMgr.h"
 
 
-UserPubliserVideoWnd::UserPubliserVideoWnd(QWidget* parent):QWidget(parent),VideoShowBase(VideoType_Tea)
+/*
+UserPubliserVideoWnd::UserPubliserVideoWnd(QWidget* parent):QWidget(parent)
+	VideoShowBase(VideoType_Tea)
+	,m_paintCircle(true)
+*/
+UserPubliserVideoWnd::UserPubliserVideoWnd(QWidget* parent):OpenGLVideoWidget(parent,VIDEO_TEACHER)
+	,m_paintCircle(false)
 {
 	m_widgetToolbar = NULL;
     m_indexVideo = -1;
     m_rtmpPublisher = NULL;
     m_isStarted = false;
-	m_refreshTimerId = 0;
-	m_paintTimerId = this->startTimer(TIME_UPDATE_VIDEO,Qt::PreciseTimer);
 	
-    //setupUi();
+	//m_refreshTimerId = 0;	
+	//m_paintTimerId = this->startTimer(3000,Qt::PreciseTimer);	
+    
+	//setupUi();
 }
 
 void UserPubliserVideoWnd::setupUi()
@@ -113,10 +122,13 @@ bool UserPubliserVideoWnd::setVideoIndex(int nIndex,bool start /* = true */)
 
 void UserPubliserVideoWnd::showRtmpVideoBuf(const RtmpVideoBuf& videoData)
 {
-    QMutexLocker autoLock(&m_mutexVideoBuf);
-	copyAndTransVideoData(m_showVideoBuf,videoData);
+    //QMutexLocker autoLock(&m_mutexVideoBuf);
+	//copyAndTransVideoData(m_showVideoBuf,videoData);
+
+	showVideoBuffer(videoData.videoWidth,videoData.videoHeight,videoData.isYUVData,videoData.buffsize,videoData.videoBuff);
 }
 
+/*
 void UserPubliserVideoWnd::paintEvent(QPaintEvent * event)
 {
 	if(!this->isVisible())
@@ -125,9 +137,17 @@ void UserPubliserVideoWnd::paintEvent(QPaintEvent * event)
 	}
 
     QPainter    painter(this);
+	
     QRect       rectWnd = this->rect();
 
-    bool br = paintVideoBuff(&painter,rectWnd,m_showVideoBuf,&m_mutexVideoBuf);
+	QPixmap     memPixmap(rectWnd.width(),rectWnd.height());
+	QPainter	memPainter(&memPixmap);
+
+	QPainterPath	pathPaint;
+
+	painter.setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
+
+    bool br = paintVideoBuff(&memPainter,rectWnd,m_showVideoBuf,&m_mutexVideoBuf);
 	if(br)
 	{
 		killTimer(m_refreshTimerId);
@@ -141,9 +161,18 @@ void UserPubliserVideoWnd::paintEvent(QPaintEvent * event)
 		}
 	}
 
+	if(m_paintCircle)
+	{
+		int round = qMin(width(), height());
+		pathPaint.addEllipse((width()-round)/2, (height()-round)/2, round, round);
+		painter.setClipPath(pathPaint);
+	}
+
+	painter.drawPixmap(0, 0, width(), height(), memPixmap);
+
     return;
 }
-
+*/
 void UserPubliserVideoWnd::closeVideo()
 {
     if (NULL == m_rtmpPublisher )
@@ -175,6 +204,7 @@ void UserPubliserVideoWnd::timerEvent(QTimerEvent * event)
 	}
 
 	int timerId = event->timerId();
+/*	
 	if(timerId == m_refreshTimerId)
 	{		
 		QMutexLocker autoLock(&m_mutexVideoBuf);
@@ -192,11 +222,12 @@ void UserPubliserVideoWnd::timerEvent(QTimerEvent * event)
 			return;
 		}
 
-		QMetaObject::invokeMethod(this,"update",Qt::QueuedConnection);//update();
+		QMetaObject::invokeMethod(this,"update",Qt::QueuedConnection);
 
 		return;
 	}
-	
+*/	
+	OpenGLVideoWidget::timerEvent(event);
 	return;
 }
 

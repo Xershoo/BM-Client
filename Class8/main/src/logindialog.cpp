@@ -22,9 +22,11 @@
 extern SingleApp *g_singApp;
 
 LoginDialog::LoginDialog(QWidget *parent)
-    : C8CommonWindow(parent)
+    : C8CommonWindow(parent,SHADOW_QT)
 {
-    ui.setupUi(this);    
+    ui.setupUi(this);
+	resetContentsMargin(ui.gridLayout);
+
     g_systemTray->setSysSettingActionEnable(false);
     g_systemTray->setLogoutActionEnable(false);
     this->setFixedSize( this->width (),this->height ());

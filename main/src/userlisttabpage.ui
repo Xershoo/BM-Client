@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>341</width>
-    <height>410</height>
+    <width>564</width>
+    <height>405</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -36,7 +36,7 @@
        <number>0</number>
       </property>
       <property name="leftMargin">
-       <number>0</number>
+       <number>6</number>
       </property>
       <property name="topMargin">
        <number>0</number>
@@ -57,13 +57,13 @@
         </property>
         <property name="minimumSize">
          <size>
-          <width>341</width>
+          <width>556</width>
           <height>46</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
-          <width>341</width>
+          <width>556</width>
           <height>46</height>
          </size>
         </property>
@@ -72,7 +72,7 @@
           <rect>
            <x>7</x>
            <y>8</y>
-           <width>326</width>
+           <width>521</width>
            <height>28</height>
           </rect>
          </property>
@@ -80,7 +80,7 @@
         <widget class="QPushButton" name="pushButton_searchUser">
          <property name="geometry">
           <rect>
-           <x>295</x>
+           <x>490</x>
            <y>11</y>
            <width>21</width>
            <height>21</height>
@@ -107,7 +107,7 @@
           <rect>
            <x>12</x>
            <y>10</y>
-           <width>211</width>
+           <width>431</width>
            <height>21</height>
           </rect>
          </property>
@@ -127,13 +127,13 @@
         </property>
         <property name="minimumSize">
          <size>
-          <width>345</width>
+          <width>558</width>
           <height>0</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
-          <width>345</width>
+          <width>558</width>
           <height>16777215</height>
          </size>
         </property>

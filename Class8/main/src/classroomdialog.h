@@ -166,9 +166,17 @@ protected:
 
 	void setClassMode(int newMode,int oldMode,bool showMsg = true);
 
+	//xiewb 2018.09.28
+	void initNetMsgNotify();
+	void unitNetMsgNotify();
+
+	void initUI();
+	void initUiMsgNotify();
+	
 protected:
     void customEvent(QEvent * event);
 
+	void resizeEvent(QResizeEvent *);
 private:
 
     void doClassRoomState_Ready();

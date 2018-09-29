@@ -9,15 +9,28 @@
 #include <QUrl>
 
 UserInfoWindow::UserInfoWindow(QWidget *parent)
-    : C8CommonWindow(parent)
+    : C8CommonWindow(parent,SHADOW_QT)
+	, m_closeTimerId(0)
+	, m_showTimeId(0)
+	, m_bISClickedHome(false)
+	, m_inWindow(false)
+	, m_nUserID(0)
 {
     ui.setupUi(this);
+	ui.label_whisper->setOpenExternalLinks(true);
+	ui.label_whisper->setTextInteractionFlags(Qt::LinksAccessibleByMouse);
+
+	ui.label_home_page->setOpenExternalLinks(true);
+	ui.label_home_page->setTextInteractionFlags(Qt::LinksAccessibleByMouse);
 
     connect(ui.label_home_page, SIGNAL(linkActivated(QString)), this, SLOT(doShowHomePage(QString)));
     connect(ui.label_whisper, SIGNAL(linkActivated(QString)), this, SLOT(doPrivateChat(QString)));
 
     connect(CLoginTokenMgr::GetInstance(), SIGNAL(recvLoginToken(LPCWSTR)), this, SLOT(onRecvLoginToken(LPCWSTR)));
 
+	resetContentsMargin(ui.gridLayout);
+	installEventFilter(this);
+	this->setMouseTracking(true);
 }
 
 UserInfoWindow::~UserInfoWindow()
@@ -42,7 +55,10 @@ void UserInfoWindow::setHeadIconPath(QString headIconPath)
 void UserInfoWindow::show()
 {
 	if(!m_inWindow)
+	{
 		m_closeTimerId = startTimer(USERINFO_CLOSE_TIME);
+	}
+	
 	QWidget::show();
 }
 
@@ -52,11 +68,35 @@ void UserInfoWindow::timerEvent(QTimerEvent *event)
 	{
 		killTimer(m_closeTimerId);
 		m_closeTimerId = 0;
-		this->close();
+		this->hide();
+	}
+
+	if(event->timerId() == m_showTimeId)
+	{
+		killTimer(m_showTimeId);
+		m_showTimeId = 0;
+
+		showUserInfo();
 	}
 }
 
 void UserInfoWindow::setUserInfo(__int64 userID)
+{
+	if(m_nUserID == userID){
+		return;
+	}
+
+	m_nUserID = userID;
+
+	if(m_showTimeId != 0){
+		this->killTimer(m_showTimeId);
+		m_showTimeId = 0;
+	}
+
+	m_showTimeId=startTimer(SHOW_USERINFO_TIME);
+}
+
+void UserInfoWindow::showUserInfo()
 {
     ui.label_home_page->clear();
     ui.label_whisper->clear();
@@ -66,9 +106,8 @@ void UserInfoWindow::setUserInfo(__int64 userID)
     ui.label_teacher_name->clear();
     ui.label_teacher_sex->clear();
     ui.label_useInfoTea->clear();
-
+	
     m_inWindow = false;
-    m_nUserID = 0;
     m_bISClickedHome = false;
 
     QString strContent;
@@ -85,7 +124,8 @@ void UserInfoWindow::setUserInfo(__int64 userID)
         + "> " + whicher + "</a>";
 
     ui.label_whisper->setText(strContent);
-    SLUserInfo userInfo = biz::GetBizInterface()->GetUserInfoDataContainer()->GetUserInfoById(userID);
+	
+    SLUserInfo userInfo = biz::GetBizInterface()->GetUserInfoDataContainer()->GetUserInfoById(m_nUserID);
     
     QString flag = QString(tr("userinfo_Flag"));
     QString id = QString(tr("userinfo_ID"));
@@ -124,7 +164,6 @@ void UserInfoWindow::setUserInfo(__int64 userID)
     {
         ui.label_teacher_sex->setText(QString("%1%2").arg(sex).arg(tr("GenderFemale")));
     }
-    this->update();
 }
 
 bool UserInfoWindow::eventFilter(QObject *obj, QEvent *event)
@@ -137,7 +176,7 @@ bool UserInfoWindow::eventFilter(QObject *obj, QEvent *event)
 			if(m_closeTimerId != 0)
 			{
 				killTimer(m_closeTimerId);
-				m_closeTimerId = startTimer(USERINFO_CLOSE_TIME);
+				m_closeTimerId = 0;
 			}
 		}
 		if (event->type() == QEvent::Leave)
@@ -150,11 +189,23 @@ bool UserInfoWindow::eventFilter(QObject *obj, QEvent *event)
 			m_inWindow = false;
 		}
 
+		if(event->type() == QEvent::WindowDeactivate)
+		{
+			m_inWindow = false;
+			if(m_closeTimerId != 0)
+			{
+				killTimer(m_closeTimerId);
+				m_closeTimerId = 0;
+			}
+
+			this->hide();
+		}
+
 		if (event->type() == QEvent::MouseButtonPress)
 		{
 			if (!m_inWindow)
 			{
-				this->setVisible(false);
+				this->hide();
 			}
 		}
 	}

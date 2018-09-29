@@ -6,12 +6,15 @@
 #include "common/quickmark/QR_Encode.h"
 
 WebCameraSettingPage::WebCameraSettingPage(QWidget *parent)
-    : C8CommonWindow(parent)
+    : C8CommonWindow(parent,SHADOW_QT)
 	, m_camIdUnset(-1)
 	, m_camTypeUnset(-1)
 	, m_seatIdUnset(-1)
 {
     ui.setupUi(this);
+
+	resetContentsMargin(ui.verticalLayout_3);
+
     ui.editCameraCode->setEnabled(false);
 	if(!updatePublishSeatInfo())
 	{

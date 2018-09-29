@@ -4,8 +4,10 @@ C8MessageBox::C8MessageBox(IconType icontype, QString title, QString detial)
     : m_iconType(icontype), m_title(title), m_detail(detial)
 {
     ui.setupUi(this);
-    setWindowRoundCorner(ui.widget);
-    ui.label_msgBoxTitle->setText(title);
+
+	resetContentsMargin(ui.gridLayout);
+
+	ui.label_msgBoxTitle->setText(title);
     ui.label_detail->setText(detial);
     ui.pushButton_Cancel->setVisible(false);
     setIconType(icontype);

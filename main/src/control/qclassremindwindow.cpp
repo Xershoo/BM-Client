@@ -26,6 +26,8 @@ QClassRemindWindow::QClassRemindWindow(ShowType showtype, QString teacher, QStri
         break;
     }
     connect(ui.pushButton_close, SIGNAL(clicked()), this, SLOT(CloseClicked()));
+
+	resetContentsMargin(ui.horizontalLayout);
 }
 
 QClassRemindWindow::~QClassRemindWindow()

@@ -17,15 +17,16 @@
 #include <QtGui/QtEvents>
 #include <QtCore/QCoreApplication>
 
-TeacherVideoWnd::TeacherVideoWnd(QWidget * parent) : UserVideoWnd(parent)    
+TeacherVideoWnd::TeacherVideoWnd(QWidget * parent) : MultiChannelVideoShow(parent,OpenGLVideoWidget::VIDEO_TEACHER)//UserVideoWnd(parent)    
 {
     m_rtmpPlayer.setStudent(false);
     m_rtmpPlayer.setPlayAudio(true);
 
-	m_paintTimerId = startTimer(TIME_UPDATE_VIDEO,Qt::PreciseTimer);
-	memset(m_refreshTimerId,0,sizeof(int) * MULTI_SHOW_CHANNEL_NUM);
+	//m_paintTimerId = startTimer(TIME_UPDATE_VIDEO,Qt::PreciseTimer);
+	//memset(m_refreshTimerId,0,sizeof(int) * MULTI_SHOW_CHANNEL_NUM);
 }
 
+/*
 void TeacherVideoWnd::paintEvent(QPaintEvent * event)
 {
 	if(!this->isVisible())
@@ -57,6 +58,7 @@ void TeacherVideoWnd::paintEvent(QPaintEvent * event)
 		}
     }
 }
+*/
 
 QRect TeacherVideoWnd::getVideoShowRect()
 {
@@ -87,6 +89,7 @@ void TeacherVideoWnd::timerEvent(QTimerEvent * event)
 	}
 
 	int timerId = event->timerId();
+	/*
 	if(timerId == m_paintTimerId)
 	{
 		if(!this->isVisible())
@@ -113,7 +116,7 @@ void TeacherVideoWnd::timerEvent(QTimerEvent * event)
 			return;
 		}
 	}
-
+	*/
 	return;
 }
 

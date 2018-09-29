@@ -23,13 +23,15 @@
 #include <QtGui/QMovie>
 
 
-StudentVideoWnd::StudentVideoWnd(QWidget * parent) : UserVideoWnd(parent),VideoShowBase(VideoType_Stu)
+StudentVideoWnd::StudentVideoWnd(QWidget * parent) : OpenGLVideoWidget(parent,VIDEO_STUDENT)//,VideoShowBase(VideoType_Stu)
 	,m_btnStuSpeak(NULL)
 	,m_labStuSpeak(NULL)
 {   
     m_rtmpPlayer.setStudent(true);
-	m_refreshTimerId = 0;
-	m_paintTimerId = this->startTimer(TIME_UPDATE_VIDEO,Qt::PreciseTimer);
+
+//  xiewb 2018.09.25
+//	m_refreshTimerId = 0;
+//	m_paintTimerId = this->startTimer(TIME_UPDATE_VIDEO,Qt::PreciseTimer);
 
 	m_videoIndex = 0;
 	m_showHand = USER_HAND_NO;
@@ -93,6 +95,7 @@ void StudentVideoWnd::setUserSpeak(bool speak)
 	}
 }
 
+/*
 void StudentVideoWnd::paintEvent(QPaintEvent * event)
 {
 	if(!this->isVisible())
@@ -125,6 +128,27 @@ void StudentVideoWnd::paintEvent(QPaintEvent * event)
     paintHandStatu(painter,rectWnd);
 #endif
     return;
+}
+*/
+
+void StudentVideoWnd::getRenderImage()
+{
+	OpenGLVideoWidget::getRenderImage();
+
+	if(NULL==m_renderImage || m_renderImage->isNull()){
+		return;
+	}
+
+	QPainter painter(m_renderImage);
+	QRect    rectWnd = this->rect();
+
+#ifdef STUDENT_VIDEO_HAS_BAR
+	paintToolbar(painter,rectWnd);
+#endif
+
+#ifdef STUDENT_VIDEO_DRAW_HAND
+	paintHandStatu(painter,rectWnd);
+#endif
 }
 
 void StudentVideoWnd::paintHandStatu(QPainter& painter, QRect& rectWnd)
@@ -228,10 +252,10 @@ void StudentVideoWnd::paintToolbar(QPainter& painter,QRect& rectWnd)
 
 void StudentVideoWnd::showRtmpVideoBuf(const RtmpVideoBuf& videoData)
 {
-    QMutexLocker autoLock(&m_mutexVideoBuf);
-    copyAndTransVideoData(m_showVideoBuf,videoData);	
+    OpenGLVideoWidget::showVideoBuffer(videoData.videoWidth,videoData.videoHeight,videoData.isYUVData,videoData.buffsize,videoData.videoBuff);	
 }
 
+/*
 void StudentVideoWnd::timerEvent(QTimerEvent * event)
 {
 	if(NULL == event)
@@ -266,7 +290,7 @@ void StudentVideoWnd::timerEvent(QTimerEvent * event)
 
 	return;
 }
-
+*/
 void StudentVideoWnd::onSpeakBtnClicked()
 {
     if(m_btnStuSpeak)

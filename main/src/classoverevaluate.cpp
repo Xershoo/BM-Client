@@ -6,7 +6,7 @@
 #include <QString>
 
 ClassOverEvaluate::ClassOverEvaluate(QWidget *parent)
-    : C8CommonWindow(parent)
+    : C8CommonWindow(parent,SHADOW_QT)
 {
     ui.setupUi(this);
     connect(ui.pushButton_evaluateButton, SIGNAL(evaluateSelected(int)), this, SLOT(evaluateBtnSelected(int)));
@@ -18,6 +18,8 @@ ClassOverEvaluate::ClassOverEvaluate(QWidget *parent)
 
     m_nEvaluteStar = 5;
     m_strContent = "";
+
+	resetContentsMargin(ui.gridLayout);
 }
 
 ClassOverEvaluate::~ClassOverEvaluate()

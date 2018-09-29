@@ -509,5 +509,20 @@ namespace Util
 
 		return (quint64) liTotalFreeBytes.QuadPart;  
 	}
+
+	bool IsXPHigher()
+	{
+		bool bIsXPHigher = false;
+
+		// 取得当前系统版本
+		OSVERSIONINFO VersionInfo = {0};
+		VersionInfo.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
+		GetVersionEx(&VersionInfo);
+
+		// 判断并返回
+		bIsXPHigher = VersionInfo.dwMajorVersion > 5;
+		
+		return bIsXPHigher;
+	}
 };
 

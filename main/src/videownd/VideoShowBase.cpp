@@ -154,7 +154,7 @@ bool VideoShowBase::paintVideoBuff(QPainter * painter,QRect& rectShow,RtmpVideoB
         }
 		
         backBrush = QBrush(QColor(192,192,192,255));
-        imagePixmap = QPixmap::fromImage(imageVideo.scaled(QSize(rectShow.width(),rectShow.height()),Qt::KeepAspectRatio));
+        imagePixmap = QPixmap::fromImage(imageVideo.scaled(QSize(rectShow.width(),rectShow.height()),Qt::IgnoreAspectRatio));
 				
         if(!videoBuf.isYUVData)
         {

@@ -9,6 +9,7 @@
 #include "../c8messagebox.h"
 #include "BizInterface.h"
 #include "src/userinfowindow.h"
+#include "common/macros.h"
 
 SearchResultItemDelegate::SearchResultItemDelegate(QObject *parent /* = 0 */) : m_model(NULL), m_popup(NULL), QAbstractItemDelegate(parent)
 {
@@ -47,7 +48,9 @@ void SearchResultItemDelegate::paint(QPainter *painter, const QStyleOptionViewIt
 }
 
 UserListTabPage::UserListTabPage(QWidget *parent)
-    : m_completer(NULL), QWidget(parent)
+    : QWidget(parent)
+	, m_completer(NULL)
+	, m_userInfoWindow(NULL)
 {
     ui.setupUi(this);
     ui.lineEdit_searchUser->hide();
@@ -77,18 +80,11 @@ UserListTabPage::UserListTabPage(QWidget *parent)
 
     m_completer->setFilterMode(Qt::MatchContains);
     ui.lineEdit_searchUser->setCompleter(m_completer);
-
-    m_userInfoWindow = NULL;
 }
 
 UserListTabPage::~UserListTabPage()
 {
-    if (NULL == m_userInfoWindow)
-    {
-        return;
-    }
-    delete m_userInfoWindow;
-    m_userInfoWindow = NULL;
+   SAFE_DELETE(m_userInfoWindow);
 }
 
 void UserListTabPage::refreshUserCountLabel()
@@ -434,25 +430,33 @@ void UserListTabPage::searchLineEditEnterKeyPressed()
 void UserListTabPage::onViewProfileActionTriggered(__int64 userID)
 {
     // 查看资料
-    if (m_userInfoWindow)
+    /*
+	if (m_userInfoWindow)
     {
         m_userInfoWindow->close();
         delete m_userInfoWindow;
         m_userInfoWindow = NULL;
     }
+	*/
     if (NULL == m_userInfoWindow)
     {
         m_userInfoWindow = new UserInfoWindow;
 		connect(m_userInfoWindow, SIGNAL(sg_privateChatCreate(__int64)), this, SLOT(doPrivateChat(__int64)));
     }
+
+	if(m_userInfoWindow->isVisible() && m_userInfoWindow->getUserId() == userID)
+	{
+		return;
+	}
+
     QPoint point = cursor().pos();
     QSize size = m_userInfoWindow->size();
     point.setY(point.y());
     point.setX(point.x() - size.width());
-
-    m_userInfoWindow->setHeadIconPath(userHeadIcon(userID));
-    m_userInfoWindow->setUserInfo(userID);
+    
     m_userInfoWindow->setGeometry(QRect(point, size));
+	m_userInfoWindow->setHeadIconPath(userHeadIcon(userID));
+	m_userInfoWindow->setUserInfo(userID);
 	m_userInfoWindow->show();
 }
 

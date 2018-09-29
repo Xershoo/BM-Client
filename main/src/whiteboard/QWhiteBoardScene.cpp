@@ -39,7 +39,7 @@ QWhiteBoardScene::QWhiteBoardScene(QObject *parent /* = NULL */)
     
     addItem(m_itemLarser);
 
-    setBackgroundBrush(QBrush(m_backColor));
+//	setBackgroundBrush(QBrush(m_backColor));
 
     qRegisterMetaType<std::string>("stdString");
 }
@@ -82,6 +82,7 @@ void QWhiteBoardScene::undo(__int64 userId,bool setNotify /* = true */)
         }
 
         this->removeItem(item);
+		this->delItemParam(userId,wbItem->getId());
         if(setNotify)
         {
             WBErase      wbEraser;
@@ -137,6 +138,7 @@ void QWhiteBoardScene::clearAll(__int64 userId,bool setNotify /* = true */)
         }
 
         this->removeItem(item);
+		this->delItemParam(userId,wbItem->getId());
     }
 
     if(setNotify)
@@ -358,6 +360,8 @@ void QWhiteBoardScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
                     wbEraser.nPaintId = wbItem->getId();
                     wbEraser.ToString(itemPaint);
                     emit changeItem(biz::PT_ERASER,0,itemPaint);
+
+					this->delItemParam(wbItem->getUserId(),wbItem->getId());
                 }                
                 else
                 {
@@ -382,7 +386,7 @@ void QWhiteBoardScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
                 std::string  itemPaint;
                 m_lastItem->getItemString(itemPaint);
                 emit changeItem(biz::PT_PEN,m_lastItem->getId(),itemPaint);
-
+				addItemParam(m_userId,biz::PT_PEN,m_lastItem->getId(),itemPaint);
                 m_lastItem = NULL;
                 return;
             }
@@ -455,8 +459,7 @@ QColor QWhiteBoardScene::getColor()
 void QWhiteBoardScene::setBackColor(QColor& clr)
 {
     m_backColor = clr;
-
-    setBackgroundBrush(QBrush(m_backColor));
+//	setBackgroundBrush(QBrush(m_backColor));
 }
 
 void QWhiteBoardScene::editCompleteEvent(QWhiteBoardTextItem* itemText)
@@ -476,6 +479,7 @@ void QWhiteBoardScene::editCompleteEvent(QWhiteBoardTextItem* itemText)
     std::string  itemPaint;
     itemText->getItemString(itemPaint);
     emit changeItem(biz::PT_TXT,itemText->getId(),itemPaint);
+	addItemParam(m_userId,biz::PT_TXT,itemText->getId(),itemPaint);
 
     return;
 }
@@ -487,6 +491,18 @@ int QWhiteBoardScene::getItemId()
 
 void QWhiteBoardScene::handleItemEvent(__int64 uid,int type,int id,string& content)
 {
+	if(uid == m_userId && m_itemId <= id)
+	{
+		m_itemId = (id + 1);
+	}
+
+	if (NULL !=findItem(uid,id) && type != biz::PT_ERASER && 
+		type != biz::PT_LASERPOINTER &&
+		type != biz::PT_CLEAN)
+	{
+		return;
+	}
+
     switch(type)
     {
     case biz::PT_PEN:
@@ -510,6 +526,8 @@ void QWhiteBoardScene::handleItemEvent(__int64 uid,int type,int id,string& conte
             curveItem->setId(id);
             curveItem->setUserId(uid);
             curveItem->setPaintElement(wbCurve);
+
+			addItemParam(uid,type,id,content);
         }
         break;
 
@@ -536,6 +554,8 @@ void QWhiteBoardScene::handleItemEvent(__int64 uid,int type,int id,string& conte
             textItem->setId(id);
             textItem->setZValue(1000.0);
             textItem->setItemElement(wbText);
+
+			addItemParam(uid,type,id,content);
             
         }
         break;
@@ -564,6 +584,7 @@ void QWhiteBoardScene::handleItemEvent(__int64 uid,int type,int id,string& conte
 
             //......
             delSceneItem(wbEraser.nUserId,wbEraser.nPaintId);
+			delItemParam(wbEraser.nUserId,wbEraser.nPaintId);
         }
         break;
     case biz::PT_CLEAN:
@@ -596,6 +617,7 @@ void QWhiteBoardScene::handleItemEvent(__int64 uid,int type,int id,string& conte
                 }
 
                 this->removeItem(item);
+				this->delItemParam(uid,wbItem->getId());
             }
         }
         break;
@@ -677,4 +699,92 @@ void QWhiteBoardScene::addTextItem(QString& text,QPointF pos)
 	textItem->getItemString(itemPaint);
 	
 	emit changeItem(biz::PT_TXT,textItem->getId(),itemPaint);
+	addItemParam(m_userId,biz::PT_TXT,textItem->getId(),itemPaint);
+}
+
+QGraphicsItem* QWhiteBoardScene::findItem(__int64 userId,int itemId)
+{
+	QList<QGraphicsItem *> listItem = items();
+	if(listItem.empty())
+	{
+		return NULL;
+	};
+
+	for(int i= 0 ;i<listItem.count();i++)
+	{
+		QGraphicsItem* item = listItem.at(i);
+		int t = item->type() - QGraphicsItem::UserType;
+
+		if (t == WB_MODE_LARSER)
+		{
+			continue;
+		}
+
+		WhiteBoardItem* wbItem = dynamic_cast<WhiteBoardItem*>(item);
+		if (NULL == wbItem)
+		{
+			continue;
+		}
+
+		if(wbItem->getUserId() == userId && wbItem->getId() == itemId)
+		{			
+			return item;
+		}
+	}
+
+	return NULL;
+}
+
+void QWhiteBoardScene::reset()
+{
+	this->clear();
+	m_listItemParam.clear();
+
+	update();
+}
+
+void QWhiteBoardScene::getItemParamList(QWbItemParamList& listParam)
+{
+	listParam.clear();
+	if(m_listItemParam.empty()){
+		return;
+	}
+
+	for(int i=0;i<m_listItemParam.size();i++){
+		WBITEMPARAM param = m_listItemParam.at(i);
+		listParam.append(param);
+	}
+}
+
+void QWhiteBoardScene::setItemParamList(const QWbItemParamList& listParam)
+{
+	if(listParam.empty()){
+		return;
+	}
+
+	for(int i=0;i<listParam.size();i++){
+		WBITEMPARAM param = listParam.at(i);
+		this->handleItemEvent(param.uid,param.type,param.id,param.content);
+	}
+}
+
+void QWhiteBoardScene::addItemParam(__int64 uid,int type,int id,string& content)
+{
+	WBITEMPARAM param(uid,type,id,content);
+	m_listItemParam.append(param);
+}
+
+void QWhiteBoardScene::delItemParam(__int64 userId,int id)
+{
+	if(m_listItemParam.empty()){
+		return;
+	}
+
+	for(int i=0;i<m_listItemParam.size();i++){
+		WBITEMPARAM param = m_listItemParam.at(i);
+		if(param.uid == userId && param.id == id){
+			m_listItemParam.removeOne(param);
+			return;
+		}
+	}
 }

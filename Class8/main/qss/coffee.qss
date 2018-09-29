@@ -162,6 +162,14 @@ QLabel#label_detail {
 	font-size: 12px;
 	color: rgb(60,60,60);
 }
+
+QWidget#widgetMsgBox {
+	border-width: 2px;
+	border-style: solid;
+	border-radius: 3px;
+	border-color: rgb(25, 118, 210);
+	background-color: rgb(255,255,255);
+}
 /*MessageBox*/
 
 QCheckBox {
@@ -302,6 +310,14 @@ QPushButton#pushButton_showStuVideoListWnd:checked {
 	image: url(:/res/res/image/default/showStuVideoListWndBtn_check.png);
 }
 	
+QWidget#ClassRoomDialog {
+	background-color: rgb(25, 118, 210);
+}
+	
+QWidget#widget_classroomContent {
+	background-color: rgb(81, 164, 219);
+}
+
 /*课堂页面*/
 /*老师视频窗口*/
 QWidget#widget_teaVideoToolBar_bk {
@@ -341,17 +357,17 @@ QPushButton#pushButton_mulitCamera:pressed {
 	image: url(:/res/res/image/default/mulitCameraBtn_pressed.png);
 }
 
-QPushButton#pushButton_switchTeaVideoAndcourseware {
+QPushButton#pushButton_switchMainShow {
 	width: 28px;
 	height: 28px;
 	background-color: none;
 	image: url(:/res/res/image/default/switchTeaVideoAndCoursewareBtn_normal.png);
 }
-QPushButton#pushButton_switchTeaVideoAndcourseware:hover {
+QPushButton#pushButton_switchMainShow:hover {
 	background-color: none;
 	image: url(:/res/res/image/default/switchTeaVideoAndCoursewareBtn_hover.png);
 }
-QPushButton#pushButton_switchTeaVideoAndcourseware:pressed {
+QPushButton#pushButton_switchMainShow:pressed {
 	background-color: none;
 	image: url(:/res/res/image/default/switchTeaVideoAndCoursewareBtn_pressed.png);
 }
@@ -1206,6 +1222,10 @@ QPushButton#pushButton_auth:hover {
 
 
 /*个人设置*/
+QWidget#SettingDialog {
+	background-color: rgb(25, 118, 210);
+}
+
 QLabel#label_settingTitle {
 	color: rgb(255, 255, 255);
 	font-family: "Microsoft YaHei";
@@ -2035,11 +2055,12 @@ QLabel#coursewareDownloadListIcon_6 {
 /*课件下载列表*/
 
 /*classroom主界面*/
-
+/* xiewb 2019.09.26
 QLabel#label_classroomBottom {
 	max-height: 8px;
 	background-color: rgb(81, 164, 219);
 }
+*/
 
 QStackedWidget#stackedWidget_main {
 	border-style:none;
@@ -2052,56 +2073,53 @@ QTabWidget#tabWidget_classroom::pane{
 	border-top-style: solid;
 	border-top-color: rgb(218, 218, 218);
 	background-color: rgb(237, 238, 242);
-	background-color: rgb(237, 238, 242);
 }
 
 QTabWidget#listWidget_userList::tab-bar {
 	alignment:center;
 }
 
-QTabBar#tabWidget_classroomTabBar::tab {
-	width:169px;
+QTabWidget#tabWidget_classroom QTabBar::tab {
+	width:276px;
 	background-color: rgb(255, 255, 255);
 	color:white;
-	height: 43px;
+	height: 50px;
 }
 
-QTabBar#tabWidget_classroomTabBar::tab:last {
-	width:168px;
-	background-color: rgb(255, 255, 255);
-	color:white;
-	height: 43px;
+QTabWidget#tabWidget_classroom>QTabBar::tab:last {
 	image: url(:/res/res/image/default/userlist_icon_normal.png);
 }
 
-QTabBar#tabWidget_classroomTabBar::tab:last:hover {
+QTabWidget#tabWidget_classroom>QTabBar::tab:last:hover {
 	image: url(:/res/res/image/default/userlist_icon_hover.png);
 }
 
-QTabBar#tabWidget_classroomTabBar::tab:last:selected {
+QTabWidget#tabWidget_classroom>QTabBar::tab:last:selected {
+	background-color: rgb(250, 250, 250);
 	image: url(:/res/res/image/default/userlist_icon_selected.png);
 }
 
-QTabBar#tabWidget_classroomTabBar::tab:last:selected:hover {
+QTabWidget#tabWidget_classroom>QTabBar::tab:last:selected:hover {
 	image: url(:/res/res/image/default/userlist_icon_hover_.png);
 }
 
-QTabBar#tabWidget_classroomTabBar::tab:first {
+QTabWidget#tabWidget_classroom>QTabBar::tab:first {
 	border-width: 1px;
 	border-left-style: solid;
 	border-left-color: rgb(218, 218, 218);
 	image: url(:/res/res/image/default/chaticon_normal.png);
 }
 
-QTabBar#tabWidget_classroomTabBar::tab:first:hover {
+QTabWidget#tabWidget_classroom>QTabBar::tab:first:hover {
 	image: url(:/res/res/image/default/chaticon_hover.png);
 }
 
-QTabBar#tabWidget_classroomTabBar::tab:first:selected {
+QTabWidget#tabWidget_classroom>QTabBar::tab:first:selected {
+	background-color: rgb(250, 250, 250);
 	image: url(:/res/res/image/default/chaticon_selected.png);
 }
 
-QTabBar#tabWidget_classroomTabBar::tab:first:selected:hover {
+QTabWidget#tabWidget_classroom>QTabBar::tab:first:selected:hover {
 	image: url(:/res/res/image/default/chaticon_hover_.png);
 }
 
@@ -3265,6 +3283,14 @@ QLabel#label_teacher_id, #label_teacher_nickname, #label_teacher_name, #label_te
 /*用户信息窗口*/
 
 /*课堂消息提醒*/
+QWidget#widget_classRemind {
+	border-width: 3px;
+	border-style: solid;
+	border-radius: 3px;
+	border-color: rgb(25, 118, 210);
+	background-color: rgb(255,255,255);
+}
+
 QLabel#label_remding_title {
 	color: rgb(255,255,255);
 }

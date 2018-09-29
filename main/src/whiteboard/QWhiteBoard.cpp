@@ -82,13 +82,16 @@ QWhiteBoardView::QWhiteBoardView(QWidget* parent /* = NULL */,bool autoFill /* =
 	setAttribute(Qt::WA_InputMethodEnabled,true);
     setScene(m_sceneWhiteBoard);
 
+	setStyleSheet("background: transparent;border:0px");
+	setWindowFlags(Qt::FramelessWindowHint);
+
     setRenderHints(QPainter::HighQualityAntialiasing | QPainter::SmoothPixmapTransform | QPainter::TextAntialiasing);
     
     setCacheMode(QGraphicsView::CacheBackground);
     setViewportUpdateMode(FullViewportUpdate);    
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy ( Qt::ScrollBarAlwaysOff);
-
+	setBackgroundBrush(QBrush(m_clrBack));
 	m_autoSize = autoFill;
 
     if(parent)
@@ -427,5 +430,30 @@ void QWhiteBoardView::setSizeAndSceneRect(const QRect& rect)
 	m_setSceneRect = true;
 
 	return;
+}
+
+//add for multiple page pdf-whiteboard xiewb 2018.09.27
+void QWhiteBoardView::reset()
+{
+	if(NULL==m_sceneWhiteBoard){
+		return;
+	}
+	m_sceneWhiteBoard->reset();
+}
+
+void QWhiteBoardView::getItemParamList(QWbItemParamList& listParam)
+{
+	if(NULL==m_sceneWhiteBoard){
+		return;
+	}
+	m_sceneWhiteBoard->getItemParamList(listParam);
+}
+
+void QWhiteBoardView::setItemParamList(const QWbItemParamList& listParam)
+{
+	if(NULL==m_sceneWhiteBoard){
+		return;
+	}
+	m_sceneWhiteBoard->setItemParamList(listParam);
 }
 

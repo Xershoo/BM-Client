@@ -30,6 +30,8 @@ CourseDialog::CourseDialog(QWidget *parent /* = 0 */)
 	QString location = QStandardPaths::writableLocation(QStandardPaths::CacheLocation);     
 	netDiskCache->setCacheDirectory(location);    
 	ui.CourseView->page()->networkAccessManager()->setCache(netDiskCache);
+
+	resetContentsMargin(ui.horizontalLayout);
 }
 
 void CourseDialog::setTitleBarRect()

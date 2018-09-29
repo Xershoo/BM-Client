@@ -188,6 +188,7 @@ int main(int argc, char *argv[])
     CLoginTokenMgr::FreeInstance();
     CUploadTokenMgr::Release();
     
+	QLoginBtTokenDialog::freeInstance();
     LobbyDialog::freeInstance();
 	delete g_loginDlg;
 	g_loginDlg = NULL;

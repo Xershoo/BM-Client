@@ -3,10 +3,12 @@
 #include "common/Env.h"
 
 addwhiteboarddialog::addwhiteboarddialog(unsigned int nID,QWidget *parent)
-     : C8CommonWindow(parent)
+     : C8CommonWindow(parent,SHADOW_QT)
 {
     ui.setupUi(this);
     setWindowRoundCorner(ui.widget, 3, 3);
+	resetContentsMargin(ui.horizontalLayout_dlg);
+
     connect(ui.pushButton_Cancel, SIGNAL(clicked()), this, SLOT(closeBtnClicked()));
     connect(ui.pushButton_close, SIGNAL(clicked()), this, SLOT(closeBtnClicked()));
     connect(ui.pushButton_OK, SIGNAL(clicked()), this, SLOT(okBtnClicked()));

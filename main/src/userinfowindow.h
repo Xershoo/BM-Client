@@ -7,6 +7,7 @@
 #include "varname.h"
 
 const int USERINFO_CLOSE_TIME = 3000;
+const int SHOW_USERINFO_TIME = 200;
 
 class UserInfoWindow : public C8CommonWindow
 {
@@ -23,6 +24,9 @@ public:
     void setUserInfo(__int64 userID);
     void setGeometry(const QRect &);
 
+	inline __int64 getUserId(){
+		return m_nUserID;
+	}
 protected slots:
 
     void doShowHomePage(QString);
@@ -33,6 +37,7 @@ private:
 	void timerEvent( QTimerEvent *event );
     void showHomePage(LPCWSTR wszToken);
 
+	void showUserInfo();
 protected:
     void setTitleBarRect();
 	virtual bool eventFilter(QObject *obj, QEvent *event) override;
@@ -40,6 +45,7 @@ protected:
 private:
     Ui::UserInfoWindow ui;
 	int m_closeTimerId;
+	int m_showTimeId;
 	bool m_inWindow;
     bool m_bISClickedHome;
     long long  m_nUserID;

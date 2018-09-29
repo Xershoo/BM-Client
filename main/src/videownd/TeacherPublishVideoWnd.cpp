@@ -18,7 +18,7 @@
 #include "biz/BizInterface.h"
 #include "session/classsession.h"
 
-TeacherPublishVideoWnd::TeacherPublishVideoWnd(QWidget * parent) : QWidget(parent)
+TeacherPublishVideoWnd::TeacherPublishVideoWnd(QWidget * parent) : MultiChannelVideoShow(parent,OpenGLVideoWidget::VIDEO_TEACHER)//QWidget(parent)
 {
     CMediaPublishMgr * mgrMediaPublish = CMediaPublishMgr::getInstance();
     if(NULL != mgrMediaPublish)
@@ -26,8 +26,8 @@ TeacherPublishVideoWnd::TeacherPublishVideoWnd(QWidget * parent) : QWidget(paren
 		connect(mgrMediaPublish,SIGNAL(updatedPublishSeat(int)),this,SLOT(onUpdatePublishSeat(int)));
     }
 	
-	memset(m_refreshTimerId,0,sizeof(int) * MULTI_SHOW_CHANNEL_NUM);
-	m_paintTimerId = startTimer(TIME_UPDATE_VIDEO,Qt::PreciseTimer);
+// 	memset(m_refreshTimerId,0,sizeof(int) * MULTI_SHOW_CHANNEL_NUM);
+// 	m_paintTimerId = startTimer(TIME_UPDATE_VIDEO,Qt::PreciseTimer);
 	
 	for(int i=0;i<MULTI_SHOW_CHANNEL_NUM - 1;i++)
 	{
@@ -46,38 +46,38 @@ TeacherPublishVideoWnd::~TeacherPublishVideoWnd()
 		}
 	}
 }
-
-void TeacherPublishVideoWnd::paintEvent(QPaintEvent * event)
-{
-	if(!this->isVisible())
-	{
-		return;
-	}
-
-    QPainter    painter(this);
-    QRect       rectWnd = this->rect();
-
-    //»æÖÆ±³¾°Í¼Æ¬£¬°×µ×
-    QBrush backBrush(QColor(218,218,218,255));
-    painter.fillRect(rectWnd,backBrush);
-
-    for (int i= 0; i<MULTI_SHOW_CHANNEL_NUM;i++)
-    {   
-        bool br = drawVideo(&painter,i);
-		if(br)
-		{
-			killTimer(m_refreshTimerId[i]);
-			m_refreshTimerId[i] = 0;
-		}
-		else
-		{
-			if(m_refreshTimerId[i] <= 0)
-			{
-				m_refreshTimerId[i] = this->startTimer(TIME_KEEP_VIDEO);
-			}
-		}
-    }
-}
+// 
+// void TeacherPublishVideoWnd::paintEvent(QPaintEvent * event)
+// {
+// 	if(!this->isVisible())
+// 	{
+// 		return;
+// 	}
+// 
+//     QPainter    painter(this);
+//     QRect       rectWnd = this->rect();
+// 
+//     //»æÖÆ±³¾°Í¼Æ¬£¬°×µ×
+//     QBrush backBrush(QColor(218,218,218,255));
+//     painter.fillRect(rectWnd,backBrush);
+// 
+//     for (int i= 0; i<MULTI_SHOW_CHANNEL_NUM;i++)
+//     {   
+//         bool br = drawVideo(&painter,i);
+// 		if(br)
+// 		{
+// 			killTimer(m_refreshTimerId[i]);
+// 			m_refreshTimerId[i] = 0;
+// 		}
+// 		else
+// 		{
+// 			if(m_refreshTimerId[i] <= 0)
+// 			{
+// 				m_refreshTimerId[i] = this->startTimer(TIME_KEEP_VIDEO);
+// 			}
+// 		}
+//     }
+// }
 
 void TeacherPublishVideoWnd::mouseDoubleClickEvent(QMouseEvent * event)
 {
@@ -129,8 +129,7 @@ int TeacherPublishVideoWnd::getMainVideoIndex()
 void TeacherPublishVideoWnd::setStudentVideoStream(CRTMPStream* rtmpStream,bool set)
 {
 	MultiChannelVideoShow::setStudentVideoStream(rtmpStream,set);
-    //update();
-	QMetaObject::invokeMethod(this,"update",Qt::QueuedConnection);
+	QMetaObject::invokeMethod(this,"update",Qt::QueuedConnection);  //update();
 }
 
 void TeacherPublishVideoWnd::timerEvent(QTimerEvent * event)
@@ -140,6 +139,8 @@ void TeacherPublishVideoWnd::timerEvent(QTimerEvent * event)
 		return;
 	}
 	int timerId = event->timerId();
+
+	/*
 	if(timerId == m_paintTimerId)
 	{
 		if(!this->isVisible())
@@ -166,7 +167,7 @@ void TeacherPublishVideoWnd::timerEvent(QTimerEvent * event)
 			return;
 		}		
 	}
-
+	*/
 	return;
 }
 

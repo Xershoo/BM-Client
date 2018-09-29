@@ -11,7 +11,7 @@
 #include "common/Config.h"
 
 QClassWebDialog::QClassWebDialog(QString url,QString title,QWidget *parent /* = 0 */)
-	: C8CommonWindow(parent)
+	: C8CommonWindow(parent,SHADOW_AERO)
 {
 	ui.setupUi(this);
 	
@@ -39,6 +39,8 @@ QClassWebDialog::QClassWebDialog(QString url,QString title,QWidget *parent /* = 
 	openWebPage(url);
 
     CWebDlgMgr::getInstance()->addWebDlg(this);
+
+	resetContentsMargin(ui.horizontalLayout);
 }
 
 QClassWebDialog::~QClassWebDialog()

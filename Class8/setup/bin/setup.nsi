@@ -5,11 +5,11 @@ SilentInstall silent
 section
 sectionend
 
-VIProductVersion "1.0.0.1108"
+VIProductVersion "1.0.0.1122"
 VIAddVersionKey /LANG=${LANG_SIMPCHINESE} "FileDescription" "BMClass Client"
-VIAddVersionKey /LANG=${LANG_SIMPCHINESE} "FileVersion" "1.0.0.1108"
+VIAddVersionKey /LANG=${LANG_SIMPCHINESE} "FileVersion" "1.0.0.1122"
 VIAddVersionKey /LANG=${LANG_SIMPCHINESE} "ProductName" "BMClass Client Install Program"
-VIAddVersionKey /LANG=${LANG_SIMPCHINESE} "ProductVersion" "1.0.0.1108"
+VIAddVersionKey /LANG=${LANG_SIMPCHINESE} "ProductVersion" "1.0.0.1122"
 VIAddVersionKey /LANG=${LANG_SIMPCHINESE} "LegalCopyright" "Copyright @ 2018-2020 bang mang data Co.,Ltd. All rights reserved"
 
 Function .onInit

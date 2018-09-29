@@ -1,5 +1,5 @@
 //**********************************************************************
-//	Copyright （c） 2018,浙江邦芒数据有限公司. All rights reserved.
+//	Copyright （c） 2015,北京微恩科技有限公司. All rights reserved.
 //	文件名称：UserPublishVideoWnd.h
 //	版本号：1.0
 //	作者：谢文兵
@@ -12,13 +12,19 @@
 #ifndef USER_PUBLISHE_VIDEO_WND
 #define USER_PUBLISHE_VIDEO_WND
 
+#include <QOpenGLWidget>
+#include <QOpenGLFunctions>
 #include <QtWidgets/QWidget>
 #include "RtmpPublisher.h"
 #include "VideoShowBase.h"
 
+#include "OpenGLVideoWidget.h"
+/*
 class UserPubliserVideoWnd : public QWidget,
 	public CRTMPStreamShow,
-    public VideoShowBase
+    public VideoShowBase */
+class UserPubliserVideoWnd : public OpenGLVideoWidget,
+	public CRTMPStreamShow
 {
     Q_OBJECT
 public:
@@ -34,14 +40,20 @@ public:
     inline int  getVideoIndex();
 
     inline CRTMPPublisher* getPublisher();
+	
+	inline void setPaintCircle(bool paintCircle)
+	{
+		m_paintCircle = paintCircle;
+	};
 
 	virtual void showRtmpVideoBuf(const RtmpVideoBuf& videoData);
 protected:
-    virtual void paintEvent(QPaintEvent * event);
+//	virtual void paintEvent(QPaintEvent * event);
 	virtual void timerEvent(QTimerEvent * event);
 
 protected:
 	virtual void setupUi();
+
 protected:
     CRTMPPublisher*     m_rtmpPublisher;
     int                 m_indexVideo;
@@ -50,8 +62,10 @@ protected:
     QMutex              m_mutexVideoBuf;
     RtmpVideoBuf        m_showVideoBuf;	
 
-	int					m_refreshTimerId;
+//	int					m_refreshTimerId;
+
 	int					m_paintTimerId;
+	bool				m_paintCircle;
 
     QWidget*            m_widgetToolbar;
 };

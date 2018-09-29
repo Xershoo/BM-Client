@@ -742,13 +742,13 @@ int CRTMPPublish::CalculateMicVolum(unsigned char* pBuf,unsigned int nBufSize)
 
 void CRTMPPublish::PreviewSoundEx()
 {
+	static unsigned char* pBuf = NULL;
 	if(m_bIsPreview)
 	{
 		CSourAudio * pAudio = NULL;
 		pAudio = (CSourAudio *)m_sdManager.getSourData(MEDIAMICAUDIO,0);
 		if(pAudio)
-		{
-			static unsigned char* pBuf = NULL;
+		{	
 			if(pBuf == NULL)
 			{
 				pBuf = new unsigned char[5120];
@@ -773,6 +773,11 @@ void CRTMPPublish::PreviewSoundEx()
 			m_playAudio->StopSound();
 			delete m_playAudio;
 			m_playAudio = NULL;
+		}
+
+		if(pBuf){
+			delete []pBuf;
+			pBuf = NULL;
 		}
 	}
 }

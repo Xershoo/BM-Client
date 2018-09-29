@@ -22,8 +22,8 @@
 #include "UserVideoWnd.h"
 #include "MultiChannelVideoShow.h"
 
-class TeacherVideoWnd : public UserVideoWnd,
-    public MultiChannelVideoShow
+class TeacherVideoWnd : public MultiChannelVideoShow,
+	public UserVideoWnd
 {
     Q_OBJECT
 public:
@@ -31,19 +31,18 @@ public:
 
 	virtual void  setStudentVideoStream(CRTMPStream* rtmpStream,bool set);
 protected:
-    virtual void paintEvent(QPaintEvent * event);
+    //virtual void paintEvent(QPaintEvent * event);
 	virtual void timerEvent(QTimerEvent * event);
 
 	void showRtmpVideoBuf(const RtmpVideoBuf& videoData);
-	
 	
 protected:
     virtual QRect getVideoShowRect();
     virtual int   getMainVideoIndex();
 	
 protected:
-	int			m_refreshTimerId[MULTI_SHOW_CHANNEL_NUM];
-	int			m_paintTimerId;
+	//int			m_refreshTimerId[MULTI_SHOW_CHANNEL_NUM];
+	//int			m_paintTimerId;
 };
 
 #endif

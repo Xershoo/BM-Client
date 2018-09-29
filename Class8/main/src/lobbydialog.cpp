@@ -55,7 +55,7 @@ void LobbyDialog::freeInstance()
 extern LoginDialog* g_loginDlg;
 
 LobbyDialog::LobbyDialog(QWidget *parent)
-    : C8CommonWindow(parent,false)
+    : C8CommonWindow(parent,SHADOW_AERO)
 	, m_enterClassState(enterClass_undo)
 	, m_isClickedHome(false)
 	, m_isOpenWebCourseware(false)
@@ -73,7 +73,6 @@ LobbyDialog::LobbyDialog(QWidget *parent)
 //	, m_dlgCourse(NULL)
 {   
     ui.setupUi(this);
-    setWindowFlags(Qt::FramelessWindowHint);
 
 	/*
 	change by xiewb 2018.06.27
@@ -138,6 +137,8 @@ LobbyDialog::LobbyDialog(QWidget *parent)
 	connect(m_webWidget,SIGNAL(playClassroom(QString,QString)),this,SLOT(playClass(QString,QString)));
 	connect(m_webWidget,SIGNAL(webPageloadFinished()),this,SLOT(onWebPageLoadFinished()));
 	connect(ui.webView_course,SIGNAL(loadFinished()),this,SLOT(onWebViewLoadFinished(bool)));
+
+	centerWindow();
 }
 
 LobbyDialog::~LobbyDialog()

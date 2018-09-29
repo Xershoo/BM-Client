@@ -36,7 +36,7 @@ protected:
 	int						m_videoIndex;
 };
 
-class TeacherPublishVideoWnd : public QWidget,
+class TeacherPublishVideoWnd : //public QWidget,
     public MultiChannelVideoShow
 {
     Q_OBJECT
@@ -48,7 +48,7 @@ public:
 	virtual int   getMainVideoIndex();
 
 protected:
-    virtual void paintEvent(QPaintEvent * event);
+    //virtual void paintEvent(QPaintEvent * event);
 	virtual void timerEvent(QTimerEvent * event);
 
     virtual void mouseDoubleClickEvent(QMouseEvent * event);
@@ -60,8 +60,8 @@ protected:
     virtual QRect getVideoShowRect();
 
 protected:
-	int			m_refreshTimerId[MULTI_SHOW_CHANNEL_NUM];
-	int			m_paintTimerId;
+	//int			m_refreshTimerId[MULTI_SHOW_CHANNEL_NUM];
+	//int			m_paintTimerId;
 
 	SingleTeacherVideoShow*  m_showTeaVideo[MULTI_SHOW_CHANNEL_NUM-1];
 };

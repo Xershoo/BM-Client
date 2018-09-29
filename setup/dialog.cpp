@@ -13,6 +13,7 @@ Dialog::Dialog(QWidget *parent) :
     ui(new Ui::Dialog)
 {
     ui->setupUi(this);
+	setWindowTitle(QObject::tr("titleSetup"));
 	setWindowFlags(Qt::FramelessWindowHint);
 	setAttribute(Qt::WA_TranslucentBackground);
     setWindowIcon(QIcon(":/image/res/image/MainBig.ico"));

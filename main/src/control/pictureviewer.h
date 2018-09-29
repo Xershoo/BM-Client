@@ -10,6 +10,7 @@ class PictureViewer : public C8CommonWindow
 
 public:
     static PictureViewer* getInstance();
+	static void freeInstance();
     
     ~PictureViewer();
 
@@ -20,6 +21,10 @@ protected:
 
 protected slots:
     void closeBtnClicked();
+
+protected:
+	static PictureViewer* m_instance;
+
 private:
     Ui::PictureViewer ui;
 };

@@ -29,6 +29,47 @@ class QWhiteBoardLarserItem;
 class QWhiteBoardCurveItem;
 class QWhiteBoardTextItem;
 
+typedef struct _whiteboard_item_param{
+	_whiteboard_item_param():uid(0)
+		,type(0)
+		,id(0)
+		,content("")
+	{
+	};
+
+	_whiteboard_item_param(__int64 _uid,int _type,int _id,string _content):uid(_uid)
+		,type(_type)
+		,id(_id)
+		,content(_content)
+	{
+	};
+
+	_whiteboard_item_param& operator=(const _whiteboard_item_param& other){
+		uid = other.uid;
+		id = other.id;
+		type = other.type;
+		content = other.content;
+		return *this;
+	};
+
+	bool operator==(const _whiteboard_item_param& a){
+		if (uid == a.uid && 
+			id == a.id && 
+			type == a.type && 
+			content.compare(a.content) == 0){
+			return true;
+		}
+		return false;
+	};
+
+	__int64 uid;
+	int		type;
+	int		id;
+	string	content;
+}WBITEMPARAM,*LPWBITEMPARAM;
+
+typedef QList<WBITEMPARAM>	QWbItemParamList;
+
 class QWhiteBoardScene : public QGraphicsScene
 {
     Q_OBJECT
@@ -59,6 +100,15 @@ public:
 	void addTextItem(QString& text,QPointF pos);
 
 	QColor getColor();
+
+public:	
+	//add for multiple page pdf-whiteboard xiewb 2018.09.27
+	void reset();
+	void getItemParamList(QWbItemParamList& listParam);
+	void setItemParamList(const QWbItemParamList& listParam);
+protected:
+	void addItemParam(__int64 uid,int type,int id,string& content);
+	void delItemParam(__int64 userId,int id);
 public:
     void handleItemEvent(__int64 uid,int type,int id,string& content);
 
@@ -71,6 +121,7 @@ protected:
     void   delSceneItem(__int64 userId,int itemId);    
     int    getItemId();
 
+	QGraphicsItem *	findItem(__int64 userId,int itemId);
 protected slots:
     void editCompleteEvent(QWhiteBoardTextItem* itemText);
 
@@ -91,6 +142,7 @@ protected:
     WhiteBoardItem*         m_lastItem;
 
     __int64                 m_userId;
+	QWbItemParamList		m_listItemParam;
 };
 
 void QWhiteBoardScene::setColor(WBColor clr)

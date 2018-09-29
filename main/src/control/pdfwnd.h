@@ -16,10 +16,11 @@
 #include <QtWidgets\QWidget>
 #include <QtCore\QVector>
 #include <common/varname.h>
+#include "WhiteBoard/QWhiteBoard.h"
 
 class QWhiteBoardView;
 
-typedef QVector<QWhiteBoardView*>   QWhiteBoardViewList;
+typedef QVector<QWbItemParamList*>	QWBItemParamsList;	
 
 class QPDFWnd : public QWidget
 {
@@ -88,13 +89,15 @@ protected:
     virtual bool eventFilter(QObject * obj, QEvent * event);
 
 protected:
-    void  initWhiteBoardViewList();
     void  setWhiteBoardViewShow();
 	void  setPreviewImage();
 
+	void  initWhiteBoardView();
     int   calcFileId();
 	void  initPDFApp();
 
+	void  initWBItemParamsList();
+	void  freeWBItemParamsList();
 signals:
     void addPdfPreviewPage(const QString& file,const QImage& image,int index);    
 	void showPdfPage(const QString& file,int index);
@@ -123,8 +126,8 @@ protected:
     int			m_fileOpen;
     QString     m_fileName;
 
-    QWhiteBoardView*    m_curWhiteBoardView;    
-    QWhiteBoardViewList m_lstWhiteBoardView;
+    QWhiteBoardView*    m_viewWhiteBoard;    
+	QWBItemParamsList	m_lstWBItemParams;
     
     __int64     m_userId;
     __int64     m_courseId;
@@ -135,6 +138,9 @@ protected:
 void QPDFWnd::setUserId(__int64 userId)
 {
     m_userId = userId;
+	if(m_viewWhiteBoard){
+		m_viewWhiteBoard->setUserId(userId);
+	}
 }
 
 __int64 QPDFWnd::getUserId()
@@ -145,6 +151,9 @@ __int64 QPDFWnd::getUserId()
 void QPDFWnd::setCourseId(__int64 cid)
 {
     m_courseId = cid;
+	if(m_viewWhiteBoard){
+		m_viewWhiteBoard->setCourseId(cid);
+	}
 }
 
 __int64 QPDFWnd::getCourseId()
@@ -155,6 +164,9 @@ __int64 QPDFWnd::getCourseId()
 void QPDFWnd::setWbCtrl(int nCtrl)
 {
     m_wbCtrl = nCtrl;
+	if(m_viewWhiteBoard){
+		m_viewWhiteBoard->setEnable((WBCtrl)nCtrl);
+	}
 }
 
 int QPDFWnd::getWbCtrl()
@@ -164,7 +176,7 @@ int QPDFWnd::getWbCtrl()
 
 QWhiteBoardView* QPDFWnd::getCurWhiteBoardView()
 {
-    return m_curWhiteBoardView;
+    return m_viewWhiteBoard;
 }
 
 #endif
