@@ -500,6 +500,9 @@
         <file>res/image/default/web_loading.gif</file>
         <file>res/image/default/wait.gif</file>
         <file>res/image/default/trans_back.png</file>
+        <file>res/image/default/course_create_flag.png</file>
+        <file>res/image/default/course_pay_flag.png</file>
+        <file>res/image/default/course_def_image.png</file>
     </qresource>
     <qresource prefix="/face">
         <file>res/face/li/1 (1).gif</file>

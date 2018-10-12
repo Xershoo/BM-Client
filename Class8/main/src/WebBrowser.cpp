@@ -465,7 +465,8 @@ void WebBrowser::BeforeNavigate2( IDispatch *pDisp,VARIANT *&url,VARIANT *&Flags
 		WCHAR wszPrefix[32] = { 0 };
 		wcsncpy_s(wszPrefix,pwszUrl,pwszCol- pwszUrl);
 		if( wcsicmp(wszPrefix,L"http") != 0 && 
-			wcsicmp(wszPrefix,L"https") != 0)
+			wcsicmp(wszPrefix,L"https") != 0 && 
+			wcslen(wszPrefix) != 1 )
 		{
 			*Cancel = VARIANT_TRUE;
 			return;

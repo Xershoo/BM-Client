@@ -30,11 +30,11 @@ namespace biz
 
 					onLogin(pp->retcode_,pp->userid_,gnet::oct2wstr(pp->token_).c_str(),
 						strIp.c_str(),strPort.c_str(),pp->netisp_);
-
+					/*
 					if(_callback)
 					{
 						_callback->OnLogin(pp->userid_, pp->usertype_);
-					}
+					}*/
 				}
 				else
 				{
@@ -55,9 +55,15 @@ namespace biz
 				{
 					QueryUserInfo(_userLogin.nUserId);
 					
+					if(_callback)
+					{
+						_callback->OnLogin(pp->userid_, _userLogin.nLoginType);
+					}
+
 					_timesRelogin = 0;
 					_relogin = false;
 					_userLogin.nState = USER_VALIDATE_OK;
+
 				}
 				else
 				{

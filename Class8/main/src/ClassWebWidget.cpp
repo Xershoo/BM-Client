@@ -141,3 +141,31 @@ void QClassWebWidget::onPlayClassRoom(__int64 nClassId,__int64 nCourseId)
 
 	emit playClassroom(strCourseId,strClassId);
 }
+
+void QClassWebWidget::setUserInfo(__int64 uid,QString name,QString image)
+{
+	if(NULL==m_webBrowser){
+		return;
+	}
+
+	WCHAR wszUid[1024] = { 0 };
+	WCHAR wszName[1024] = { 0 };
+	WCHAR wszImage[1024] = { 0 };
+
+	_itow(uid,wszUid,10);
+	name.toWCharArray(wszName);
+	image.toWCharArray(wszImage);
+
+	CComVariant varParam[3]={CComVariant(wszImage),CComVariant(wszName),CComVariant(wszUid)};
+
+	m_webBrowser->CallWebScriptFunction(L"setUserInfo",varParam,3);
+}
+
+void QClassWebWidget::onShowClassList(LPCWSTR pwszDate)
+{
+	if(NULL==pwszDate||NULL==pwszDate[0]){
+		return;
+	}
+
+	emit showClassList(QString::fromStdWString(pwszDate));
+}

@@ -924,6 +924,10 @@ code switch，can not switch ongoing documents</translation>
         <translation type="unfinished">Sorry,failed enter classroom. Please quit and login again.......</translation>
     </message>
     <message>
+          <source>courseListText</source>
+          <translation type="unfinished">Course List</translation>
+    </message>
+    <message>
         <location filename="../../src/lobbydialog.cpp" line="358"/>
         <location filename="../../src/lobbydialog.cpp" line="364"/>
         <location filename="../../src/lobbydialog.cpp" line="370"/>
@@ -933,6 +937,10 @@ code switch，can not switch ongoing documents</translation>
         <location filename="../../src/lobbydialog.cpp" line="486"/>
         <source>info</source>
         <translation type="unfinished">notification</translation>
+    </message>
+    <message>
+      <source>noCourseMsg</source>
+      <translation type="unfinished">You have no curriculum today.</translation>
     </message>
 </context>
 <context>
@@ -2278,6 +2286,33 @@ ESC ESC;</translation>
         <location filename="../../../../main/src/coursewareTools/whiteboardtools.ui" line="95"/>
         <source>videoList</source>
         <translation type="unfinished">student video cam</translation>
+    </message>
+</context>
+<context>
+    <name>CourseClassItem</name>
+    <message>
+      <source>classTime</source>
+      <translation type="unfinished">time：</translation>
+    </message>
+    <message>
+      <source>classTeacher</source>
+      <translation type="unfinished">teacher：</translation>
+    </message>
+    <message>
+      <source>enterClass</source>
+      <translation type="unfinished">Enter Class</translation>
+    </message>
+    <message>
+      <source>classOver</source>
+      <translation type="unfinished">end</translation>
+    </message>
+    <message>
+      <source>waitBegin</source>
+      <translation type="unfinished">wait</translation>
+    </message>
+    <message>
+      <source>playRecord</source>
+      <translation type="unfinished">Play Record</translation>
     </message>
 </context>
 </TS>

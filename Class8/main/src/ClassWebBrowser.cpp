@@ -2,6 +2,7 @@
 
 #define DISPID_EXTERNAL_METHOD_ENTER_CLASSROOM		(40001)
 #define DISPID_EXTERNAL_METHOD_PLAY_CLASSROOM		(40002)
+#define DISPID_EXTERNAL_METHOD_SHOW_CLASSLIST		(40003)
 
 CClassWebBrowser::CClassWebBrowser():m_pCallback(NULL)	
 {
@@ -33,6 +34,12 @@ HRESULT _stdcall CClassWebBrowser::GetIDsOfNames(REFIID riid,
 	if(lstrcmp(rgszNames[0],L"playClass") == 0) 
 	{
 		*rgDispId = DISPID_EXTERNAL_METHOD_PLAY_CLASSROOM;
+		return S_OK;
+	};
+
+	if(lstrcmp(rgszNames[0],L"showClass") == 0) 
+	{
+		*rgDispId = DISPID_EXTERNAL_METHOD_SHOW_CLASSLIST;
 		return S_OK;
 	};
 
@@ -75,6 +82,17 @@ HRESULT _stdcall CClassWebBrowser::Invoke(
 			nCourseId = pDispParams->rgvarg[1].ulVal;
 
 			m_pCallback->onPlayClassRoom(nClassId,nCourseId);
+		}
+		return S_OK;
+	};
+
+	if ( dispIdMember == DISPID_EXTERNAL_METHOD_SHOW_CLASSLIST)
+	{		
+		if(m_pCallback && pDispParams->cArgs >= 1)
+		{
+			LPWSTR pwszDate = (LPWSTR)pDispParams->rgvarg[0].bstrVal;
+			
+			m_pCallback->onShowClassList((LPCWSTR)pwszDate);
 		}
 		return S_OK;
 	};

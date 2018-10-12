@@ -48,6 +48,7 @@ public slots:
 
 	void enterClass(__int64 courseId,__int64 classId);
 
+	void showClassList(QString qstrDate);
 public slots:
     void onRecvLoginToken(QString pwszToken);
     void onReturnUserInfo(__int64);
@@ -73,8 +74,15 @@ protected:
     
     QString getLangString();
 
+	void openLocalPage();
+
+	void showCourseClass(string jsonList);
+
+	void setCourseClassItem(CourseClassItem* ccItem,string courseId,string classId,
+		string classState,string imageUrl,string className,string isTeacher,
+		string teacherName,string startTime,string endTime);
 protected slots:
-    void showMinimized();    
+    void showMinimized();
     void clickedNotify();
     void clickedSetting();
     void clickedUserInfo(QString);
@@ -101,6 +109,7 @@ protected:
     int     m_nnotifyTimer;
     int     m_reloadTimer;
     int     m_idDownHeadImage;
+	int		m_idGetClassList;
     
     QWebView * m_webViewChat;
 

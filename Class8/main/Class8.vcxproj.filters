@@ -1218,6 +1218,15 @@
     <ClCompile Include="..\..\main\common\QtAeroWin.cpp">
       <Filter>Common Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\CourseClassItem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_CourseClassItem.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_CourseClassItem.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\..\main\3rdparty\qxtglobalshortcut\qxtglobalshortcut.h">
@@ -1685,6 +1694,12 @@
     <CustomBuild Include="..\..\main\src\videownd\MultiChannelVideoShow.h">
       <Filter>src\videownd</Filter>
     </CustomBuild>
+    <CustomBuild Include="src\CourseClassItem.ui">
+      <Filter>Source Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\CourseClassItem.h">
+      <Filter>Source Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <None Include="qss\coffee.qss">
@@ -1977,6 +1992,9 @@
     </ClInclude>
     <ClInclude Include="..\..\main\common\QtAeroWin.h">
       <Filter>Common Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_CourseClassItem.h">
+      <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

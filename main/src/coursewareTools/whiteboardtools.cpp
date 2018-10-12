@@ -189,7 +189,10 @@ void whiteboardtools::showUI(bool bISShow)
 {
     if (ClassSeeion::GetInst()->IsTeacher())
     {	
-        ui.pushButton_showStuVideoListWnd->show();
+		//xiewb 2018.09.30
+        ui.pushButton_showStuVideoListWnd->hide();
+		ui.line_left->hide();
+
         if (bISShow)
         {   
             ui.pushButton_classRoomLeftMoveBtn->setDisabled(false);

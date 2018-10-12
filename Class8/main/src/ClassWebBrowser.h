@@ -8,6 +8,7 @@ class IClassCallback
 public:
 	virtual void onEnterClassRoom(__int64 nClassId,__int64 nCourseId) = 0;
 	virtual void onPlayClassRoom(__int64 nClassId,__int64 nCourseId) = 0;
+	virtual void onShowClassList(LPCWSTR pwszDate) = 0;
 	virtual void onDocumentComplete() = 0;
 };
 

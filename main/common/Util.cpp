@@ -87,6 +87,19 @@ namespace Util
         return ;
     }
 
+	void Utf8ToQString(const char* s,int length,QString& qs)
+	{   
+		if(NULL == s || NULL == s[0] || length <= 0 )
+		{
+			return ;
+		}
+
+		QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));
+		qs = QTextCodec::codecForLocale()->toUnicode(s,length);
+
+		return ;
+	}
+
     void QStringToAnsi(const QString& str,char* s,int length)
     {
         if(str.isEmpty() || NULL == s || length <= 0)

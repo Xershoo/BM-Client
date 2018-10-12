@@ -50,10 +50,6 @@ QWidget#widget_picViewerTitleBar {
 	background-color: rgb(25, 118, 210);
 }
 
-QWidget#LobbyDialog {
-	background-color: rgb(25, 118, 210);
-}
-
 QLabel#label_picViewer {
 	font-family: "Microsoft YaHei";
 	font-size: 12px;
@@ -1153,6 +1149,23 @@ QPushButton#pushButton_close_small:pressed {
 }
 
 /*课程页*/
+QWidget#LobbyDialog{
+	background-color: rgb(25, 118, 210);
+}
+
+QWidget#widget_vline,#widget_hline{
+	background-color: rgb(183, 215, 247);
+}
+
+QLabel#label_courseList{
+	width: 200px;
+	height: 40px;
+	color:rgb(25,118,210);
+	font-family: "Microsoft YaHei";
+	font-size: 24px;
+	/*font-weight: bold;*/
+}
+
 QPushButton#pushButton_notify {
 	width: 40px;
 	height: 40px;
@@ -1220,6 +1233,12 @@ QPushButton#pushButton_auth:hover {
 	text-decoration:underline;
 }
 
+QLabel#label_noCourseTip {
+	color:rgb(25,118,210);
+	font-family: "Microsoft YaHei";
+	font-size: 24px;
+}
+/*课程页*/
 
 /*个人设置*/
 QWidget#SettingDialog {
@@ -3910,3 +3929,61 @@ QPushButton#waitDlg_okButton:pressed {
 QPushButton#waitDlg_okButton:disabled {
 	background-color: rgb(192, 192, 192);
 }
+
+/*课程课节信息界面设置*/
+QWidget#widget_classImage{
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	background-color: none;
+}
+
+QLabel#label_className{
+	font-family: "Microsoft YaHei";
+	font-size: 20px;
+	color: rgb(45,164,164);
+	background-color: rgb(250,250,250);
+}
+
+QLabel#label_classTime{
+	font-family: "Microsoft YaHei";
+	font-size: 14px;
+	color: rgb(48, 143, 235);
+	background-color: rgb(250,250,250);
+}
+
+QLabel#label_classTeacher{
+	font-family: "Microsoft YaHei";
+	font-size: 14px;
+	color: rgb(48, 143, 235);
+	background-color: rgb(250,250,250);
+}
+
+QLabel#label_classFlag {
+	background-color: none;
+	image: url(:/res/res/image/default/course_create_flag.png);
+}
+
+QLabel#label_classImage {
+	background-color: none;
+	image: url(:/res/res/image/default/course_def_image.png);
+}
+
+QPushButton#pushButton_classCtrl {
+	width: 120px;
+	height: 35px;
+	font-family: "Microsoft YaHei";
+	font-size: 16px;
+	color: rgb(255,255,255);
+	border-radius: 5px;
+	background-color: rgb(25, 118, 210);
+}
+QPushButton#pushButton_classCtrl:hover:!pressed {
+	background-color: rgb(48, 143, 235);
+}
+QPushButton#pushButton_classCtrl:pressed {
+	background-color: rgb(20, 104, 187);
+}
+QPushButton#pushButton_classCtrl:disabled {
+	background-color: rgb(131, 178, 226);
+}
+/*课程课节信息界面设置*/

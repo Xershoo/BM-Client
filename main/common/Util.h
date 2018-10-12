@@ -26,6 +26,7 @@ namespace Util
 
     //QStringÓëchar* £¬std::string ,std::wstringµÄ×ª»»
     extern void AnsiToQString(const char* s,int length,QString& qs);
+	extern void Utf8ToQString(const char* s,int length,QString& qs);
     extern void QStringToAnsi(const QString& str,char* s,int length);    
     extern void QStringToString(const QString& qstr,std::string& str);
     extern void QStringToWString(const QString& qstr,std::wstring& wstr);
@@ -38,7 +39,7 @@ namespace Util
     extern int  StringToHex(char *string, unsigned char *cbuf, int len);
     extern void HexToString(char *ptr,unsigned char *buf,int len);
 
-    //MD5
+	//MD5
     QString Digest2String(const unsigned char *pDigest, int nDigest);
     bool    String2Digest(const unsigned char* hash_str, unsigned char *pDigest, int nLen = 16);
     bool	Char2Digest(const char* pChar,int nCharLen, char* pDigest);

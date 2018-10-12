@@ -924,6 +924,10 @@ code码点击更换，正在进行的课程无法更换</translation>
         <translation type="unfinished">对不起，进入课堂失败，请退出重新登录......</translation>
     </message>
     <message>
+        <source>courseListText</source>
+        <translation type="unfinished">课程列表</translation>
+    </message>
+    <message>
         <location filename="../../src/lobbydialog.cpp" line="358"/>
         <location filename="../../src/lobbydialog.cpp" line="364"/>
         <location filename="../../src/lobbydialog.cpp" line="370"/>
@@ -933,6 +937,10 @@ code码点击更换，正在进行的课程无法更换</translation>
         <location filename="../../src/lobbydialog.cpp" line="486"/>
         <source>info</source>
         <translation type="unfinished">消息提示</translation>
+    </message>
+    <message>
+        <source>noCourseMsg</source>
+        <translation type="unfinished">您今天没有课程</translation>
     </message>
 </context>
 <context>
@@ -2280,4 +2288,31 @@ ESC退出;</translation>
         <translation type="unfinished">学生视频</translation>
     </message>
 </context>
+<context>
+    <name>CourseClassItem</name>
+    <message>
+      <source>classTime</source>
+      <translation type="unfinished">时间：</translation>
+    </message>
+    <message>
+      <source>classTeacher</source>
+      <translation type="unfinished">老师：</translation>
+    </message>
+    <message>
+      <source>enterClass</source>
+      <translation type="unfinished">进入课堂</translation>
+    </message>
+    <message>
+      <source>classOver</source>
+      <translation type="unfinished">已结束</translation>
+    </message>
+    <message>
+      <source>waitBegin</source>
+      <translation type="unfinished">未开始</translation>
+    </message>
+    <message>
+      <source>playRecord</source>
+      <translation type="unfinished">观看回放</translation>
+    </message>
+  </context>
 </TS>

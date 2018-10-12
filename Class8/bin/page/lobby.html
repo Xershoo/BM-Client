@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>邦芒课堂</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<link rel="stylesheet" href="css/calendar.css">
+	<style type="text/css">
+		.outBoder{
+			width: 480px;
+			height: 720px;
+			margin: 0 auto;
+		}
+
+		.leftBoder{
+			float: left;
+			width: 480px;
+			height: 720px;
+		}
+
+		.marginTop{
+			height: 40px;
+		}
+
+		.userHead{
+			height: 140px;
+			width: 140px;
+			border-radius:70px;
+			margin: 0 auto;
+			overflow: hidden;
+		}
+
+		.headPhoto{
+			border-radius: 50%;
+			height: 140px;
+			width: 140px;
+			border：1px solide #a9a9a9;
+		}
+
+		.userID{
+			width: 480px;
+			height: 60px;
+			text-align: center;
+			font-size: 18px;
+			line-height: 70px;
+			color: #666;
+		}
+
+		.userName{
+			font-weight: 600;
+			width: 480px;
+			height: 20px;
+			text-align: center;
+			font-size: 18px;
+			line-height: 20px;
+			color: #000;
+		}
+
+		.calendarBorder{
+			text-align: center;
+			margin-top: 30px;
+			width: 480px;
+			height: 380px;
+			border: 1px solid slateblue;
+		}
+	</style>
+	<script type="text/javascript">
+		//设置用户信息
+		function setUserInfo(id,name,headPhoto){
+			$("#userID").html(id);
+			$("#userName").html(name);
+			$("#headPhoto").attr("src",headPhoto);
+		};
+	
+		function showClassList(date) {
+			window.external.showClass(date);
+		};
+
+		//获取当天日期
+		function getNowFormatDate() {
+			var date = new Date();
+			var seperator1 = "-";
+			var seperator2 = ":";
+			var month = date.getMonth() + 1;
+			var strDate = date.getDate();
+			if (month >= 1 && month <= 9) {
+				month = "0" + month;
+			}
+
+			if (strDate >= 0 && strDate <= 9) {
+				strDate = "0" + strDate;
+			}
+
+			var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+					+ " " + date.getHours() + seperator2 + date.getMinutes()
+					+ seperator2 + date.getSeconds();
+
+			return currentdate;
+		};
+	</script>
+	<script type="text/javascript" src="js/calendar.js"></script>
+</head>
+<body>
+	<div class="outBoder">
+		<div class="leftBoder">
+			<div class="marginTop"></div>
+			<div>
+			<div class="userHead">
+				<img class="headPhoto" id="headPhoto" src="img/head.gif"/>
+			</div>
+			<div class="userID"  id="userID">10000</div>
+			<div class="userName" id="userName">邦芒培训</div>
+			</div>
+			<div id="calendar" class="calendar"></div>
+		</div>
+	</div>
+</body>
+</html>

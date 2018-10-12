@@ -17,12 +17,16 @@ public:
 signals:
 	void enterClassroom(QString courseID, QString classId);
 	void playClassroom(QString courseID, QString classId);
+	void showClassList(QString dateSel);
 	void webPageloadFinished();
 
 public:
 	virtual void onEnterClassRoom(__int64 nClassId,__int64 nCourseId);
 	virtual void onPlayClassRoom(__int64 nClassId,__int64 nCourseId);
+	virtual void onShowClassList(LPCWSTR pwszDate);
 	virtual void onDocumentComplete();
+
+	virtual void setUserInfo(__int64 uid,QString name,QString image);
 
 protected:
 	void resizeEvent(QResizeEvent *event);

@@ -280,9 +280,8 @@ void ClassRoomDialog::closeWnd()
 	unitNetMsgNotify();
 
 	::savePushDataToLocalFlvFileEnd();
-    
-    CSkyCursewaveData::freeInstance();
     CHttpSessionMgr::freeInstance();
+    CSkyCursewaveData::freeInstance();
     CoursewareDataMgr::freeInstance();
     WhiteBoardDataMgr::freeInstance();
     CoursewareTaskMgr::freeInstance();

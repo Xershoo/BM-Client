@@ -288,7 +288,6 @@ void LoginDialog::DoLoginOK(LoginInfo info)
     {        
 		ClassSeeion::GetInst()->_nUserId = info._nUserId;
         LobbyDialog::getInstance()->show();
-        LobbyDialog::getInstance()->openClassWebPage(true);
         g_singApp->m_widget = LobbyDialog::getInstance();
     }
 	ui.widget_logininfo->hide();
