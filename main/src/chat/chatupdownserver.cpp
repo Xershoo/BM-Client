@@ -2,6 +2,7 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QFile>
+#include <QWaitCondition>
 
 #include "common/Env.h"
 #include "token/UploadTokenMgr.h"
@@ -63,9 +64,11 @@ bool ChatUpDownServer::downLoadFile(const ChatUserHttpData &userData)
     if(!QFileInfo(picCachePath).exists())
     {
         QString downLoadImagePath = getHttpDownUrl() + userData.m_fileName;
+		char szFilePath[1024] = {0};
+		Util::QStringToChar(picCachePath,szFilePath,sizeof(szFilePath)-1);
         int nID = CHttpSessionMgr::GetInstance()->HttpDownloadFile(
             downLoadImagePath.toLatin1().constData(),
-            picCachePath.toLatin1().constData(),
+            szFilePath,//picCachePath.toLatin1().constData(),
             CHAT_HTTP_OUTTIME,0,(void*)NULL, (void*)this);
 
         if (-1 != nID)
@@ -95,11 +98,18 @@ bool ChatUpDownServer::upLoadFile(const ChatUserHttpData &userData)
         .arg(pszToken)
         .arg(sourceFileName);
 
+	char szFilePath[1024]={0};
+	Util::QStringToChar(md5FilePath,szFilePath,sizeof(szFilePath)-1);
     int nID = CHttpSessionMgr::GetInstance()->HttpUploadFile(
         uploadUrl.toLatin1().constData(),
-        md5FilePath.toLatin1().constData(),
+        szFilePath,//md5FilePath.toLatin1().constData(),
         form.toLatin1().constData(),
         CHAT_HTTP_OUTTIME,0,(void*)NULL, (void*)this);
+
+	Util::PrintTrace("ChatUpDownServer::upLoadFile.....[%d][%s][%s][%s]",nID,
+		uploadUrl.toLatin1().constData(),
+		szFilePath,
+		form.toLatin1().constData());
 
     QVector<int> idVec;
     idVec.append(nID);
@@ -181,7 +191,9 @@ void ChatUpDownServer::httpEndTask(void* param)
                 Util::CaleFileMd5(picCachePath,md5);
                 if(md5 != QFileInfo((it).key().m_fileName).baseName()  && CHAT_DOWNLOAD_UPLOAD_MAX_NUM > (it).value().size())
                 {
-                    innerDownLoadFile((it).key());
+					//xiewb 2018.10.16  防止图片过大，上传未完成无法下载
+					QThread::msleep(500);  
+					innerDownLoadFile((it).key());
                     return;
                 }
                 else if(md5 != QFileInfo((it).key().m_fileName).baseName()  && CHAT_DOWNLOAD_UPLOAD_MAX_NUM <= (it).value().size())
@@ -259,9 +271,14 @@ void ChatUpDownServer::innerDownLoadFile(const ChatUserHttpData &userData)
         QFile::remove(picCachePath);
 
     picCachePath.replace("\\","/");
-    int nID = CHttpSessionMgr::GetInstance()->HttpDownloadFile(
-        userData.m_fileName.toLatin1().constData(),
-        picCachePath.toLatin1().constData(),
+
+	char szFilePath[1024] = {0};
+	Util::QStringToChar(picCachePath,szFilePath,sizeof(szFilePath)-1);
+
+	QString downLoadImagePath = getHttpDownUrl() + userData.m_fileName;
+	int nID = CHttpSessionMgr::GetInstance()->HttpDownloadFile(
+        downLoadImagePath.toLatin1().constData(),
+        szFilePath,//picCachePath.toLatin1().constData(),
         CHAT_HTTP_OUTTIME,
         0,(void*)NULL, (void*)this
         );
@@ -279,6 +296,9 @@ void ChatUpDownServer::innerUpLoadFile(const ChatUserHttpData &userData)
     if(!getUploadToken(pszToken,ClassSeeion::GetInst()->_nUserId))
         return;
 
+	char szFilePath[1024]={0};
+	Util::QStringToChar(md5FilePath,szFilePath,sizeof(szFilePath)-1);
+
     QString sourceFileName = QFileInfo(userData.m_fileName).fileName();
     QString uploadUrl = getHttpUploadUrl();
     QString form = QString("{\"uid\":\"%1\",\"t\":\"%2\",\"old\":\"%3\",\"POS\":\"2\"}")
@@ -288,7 +308,7 @@ void ChatUpDownServer::innerUpLoadFile(const ChatUserHttpData &userData)
 
     int nID = CHttpSessionMgr::GetInstance()->HttpUploadFile(
         uploadUrl.toLatin1().constData(),
-        md5FilePath.toLatin1().constData(),
+        szFilePath,//md5FilePath.toLatin1().constData(),
         form.toLatin1().constData(),
         CHAT_HTTP_OUTTIME, 0, (void*)NULL, (void*)this);
 

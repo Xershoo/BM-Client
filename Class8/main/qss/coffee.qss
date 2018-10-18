@@ -904,7 +904,11 @@ QCheckBox#handsUpAble_CBox{
 }
 
 .QWidget#widget_titleBar {
-	background-color: rgb(25, 118, 210);
+	background-color: qlineargradient(spread:pad,x1:0,y1:0,x2:1,y2:0,stop:0 rgb(25, 118, 210),stop:0.5 rgb(50, 240, 230),stop:1 rgb(25, 118, 210));
+}
+
+.QWidget#widget_classroomTitle {
+	background-color: qlineargradient(spread:pad,x1:0,y1:0,x2:1,y2:0,stop:0 rgb(25, 118, 210),stop:0.5 rgb(81, 157, 234),stop:1 rgb(25, 118, 210));
 }
 
 /* 登陆窗口 标题没有填充色，用图片*/
@@ -2142,6 +2146,226 @@ QTabWidget#tabWidget_classroom>QTabBar::tab:first:selected:hover {
 	image: url(:/res/res/image/default/chaticon_hover_.png);
 }
 
+/* xiewb 2018.10.18 右侧视频下面的工具栏*/
+QWidget#widget_classroomVTool{
+	background-color:rgba(128,128,128,128);
+}
+
+QPushButton#pushButton_cameraEnable{
+	background-color: none;
+	height: 20px;
+	width: 20px;
+	image: url(:/res/res/image/default/classCameraBtn_normal.png);
+}
+QPushButton#pushButton_cameraEnable:checked{
+	image: url(:/res/res/image/default/classCameraBtn_checked.png);
+}
+QPushButton#pushButton_cameraEnable:disabled{
+	image: url(:/res/res/image/default/classCameraBtn_disabled.png);
+}
+QPushButton#pushButton_cameraEnable:hover{
+	image: url(:/res/res/image/default/classCameraBtn_hover.png);
+}
+QPushButton#pushButton_cameraEnable:pressed{
+	image: url(:/res/res/image/default/classCameraBtn_pressed.png);;
+}
+
+QPushButton#pushButton_cameraDisable{
+	background-color: none;
+	height: 20px;
+	width: 20px;
+	image: url(:/res/res/image/default/classDisCameraBtn_normal.png);
+}
+QPushButton#pushButton_cameraDisable:checked{
+	image: url(:/res/res/image/default/classDisCameraBtn_checked.png);
+}
+QPushButton#pushButton_cameraDisable:disabled{
+	image: url(:/res/res/image/default/classDisCameraBtn_disabled.png);
+}
+QPushButton#pushButton_cameraDisable:hover{
+	image: url(:/res/res/image/default/classDisCameraBtn_hover.png);
+}
+QPushButton#pushButton_cameraDisable:pressed{
+	image: url(:/res/res/image/default/classDisCameraBtn_pressed.png);;
+}
+
+QPushButton#pushButton_micEnable{
+	background-color: none;
+	height: 20px;
+	width: 20px;
+	image: url(:/res/res/image/default/classMicrophoneBtn_normal.png);
+}
+QPushButton#pushButton_micEnable:checked{
+	image: url(:/res/res/image/default/classMicrophoneBtn_checked.png);
+}
+QPushButton#pushButton_micEnable:disabled{
+	image: url(:/res/res/image/default/classMicrophoneBtn_disabled.png);
+}
+QPushButton#pushButton_micEnable:hover{
+	image: url(:/res/res/image/default/classMicrophoneBtn_hover.png);
+}
+QPushButton#pushButton_micEnable:pressed{
+	image: url(:/res/res/image/default/classMicrophoneBtn_pressed.png);;
+}
+
+QPushButton#pushButton_micDisable{
+	background-color: none;
+	height: 20px;
+	width: 20px;
+	image: url(:/res/res/image/default/classMicDisableBtn_normal.png);
+}
+QPushButton#pushButton_micDisable:checked{
+	image: url(:/res/res/image/default/classMicDisableBtn_checked.png);
+}
+QPushButton#pushButton_micDisable:disabled{
+	image: url(:/res/res/image/default/classMicDisableBtn_disabled.png);
+}
+QPushButton#pushButton_micDisable:hover{
+	image: url(:/res/res/image/default/classMicDisableBtn_hover.png);
+}
+QPushButton#pushButton_micDisable:pressed{
+	image: url(:/res/res/image/default/classMicDisableBtn_pressed.png);;
+}
+
+QPushButton#pushButton_spkEnable{
+	background-color: none;
+	height: 20px;
+	width: 20px;
+	image: url(:/res/res/image/default/classSpeakerBtn_normal.png);
+}
+QPushButton#pushButton_spkEnable:checked{
+	image: url(:/res/res/image/default/classSpeakerBtn_checked.png);
+}
+QPushButton#pushButton_spkEnable:disabled{
+	image: url(:/res/res/image/default/classSpeakerBtn_disabled.png);
+}
+QPushButton#pushButton_spkEnable:hover{
+	image: url(:/res/res/image/default/classSpeakerBtn_hover.png);
+}
+QPushButton#pushButton_spkEnable:pressed{
+	image: url(:/res/res/image/default/classSpeakerBtn_pressed.png);;
+}
+
+QPushButton#pushButton_spkDisable{
+	background-color: none;
+	height: 20px;
+	width: 20px;
+	image: url(:/res/res/image/default/classDisSpeakerBtn_normal.png);
+}
+QPushButton#pushButton_spkDisable:checked{
+	image: url(:/res/res/image/default/classDisSpeakerBtn_checked.png);
+}
+QPushButton#pushButton_spkDisable:disabled{
+	image: url(:/res/res/image/default/classDisSpeakerBtn_disabled.png);
+}
+QPushButton#pushButton_spkDisable:hover{
+	image: url(:/res/res/image/default/classDisSpeakerBtn_hover.png);
+}
+QPushButton#pushButton_spkDisable:pressed{
+	image: url(:/res/res/image/default/classDisSpeakerBtn_pressed.png);;
+}
+
+QSlider#slider_micVolume::groove:horizontal,#slider_spkVolume::groove:horizontal {
+	border: 1px solid #FFFFFF;
+	background: #FFFFFF;
+	height: 7px;
+	border-radius: 3px;
+	padding-left:0px;
+	padding-right:0px;
+	padding-top:0px;
+	padding-bottom:0px;
+}
+
+QSlider#slider_micVolume::sub-page:horizontal,#slider_spkVolume::sub-page:horizontal {
+	background: qlineargradient(x1: 0, y1: 0.2, x2: 1, y2: 1,
+	stop:0 rgb(50, 240, 230),stop:1 rgb(25, 118, 210));
+	height: 8px;
+	border-radius: 3px;
+}
+
+QSlider#slider_micVolume::add-page:horizontal,#slider_spkVolume::add-page:horizontal {
+	background: rgb(220,220,220);
+	height: 8px;
+	border-radius: 3px;
+}
+
+QSlider#slider_micVolume::handle:horizontal,#slider_spkVolume::handle:horizontal {
+	background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.8, fx:0.5, fy:0.5,
+	stop:0.6 rgb(255,184,29), stop:0.778409 rgba(249,150,128, 32));
+	width: 10px;
+	margin-top: -1px;
+	margin-bottom: -1px;
+	border-radius: 2px;
+}
+
+QSlider#slider_micVolume::handle:horizontal:hover:!pressed,#slider_spkVolume::handle:horizontal:hover:!pressed {
+	background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.8, fx:0.5, fy:0.5, stop:0.6 rgb(251,177,159),
+	stop:0.778409 rgba(249,150,128, 32));
+	width: 10px;
+	margin-top: -1px;
+	margin-bottom: -1px;
+	border-radius: 2px;
+}
+
+QSlider#slider_micVolume::handle:horizontal:pressed,#slider_spkVolume::handle:horizontal:pressed {
+	background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.8, fx:0.5, fy:0.5, stop:0.6 rgb(247,70,26),
+	stop:0.778409 rgba(249,150,128, 32));
+	width: 10px;
+	margin-top: -1px;
+	margin-bottom: -1px;
+	border-radius: 2px;
+}
+
+QSlider#slider_micVolume::sub-page:horizontal:disabled,#slider_spkVolume::sub-page:horizontal:disabled {
+	background: rgb(50, 240, 230);
+}
+
+QSlider#slider_micVolume::add-page:horizontal:disabled,#slider_spkVolume::add-page:horizontal:disabled {
+	background: rgb(220,220,220);
+}
+
+QSlider#slider_micVolume::handle:horizontal:disabled,#horSlider_spkVolume::handle:horizontal:disabled {
+	background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.8, fx:0.5, fy:0.5, stop:0.6 rgb(254,228,222),
+	stop:0.778409 rgba(255, 255, 255, 255));
+	width: 10px;
+	margin-top: -3px;
+	margin-bottom: -3px;
+	border-radius: 2px;
+}
+
+QToolButton#toolButton_userList,#toolButton_chatClass{
+	width: 60px;
+	height: 40px;
+	border-width: 0px;
+	border: none;
+	background-color:none;
+}
+
+QToolButton#toolButton_userList{
+	image: url(:/res/res/image/default/userlist_icon_normal.png) center no-repeat;
+}
+
+QToolButton#toolButton_userList:hover{
+	image: url(:/res/res/image/default/userlist_icon_hover.png) center no-repeat;
+}
+
+QToolButton#toolButton_userList:disabled{
+	image: url(:/res/res/image/default/userlist_icon_selected.png) center no-repeat;
+}
+
+QToolButton#toolButton_chatClass{
+	image: url(:/res/res/image/default/chaticon_normal.png) center no-repeat;
+}
+
+QToolButton#toolButton_chatClass:hover{
+	image: url(:/res/res/image/default/chaticon_hover.png) center no-repeat;
+}
+
+QToolButton#toolButton_chatClass:disabled{
+	image: url(:/res/res/image/default/chaticon_selected.png) center no-repeat;
+}
+/*右侧视频下面的工具栏*/
+
 /*classroom主界面*/
 QCheckBox {
 	spacing: 5px;
@@ -2526,7 +2750,11 @@ ChatWindowOutPutEdit#textEdit_input{
 }
 
 QWidget#menue_widget{
-	background-color:rgb(241,241,241);
+	background-color:rgb(255,255,255);
+}
+
+QWidget#chat_belowWidget{
+	background-color:rgb(221,221,221);
 }
 
 QWidget#below_widget{

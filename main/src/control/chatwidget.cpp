@@ -44,6 +44,11 @@ ChatWidget::ChatWidget(QWidget *parent) : QWidget(parent)
 	ui->micDisable_pushBtn->hide();
 	ui->cameraDisabel_pushBtn->hide();
 
+	//xiewb 2018.10.18
+	ui->camera_pushBtn->hide();
+	ui->micEnable_pushBtn->hide();
+	ui->soundEnable_pushBtn->hide();
+
 	ui->textEdit_input->setText(tr("loading chat style..."));
 	ui->textEdit_input->setEnabled(false);
 	ui->showFaceSelectWindow_pushBtn->setEnabled(false);

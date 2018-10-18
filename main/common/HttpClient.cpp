@@ -13,6 +13,7 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include "Util.h"
 
 #define _CRT_SECURE_NO_WARNINGS
 
@@ -358,6 +359,8 @@ bool CHttpClient::Upload(const std::string& url, const char *filename,string &re
 		curl_slist_free_all(headerlist);
 		headerlist = NULL;
 	}
+
+	Util::PrintTrace("CHttpClient::UploadFile[%d][%s]...[%s][%s][%s][%s]",br,m_error.c_str(),url.c_str(),filename,response.c_str(),form.c_str());
 
 	return br;
 }

@@ -61,7 +61,7 @@ private:
 protected slots:
 
     void showMinimized();
-    void close();
+    void doClose();
     void classSettingBtnClicked();
     void doClassSetting(QString);
 
@@ -106,6 +106,22 @@ protected slots:
 
     void zoomInBtnClicked();
     void zoomOutBtnClicked();
+
+	//xiewb 2018.10.17
+	void showClassChatWidget();
+	void showClassUserList();
+
+	void enableCameraClicked();
+	void disableCameraClicked();
+	
+	void enableMicrophoneClicked();
+	void disableMicrophoneClicked();
+
+	void enableSpeakerClicked();
+	void disableSpeakerClicked();
+
+	void micVolumeSliderChange(int);
+	void spkVolumeSliderChange(int);
 public slots:	
 	void addMainView(QWidget *pwidget);
     void showMainView(QWidget *pwidget, bool bAddNew);
@@ -175,7 +191,6 @@ protected:
 	
 protected:
     void customEvent(QEvent * event);
-
 	void resizeEvent(QResizeEvent *);
 private:
 
@@ -235,7 +250,10 @@ protected:
 	C8CommonWindow*  m_popupDlg;
 
 	//xiewb 2018.09.06
-	QWaitDlg*			m_dlgWait;
+	QWaitDlg*		m_dlgWait;
+
+	//xiewb 2018.010.15
+	bool			m_doClose;
 };
 
 

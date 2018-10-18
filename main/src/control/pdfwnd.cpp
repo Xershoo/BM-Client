@@ -240,7 +240,8 @@ void QPDFWnd::paintEvent(QPaintEvent * event)
     QPainter    painter(this);
     QRect       rect= this->rect();
         
-    painter.fillRect(rect,QColor(178,178,178));
+	//xiewb 2018.10.18 change back color from rgb(178,178,178) to rgb(250,250,250)
+    painter.fillRect(rect,QColor(250,250,250));
 
     if (!isFileOpen())
     {

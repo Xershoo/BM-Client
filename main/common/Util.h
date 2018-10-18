@@ -79,6 +79,8 @@ namespace Util
 	extern qint64 getDiskFreeSpace(const QString& strDisk);
 
 	extern bool IsXPHigher();
+
+	extern void PrintTrace(char* format,...);
 };
 
 #endif

@@ -41,6 +41,9 @@
 ClassRoomDialog* ClassRoomDialog::m_instance =  NULL;
 extern LoginDialog* g_loginDlg;
 
+#define MIN_CLASSROOM_DLG_WIDTH		(1600)
+#define MIN_CLASSROOM_DLG_HEIGHT	(950)
+
 #define TEACHER_MULTI_VIDEO  100
 #define ASSERT_CLASSROOM_DLG_EXSIT		if(!ClassRoomDialog::isValid()) { return ;}
 
@@ -91,6 +94,7 @@ ClassRoomDialog::ClassRoomDialog(QWidget *parent)
 	, m_initEnterClassRoom(false)
 	, m_bIsSetUI(false)
 	, m_isShowNormal(true)
+	, m_doClose(false)
 {
     ui.setupUi(this);
 	initUI();
@@ -148,7 +152,6 @@ void ClassRoomDialog::unitNetMsgNotify()
 	}
 
 	disconnect(bizCallback,NULL,this,NULL);
-
 }
 
 void ClassRoomDialog::initUI()
@@ -204,7 +207,21 @@ void ClassRoomDialog::initUI()
 	ui.pushButton_showCoursewareDownlistWnd->hide();
 	ui.gifIconPushButton_lock->hide();
 	ui.widget_mediatool->hide();
+	ui.tabWidget_classroom->tabBar()->hide();//2018.10.17
 	ui.widget_teaVideoToolBar_bk->hide();  //2018.09.28
+
+	ui.toolButton_chatClass->setEnabled(false);
+	ui.toolButton_userList->setEnabled(true);
+
+	//xiewb 2018.10.18
+	ui.pushButton_cameraDisable->hide();
+	ui.pushButton_micDisable->hide();
+	ui.pushButton_spkDisable->hide();
+
+	ui.slider_micVolume->setRange(0,100);
+	ui.slider_spkVolume->setRange(0,100);
+	ui.slider_micVolume->setValue(CMediaPublishMgr::getInstance()->getMicVolume());
+	ui.slider_spkVolume->setValue(CMediaPublishMgr::getInstance()->getSpeakersVolume());
 }
 
 void ClassRoomDialog::initUiMsgNotify()
@@ -232,7 +249,7 @@ void ClassRoomDialog::initUiMsgNotify()
 	connect(ui.gifIconPushButton_lock, SIGNAL(clicked()), this, SLOT(lockClass()));
 	connect(ui.gifIconPushButton_unlock, SIGNAL(clicked()), this, SLOT(unlockClass()));
 	connect(ui.gifIconpushButton_minSize, SIGNAL(clicked()), this, SLOT(showMinimized()));
-	connect(ui.gifIconPushButton_close, SIGNAL(clicked()), this, SLOT(close()));
+	connect(ui.gifIconPushButton_close, SIGNAL(clicked()), this, SLOT(doClose()));
 	connect(ui.gifIconpushButton_max_normalSize, SIGNAL(clicked()), this, SLOT(max_minSizeBtnClicked()));
 
 	//list tool bar button
@@ -252,12 +269,26 @@ void ClassRoomDialog::initUiMsgNotify()
 	connect(m_incressSound, SIGNAL(activated()), ui.tabWidget_classroom->widget(0), SLOT(incressSound()));
 	connect(m_decressSound, SIGNAL(activated()), ui.tabWidget_classroom->widget(0), SLOT(decressSound()));
 	connect(m_handsUpDown, SIGNAL(activated()), this, SLOT(handsUpDown()));
+
+	//video bottom tool bar
+	connect(ui.toolButton_chatClass,SIGNAL(clicked()),this,SLOT(showClassChatWidget()));
+	connect(ui.toolButton_userList,SIGNAL(clicked()),this,SLOT(showClassUserList()));
+	
+	connect(ui.pushButton_cameraEnable,SIGNAL(clicked()),this,SLOT(disableCameraClicked()));
+	connect(ui.pushButton_cameraDisable,SIGNAL(clicked()),this,SLOT(enableCameraClicked()));
+	connect(ui.pushButton_micEnable,SIGNAL(clicked()),this,SLOT(disableMicrophoneClicked()));
+	connect(ui.pushButton_micDisable,SIGNAL(clicked()),this,SLOT(enableMicrophoneClicked()));
+	connect(ui.pushButton_spkEnable,SIGNAL(clicked()),this,SLOT(disableSpeakerClicked()));
+	connect(ui.pushButton_spkDisable,SIGNAL(clicked()),this,SLOT(enableSpeakerClicked()));
+	connect(ui.slider_micVolume,SIGNAL(valueChanged(int)),this,SLOT(micVolumeSliderChange(int)));
+	connect(ui.slider_spkVolume,SIGNAL(valueChanged(int)),this,SLOT(spkVolumeSliderChange(int)));
+
 }
 
 void ClassRoomDialog::setTitleBarRect()
 {
-    QPoint pt = ui.widget_titleBar->mapTo(this, QPoint(0, 0));
-    m_titlRect = QRect(pt, ui.widget_titleBar->size());
+    QPoint pt = ui.widget_classroomTitle->mapTo(this, QPoint(0, 0));
+    m_titlRect = QRect(pt, ui.widget_classroomTitle->size());
 }
 
 void ClassRoomDialog::showMinimized()
@@ -277,6 +308,8 @@ bool ClassRoomDialog::eventFilter(QObject *o, QEvent *e)
 
 void ClassRoomDialog::closeWnd()
 {
+	m_doClose = true;
+
 	unitNetMsgNotify();
 
 	::savePushDataToLocalFlvFileEnd();
@@ -305,6 +338,7 @@ void ClassRoomDialog::closeWnd()
 	}
 
 	m_chatManager.closeAllChat();
+	PictureViewer::getInstance()->close();
 	PictureViewer::freeInstance();
 
 	if(m_popupDlg)
@@ -322,9 +356,10 @@ void ClassRoomDialog::closeWnd()
 	CMediaPublishMgr::getInstance()->stopRecordScreen();
 }
 
-void ClassRoomDialog::close()
+void ClassRoomDialog::doClose()
 {
 	m_popupDlg = new C8MessageBox(C8MessageBox::Question, QString(tr("info")), QString(tr("ClassQuit")));
+	
 	if(!dlgExec())
 	{
 		return;
@@ -332,17 +367,15 @@ void ClassRoomDialog::close()
 
 	ASSERT_CLASSROOM_DLG_EXSIT;
 
-    PictureViewer::getInstance()->close();
-    closeWnd();    	
+	closeWnd();
+	QDialog::close();
+	
 	if(ClassSeeion::GetInst()->IsTeacher() )
 	{   
 		biz::GetBizInterface()->UserClassAction(ClassSeeion::GetInst()->_nClassRoomId, 0, biz::eUserspeekstate_clean_speak, ClassSeeion::GetInst()->_nUserId);
 	}
 
     biz::GetBizInterface()->LeaveClass(ClassSeeion::GetInst()->_nClassRoomId);
-
-    QDialog::close();
-
     LobbyDialog::getInstance()->setCloseClassRoom();	
 }
 
@@ -1510,6 +1543,7 @@ void ClassRoomDialog::doClassRoomState_Other( int nState, bool bISClearCList )
 	}
 
     closeWnd();
+	
 	::savePushDataToLocalFlvFileEnd();
 	CMediaPublishMgr::getInstance()->stopSeatVideo(-1);
 	
@@ -1663,7 +1697,18 @@ void ClassRoomDialog::webCameraSettingBtnClicked()
 
 void ClassRoomDialog::closeEvent(QCloseEvent * event)
 {
-    freeInstance();
+	if(!m_doClose){
+		doClose();
+
+		if(!m_doClose){
+			event->ignore();
+			return;
+		}
+	}
+
+	event->accept();
+
+	freeInstance();
 }
 
 void ClassRoomDialog::doClassSetting(QString url)
@@ -2257,8 +2302,16 @@ void ClassRoomDialog::windowShowMaxmized()
     m_titlRect = QRect(-2, -1, 1, 1);
     ui.gifIconpushButton_max_normalSize->setToolTip(tr("restoreSize"));
     ui.gifIconpushButton_max_normalSize->setIconPath(iconPath + "gificon_showNormal_normal.gif", iconPath + "gificon_showNormal_hover.gif", iconPath + "gificon_showNormal_pressed.gif");
-    QDialog::showMaximized();
-    m_isShowNormal = false;
+    
+	//xiewb 2018.10.12
+	QDialog::showMaximized();
+
+	//xiewb 2018.10.12
+ 	QRect rectScreen = QApplication::desktop()->availableGeometry();
+ 	this->setGeometry(0,0,rectScreen.width(),rectScreen.height());
+	this->show();
+	
+	m_isShowNormal = false;
 }
 
 void ClassRoomDialog::windowShowNormal() 
@@ -2266,12 +2319,32 @@ void ClassRoomDialog::windowShowNormal()
     QString iconPath = Env::currentThemeResPath();
     if (this->layout() && getShadow() != SHADOW_AERO)
     {
-        this->layout()->setMargin(9);
+        this->layout()->setContentsMargins(5,0,5,5);//setMargin(9);
     }
-    setTitleBarRect();
+
+	//xiewb 2018.10.12
+	QRect rectScreen = QApplication::desktop()->rect();
+	if(rectScreen.width()< MIN_CLASSROOM_DLG_WIDTH&&rectScreen.height()< MIN_CLASSROOM_DLG_HEIGHT){
+		return;
+	}
+
+	int wndWidth = rectScreen.width() < MIN_CLASSROOM_DLG_WIDTH ? rectScreen.width():MIN_CLASSROOM_DLG_WIDTH;
+	int wndHeight = rectScreen.height() < MIN_CLASSROOM_DLG_HEIGHT ? rectScreen.height():MIN_CLASSROOM_DLG_HEIGHT;
+
+	int xPos = (rectScreen.width() - wndWidth)/2;
+	int yPos = (rectScreen.height() - wndHeight)/2;
+
+	this->setGeometry(xPos,yPos,wndWidth,wndHeight);
+	this->show();
+    
+	setTitleBarRect();
+
     ui.gifIconpushButton_max_normalSize->setToolTip(tr("maxSize"));
     ui.gifIconpushButton_max_normalSize->setIconPath(iconPath + "gificon_maxSize_normal.gif", iconPath + "gificon_maxSize_hover.gif", iconPath + "gificon_maxSize_pressed.gif");        
-    QDialog::showNormal(); 
+    
+	//xiewb 2018.10.12
+	//QDialog::showNormal();
+
     m_isShowNormal = true;
 }
 
@@ -2342,9 +2415,9 @@ void ClassRoomDialog::adjustElementPos()
 
 void ClassRoomDialog::max_minSizeBtnClicked()
 {
-    if (this->isMaximized())
-    {
-        windowShowNormal();
+    if (!m_isShowNormal)
+    {	
+		windowShowNormal();
     }
     else
     {
@@ -2616,6 +2689,17 @@ void ClassRoomDialog::setClassRoomUI()
 		{
 			page->updateUserSpeakState(teaInfo.nUserId,true);
 		}
+
+		//xiewb 2018.10.18
+		ui.pushButton_cameraEnable->setEnabled(true);
+		ui.pushButton_cameraDisable->setEnabled(true);
+		ui.pushButton_micEnable->setEnabled(true);
+		ui.pushButton_micDisable->setEnabled(true);
+		ui.pushButton_spkEnable->setEnabled(true);
+		ui.pushButton_spkDisable->setEnabled(true);
+
+		ui.slider_micVolume->setEnabled(true);
+		ui.slider_spkVolume->setEnabled(true);
     }
     else
     {
@@ -2676,6 +2760,17 @@ void ClassRoomDialog::setClassRoomUI()
 		{
 			page->updateUserSpeakState(teaInfo.nUserId,false);
 		}
+
+		//xiewb 2018.10.18
+		ui.pushButton_cameraEnable->setEnabled(false);
+		ui.pushButton_cameraDisable->setEnabled(false);
+		ui.pushButton_micEnable->setEnabled(false);
+		ui.pushButton_micDisable->setEnabled(false);
+		ui.pushButton_spkEnable->setEnabled(false);
+		ui.pushButton_spkDisable->setEnabled(false);
+
+		ui.slider_micVolume->setEnabled(false);
+		ui.slider_spkVolume->setEnabled(false);
     }
 
 	ui.tab_chatWiget->resetUI();
@@ -2929,4 +3024,167 @@ void ClassRoomDialog::resizeEvent(QResizeEvent * event)
 {
 	QDialog::resizeEvent(event);
 	adjustElementPos();
+}
+
+//xiewb 2018.10.17
+void ClassRoomDialog::showClassChatWidget()
+{
+	ui.toolButton_userList->setEnabled(true);
+	ui.toolButton_chatClass->setEnabled(false);
+	ui.tabWidget_classroom->setCurrentIndex(0);
+}
+
+void ClassRoomDialog::showClassUserList()
+{
+	ui.toolButton_chatClass->setEnabled(true);
+	ui.toolButton_userList->setEnabled(false);
+	ui.tabWidget_classroom->setCurrentIndex(1);
+}
+
+//xiewb 2018.10.18
+void ClassRoomDialog::enableCameraClicked()
+{
+	if(!ClassSeeion::GetInst()->_bBeginedClass)
+	{
+		return;
+	}
+
+	if(ClassSeeion::GetInst()->IsTeacher())
+	{
+		PublishSeatList& listPublish = CMediaPublishMgr::getInstance()->getPublishSeatList();
+		for(int i=0;i<listPublish.size();i++)
+		{
+			LPPUBLISHSEATINFO seatPublish = listPublish.at(i);
+			if(NULL == seatPublish || NULL == seatPublish->_rtmp)
+			{
+				continue;
+			}
+
+			if(seatPublish->_ctype != CAMERA_LOCAL)
+			{
+				continue;
+			}
+
+			int sourceType = ((CRTMPPublisher*)(seatPublish->_rtmp))->getSourceType();
+			sourceType |= SOURCECAMERA;
+			((CRTMPPublisher*)(seatPublish->_rtmp))->setSourceType(sourceType);
+			seatPublish->_rtmp->change();
+		}
+	}
+	else
+	{
+		LPPUBLISHSEATINFO seatPublish = CMediaPublishMgr::getInstance()->getPublishSeatInfo(0);
+		if(seatPublish && seatPublish->_rtmp)
+		{
+			CRTMPPublisher* rtmpPublish = dynamic_cast<CRTMPPublisher*>(seatPublish->_rtmp);
+			if(rtmpPublish)
+			{
+				int sourceType = rtmpPublish->getSourceType();
+				sourceType |= SOURCECAMERA;
+				rtmpPublish->setSourceType(sourceType);
+				rtmpPublish->change();
+			}
+		}
+	}
+
+	biz::GetBizInterface()->UserClassAction(ClassSeeion::GetInst()->_nClassRoomId,ClassSeeion::GetInst()->_nUserId,biz::eClassAction_Open_video,0);
+
+	ui.pushButton_cameraEnable->setVisible(true);
+	ui.pushButton_cameraDisable->setVisible(false);
+}
+
+void ClassRoomDialog::disableCameraClicked()
+{
+	if(!ClassSeeion::GetInst()->_bBeginedClass)
+	{
+		return;
+	}
+
+	if(ClassSeeion::GetInst()->IsTeacher())
+	{
+		PublishSeatList& listPublish = CMediaPublishMgr::getInstance()->getPublishSeatList();
+		for(int i=0;i<listPublish.size();i++)
+		{
+			LPPUBLISHSEATINFO seatPublish = listPublish.at(i);
+			if(NULL == seatPublish || NULL == seatPublish->_rtmp)
+			{
+				continue;
+			}
+
+			if(seatPublish->_ctype != CAMERA_LOCAL)
+			{
+				continue;
+			}
+
+			int sourceType = ((CRTMPPublisher*)(seatPublish->_rtmp))->getSourceType();
+			sourceType &=~SOURCECAMERA;
+			((CRTMPPublisher*)(seatPublish->_rtmp))->setSourceType(sourceType);
+			seatPublish->_rtmp->change();
+		}
+	}
+	else
+	{
+		LPPUBLISHSEATINFO seatPublish = CMediaPublishMgr::getInstance()->getPublishSeatInfo(0);
+		if(seatPublish && seatPublish->_rtmp)
+		{
+			CRTMPPublisher* rtmpPublish = dynamic_cast<CRTMPPublisher*>(seatPublish->_rtmp);
+			if(rtmpPublish)
+			{
+				int sourceType = rtmpPublish->getSourceType();
+				sourceType &=~SOURCECAMERA;
+				rtmpPublish->setSourceType(sourceType);
+				rtmpPublish->change();
+			}
+		}
+	}
+
+	biz::GetBizInterface()->UserClassAction(ClassSeeion::GetInst()->_nClassRoomId,ClassSeeion::GetInst()->_nUserId,biz::eClassAction_Close_video,0);
+	ui.pushButton_cameraEnable->setVisible(false);
+	ui.pushButton_cameraDisable->setVisible(true);
+}
+
+void ClassRoomDialog::disableMicrophoneClicked()
+{
+	ui.pushButton_micEnable->setVisible(false);
+	ui.pushButton_micDisable->setVisible(true);
+
+	ui.slider_micVolume->setEnabled(false);
+	CMediaPublishMgr::getInstance()->setMicMute(true);
+}
+
+void ClassRoomDialog::enableMicrophoneClicked()
+{
+	ui.pushButton_micEnable->setVisible(true);
+	ui.pushButton_micDisable->setVisible(false);
+
+	ui.slider_micVolume->setEnabled(true);
+	CMediaPublishMgr::getInstance()->setMicMute(false);
+}
+
+void ClassRoomDialog::disableSpeakerClicked()
+{
+	ui.pushButton_spkEnable->setVisible(false);
+	ui.pushButton_spkDisable->setVisible(true);
+
+	ui.slider_spkVolume->setEnabled(false);
+	CMediaPublishMgr::getInstance()->setSpeakersMute(true);
+}
+
+void ClassRoomDialog::enableSpeakerClicked()
+{
+	ui.pushButton_spkEnable->setVisible(true);
+	ui.pushButton_spkDisable->setVisible(false);
+
+	ui.slider_spkVolume->setEnabled(true);
+	CMediaPublishMgr::getInstance()->setSpeakersMute(false);
+}
+
+void ClassRoomDialog::micVolumeSliderChange(int nVolume)
+{
+	CMediaPublishMgr::getInstance()->setMicVolume(nVolume);
+}
+
+void ClassRoomDialog::spkVolumeSliderChange(int nVolume)
+{
+	CMediaPublishMgr::getInstance()->setSpeakersVolume(nVolume);
 }

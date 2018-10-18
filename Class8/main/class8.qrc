@@ -503,6 +503,36 @@
         <file>res/image/default/course_create_flag.png</file>
         <file>res/image/default/course_pay_flag.png</file>
         <file>res/image/default/course_def_image.png</file>
+        <file>res/image/default/classCameraBtn_checked.png</file>
+        <file>res/image/default/classCameraBtn_disabled.png</file>
+        <file>res/image/default/classCameraBtn_hover.png</file>
+        <file>res/image/default/classCameraBtn_normal.png</file>
+        <file>res/image/default/classCameraBtn_pressed.png</file>
+        <file>res/image/default/classDisCameraBtn_checked.png</file>
+        <file>res/image/default/classDisCameraBtn_disabled.png</file>
+        <file>res/image/default/classDisCameraBtn_hover.png</file>
+        <file>res/image/default/classDisCameraBtn_normal.png</file>
+        <file>res/image/default/classDisCameraBtn_pressed.png</file>
+        <file>res/image/default/classDisSpeakerBtn_checked.png</file>
+        <file>res/image/default/classDisSpeakerBtn_disabled.png</file>
+        <file>res/image/default/classDisSpeakerBtn_hover.png</file>
+        <file>res/image/default/classDisSpeakerBtn_normal.png</file>
+        <file>res/image/default/classDisSpeakerBtn_pressed.png</file>
+        <file>res/image/default/classMicDisableBtn_checked.png</file>
+        <file>res/image/default/classMicDisableBtn_disabled.png</file>
+        <file>res/image/default/classMicDisableBtn_hover.png</file>
+        <file>res/image/default/classMicDisableBtn_pressed.png</file>
+        <file>res/image/default/classMicrophoneBtn_checked.png</file>
+        <file>res/image/default/classMicrophoneBtn_disabled.png</file>
+        <file>res/image/default/classMicrophoneBtn_hover.png</file>
+        <file>res/image/default/classMicrophoneBtn_normal.png</file>
+        <file>res/image/default/classMicrophoneBtn_pressed.png</file>
+        <file>res/image/default/classSpeakerBtn_checked.png</file>
+        <file>res/image/default/classSpeakerBtn_disabled.png</file>
+        <file>res/image/default/classSpeakerBtn_hover.png</file>
+        <file>res/image/default/classSpeakerBtn_normal.png</file>
+        <file>res/image/default/classSpeakerBtn_pressed.png</file>
+        <file>res/image/default/classMicDisableBtn_normal.png</file>
     </qresource>
     <qresource prefix="/face">
         <file>res/face/li/1 (1).gif</file>

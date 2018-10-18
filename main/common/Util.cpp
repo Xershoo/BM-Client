@@ -537,5 +537,17 @@ namespace Util
 		
 		return bIsXPHigher;
 	}
+
+	void PrintTrace(char* format,...)
+	{
+		char szText[1024]={0};
+		va_list args;
+		va_start(args, format);
+		vsprintf_s(szText, sizeof(szText)-1, format, args);
+		va_end(args);
+
+		OutputDebugStringA(szText);
+		OutputDebugStringA("\n");
+	}
 };
 

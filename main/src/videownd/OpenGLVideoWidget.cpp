@@ -142,7 +142,10 @@ void OpenGLVideoWidget::getRenderImage()
 		SAFE_DELETE(m_renderImage);
 
 		QMutexLocker autoLocker(&m_mutexBufImage);
-		QImage imageScaled = m_bufImage->scaled(QSize(rectShow.width(),rectShow.height()),Qt::IgnoreAspectRatio,Qt::SmoothTransformation);
+		//xiewb 2018.10.17 width and height are added 1 to solve the problem of black side.
+		int imgWidth = rectShow.width() + 1;
+		int imgHeight = rectShow.height() + 1;
+		QImage imageScaled = m_bufImage->scaled(QSize(imgWidth,imgHeight),Qt::IgnoreAspectRatio,Qt::SmoothTransformation);
 		if(imageScaled.isNull())
 		{
 			return;

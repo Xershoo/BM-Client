@@ -6,14 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1600</width>
-    <height>950</height>
+    <width>1260</width>
+    <height>750</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>1600</width>
-    <height>950</height>
+    <width>1260</width>
+    <height>750</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -45,8 +45,8 @@
      </property>
      <property name="minimumSize">
       <size>
-       <width>1580</width>
-       <height>936</height>
+       <width>1240</width>
+       <height>736</height>
       </size>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -66,7 +66,7 @@
        <number>0</number>
       </property>
       <item>
-       <widget class="QWidget" name="widget_titleBar" native="true">
+       <widget class="QWidget" name="widget_classroomTitle" native="true">
         <property name="minimumSize">
          <size>
           <width>0</width>
@@ -369,16 +369,16 @@
           <number>6</number>
          </property>
          <property name="leftMargin">
-          <number>10</number>
+          <number>5</number>
          </property>
          <property name="topMargin">
-          <number>10</number>
+          <number>5</number>
          </property>
          <property name="rightMargin">
-          <number>10</number>
+          <number>5</number>
          </property>
          <property name="bottomMargin">
-          <number>10</number>
+          <number>5</number>
          </property>
          <item>
           <widget class="QWidget" name="widget_classroomLeft" native="true">
@@ -390,8 +390,8 @@
            </property>
            <property name="minimumSize">
             <size>
-             <width>960</width>
-             <height>700</height>
+             <width>650</width>
+             <height>680</height>
             </size>
            </property>
            <property name="maximumSize">
@@ -819,7 +819,7 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>958</width>
+              <width>651</width>
               <height>689</height>
              </rect>
             </property>
@@ -1031,7 +1031,7 @@
            </property>
            <property name="maximumSize">
             <size>
-             <width>340</width>
+             <width>560</width>
              <height>16777215</height>
             </size>
            </property>
@@ -1072,7 +1072,7 @@
                <property name="geometry">
                 <rect>
                  <x>1</x>
-                 <y>386</y>
+                 <y>336</y>
                  <width>558</width>
                  <height>33</height>
                 </rect>
@@ -1167,15 +1167,259 @@
                  <number>0</number>
                 </property>
                 <item>
-                 <widget class="TeacherPublishVideoWnd" name="widget_teaPublishVideo" native="true"/>
+                 <widget class="TeacherPublishVideoWnd" name="widget_teaPublishVideo" native="true">
+                  <zorder>widget_classroomVTool</zorder>
+                 </widget>
                 </item>
                 <item>
                  <widget class="TeacherVideoWnd" name="widget_teaVideo" native="true"/>
                 </item>
                </layout>
               </widget>
+              <widget class="QWidget" name="widget_classroomVTool" native="true">
+               <property name="geometry">
+                <rect>
+                 <x>0</x>
+                 <y>370</y>
+                 <width>560</width>
+                 <height>50</height>
+                </rect>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>50</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <layout class="QHBoxLayout" name="horizontalLayout_3">
+                <property name="spacing">
+                 <number>5</number>
+                </property>
+                <property name="leftMargin">
+                 <number>10</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <widget class="QPushButton" name="pushButton_cameraEnable">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>20</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>20</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="pushButton_cameraDisable">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>20</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>20</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="pushButton_micEnable">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>20</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>20</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item alignment="Qt::AlignVCenter">
+                 <widget class="QPushButton" name="pushButton_micDisable">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>20</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>20</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSlider" name="slider_micVolume">
+                  <property name="minimumSize">
+                   <size>
+                    <width>120</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="pushButton_spkEnable">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>20</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>20</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="pushButton_spkDisable">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>20</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>20</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSlider" name="slider_spkVolume">
+                  <property name="minimumSize">
+                   <size>
+                    <width>120</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QToolButton" name="toolButton_chatClass">
+                  <property name="minimumSize">
+                   <size>
+                    <width>40</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QToolButton" name="toolButton_userList">
+                  <property name="minimumSize">
+                   <size>
+                    <width>40</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
               <zorder>widget_teaVideoWnd_bk</zorder>
               <zorder>widget_teaVideoToolBar_bk</zorder>
+              <zorder>widget_classroomVTool</zorder>
              </widget>
             </item>
             <item>
@@ -1183,12 +1427,12 @@
               <property name="minimumSize">
                <size>
                 <width>560</width>
-                <height>410</height>
+                <height>210</height>
                </size>
               </property>
               <property name="maximumSize">
                <size>
-                <width>340</width>
+                <width>560</width>
                 <height>16777215</height>
                </size>
               </property>
@@ -1202,7 +1446,7 @@
                <enum>QTabWidget::Rounded</enum>
               </property>
               <property name="currentIndex">
-               <number>1</number>
+               <number>0</number>
               </property>
               <property name="iconSize">
                <size>
