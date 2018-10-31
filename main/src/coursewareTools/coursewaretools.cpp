@@ -22,7 +22,7 @@ QcoursewareTools::QcoursewareTools(QWidget *parent)
     connect(ui.pushButton_right, SIGNAL(clicked()), this, SLOT(pageRightClicked()));
     
     connect(CoursewareTaskMgr::getInstance(), SIGNAL(add_courseware(QString, long long, int)), this, SLOT(addCoursewareItem(QString, long long, int)));    
-    connect(CoursewareDataMgr::GetInstance()->m_CoursewarePanel, SIGNAL(setShowPage(int)), this, SLOT(setTextPage(int)));    
+    connect(CoursewareDataMgr::GetInstance()->getCoursewarePannel(), SIGNAL(setShowPage(int)), this, SLOT(setTextPage(int)));    
     connect(CoursewareTaskMgr::getInstance(), SIGNAL(set_pos(QString,int)), this, SLOT(setCoursewarePercent(QString, int)));
     connect(WhiteBoardDataMgr::getInstance(), SIGNAL(add_whiteboard(QString)), this, SLOT(addWhiteboardItem(QString)));
 

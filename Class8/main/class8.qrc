@@ -533,6 +533,46 @@
         <file>res/image/default/classSpeakerBtn_normal.png</file>
         <file>res/image/default/classSpeakerBtn_pressed.png</file>
         <file>res/image/default/classMicDisableBtn_normal.png</file>
+        <file>res/image/default/gificon_leave_checked.gif</file>
+        <file>res/image/default/gificon_leave_disabled.gif</file>
+        <file>res/image/default/gificon_leave_hover.gif</file>
+        <file>res/image/default/gificon_leave_normal.gif</file>
+        <file>res/image/default/gificon_leave_pressed.gif</file>
+        <file>res/image/default/gificon_enter_checked.gif</file>
+        <file>res/image/default/gificon_enter_disabled.gif</file>
+        <file>res/image/default/gificon_enter_hover.gif</file>
+        <file>res/image/default/gificon_enter_normal.gif</file>
+        <file>res/image/default/gificon_enter_pressed.gif</file>
+        <file>res/image/default/gificon_record_start_checked.gif</file>
+        <file>res/image/default/gificon_record_start_disabled.gif</file>
+        <file>res/image/default/gificon_record_start_hover.gif</file>
+        <file>res/image/default/gificon_record_start_normal.gif</file>
+        <file>res/image/default/gificon_record_start_pressed.gif</file>
+        <file>res/image/default/gificon_record_stop_checked.gif</file>
+        <file>res/image/default/gificon_record_stop_disabled.gif</file>
+        <file>res/image/default/gificon_record_stop_hover.gif</file>
+        <file>res/image/default/gificon_record_stop_normal.gif</file>
+        <file>res/image/default/gificon_record_stop_pressed.gif</file>
+        <file>res/image/default/page_left_hover.png</file>
+        <file>res/image/default/page_left_normal.png</file>
+        <file>res/image/default/page_left_pressed.png</file>
+        <file>res/image/default/page_right_hover.png</file>
+        <file>res/image/default/page_right_normal.png</file>
+        <file>res/image/default/page_right_pressed.png</file>
+        <file>res/image/default/courseware_left_hover.png</file>
+        <file>res/image/default/courseware_left_normal.png</file>
+        <file>res/image/default/courseware_left_pressed.png</file>
+        <file>res/image/default/courseware_right_hover.png</file>
+        <file>res/image/default/courseware_right_normal.png</file>
+        <file>res/image/default/courseware_right_pressed.png</file>
+        <file>res/image/default/page_left_disabled.png</file>
+        <file>res/image/default/page_right_disabled.png</file>
+        <file>res/image/default/play_progress_handle.png</file>
+        <file>res/image/default/closeCoursewareBtn_disabled.png</file>
+        <file>res/image/default/closeCoursewareBtn_hover.png</file>
+        <file>res/image/default/closeCoursewareBtn_normal.png</file>
+        <file>res/image/default/closeCoursewareBtn_pressed.png</file>
+        <file>res/image/default/courseware_state_back.png</file>
     </qresource>
     <qresource prefix="/face">
         <file>res/face/li/1 (1).gif</file>

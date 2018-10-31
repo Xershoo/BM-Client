@@ -59,6 +59,7 @@ public:
     inline __int64 getCourseId();
     inline __int64 getOwnerId();
     inline int getPageId();
+	inline WBCtrl getEnable();
 
     void resizeKeepRadio();
 	void setSizeAndSceneRect(const QRect& rect);
@@ -83,6 +84,8 @@ public:
 protected slots:
     void sceneChangeCursor(WBMode mode);
     void sceneChangeItem(int type,int id,const string& content);
+
+public slots:
     void handleWhiteBoardEvent(biz::SLWhiteBoardEvent event);
     
 public slots:
@@ -191,6 +194,16 @@ __int64 QWhiteBoardView::getOwnerId()
 int QWhiteBoardView::getPageId()
 {
     return m_pageId;
+}
+
+WBCtrl QWhiteBoardView::getEnable()
+{
+	if(NULL == m_sceneWhiteBoard)
+	{
+		return WB_CTRL_NONE;
+	}
+
+	return m_sceneWhiteBoard->getEnable();
 }
 
 #endif

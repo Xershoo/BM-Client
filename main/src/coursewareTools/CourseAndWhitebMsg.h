@@ -12,7 +12,6 @@
 #pragma once
 
 #include <QObject>
-#include "coursewaretools.h"
 #include "BizInterface.h"
 #include "BizCallBack.h"
 

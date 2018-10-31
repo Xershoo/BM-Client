@@ -16,12 +16,13 @@
 
 #include <string>
 #include <QWidget>
+#include "OpenGLVideoWidget.h"
 #include "RtmpStream.h"
 #include "../media/player/MediaPlayer/include/MediaPlayer.h"
 
 using namespace std;
 
-class CMediaFilePlayer : public QWidget,        
+class CMediaFilePlayer : public OpenGLVideoWidget,        
 	public IMediaPlayerEvent
 {
     Q_OBJECT
@@ -29,25 +30,27 @@ public:
     CMediaFilePlayer(QWidget* parent);
     virtual ~CMediaFilePlayer();
 
-	static bool switchPlayFile(const string& curPlayFile);
-
 	enum
 	{
 		STOP = 0,
 		PLAY,
 		PAUSE,
+		SEEK
 	};
 public:
-	virtual bool play(const string& file,bool onlyOpen = false);
-    virtual bool playSwitch(const string& file);
+	virtual bool play(const string& file,bool onlyOpen = false);    
 	virtual bool pause(bool isPause);
 	virtual bool stop(void);
-	virtual bool seek(unsigned int pos);
-
-	virtual unsigned int getTotalPlayTime(void);
-	virtual unsigned int getCurPlayTime(void);
+	virtual bool seek(unsigned int pos,bool force = false);
 	
-    void Show(bool bShow);
+	virtual unsigned int getTotalPlayTime(void);
+	virtual unsigned int getCurPlayTime(bool video = false);
+	
+protected:		//未使用的接口
+	static bool switchPlayFile(const string& curPlayFile);
+	virtual bool playSwitch(const string& file);
+    void pauseShow(bool bShow);
+
 public:
 	inline unsigned int getState()
 	{
@@ -67,11 +70,12 @@ protected:
 	virtual void timerEvent(QTimerEvent *tEvent);
 
 signals:
-    void showVideoData(const RtmpVideoBuf& videoData);
-	void playPosChange(unsigned int state);
+	void playPosChange(unsigned int state,string& file);
+
+protected:
+	string m_fileName;
 
 private:
-	string m_fileName;
 	unsigned int  m_state;
 	unsigned int  m_totalPlayTime;
 	int m_idTimePlay;

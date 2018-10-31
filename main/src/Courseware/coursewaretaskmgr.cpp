@@ -1,5 +1,5 @@
 //**********************************************************************
-//	Copyright （c） 2018,浙江邦芒数据有限公司. All rights reserved.
+//	Copyright （c） 2015-2020. All rights reserved.
 //	文件名称：coursewaredata.cpp
 //	版本号：1.0
 //	作者：潘良
@@ -92,25 +92,29 @@ bool CoursewareTaskMgr::EndTimerTask()
     return true;
 }
 
-bool CoursewareTaskMgr::AddCourseBySource(LPCWSTR pszSourceFile, int *nError)
+PCOURSEWAREDATA CoursewareTaskMgr::AddCourseBySource(LPCWSTR pszSourceFile, int *nError)
 {
     if (NULL == pszSourceFile)
     {
-        return false;
+        return NULL;
     }
 
+	PCOURSEWAREDATA pData = NULL;
     QMutexLocker AutoLock(&m_DataMutex);
     for (size_t i = 0; i < m_vecCoursewareData.size(); i++)
     {
-        if (0 == wcscmp(pszSourceFile, m_vecCoursewareData[i]->m_szSourcePath))
+		pData = m_vecCoursewareData.at(i);
+        if ( pData && 0 == wcscmp(pszSourceFile, pData->m_szSourcePath))
         {
             //文件已存在列表中            
             *nError = COURSEWARE_ERR_REPEAT;
-            return false;
+			AutoLock.unlock();
+			
+			return pData;
         }
     }
 
-    PCOURSEWAREDATA pData = new COURSEWAREDATA;
+    pData = new COURSEWAREDATA;
 
     pData->m_nFileType = GetCoursewareFileType(pszSourceFile);
     wcscpy_s(pData->m_szSourcePath, pszSourceFile);
@@ -126,13 +130,18 @@ bool CoursewareTaskMgr::AddCourseBySource(LPCWSTR pszSourceFile, int *nError)
     }
     wcscpy_s(pData->m_szName, pName);
     
-    if (NULL != GetCoursewareByName(pName))
+	PCOURSEWAREDATA pTempData = GetCoursewareByName(pName);
+    if (NULL != pTempData)
     {
         //文件已存在列表中
-        delete pData;
-       
+		delete pData;		
         *nError = COURSEWARE_ERR_REPEAT;
-        return false;
+
+		AutoLock.unlock();
+
+		emit deal_courseware(QString::fromWCharArray(pTempData->m_szName), ACTION_DOWN_END, 0);
+
+        return pTempData;
     }
 
     m_nCoursewareID++;
@@ -193,10 +202,8 @@ bool CoursewareTaskMgr::AddCourseBySource(LPCWSTR pszSourceFile, int *nError)
     
     AutoLock.unlock();
 
-    emit add_courseware(QString::fromWCharArray(pData->m_szName), pData->m_nFileSize, 0);
-	
     *nError = COURSEWARE_ERR_OK;
-    return true;
+    return pData;
 }
 
 bool CoursewareTaskMgr::AddCourseByNet(LPCWSTR pszNetFile, int *nError)
@@ -219,14 +226,9 @@ bool CoursewareTaskMgr::AddCourseByNet(LPCWSTR pszNetFile, int *nError)
             AutoLock.unlock();
             *nError = COURSEWARE_ERR_REPEAT;
 
-            emit add_courseware(QString::fromWCharArray(m_vecCoursewareData[i]->m_szName),
-                m_vecCoursewareData[i]->m_nFileSize, 0);
-
-            return false;
+            return true;
         }
     }
-
-    PCOURSEWAREDATA pData = new COURSEWAREDATA;
 
     wchar_t szDownUrl[MAX_URL_LENGTH] = {0};
     wchar_t szUrl[MAX_PATH] = {0};
@@ -240,8 +242,10 @@ bool CoursewareTaskMgr::AddCourseByNet(LPCWSTR pszNetFile, int *nError)
         //net url不正确
         AutoLock.unlock();
         *nError = COURSEWARE_ERR_URL;
-        return false;
+        
+		return false;
     }
+
     GetFileTransName(szUrl, szTransName);
 
     LPWSTR pszTemp = (LPWSTR)(wcsrchr(szName, L'.'));
@@ -249,83 +253,75 @@ bool CoursewareTaskMgr::AddCourseByNet(LPCWSTR pszNetFile, int *nError)
     {
         wcscpy(szType, pszTemp);
     }
+
+
     int nType = GetCoursewareFileType(szName);
     if (COURSEWARE_PPT == nType || COURSEWARE_EXCLE == nType || COURSEWARE_DOC == nType)
     {
         wcscpy(szType, L".pdf");
     }
+	/*
     else if (COURSEWARE_VIDEO == nType)
     {
         wcscpy(szType, L".mp4");
     }
+	*/
+
     GetHttpDownUrl(szDownUrl, MAX_URL_LENGTH-1);
-    wcscat_s(szDownUrl, L"/");
+    
+	wcscat_s(szDownUrl, L"/");
     wcscat_s(szDownUrl, szUrl);
-    GetCoursewareTransFile(szTransName, szFilePath, szType, MAX_PATH);
+    
+	GetCoursewareTransFile(szTransName, szFilePath, szType, MAX_PATH);
+	
+	bool bIsExist = IsExistFile(szFilePath,szTransName);
 
-    wcscpy(pData->m_szName, szName);
-    wcscpy(pData->m_szDownUrl, szDownUrl);
-    wcscpy(pData->m_szFilePath, szFilePath);
-    wcscpy(pData->m_szNetFileName, pszNetFile);
-    pData->m_nFileSize = GetCoursewareFileSize(szFilePath);
-    pData->m_nState = COURSEWARE_STATE_DOWN;
-    pData->m_nFileType = nType;
+	PCOURSEWAREDATA pData = GetCoursewareByName(szName);
+	if(NULL == pData){
+		pData = new COURSEWAREDATA;
 
-    bool bISHave = false;
-    int  nCID = 0;
-    PCOURSEWAREDATA pTemp = GetCoursewareByName(szName);
-    if (pTemp)
-    {
-        if (IsExistFile(szFilePath))
-        {
-            WCHAR szName[MAX_PATH] = {0};
-            wcscpy(szName, pData->m_szName);
-            //SetPosEvent(pTemp->m_nCoursewareID, 100);
-            SetPos(pTemp->m_nCoursewareID, 100);
-            pTemp->m_nState = COURSEWARE_STATE_OK;
-            pTemp->m_nDownState = CW_FILE_DOWN_END;
-            wcscpy(pTemp->m_szFilePath, szFilePath);
-            wcscpy(pTemp->m_szNetFileName, pszNetFile);
-            delete pData;
-            pData = NULL;
-            AutoLock.unlock();
-            *nError = COURSEWARE_ERR_REPEAT;
-            emit deal_courseware(QString::fromWCharArray(szName), ACTION_DOWN_END, *nError);
-            return true;
-        }
-        bISHave = true;
-        
-        //预下载文件，在文件名后+“.tld”
-        QString strTemp = QString("%1.tld").arg(QString::fromWCharArray(pData->m_szFilePath));
-        wchar_t szDowndFile[MAX_PATH] = {0};
-        wcscpy(szDowndFile, wstring((wchar_t*)(strTemp).unicode()).data());
-        wcscpy(pTemp->m_szFilePath, szDowndFile);
-        wcscpy(pTemp->m_szNetFileName, pData->m_szNetFileName);
-        wcscpy(pTemp->m_szDownUrl, pData->m_szDownUrl);
-        nCID = pTemp->m_nCoursewareID;
-    }
-    if (bISHave)
-    {
-        delete pData;
-        pData = NULL;
-        pData = pTemp;
-    }
-    else
-    {
-        m_nCoursewareID++;
-        pData->m_nCoursewareID = m_nCoursewareID;
-        nCID = m_nCoursewareID;
-        wchar_t szDowndFile[MAX_PATH] = {0};
-        QString strTemp = QString("%1.tld").arg(QString::fromWCharArray(pData->m_szFilePath));
-        wcscpy(szDowndFile, wstring((wchar_t*)(strTemp).unicode()).data());
-        wcscpy(pData->m_szFilePath, szDowndFile);
-        pData->m_nCoursewareType = COURSEWARE_TYPE_OTHER;        
-        m_vecCoursewareData.push_back(pData);
-    }
+		wcscpy(pData->m_szName, szName);
+		pData->m_nFileSize = GetCoursewareFileSize(szFilePath);
+		pData->m_nState = COURSEWARE_STATE_DOWN;
+		pData->m_nFileType = nType;
 
+		m_nCoursewareID++;
+
+		pData->m_nCoursewareID = m_nCoursewareID;
+	}
+	
+	wcscpy(pData->m_szDownUrl, szDownUrl);
+	wcscpy(pData->m_szFilePath, szFilePath);
+	wcscpy(pData->m_szNetFileName, pszNetFile);
+	m_vecCoursewareData.push_back(pData);
+
+	if(bIsExist){
+		WCHAR szName[MAX_PATH] = {0};
+		wcscpy(szName, pData->m_szName);
+
+		SetPos(pData->m_nCoursewareID, 100);
+		pData->m_nState = COURSEWARE_STATE_OK;
+		pData->m_nDownState = CW_FILE_DOWN_END;
+		wcscpy(pData->m_szFilePath, szFilePath);
+		wcscpy(pData->m_szNetFileName, pszNetFile);
+		
+		AutoLock.unlock();
+		*nError = COURSEWARE_ERR_REPEAT;
+
+		emit deal_courseware(QString::fromWCharArray(szName), ACTION_DOWN_END, *nError);
+
+		return true;
+	}
+    
+	wchar_t szDowndFile[MAX_PATH] = {0};
+	QString strTemp = QString("%1.tld").arg(QString::fromWCharArray(pData->m_szFilePath));
+	wcscpy(szDowndFile, wstring((wchar_t*)(strTemp).unicode()).data());
+	wcscpy(pData->m_szFilePath, szDowndFile);
+	pData->m_nCoursewareType = COURSEWARE_TYPE_OTHER;        
+	
     bool bIsFind = false;
 
-	PTASKMGR pTaskInfo = GetTask(nCID);
+	PTASKMGR pTaskInfo = GetTask(pData->m_nCoursewareID);
 	if(pTaskInfo)
 	{
 		((CoursewareTask *)pTaskInfo->m_pData)->StartDownTask();
@@ -341,14 +337,17 @@ bool CoursewareTaskMgr::AddCourseByNet(LPCWSTR pszNetFile, int *nError)
         }
         else
         {
-            int nID = nCID;
+            int nID = pData->m_nCoursewareID;
             m_vecWaitDownTask.push_back(nID);
         }
     }
 
     AutoLock.unlock();
-    emit add_courseware(QString::fromWCharArray(pData->m_szName), pData->m_nFileSize, 0);
-    
+	
+	/************************************************************************/
+	/*emit add_courseware(QString::fromWCharArray(pData->m_szName), pData->m_nFileSize, 0);                                                                      */
+	/************************************************************************/
+        
     *nError = COURSEWARE_ERR_OK;
     return true;
 }
@@ -367,7 +366,9 @@ bool CoursewareTaskMgr::AddCourseBySky(LPCWSTR pszFileName, LPCWSTR pszFileUrl, 
         //文件已存在列表中
         AutoLock.unlock();
         *nError = COURSEWARE_ERR_REPEAT;
-        return false;
+
+		emit deal_courseware(QString::fromWCharArray(pTemp->m_szName), ACTION_DOWN_END, *nError);
+        return true;
     }
 
     PCOURSEWAREDATA pData = new COURSEWAREDATA;
@@ -448,7 +449,6 @@ bool CoursewareTaskMgr::AddCourseBySky(LPCWSTR pszFileName, LPCWSTR pszFileUrl, 
     biz::GetBizInterface()->SendCursewaveListEvent(scwOpt);
 
     AutoLock.unlock();
-    emit add_courseware(QString::fromWCharArray(pData->m_szName), pData->m_nFileSize, 0);
     *nError = COURSEWARE_ERR_OK;
     return true;
 }
@@ -529,9 +529,7 @@ bool CoursewareTaskMgr::OpenCourseware(LPCWSTR pszFilePath)
         
     pData->m_bISOpen = true;
     
-    AutoLock.unlock();
-
-    emit mainshowchanged(pData->m_nCoursewareID, biz::eShowType_Cursewave,0);        
+    AutoLock.unlock();           
     return true;
     
 }
@@ -622,6 +620,25 @@ void CoursewareTaskMgr::SetFileOpen(int nCoursewareID, bool bISOpen)
         }
     }
     
+}
+
+void CoursewareTaskMgr::SetFilePage(int nCoursewareID, unsigned int nPage)
+{
+	QMutexLocker AutoLock(&m_DataMutex);
+	if (0 == m_vecCoursewareData.size())
+	{
+		return;
+	}
+
+	for (size_t i = 0; i < m_vecCoursewareData.size(); i++)
+	{
+		if (m_vecCoursewareData[i]->m_nCoursewareID == nCoursewareID)
+		{
+			m_vecCoursewareData[i]->m_nPage = nPage;
+			break;
+		}
+	}
+
 }
 
 PCOURSEWAREDATA CoursewareTaskMgr::GetCoursewareByID(int nCoursewareID)
@@ -1090,7 +1107,9 @@ void CoursewareTaskMgr::UploadEvent(int nCoursewareID, int nState, int nError)
 
         if (pData->m_nFileType == COURSEWARE_AUDIO || 
             pData->m_nFileType == COURSEWARE_VIDEO || 
-            pData->m_nFileType == COURSEWARE_IMG)
+            pData->m_nFileType == COURSEWARE_IMG ||
+			pData->m_nFileType == COURSEWARE_FLASH ||
+			pData->m_nFileType == COURSEWARE_PDF)
         {
             emit set_pos(file, nState == ACTION_UPLOAD_END ? 100 : -1);
         }
@@ -1152,7 +1171,7 @@ void CoursewareTaskMgr::SetFilesize(int nCoursewareID, long long nFileSize)
     if (pTemp && nFileSize > 0)
     {
         pTemp->m_nFileSize = nFileSize;
-        emit set_filesize(QString::fromWCharArray(pTemp->m_szName), nFileSize);
+        //emit set_filesize(QString::fromWCharArray(pTemp->m_szName), nFileSize);
     }
 }
 

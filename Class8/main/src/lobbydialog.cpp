@@ -853,10 +853,10 @@ void LobbyDialog::showClassList(QString qstrDate)
 
 	QString qstrRequest=QString("userId=%1&date=%2-%3-%4").arg(ClassSeeion::GetInst()->_nUserId).arg(qstrTime.left(4)).arg(qstrTime.mid(4,2)).arg(qstrTime.right(2));
 	//get class list from server
-	char szUrl[MAX_PATH]="http://www.bmclass.com/client/getCourseClassList";
+	char szUrl[MAX_PATH]={0};
 	char szRequest[MAX_PATH]={0};
 	Util::QStringToChar(qstrRequest,szRequest,MAX_PATH);
-	
+	strcpy_s(szUrl,Config::getConfig()->m_urlCourseClassList.c_str());
 	m_idGetClassList = CHttpSessionMgr::GetInstance()->DoHttpRequest(
 		HTTP_SESSION_POST,
 		szUrl,szRequest,

@@ -641,12 +641,120 @@
     <message>
         <location filename="../../src/classroomdialog.cpp" line="962"/>
         <source>CoursewareUploadFailed</source>
-        <translation type="unfinished">课件%1上传失败，请重新上传</translation>
+        <translation type="unfinished">课件 %1上传失败，请重新上传</translation>
     </message>
     <message>
         <location filename="../../src/classroomdialog.cpp" line="966"/>
         <source>CoursewareDownFailed</source>
-        <translation type="unfinished">课件%1下载失败，请重新下载</translation>
+        <translation type="unfinished">课件 %1下载失败，请重新下载</translation>
+    </message>
+    <message>
+        <source>lockClass</source>
+        <translation type="unfinished">课堂加锁</translation>
+     </message>
+     <message>
+        <source>unlockClass</source>
+        <translation type="unfinished">课堂解锁</translation>
+     </message>
+     <message>
+        <source>closeCamera</source>
+        <translation type="unfinished">关闭视频</translation>
+     </message>
+     <message>
+        <source>openCamera</source>
+        <translation type="unfinished">打开视频</translation>
+     </message>
+     <message>
+        <source>closeMicrophone</source>
+        <translation type="unfinished">关闭麦克风</translation>
+     </message>
+     <message>
+        <source>openMicrophone</source>
+        <translation type="unfinished">打开麦克风</translation>
+     </message>
+     <message>
+        <source>closeSpeaker</source>
+        <translation type="unfinished">关闭扬声器</translation>
+     </message>
+     <message>
+        <source>openSpeaker</source>
+        <translation type="unfinished">打开扬声器</translation>
+     </message>
+     <message>
+        <source>micVolume</source>
+        <translation type="unfinished">麦克风音量调节</translation>
+     </message>
+     <message>
+        <source>spkVolume</source>
+        <translation type="unfinished">扬声器音量调节</translation>
+     </message>
+     <message>
+        <source>showClassChat</source>
+        <translation type="unfinished">显示课堂聊天</translation>
+     </message>
+     <message>
+        <source>showUserList</source>
+        <translation type="unfinished">显示用户列表</translation>
+     </message>
+     <message>
+        <source>wbToolPen</source>
+        <translation type="unfinished">白板画笔</translation>
+     </message>
+     <message>
+        <source>wbToolText</source>
+        <translation type="unfinished">写字</translation>
+     </message>
+     <message>
+        <source>wbToolColor</source>
+        <translation type="unfinished">选择颜色</translation>
+     </message>
+     <message>
+        <source>wbToolErase</source>
+        <translation type="unfinished">擦除</translation>
+     </message>
+     <message>
+        <source>wbToolUndo</source>
+        <translation type="unfinished">撤销</translation>
+     </message>
+     <message>
+        <source>wbToolClear</source>
+        <translation type="unfinished">删除所有</translation>
+     </message>
+     <message>
+        <source>preCourseware</source>
+        <translation type="unfinished">上一个课件</translation>
+     </message>
+     <message>
+        <source>nextCourseware</source>
+        <translation type="unfinished">下一个课件</translation>
+     </message>
+     <message>
+        <source>playMedia</source>
+        <translation type="unfinished">开始播放</translation>
+     </message>
+     <message>
+        <source>pauseMedia</source>
+        <translation type="unfinished">暂停播放</translation>
+     </message>
+     <message>
+        <source>prePage</source>
+        <translation type="unfinished">上一页</translation>
+     </message>
+     <message>
+        <source>nextPage</source>
+        <translation type="unfinished">下一页</translation>
+     </message>
+     <message>
+        <source>turnPageTip</source>
+        <translation type="unfinished">可以点击课件，然后按下左右键进行翻页</translation>
+     </message>
+     <message>
+        <source>deleteCourseware</source>
+        <translation type="unfinished">删除课件</translation>
+     </message>
+    <message>
+        <source>addCoursewareTip</source>
+        <translation type="unfinished">点击右边按钮，添加课件</translation>
     </message>
 </context>
 <context>

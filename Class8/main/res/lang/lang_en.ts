@@ -648,6 +648,114 @@
         <source>CoursewareDownFailed</source>
         <translation type="unfinished">document%1download fail，please download again</translation>
     </message>
+    <message>
+        <source>lockClass</source>
+        <translation type="unfinished">Lock Classroom</translation>
+    </message>
+    <message>
+        <source>unlockClass</source>
+        <translation type="unfinished">Unclock Classroom</translation>
+    </message>
+    <message>
+        <source>closeCamera</source>
+        <translation type="unfinished">Close Camera</translation>
+    </message>
+    <message>
+        <source>openCamera</source>
+        <translation type="unfinished">Open Camera</translation>
+    </message>
+    <message>
+        <source>closeMicrophone</source>
+        <translation type="unfinished">Close Microphone</translation>
+    </message>
+    <message>
+        <source>openMicrophone</source>
+        <translation type="unfinished">Open Microphone</translation>
+    </message>
+    <message>
+        <source>closeSpeaker</source>
+        <translation type="unfinished">Close Speaker</translation>
+    </message>
+    <message>
+        <source>openSpeaker</source>
+        <translation type="unfinished">Open speaker</translation>
+    </message>
+    <message>
+        <source>micVolume</source>
+        <translation type="unfinished">Microphone volume change</translation>
+    </message>
+    <message>
+        <source>spkVolume</source>
+        <translation type="unfinished">Speaker volume change</translation>
+    </message>
+    <message>
+        <source>showClassChat</source>
+        <translation type="unfinished">Show classroom chat interface</translation>
+    </message>
+    <message>
+        <source>showUserList</source>
+        <translation type="unfinished">Show user list interface</translation>
+    </message>
+    <message>
+        <source>wbToolPen</source>
+        <translation type="unfinished">Pen</translation>
+    </message>
+    <message>
+        <source>wbToolText</source>
+        <translation type="unfinished">Text</translation>
+    </message>
+    <message>
+        <source>wbToolColor</source>
+        <translation type="unfinished">Color Select</translation>
+    </message>
+    <message>
+        <source>wbToolErase</source>
+        <translation type="unfinished">Erase</translation>
+    </message>
+    <message>
+      <source>wbToolUndo</source>
+      <translation type="unfinished">Undo</translation>
+    </message>
+    <message>
+        <source>wbToolClear</source>
+        <translation type="unfinished">Clear all</translation>
+    </message>
+    <message>
+        <source>preCourseware</source>
+        <translation type="unfinished">Previous Courseware</translation>
+    </message>
+    <message>
+        <source>nextCourseware</source>
+        <translation type="unfinished">Next Courseware</translation>
+    </message>
+    <message>
+        <source>playMedia</source>
+        <translation type="unfinished">Start Play</translation>
+    </message>
+    <message>
+        <source>pauseMedia</source>
+        <translation type="unfinished">Pause Play</translation>
+    </message>
+    <message>
+        <source>prePage</source>
+        <translation type="unfinished">Previous Page</translation>
+    </message>
+    <message>
+        <source>nextPage</source>
+        <translation type="unfinished">Next Page</translation>
+    </message>
+    <message>
+      <source>turnPageTip</source>
+      <translation type="unfinished">That can click on the courseware, then press the left and right key to turn the page</translation>
+    </message>
+    <message>
+      <source>deleteCourseware</source>
+      <translation type="unfinished">Delete Courseware</translation>
+    </message>
+    <message>
+      <source>addCoursewareTip</source>
+      <translation type="unfinished">Click the right button to add courseware.</translation>
+    </message>
 </context>
 <context>
     <name>ClassroomSetting</name>

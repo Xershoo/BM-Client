@@ -1,5 +1,5 @@
 //**********************************************************************
-//	Copyright （c） 2018,浙江邦芒数据有限公司. All rights reserved.
+//	Copyright （c） 2015-2020. All rights reserved.
 //	文件名称：CoursewarePanel.h
 //	版本号：1.0
 //	作者：潘良
@@ -21,6 +21,7 @@
 #include ".././media/FilePlayer.h"
 #include "MediaPlayerShowWnd.h"
 #include "qimageshow.h"
+#include "FlashPlayWidget.h"
 
 #define MAX_CoursewarePannelNO  (8)     //支持最大课件数
 
@@ -35,6 +36,7 @@ typedef struct _curseware_show
 		_show._pdf=NULL;
 		_show._media=NULL;
 		_show._image=NULL;
+		_show._flash = NULL;
     }
 
     int     _type;
@@ -42,8 +44,9 @@ typedef struct _curseware_show
     union
     {
         QPDFWnd*		        _pdf;
-        MediaPlayerShowWnd*	    _media;
+		MediaPlayerShowWnd*		_media;        
         QImageShow*		        _image;
+		QFlashPlayWidget*		_flash;
     }_show;
     QString     _fileName;
 	bool   _open;
@@ -63,20 +66,22 @@ public:
 
 signals:
     void setShowPage(int nPage);
-    void setMediaPlayerPro(unsigned int nPos);
+    void setMediaPlayerPro(unsigned int nPos,string& fileName);
 
 public:
     bool OpenCoursewareFile(QString fileName, bool bCtrl,bool onlyOpen = false);
     void CloseCoursewareFile(QString fileName,bool delCourseware = true);
     void CloseAllCoursewareFile();
+	void PauseAllMediaCourseware(QString fileNo);
 
     bool GetShowCourseware(char &nType, QString &fileName, int &nPage);
     void SetCoursewareShow(char nType, QString fileName, int nPage);
 
     void PauseCoursewareShow(QString fileName, bool pause);
-
-    LPCOURSEWARESHOW GetCoursewareShow();
-
+	
+	LPCOURSEWARESHOW GetCurrentCoursewareShow();
+    LPCOURSEWARESHOW GetCoursewareShowByFileName(QString& fileName);
+	LPCOURSEWARESHOW GetCoursewareShowByShowWidget(QWidget* showWidget);
 public:
     void SetMode(QString fileName, WBMode mode);
     void SetTextSize(QString fileName, WBSize tSize);
@@ -96,17 +101,18 @@ public slots:
     void doCoursewareCtrl(const QString &fileName, int nCtrl);
     void doShowPDFPage(const QString&,int);
 
-    void doMediaPlayProgress(unsigned int nPos);
+    void doMediaPlayProgress(unsigned int nPos,string& fileName);
 protected:
     void FreeAllShow();
     void SelCoursewareShow(UINT nIndex);
     void ShowCourseware(LPCOURSEWARESHOW pShow, bool bShow);
     void DelCourseware(LPCOURSEWARESHOW pShow);
 	void CloseCourseware(LPCOURSEWARESHOW pShow);
-
-    QPDFWnd* OpenPDFFile(QString fileName, int nID, long* lParam = 0, bool bCtrl = true);
-    MediaPlayerShowWnd* OpenMediaFile(QString fileName,bool onlyOpen = false);
+	    
+	MediaPlayerShowWnd* OpenMediaFile(QString fileName,bool onlyOpen = false);
+	QPDFWnd* OpenPDFFile(QString fileName, int nID, long* lParam = 0, bool bCtrl = true);	
     QImageShow* OpenImageFile(QString fileName);
+	QFlashPlayWidget* OpenFlashFile(QString fileName);
 
 protected:
     int         m_nSelIndex;

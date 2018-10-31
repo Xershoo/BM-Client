@@ -714,24 +714,6 @@
     <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_CourseAndWhitebMsg.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\main\src\coursewareTools\coursewaretools.cpp">
-      <Filter>src\coursewareTools</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_coursewaretools.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_coursewaretools.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\main\src\coursewareTools\coursewaretoolsData.cpp">
-      <Filter>src\coursewareTools</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_coursewaretoolsData.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_coursewaretoolsData.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\main\src\coursewareTools\qcoursewarepreview.cpp">
       <Filter>src\coursewareTools</Filter>
     </ClCompile>
@@ -775,15 +757,6 @@
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_qshowclassstate.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\main\src\coursewareTools\whiteboardtools.cpp">
-      <Filter>src\coursewareTools</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_whiteboardtools.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_whiteboardtools.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="..\..\main\src\define\chatwindowtextblockuserdata.cpp">
@@ -863,9 +836,6 @@
     </ClCompile>
     <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_MediaPlayerShowWnd.cpp">
       <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\main\src\videownd\MultiChannelVideoShow.cpp">
-      <Filter>src\videownd</Filter>
     </ClCompile>
     <ClCompile Include="..\..\main\src\videownd\StudentVideoWnd.cpp">
       <Filter>src\videownd</Filter>
@@ -1200,6 +1170,9 @@
     <ClCompile Include="..\..\main\src\WaitDlg.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\main\common\QtAeroWin.cpp">
+      <Filter>Common Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\main\src\videownd\OpenGLVideoWidget.cpp">
       <Filter>src\videownd</Filter>
     </ClCompile>
@@ -1209,14 +1182,14 @@
     <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_OpenGLVideoWidget.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\main\src\videownd\MultiChannelVideoShow.cpp">
+      <Filter>src\videownd</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_MultiChannelVideoShow.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_MultiChannelVideoShow.cpp">
       <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\main\common\QtAeroWin.cpp">
-      <Filter>Common Files</Filter>
     </ClCompile>
     <ClCompile Include="src\CourseClassItem.cpp">
       <Filter>Source Files</Filter>
@@ -1225,6 +1198,24 @@
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_CourseClassItem.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\whiteboardbar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\videobottombar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\coursewarebar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FlashPlayWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_FlashPlayWidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_FlashPlayWidget.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1436,15 +1427,6 @@
     <CustomBuild Include="..\..\main\src\coursewareTools\CourseAndWhitebMsg.h">
       <Filter>src\coursewareTools</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\..\main\src\coursewareTools\coursewaretools.h">
-      <Filter>src\coursewareTools</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\main\src\coursewareTools\coursewaretools.ui">
-      <Filter>src\coursewareTools</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\main\src\coursewareTools\coursewaretoolsData.h">
-      <Filter>src\coursewareTools</Filter>
-    </CustomBuild>
     <CustomBuild Include="..\..\main\src\coursewareTools\qcoursewarepreview.h">
       <Filter>src\coursewareTools</Filter>
     </CustomBuild>
@@ -1473,12 +1455,6 @@
       <Filter>src\coursewareTools</Filter>
     </CustomBuild>
     <CustomBuild Include="..\..\main\src\coursewareTools\qshowclassstate.ui">
-      <Filter>src\coursewareTools</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\main\src\coursewareTools\whiteboardtools.h">
-      <Filter>src\coursewareTools</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\..\main\src\coursewareTools\whiteboardtools.ui">
       <Filter>src\coursewareTools</Filter>
     </CustomBuild>
     <CustomBuild Include="..\..\main\src\noticWindow\noticwindow.h">
@@ -1694,11 +1670,14 @@
     <CustomBuild Include="..\..\main\src\videownd\MultiChannelVideoShow.h">
       <Filter>src\videownd</Filter>
     </CustomBuild>
+    <CustomBuild Include="src\CourseClassItem.h">
+      <Filter>Source Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="src\CourseClassItem.ui">
       <Filter>Source Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="src\CourseClassItem.h">
-      <Filter>Source Files</Filter>
+    <CustomBuild Include="src\FlashPlayWidget.h">
+      <Filter>Generated Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -1852,9 +1831,6 @@
     <ClInclude Include="..\..\main\src\Courseware\courseware.h">
       <Filter>src\courseware</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_coursewaretools.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_qcoursewarepreview.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
@@ -1868,9 +1844,6 @@
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_qshowclassstate.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_whiteboardtools.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\main\src\define\chatwindowtextblockuserdata.h">

@@ -264,13 +264,14 @@ bool QPDFApp::openFile(const QString& file,const QRect& rect)
         }
 		
 		//xiewb 2017/04/28
-		ret = savePreviewImageList(pInfo);
-		if(!ret)
-		{
-			break;
-		}
+		//ret = savePreviewImageList(pInfo);
+		//if(!ret)
+		//{
+		//	break;
+		//}
 
 		m_mapPDFFileApp.insert(file,pInfo);
+		ret = true;
 	} while (false);
 
 	if(!ret)

@@ -370,11 +370,13 @@ QPushButton#pushButton_switchMainShow:pressed {
 	
 /*老师视频窗口*/
 /*课堂左下角工具条*/
+/* xiewb 2018.10.22 delete*/
+/*
 QWidget#widget_classroomToolBtns {
 	background-color: none;
 }
 
-QPushButton#pushButton_classBeginBtn, #pushButton_classOverBtn {
+QPushButton#pushButton_classBeginBtn {
 	width: 40px;
 	height: 40px;
 	background-color: none;
@@ -509,25 +511,6 @@ QPushButton#pushButton_allowSendMsgBtn:pressed {
 	image: url(:/res/res/image/default/allowSendMsgBtn_pressed.png);
 }
 
-QPushButton#pushButton_showCoursewareDownlistWnd {
-	width: 40px;
-	height: 40px;
-	background-color: none;
-	image: url(:/res/res/image/default/downlistBtn_normal.png);
-}
-QPushButton#pushButton_showCoursewareDownlistWnd:hover {
-	background-color: none;
-	image: url(:/res/res/image/default/downlistBtn_hover.png);
-}
-QPushButton#pushButton_showCoursewareDownlistWnd:pressed {
-	background-color: none;
-	image: url(:/res/res/image/default/downlistBtn_pressed.png);
-}
-QPushButton#pushButton_showCoursewareDownlistWnd:disabled {
-	background-color: none;
-	image: url(:/res/res/image/default/downlistBtn_disabled.png);
-}
-
 QPushButton#pushButton_stuHandsUp {
 	width: 40px;
 	height: 40px;
@@ -566,7 +549,253 @@ QPushButton#pushButton_stuHandsDown:disabled {
 	image: url(:/res/res/image/default/stuHandsDownBtn_disabled.png);
 }
 
+QPushButton#pushButton_showCoursewareDownlistWnd {
+	width: 40px;
+	height: 40px;
+	background-color: none;
+	image: url(:/res/res/image/default/downlistBtn_normal.png);
+}
+QPushButton#pushButton_showCoursewareDownlistWnd:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/downlistBtn_hover.png);
+}
+QPushButton#pushButton_showCoursewareDownlistWnd:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/downlistBtn_pressed.png);
+}
+QPushButton#pushButton_showCoursewareDownlistWnd:disabled {
+	background-color: none;
+	image: url(:/res/res/image/default/downlistBtn_disabled.png);
+}
+******/
+
 /*课堂左下角工具条*/
+/*xiewb 2018.10.23*/
+QWidget#widget_coursewareToolbar{
+	background-color: rgba(168,168,168,168);
+	height: 60px;
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	border-bottom-right-radius: 0px;
+	border-bottom-left-radius: 0px;
+}
+
+QWidget#widget_whiteboardToolbar{
+	background-color: rgba(168,168,168,168);
+	height: 60px;
+	border-top-left-radius: 0px;
+	border-top-right-radius: 0px;
+	border-bottom-right-radius: 8px;
+	border-bottom-left-radius: 0px;
+}
+
+QWidget#widget_coursewareMediaBar,#widget_coursewarePageBar,#widget_coursewareShowBar{
+	background-color: none;
+}
+
+QWidget#widget_divToolbar{
+	background-color: rgb(255, 255, 255);
+}
+
+QPushButton#pushButton_preCourseware {
+	width: 40px;
+	height: 40px;
+	background-color: none;
+	image: url(:/res/res/image/default/courseware_left_normal.png);
+}
+QPushButton#pushButton_preCourseware:hover:!pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/courseware_left_hover.png);
+}
+QPushButton#pushButton_preCourseware:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/courseware_left_pressed.png);
+}
+QPushButton#pushButton_preCourseware:disabled {
+	background-color: none;
+	image: url(:/res/res/image/default/courseware_left_normal.png);
+}
+
+QPushButton#pushButton_nextCourseware {
+	width: 40px;
+	height: 40px;
+	background-color: none;
+	image: url(:/res/res/image/default/courseware_right_normal.png);
+}
+QPushButton#pushButton_nextCourseware:hover:!pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/courseware_right_hover.png);
+}
+QPushButton#pushButton_nextCourseware:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/courseware_right_pressed.png);
+}
+QPushButton#pushButton_nextCourseware:disabled {
+	background-color: none;
+	image: url(:/res/res/image/default/courseware_right_normal.png);
+}
+
+QPushButton#pushButton_addCourseware {
+	width: 40px;
+	height: 40px;
+	background-color: none;
+	image: url(:/res/res/image/default/showAddCoursewareWindow_normal.png);
+}
+QPushButton#pushButton_addCourseware:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/showAddCoursewareWindow_hover.png);
+}
+QPushButton#pushButton_addCourseware:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/showAddCoursewareWindow_pressed.png);
+}
+
+QPushButton#pushButton_playMedia {
+	width: 20px;
+	height: 20px;
+	background-color: none;
+	image: url(:/res/res/image/default/media_play.png);
+}
+QPushButton#pushButton_playMedia:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/media_play_hover.png);
+}
+QPushButton#pushButton_playMedia:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/media_play_pressed.png);
+}
+
+QPushButton#pushButton_pauseMedia {
+	width: 20px;
+	height: 20px;
+	background-color: none;
+	image: url(:/res/res/image/default/media_pause.png);
+}
+QPushButton#pushButton_pauseMedia:hover {
+	background-color: none;
+	image: url(:/res/res/image/default/media_pause_hover.png);
+}
+QPushButton#pushButton_pauseMedia:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/media_pause_pressed.png);
+}
+
+QPushButton#pushButton_preFilePage {
+	width: 11px;
+	height: 13px;
+	background-color: none;
+	image: url(:/res/res/image/default/page_left_normal.png);
+}
+QPushButton#pushButton_preFilePage:hover:!pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/page_left_hover.png);
+}
+QPushButton#pushButton_preFilePage:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/page_left_pressed.png);
+}
+QPushButton#pushButton_preFilePage:disabled {
+	background-color: none;
+	image: url(:/res/res/image/default/page_left_normal.png);
+}
+
+QPushButton#pushButton_nextFilePage {
+	width: 11px;
+	height: 13px;
+	background-color: none;
+	image: url(:/res/res/image/default/page_right_normal.png);
+}
+QPushButton#pushButton_nextFilePage:hover:!pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/page_right_hover.png);
+}
+QPushButton#pushButton_nextFilePage:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/page_right_pressed.png);
+}
+QPushButton#pushButton_nextFilePage:disabled {
+	background-color: none;
+	image: url(:/res/res/image/default/page_right_normal.png);
+}
+
+QSlider#slider_mediaProgress::groove:horizontal {
+	border: 1px solid rgb(255,255,255,0);
+	background: rgb(255,255,255,0);
+	height: 6px;
+	border-radius: 0px;
+	padding-left:0px;
+	padding-right:0px;
+	padding-top:0px;
+	padding-bottom:0px;
+}
+
+QSlider#slider_mediaProgress::sub-page:horizontal {
+	background: qlineargradient(x1: 0, y1: 0.2, x2: 1, y2: 1,
+	stop:0 rgb(255,100,126), stop: 1 rgb(255,151,165));
+	border: 1px solid rgb(255,100,126);
+	height: 6px;
+	border-radius: 3px;
+	border-color: rgb(255,100,126);
+}
+
+QSlider#slider_mediaProgress::add-page:horizontal {
+	background: rgb(164,188,196);
+	border: 0px solid rgb(164,188,196);
+	height: 6px;
+	border-radius: 3px;
+}
+
+QSlider#slider_mediaProgress::handle:horizontal
+{
+	background:none;
+	border-image: url(:/res/res/image/default/play_progress_handle.png);
+	width: 16px;
+	margin-top: -5px;
+	margin-bottom: -5px;
+	border-radius: 5px;
+}
+QSlider#slider_mediaProgress::sub-page:horizontal:disabled {
+	background: rgb(192, 192, 192);
+	border-color: rgb(192, 192, 192);
+}
+
+QSlider#slider_mediaProgress::add-page:horizontal:disabled {
+	background: rgb(255, 255, 255);
+	border-color: rgb(255, 255, 255);
+}
+
+QSlider#slider_mediaProgress::handle:horizontal:disabled {
+	background: qradialgradient(spread:pad, cx:0.5, cy:0.5, radius:0.5, fx:0.5, fy:0.5, stop:0.6 rgb(254,228,222),
+	stop:0.778409 rgba(255, 255, 255, 255));
+	width: 12px;
+	margin-top: -1px;
+	margin-bottom: -1px;
+	border-radius: 5px;
+}
+
+QLabel#label_nameCourseware,#label_pageNumber{
+	background-color: none;
+	color: rgb(255, 255, 255);
+	font-size: 16px;
+	font-family: "Microsoft Yahei";
+}
+
+QPushButton#pushButton_closeCourseware {
+	width: 20px;
+	height: 20px;
+	background-color: none;
+	image: url(:/res/res/image/default/closeCoursewareBtn_normal.png);
+}
+QPushButton#pushButton_closeCourseware:hover {
+	image: url(:/res/res/image/default/closeCoursewareBtn_hover.png);
+}
+QPushButton#pushButton_closeCourseware:pressed {
+	image: url(:/res/res/image/default/closeCoursewareBtn_pressed.png);
+}
+QPushButton#pushButton_closeCourseware:disabled {
+	image: url(:/res/res/image/default/closeCoursewareBtn_disabled.png);
+}
+
 /*课堂左侧边栏*/
 QWidget#widget_leftSildBar {
 	background-color: none;
@@ -908,7 +1137,7 @@ QCheckBox#handsUpAble_CBox{
 }
 
 .QWidget#widget_classroomTitle {
-	background-color: qlineargradient(spread:pad,x1:0,y1:0,x2:1,y2:0,stop:0 rgb(25, 118, 210),stop:0.5 rgb(81, 157, 234),stop:1 rgb(25, 118, 210));
+	background-color: qlineargradient(spread:pad,x1:0,y1:0,x2:1,y2:0,stop:0 rgb(25, 118, 210),stop:0.35 rgb(81, 157, 234),stop:0.7 rgb(25, 118, 210),stop:1 rgb(25, 118, 210));
 }
 
 /* 登陆窗口 标题没有填充色，用图片*/
@@ -2148,7 +2377,7 @@ QTabWidget#tabWidget_classroom>QTabBar::tab:first:selected:hover {
 
 /* xiewb 2018.10.18 右侧视频下面的工具栏*/
 QWidget#widget_classroomVTool{
-	background-color:rgba(128,128,128,128);
+	background-color:rgba(255,255,255,32);
 }
 
 QPushButton#pushButton_cameraEnable{
@@ -3127,13 +3356,15 @@ QPushButton#privateChat_cancel_pushBtn:disabled {
 
 
 /*课件列表widget*/
-
+/*xiewb 2018.10.24 delete*/
+/*
 QWidget#widget_listTools {
 	background-color: rgba(255,255,255,204);
 	border-bottom-style: solid;
 	border-bottom-color: rgba(205, 223, 231, 100);
 	border-radius:4px;
 }
+*/
 
 QWidget#widget_coursewarelist {
 	background-color: transparent;
@@ -3211,6 +3442,8 @@ QWidget#widget_coursewareTools_bk {
 	background: none;
 }
 
+/*xiewb 2018.10.24*/
+/***************************
 QPushButton#pushButton_in {
 	width: 22px;
 	height: 22px;
@@ -3240,6 +3473,7 @@ QPushButton#pushButton_out:pressed {
 	background-color: none;
 	image: url(:/res/res/image/default/pdf_out_pressed.png);
 }
+*********************/
 
 QPushButton#pushButton_move {
 	width: 22px;
@@ -3883,9 +4117,12 @@ QFrame#line_userListMenue_2{
 }
 
 /*Media tool*/
+/* xiewb 2018.10.24 delete*/
+/*
 QWidget#widget_mediatool {
 	background-color: transparent;
 }
+*/
 
 QPushButton#pushButton_Rew {
 	width: 20px;

@@ -68,33 +68,47 @@ QWhiteBoardView* WhiteBoardDataMgr::AddWhiteboard(int nId,QString strName,bool s
     }
 
     pData =new WHITEBOARDDATA;
-    QWhiteBoardView *pwhiteboard = new QWhiteBoardView;    
-	ClassRoomDialog::getInstance()->addMainView(pwhiteboard);
-	pData->m_pWhiteBoard = pwhiteboard;
+	if(NULL == pData)
+	{
+		return NULL;
+	}
 
-    pwhiteboard->setPageId(nId);
+    QWhiteBoardView *pWhiteboard = new QWhiteBoardView; 
+	if(NULL==pWhiteboard)
+	{
+		SAFE_DELETE(pData);
+		return NULL;
+	}
+	
+	if(ClassRoomDialog::isValid()){
+		ClassRoomDialog::getInstance()->addMainView(pWhiteboard);
+	}
+	
+	pData->m_pWhiteBoard = pWhiteboard;
+
+    pWhiteboard->setPageId(nId);
     if (ClassSeeion::GetInst()->IsTeacher())
     {
-        pwhiteboard->setEnable(WB_CTRL_EVERY);
+        pWhiteboard->setEnable(WB_CTRL_EVERY);
     }
     else
     {
 		biz::SLUserInfo myInfo = biz::GetBizInterface()->GetUserInfoDataContainer()->GetUserInfoById(ClassSeeion::GetInst()->_nUserId);
 		if(myInfo._nUserState & biz::eUserState_speak)
 		{
-			pwhiteboard->setEnable(WB_CTRL_SELF);
+			pWhiteboard->setEnable(WB_CTRL_SELF);
 		}
 		else
 		{
-			pwhiteboard->setEnable(WB_CTRL_NONE);
+			pWhiteboard->setEnable(WB_CTRL_NONE);
 		}
     }
 
-    pwhiteboard->setColor(WB_COLOR_WHITE);
-    pwhiteboard->setMode(WB_MODE_CURVE);
-    pwhiteboard->setTextSize(WB_SIZE_SMALL);
-    pwhiteboard->setUserId(ClassSeeion::GetInst()->_nUserId);
-    pwhiteboard->setCourseId(ClassSeeion::GetInst()->_nClassRoomId);
+    pWhiteboard->setColor(WB_COLOR_WHITE);
+    pWhiteboard->setMode(WB_MODE_CURVE);
+    pWhiteboard->setTextSize(WB_SIZE_SMALL);
+    pWhiteboard->setUserId(ClassSeeion::GetInst()->_nUserId);
+    pWhiteboard->setCourseId(ClassSeeion::GetInst()->_nClassRoomId);
     
     if (ClassSeeion::GetInst()->IsTeacher() && sendMsg)
     {
@@ -110,11 +124,9 @@ QWhiteBoardView* WhiteBoardDataMgr::AddWhiteboard(int nId,QString strName,bool s
     m_vecWhiteborad.push_back(pData);
     autoLock.unlock();
     
-    OpenWhiteboardByID(nId,false);
+    OpenWhiteboardByID(nId,sendMsg);
 
-    emit add_whiteboard(strName);
-
-    return pwhiteboard;
+    return pWhiteboard;
 }
 
 int WhiteBoardDataMgr::getNewId()
@@ -183,9 +195,13 @@ bool WhiteBoardDataMgr::DelWhiteboardByID(int nWhiteboardID)
     
     if (ClassSeeion::GetInst()->IsTeacher())
     {
-        biz::GetBizInterface()->WhiteBoardOpt(biz::EBoardOpt_ModifyName, ClassSeeion::GetInst()->_nClassRoomId, pData->m_nWhiteboardID, pData->m_wszName);
+        biz::GetBizInterface()->WhiteBoardOpt(biz::EBoardOpt_Delete, ClassSeeion::GetInst()->_nClassRoomId, pData->m_nWhiteboardID, pData->m_wszName);
     }
-        
+     
+	if(ClassRoomDialog::isValid()){
+		ClassRoomDialog::getInstance()->removeMainView(pData->m_pWhiteBoard);
+	}
+
     SAFE_DELETE(pData->m_pWhiteBoard);
     SAFE_DELETE(pData); 
 
@@ -229,8 +245,12 @@ bool WhiteBoardDataMgr::DelWhiteboardByName(LPCWSTR pwszName)
 
     if (ClassSeeion::GetInst()->IsTeacher())
     {
-        biz::GetBizInterface()->WhiteBoardOpt(biz::EBoardOpt_ModifyName, ClassSeeion::GetInst()->_nClassRoomId, pData->m_nWhiteboardID, pwszName);
+        biz::GetBizInterface()->WhiteBoardOpt(biz::EBoardOpt_Delete, ClassSeeion::GetInst()->_nClassRoomId, pData->m_nWhiteboardID, pwszName);
     }
+
+	if(ClassRoomDialog::isValid()){
+		ClassRoomDialog::getInstance()->removeMainView(pData->m_pWhiteBoard);
+	}
 
     SAFE_DELETE(pData->m_pWhiteBoard);
     SAFE_DELETE(pData); 
@@ -280,12 +300,7 @@ bool WhiteBoardDataMgr::OpenWhiteboardByID(int nWhiteboardID,bool sendMsg /* = t
     }
 
     if (pData)
-    {
-        if(sendMsg)
-        {
-            emit mainshowchanged(nWhiteboardID, biz::eShowType_Whiteboard,0);
-        }
-        
+    {   
         //打开白板
         pData->m_pWhiteBoard->show();
         return true;
@@ -304,8 +319,7 @@ bool WhiteBoardDataMgr::OpenWhiteboardByName(LPCWSTR pwszName)
     LPWHITEBOARDDATA pData = GetWhiteboardByName(pwszName);
     if (pData)
     {
-        //打开白板
-        emit mainshowchanged(pData->m_nWhiteboardID, biz::eShowType_Whiteboard,0);
+        //打开白板        
         pData->m_pWhiteBoard->show();
         return true;
     }

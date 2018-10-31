@@ -1,5 +1,5 @@
 //**********************************************************************
-//	Copyright （c） 2018,浙江邦芒数据有限公司. All rights reserved.
+//	Copyright （c） 2015,All rights reserved.
 //	文件名称：courseware.cpp
 //	版本号：1.0
 //	作者：潘良
@@ -31,8 +31,10 @@ int GetCoursewareFileType(LPCWSTR pszFile)
     }
 
     LPWSTR pszExt = (LPWSTR)(wcsrchr(pszFile, L'.'));
-    if (NULL == pszExt)
+    if (NULL == pszExt){
         return COURSEWARE_UNKNOWN;
+	}
+
     pszExt++;
    if (NULL == pszExt)
    {
@@ -60,15 +62,20 @@ int GetCoursewareFileType(LPCWSTR pszFile)
 
    if (_wcsicmp(pszExt,L"avi") == 0 ||
        _wcsicmp(pszExt,L"wmv") == 0 ||
-       _wcsicmp(pszExt,L"flv") == 0 ||
-       _wcsicmp(pszExt,L"wav") == 0 ||
+       _wcsicmp(pszExt,L"flv") == 0 ||      
        _wcsicmp(pszExt,L"mp4") == 0 ||
-       _wcsicmp(pszExt,L"rmvb") == 0)
+       _wcsicmp(pszExt,L"rmvb") == 0 )
    {
        return COURSEWARE_VIDEO;
    }
 
-   if (_wcsicmp(pszExt,L"mp3") == 0)
+   if ( _wcsicmp(pszExt,L"swf") == 0)
+   {
+	   return COURSEWARE_FLASH;
+   }
+
+   if ( _wcsicmp(pszExt,L"wav") == 0 ||
+	   _wcsicmp(pszExt,L"mp3") == 0)
    {
        return COURSEWARE_AUDIO;
    }
@@ -211,16 +218,18 @@ void GetCoursewareTransFileMedia(LPWSTR pszMD5, LPWSTR pszCopyFile, LPWSTR pszTy
         dir.mkpath(strPath);
     }
     wcscat_s(pszCopyFile,nLength,pszMD5);
-
-    if (0 == wcscmp(pszType, L".mp3") || 0 == wcscmp(pszType, L".MP3") || 
-		0 == wcscmp(pszType, L".mp4") || 0 == wcscmp(pszType, L".MP4") )
-	{
-		wcscat_s(pszCopyFile,nLength,pszType);
-	}
-	else
-	{
-		wcscat_s(pszCopyFile,nLength,L".mp4");
-	}
+	wcscat_s(pszCopyFile,nLength,pszType);
+// 
+//     if (0 == wcscmp(pszType, L".mp3") || 0 == wcscmp(pszType, L".MP3") || 
+// 		0 == wcscmp(pszType, L".mp4") || 0 == wcscmp(pszType, L".MP4") )
+// 	{
+// 		wcscat_s(pszCopyFile,nLength,pszType);
+// 	}
+// 	else
+// 	{
+// 		wcscat_s(pszCopyFile,nLength,L".mp4");
+// 	}
+//	
 }
 
 long long GetCoursewareFileSize(LPCWSTR pszFile)
@@ -240,16 +249,38 @@ long long GetCoursewareFileSize(LPCWSTR pszFile)
     return fi.size();//返回文件大小 byte
 }
 
-
-bool IsExistFile(LPCWSTR pszFilePath)
+//xiewb 2017.08.22 增加文件内容的MD5判断
+bool IsExistFile(LPCWSTR pszFilePath,LPCWSTR pszMD5/*=NULL*/)
 {
     if (NULL == pszFilePath || NULL == pszFilePath[0])
     {
         return false;
     }
+
     QString strPath = QString::fromWCharArray(pszFilePath);
     QFileInfo fi(strPath);
-    return fi.exists();
+	if(!fi.exists())
+	{
+		return false;
+	}
+
+	if(NULL==pszMD5||NULL==pszMD5[0])
+	{
+		return true;
+	}
+
+	QString strMD5;
+	if (Util::CaleFileMd5(strPath,strMD5) && 
+		strMD5.compare(QString::fromWCharArray(pszMD5),Qt::CaseInsensitive) == 0)
+	{
+		return true;
+	}
+	
+	if(!QFile::rename(strPath,strPath+".bak")){
+		QFile::remove(strPath);
+	};
+
+    return false;
 }
 
 bool GetUploadToken(char *pszToken, __int64 nUserId)
@@ -268,6 +299,16 @@ bool CopyFileToMD5Path(LPCWSTR pszMD5Path, LPCWSTR pszSourcePath)
         return false;
     }
 
+	QString srcFile = QString::fromWCharArray(pszSourcePath);
+	QString md5File = QString::fromWCharArray(pszMD5Path);
+
+	if(QFile::exists(md5File))
+	{
+		QFile::remove(md5File);
+	}
+
+	return QFile::copy(srcFile,md5File);
+/*
     FILE *in_file, *out_file;
     char data[512];
     size_t bytes_in, bytes_out;
@@ -302,6 +343,7 @@ bool CopyFileToMD5Path(LPCWSTR pszMD5Path, LPCWSTR pszSourcePath)
     fclose(in_file);
     fclose(out_file);
     return true;
+*/
 }
 
 bool GetHttpDownUrl(LPWSTR pszUrl, int nLength)

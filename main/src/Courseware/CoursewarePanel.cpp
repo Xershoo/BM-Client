@@ -1,9 +1,9 @@
 //**********************************************************************
-//	Copyright （c） 2018,浙江邦芒数据有限公司. All rights reserved.
+//	Copyright （c） 2015,浙江邦芒数据有限公司. All rights reserved.
 //	文件名称：CoursewarePanel.cpp
 //	版本号：1.0
-//	作者：潘良
-//	时间：2015.12.18
+//	作者：谢文兵
+//	时间：2018.10.25
 //	说明：
 //	修改记录：
 //  备注：
@@ -73,18 +73,26 @@ bool QCoursewarePannel::OpenCoursewareFile(QString fileName, bool bCtrl,bool onl
     }
 
     if (i < m_vecCourShow.size())
-    {
-        SelCoursewareShow(i);
+    {        
         AutoLock.unlock();
-        if (COURSEWARE_PDF == m_vecCourShow[i]->_type&&NULL != m_vecCourShow[i]->_show._pdf)
-        {
-            GotoPage(fileName, CTRL_SEEK_PAGE, m_vecCourShow[i]->_show._pdf->getCurPage());
-        }
+
+		if(!onlyOpen)
+		{
+			SelCoursewareShow(i);
+		
+			if (COURSEWARE_PDF == m_vecCourShow[i]->_type&&NULL != m_vecCourShow[i]->_show._pdf)
+			{
+				GotoPage(fileName, CTRL_SEEK_PAGE, m_vecCourShow[i]->_show._pdf->getCurPage());
+			}
+		}
+
         return true;
     }
 
     int nType = GetCoursewareFileType(wstring((wchar_t*)(fileName).unicode()).data());
-    if (COURSEWARE_PDF != nType && COURSEWARE_AUDIO != nType && COURSEWARE_VIDEO != nType && COURSEWARE_IMG != nType)
+    if (COURSEWARE_PDF != nType && COURSEWARE_AUDIO != nType && 
+		COURSEWARE_VIDEO != nType && COURSEWARE_IMG != nType &&
+		COURSEWARE_FLASH != nType)
     {
         AutoLock.unlock();
         return false;
@@ -113,7 +121,7 @@ bool QCoursewarePannel::OpenCoursewareFile(QString fileName, bool bCtrl,bool onl
     case COURSEWARE_AUDIO:
     case COURSEWARE_VIDEO:
         {
-            MediaPlayerShowWnd *pMedia = OpenMediaFile(fileName,onlyOpen);
+            MediaPlayerShowWnd *pMedia = OpenMediaFile(fileName,onlyOpen);			
             if (NULL == pMedia)
             {
                 AutoLock.unlock();
@@ -135,14 +143,30 @@ bool QCoursewarePannel::OpenCoursewareFile(QString fileName, bool bCtrl,bool onl
         }
         break;
 
+	case COURSEWARE_FLASH:
+		{
+			QFlashPlayWidget *pFlash = OpenFlashFile(fileName);
+			if (NULL == pFlash)
+			{
+				AutoLock.unlock();
+				return false;
+			}
+			pShow->_show._flash = pFlash;
+		}
+		break;
+
     default: 
 		pShow->_open = false;
         break;
     }
     m_vecCourShow.push_back(pShow);
-    SelCoursewareShow(m_vecCourShow.size()-1);
-
-    AutoLock.unlock();
+	AutoLock.unlock();
+	
+	if(!onlyOpen)
+	{
+		SelCoursewareShow(m_vecCourShow.size()-1);
+	}
+	
     return true;
 }
 
@@ -276,7 +300,18 @@ bool QCoursewarePannel::GetShowCourseware(char &nType, QString &fileName, int &n
             }
         }
         break;
-
+	case COURSEWARE_FLASH:
+		{	
+			nType = biz::eShowType_Cursewave;
+			nPage = pShow->_show._flash->getCurFrame();
+			if (!fileName.isEmpty())
+			{
+				WCHAR wszFileName[MAX_PATH+1] = {0};
+				GetCoursewareUploadFileName((wchar_t*)wstring((wchar_t*)(pShow->_fileName).unicode()).data(), wszFileName, MAX_PATH);
+				fileName = QString::fromWCharArray(wszFileName);
+			}
+		}
+		break;
     case COURSEWARE_IMG:
         {	
             nType = biz::eShowType_Cursewave;
@@ -299,15 +334,15 @@ bool QCoursewarePannel::GetShowCourseware(char &nType, QString &fileName, int &n
     return true;
 }
 
-void QCoursewarePannel::SetCoursewareShow(char nType, QString fielName, int nPage)
+void QCoursewarePannel::SetCoursewareShow(char nType, QString fileName, int nPage)
 {
-    if (fielName.isEmpty())
+    if (fileName.isEmpty())
     {
         return;
     }
 
     WCHAR wszLocalFile[MAX_PATH+1] = {0};
-    GetCoursewareDownloadFileName((wchar_t*)wstring((wchar_t*)(fielName).unicode()).data(), wszLocalFile, MAX_PATH);
+    GetCoursewareDownloadFileName((wchar_t*)wstring((wchar_t*)(fileName).unicode()).data(), wszLocalFile, MAX_PATH);
     if (!IsExistFile(wszLocalFile))
     {
         return;
@@ -322,7 +357,7 @@ void QCoursewarePannel::SetCoursewareShow(char nType, QString fielName, int nPag
         return;
     }
 
-    LPCOURSEWARESHOW pShow = GetCoursewareShow();
+    LPCOURSEWARESHOW pShow = GetCoursewareShowByFileName(QString::fromWCharArray(wszLocalFile));
     if (NULL == pShow)
     {
         return;
@@ -343,42 +378,50 @@ void QCoursewarePannel::SetCoursewareShow(char nType, QString fielName, int nPag
     case COURSEWARE_AUDIO:
     case COURSEWARE_VIDEO:
         {
-
 			if(NULL == pShow->_show._media)
 			{
 				break;
 			}
-            if (nPage <= CMediaFilePlayer::PAUSE)
-            {
-                switch (nPage)
-                {
-                case CMediaFilePlayer::PLAY:
-                    {   
-                        pShow->_show._media->Show(true);
-                    }
-                    break;
-                    
-                case CMediaFilePlayer::PAUSE:
-                    {   
-                        pShow->_show._media->Show(false);
-                    }
-                    break;
 
-                case CMediaFilePlayer::STOP:
-                    {
-                        pShow->_show._media->stop();
-                    }
-                    break;
-                }
+			UINT nCtrl = nPage & 0xf;			
+			switch (nCtrl)
+			{
+			case CMediaFilePlayer::PLAY:
+				{   
+					pShow->_show._media->pause(false);
+				}
+				break;
+
+			case CMediaFilePlayer::PAUSE:
+				{					
+					pShow->_show._media->pause(true);
+
+					UINT seekPos = (nPage >> 4);
+					if(seekPos > 0)
+					{
+						pShow->_show._media->seekEx(seekPos);						
+					}
+				}
+				break;
+
+			case CMediaFilePlayer::STOP:
+				{
+					pShow->_show._media->stop();
+				}
+				break;
+			case CMediaFilePlayer::SEEK:
+			default:
+				{
+					int nowSeek = pShow->_show._media->getCurPlayTime();
+					int seekPos = (nPage >> 4);					
+					if (abs(nowSeek-seekPos) > 200)
+					{
+						pShow->_show._media->seek(seekPos,true);
+					}				
+				}
+				break;			
             }
-            else
-            {
-                int nowSeek = pShow->_show._media->getCurPlayTime();
-                if (abs(nowSeek-nPage) > 5)
-                {
-                    pShow->_show._media->seek(nPage);
-                }
-            }
+            
         }
         break;
 
@@ -391,7 +434,88 @@ void QCoursewarePannel::SetCoursewareShow(char nType, QString fielName, int nPag
             pShow->_show._image->show();
         }
         break;
+
+	case COURSEWARE_FLASH:
+		{
+			if(NULL == pShow->_show._flash)
+			{
+				break;
+			}
+
+			pShow->_show._flash->gotoFrame(nPage);
+			pShow->_show._flash->show();
+		}
+		break;
     }
+}
+
+void QCoursewarePannel::PauseAllMediaCourseware(QString fileNo)
+{
+	QMutexLocker AutoLock(&m_mutex);
+
+	if (m_vecCourShow.empty() || m_nSelIndex >= m_vecCourShow.size())
+	{
+		AutoLock.unlock();
+		return;
+	}
+
+	size_t i = 0;
+	LPCOURSEWARESHOW pShow = NULL;
+	
+	for (; i < m_vecCourShow.size(); i++)
+	{
+		pShow = m_vecCourShow.at(i);
+		if (NULL == pShow)
+		{
+			continue;
+		}
+
+		if(pShow->_type != COURSEWARE_AUDIO && pShow->_type != COURSEWARE_VIDEO)
+		{
+			continue;
+		}
+
+		if(pShow->_fileName == fileNo)
+		{
+			continue;
+		}
+
+		if(NULL == pShow->_show._media)
+		{
+			continue;
+		}
+
+		if( pShow->_show._media->getState() == CMediaFilePlayer::PAUSE ||
+			pShow->_show._media->getState() == CMediaFilePlayer::STOP )
+		{
+			continue;
+		}
+
+		if(!pShow->_show._media->pause(true))
+		{
+			continue;
+		}
+
+		if (!ClassSeeion::GetInst()->IsTeacher())
+		{
+			continue;
+		}
+		
+		int curPos = pShow->_show._media->getCurPlayTime(true);
+		biz::SLClassRoomShowInfo sShowInfo;
+		WCHAR szFile[MAX_PATH+1] = {0};
+
+		sShowInfo._nRoomId = ClassSeeion::GetInst()->_nClassRoomId;
+		sShowInfo._nShowType = biz::eShowType_Cursewave;
+		GetCoursewareUploadFileName((wchar_t*)wstring((wchar_t*)(pShow->_fileName).unicode()).data(), szFile, MAX_PATH);
+
+		wcscpy(sShowInfo._szShowName, szFile);
+		sShowInfo._nShowPage = CMediaFilePlayer::PAUSE;
+		sShowInfo._nShowPage |= (curPos << 4);
+		biz::GetBizInterface()->ChangeMyShowType(sShowInfo);
+	}
+
+	AutoLock.unlock();
 }
 
 void QCoursewarePannel::PauseCoursewareShow(QString fileName, bool pause)
@@ -428,6 +552,8 @@ void QCoursewarePannel::PauseCoursewareShow(QString fileName, bool pause)
     }
 
     bool bResult = false;
+	QWidget * widgetShow = NULL;
+	UINT curPos = 0;
     switch(pShow->_type)
     {
     case COURSEWARE_PDF:
@@ -443,12 +569,31 @@ void QCoursewarePannel::PauseCoursewareShow(QString fileName, bool pause)
 			{
 				break;
 			}
-
-            pShow->_show._media->Show(!pause);
+			
+			if(pShow->_show._media->getState() == CMediaFilePlayer::PLAY)
+			{
+				pShow->_show._media->pause(true);
+			}
+			
+			curPos = pShow->_show._media->getCurPlayTime(true);
+			widgetShow = pShow->_show._media;
             bResult = true;
         }
         break;
 
+	case COURSEWARE_FLASH:
+		{
+			//...暂停
+			if(NULL == pShow->_show._flash)
+			{
+				break;
+			}
+
+			pShow->_show._flash->pause(true);
+			
+			bResult = true;
+		}
+		break;
     case COURSEWARE_IMG:
         {
 
@@ -466,15 +611,28 @@ void QCoursewarePannel::PauseCoursewareShow(QString fileName, bool pause)
             GetCoursewareUploadFileName((wchar_t*)wstring((wchar_t*)(pShow->_fileName).unicode()).data(), szFile, MAX_PATH);
             wcscpy(sShowInfo._szShowName, szFile);
             sShowInfo._nShowPage = pause ? CMediaFilePlayer::PAUSE : CMediaFilePlayer::PLAY;
+			if(pause)
+			{
+				sShowInfo._nShowPage |= (curPos << 4);
+			}
+
             biz::GetBizInterface()->ChangeMyShowType(sShowInfo);
         }
+
+
     }
     AutoLock.unlock();
+
+	if(ClassRoomDialog::isValid() && bResult && widgetShow)
+	{
+		//xiewb 2018.10.25 add later
+		//ClassRoomDialog::getInstance()->setCoursewarePlayPos(widgetShow,curPos);
+	}
 }
 
-LPCOURSEWARESHOW QCoursewarePannel::GetCoursewareShow()
+LPCOURSEWARESHOW QCoursewarePannel::GetCurrentCoursewareShow()
 {
-    OutputDebugStringW(L"Lock GetCoursewareShow.\n");
+    OutputDebugStringW(L"Lock GetCurrentCoursewareShow.\n");
 
     QMutexLocker AutoLock(&m_mutex);
 
@@ -484,7 +642,76 @@ LPCOURSEWARESHOW QCoursewarePannel::GetCoursewareShow()
     }
 
     LPCOURSEWARESHOW pShow = m_vecCourShow.at(m_nSelIndex);
-    return pShow;
+    
+	return pShow;
+}
+
+LPCOURSEWARESHOW QCoursewarePannel::GetCoursewareShowByFileName(QString& fileName)
+{
+	if(fileName.isEmpty())
+	{
+		return NULL;
+	}
+
+	OutputDebugStringW(L"Lock GetCoursewareShowByFileName.\n");
+
+	QMutexLocker AutoLock(&m_mutex);
+	if(m_vecCourShow.empty())
+	{
+		return NULL;
+	}
+
+	LPCOURSEWARESHOW pShow = NULL;
+	size_t i = 0;
+	for (; i < m_vecCourShow.size(); i++)
+	{
+		pShow = m_vecCourShow.at(i);
+		if (NULL == pShow)
+		{
+			continue;
+		}
+
+		if(pShow->_fileName.compare(fileName,Qt::CaseInsensitive) == 0)
+		{
+			return pShow;
+		}
+	}
+
+	return NULL;
+}
+
+LPCOURSEWARESHOW QCoursewarePannel::GetCoursewareShowByShowWidget(QWidget* showWidget)
+{
+	if(NULL == showWidget)
+	{
+		return NULL;
+	}
+	
+	OutputDebugStringW(L"Lock GetCoursewareShowByShowWidget.\n");
+
+	QMutexLocker AutoLock(&m_mutex);
+	if(m_vecCourShow.empty())
+	{
+		return NULL;
+	}
+
+	LPCOURSEWARESHOW pShow = NULL;
+	size_t i = 0;
+	for (; i < m_vecCourShow.size(); i++)
+	{
+		pShow = m_vecCourShow.at(i);
+		if (NULL == pShow)
+		{
+			continue;
+		}
+		
+		if(pShow->_show._pdf == showWidget)
+		{
+			return pShow;
+		}
+	}
+
+	return NULL;
 }
 
 void QCoursewarePannel::FreeAllShow()
@@ -555,6 +782,16 @@ void QCoursewarePannel::SelCoursewareShow(UINT nIndex)
 				pShow->_show._image->openFile(pShow->_fileName);
 			}
 			break;
+		case COURSEWARE_FLASH:
+			{	
+				if(NULL == pShow->_show._flash)
+				{
+					break;
+				}
+
+				pShow->_show._flash->play(pShow->_fileName);
+			}
+			break;
 		}
 	}
 
@@ -582,8 +819,13 @@ void QCoursewarePannel::ShowCourseware(LPCOURSEWARESHOW pShow, bool bShow)
 				break;
 			}
 
-            pShow->_show._pdf->show();
+			if(!bShow)
+            {
+				pShow->_show._pdf->hide();
+				break;
+			}
 
+			pShow->_show._pdf->show();
             sShowInfo._nShowType = biz::eShowType_Cursewave;
             sShowInfo._nShowPage = pShow->_show._pdf->getCurPage();
 
@@ -601,10 +843,25 @@ void QCoursewarePannel::ShowCourseware(LPCOURSEWARESHOW pShow, bool bShow)
 				break;
 			}
 
-            pShow->_show._media->Show(bShow);
+			if(!bShow)
+			{
+				pShow->_show._media->hide();
+				break;
+			}
+
+            pShow->_show._media->show();
+			if(pShow->_show._media->getState() == CMediaFilePlayer::PLAY)
+			{
+				pShow->_show._media->pause(false);
+			}
 
             sShowInfo._nShowType = biz::eShowType_Cursewave;
-            sShowInfo._nShowPage = pShow->_show._media->getCurPlayTime();
+			sShowInfo._nShowPage = pShow->_show._media->getState();						
+			if(sShowInfo._nShowPage ==CMediaFilePlayer::PAUSE )
+			{
+				UINT curPos = pShow->_show._media->getCurPlayTime(true);
+				sShowInfo._nShowPage |= (curPos << 4);
+			}
 
             WCHAR wszUpFile[MAX_PATH+1] = {0};
             GetCoursewareUploadFileName((wchar_t*)wstring((wchar_t*)(pShow->_fileName).unicode()).data(), wszUpFile, MAX_PATH);
@@ -619,8 +876,13 @@ void QCoursewarePannel::ShowCourseware(LPCOURSEWARESHOW pShow, bool bShow)
 				break;
 			}
 
-            pShow->_show._image->show();
+			if(!bShow)
+			{
+				pShow->_show._image->hide();
+				break;
+			}
 
+            pShow->_show._image->show();
             sShowInfo._nShowType = biz::eShowType_Cursewave;
             sShowInfo._nShowPage = 0;
 
@@ -629,6 +891,28 @@ void QCoursewarePannel::ShowCourseware(LPCOURSEWARESHOW pShow, bool bShow)
             wcscpy(sShowInfo._szShowName, wszUpFile);
         }
         break;
+	case COURSEWARE_FLASH:
+		{
+			if(NULL == pShow->_show._flash)
+			{
+				break;
+			}
+
+			if(!bShow)
+			{
+				pShow->_show._flash->hide();
+				break;
+			}
+
+			pShow->_show._flash->show();
+			sShowInfo._nShowType = biz::eShowType_Cursewave;
+			sShowInfo._nShowPage = pShow->_show._flash->getCurFrame();
+
+			WCHAR wszUpFile[MAX_PATH+1] = {0};
+			GetCoursewareUploadFileName((wchar_t*)wstring((wchar_t*)(pShow->_fileName).unicode()).data(), wszUpFile, MAX_PATH);
+			wcscpy(sShowInfo._szShowName, wszUpFile);
+		}
+		break;
 
     default:
         return;
@@ -656,7 +940,12 @@ void QCoursewarePannel::DelCourseware(LPCOURSEWARESHOW pShow)
 				break;
 			}
 			
-            ClassRoomDialog::getInstance()->removeMainView(pShow->_show._pdf);
+			if(ClassRoomDialog::isValid())
+			{
+				// 2018.10.25 xiewb add later
+				ClassRoomDialog::getInstance()->removeMainView(pShow->_show._pdf);
+			}
+
 			pShow->_show._pdf->closeFile(true);            
 			pShow->_show._pdf = NULL;
         }
@@ -675,7 +964,11 @@ void QCoursewarePannel::DelCourseware(LPCOURSEWARESHOW pShow)
 				pShow->_show._media->stop();
 			}
 
-            ClassRoomDialog::getInstance()->removeMainView(pShow->_show._media);
+			if(ClassRoomDialog::isValid())
+			{
+				// 2018.10.25 xiewb add later
+				ClassRoomDialog::getInstance()->removeMainView(pShow->_show._media);
+			}
 			
             pShow->_show._media->hide();            
 			delete pShow->_show._media;
@@ -689,14 +982,36 @@ void QCoursewarePannel::DelCourseware(LPCOURSEWARESHOW pShow)
 			{
 				break;
 			}
-            
-            ClassRoomDialog::getInstance()->removeMainView(pShow->_show._image);
+
+			if(ClassRoomDialog::isValid())
+			{
+				// 2018.10.25 xiewb add later
+				ClassRoomDialog::getInstance()->removeMainView(pShow->_show._image);
+			}
 
 			pShow->_show._image->closeFile();            
             delete pShow->_show._image;
 			pShow->_show._image = NULL;
         }
-        break;    
+        break;
+	case COURSEWARE_FLASH:
+        {
+			if(NULL == pShow->_show._flash)
+			{
+				break;
+			}
+            
+			if(ClassRoomDialog::isValid())
+			{
+				// 2018.10.25 xiewb add later
+				ClassRoomDialog::getInstance()->removeMainView(pShow->_show._flash);
+			}
+
+			pShow->_show._flash->stop();
+            delete pShow->_show._flash;
+			pShow->_show._flash = NULL;
+        }
+        break;
     }
 
     SAFE_DELETE(pShow);
@@ -721,8 +1036,13 @@ void QCoursewarePannel::CloseCourseware(LPCOURSEWARESHOW pShow)
 				break;
 			}
 
-            ClassRoomDialog::getInstance()->removeMainView(pShow->_show._pdf);
-			pShow->_show._pdf->closeFile(false);            			
+			if(ClassRoomDialog::isValid())
+			{
+				// 2018.10.25 xiewb add later
+				ClassRoomDialog::getInstance()->removeMainView(pShow->_show._pdf);
+			}
+
+			pShow->_show._pdf->closeFile(false);			
 		}
 		break;
 
@@ -739,7 +1059,11 @@ void QCoursewarePannel::CloseCourseware(LPCOURSEWARESHOW pShow)
 				pShow->_show._media->stop();
 			}
 
-            ClassRoomDialog::getInstance()->removeMainView(pShow->_show._media);
+			if(ClassRoomDialog::isValid())
+			{
+				// 2018.10.25 xiewb add later
+				ClassRoomDialog::getInstance()->removeMainView(pShow->_show._media);
+			}
 		}
 		break;
 
@@ -750,8 +1074,29 @@ void QCoursewarePannel::CloseCourseware(LPCOURSEWARESHOW pShow)
 				break;
 			}
 
-            ClassRoomDialog::getInstance()->removeMainView(pShow->_show._image);
+			/****************************************************************
+             2018.10.25 xiewb add for later
+			*****************************************************************/
+			if(ClassRoomDialog::isValid())
+			{
+				ClassRoomDialog::getInstance()->removeMainView(pShow->_show._image);
+			}            
 			pShow->_show._image->closeFile();						
+		}
+		break;
+	case COURSEWARE_FLASH:
+		{
+			if(NULL == pShow->_show._flash)
+			{
+				break;
+			}
+
+			if(ClassRoomDialog::isValid())
+			{
+				// 2018.10.25 xiewb add later
+				ClassRoomDialog::getInstance()->removeMainView(pShow->_show._flash);
+			}            
+			pShow->_show._flash->stop();						
 		}
 		break;
 
@@ -777,9 +1122,16 @@ QPDFWnd *QCoursewarePannel::OpenPDFFile(QString fileName, int nID, long* lParam 
         {
             break;;
         }
+		
+		/****************************************************************/
+        /*2018.10.25 xiewb add later
+		/******************************************************************/
+		if(ClassRoomDialog::isValid())
+		{
+			ClassRoomDialog::getInstance()->addMainView(pShow);
+		}
 
-		ClassRoomDialog::getInstance()->addMainView(pShow);
-        m_pdfPreview->addPDFPreview(pShow);
+		m_pdfPreview->addPDFPreview(pShow);
         bOpen = pShow->openFile(fileName);
         if(!bOpen)
         {
@@ -789,7 +1141,7 @@ QPDFWnd *QCoursewarePannel::OpenPDFFile(QString fileName, int nID, long* lParam 
         pShow->setCourseId(ClassSeeion::GetInst()->_nClassRoomId);
         if (ClassSeeion::GetInst()->IsTeacher())
         {
-            pShow->setWbCtrl(WB_CTRL_SELF);
+            pShow->setWbCtrl(WB_CTRL_EVERY);
         }
         else
         {
@@ -811,85 +1163,415 @@ QPDFWnd *QCoursewarePannel::OpenPDFFile(QString fileName, int nID, long* lParam 
 
 void QCoursewarePannel::SetMode(QString fileName, WBMode mode)
 {
-    LPCOURSEWARESHOW pShow = GetCoursewareShow();
-    if (pShow&&pShow->_show._pdf)
-    {
-        QWhiteBoardView* pWhite = pShow->_show._pdf->getCurWhiteBoardView();
-        if (pWhite)
-        {
-            pWhite->setMode(mode);
-        }
-    }
+    LPCOURSEWARESHOW pShow = GetCurrentCoursewareShow(); //GetCoursewareShowByFileName(fileName);
+	if(NULL == pShow)
+	{
+		return;
+	}
+
+	switch(pShow->_type)
+	{
+	case COURSEWARE_PDF:
+		{
+			if(NULL == pShow->_show._pdf)
+			{
+				break;
+			}
+			QWhiteBoardView* pWhite = pShow->_show._pdf->getCurWhiteBoardView();
+			if (pWhite)
+			{
+				pWhite->setMode(mode);
+			}
+		}
+		break;
+	case COURSEWARE_IMG:
+		{
+			if(NULL == pShow->_show._image)
+			{
+				break;
+			}
+
+			QWhiteBoardView* pWhite = pShow->_show._image->getWhiteBoardView();
+			if (pWhite)
+			{
+				pWhite->setMode(mode);
+			}
+		}
+		break;
+	case COURSEWARE_VIDEO:
+		{
+			if(NULL == pShow->_show._media)
+			{
+				break;
+			}
+
+			QWhiteBoardView* pWhite = pShow->_show._media->getWhiteBoardView();
+			if (pWhite)
+			{
+				pWhite->setMode(mode);
+			}
+		}
+		break;
+	case COURSEWARE_FLASH:
+		{
+			if(NULL == pShow->_show._flash)
+			{
+				break;
+			}
+
+			QWhiteBoardView* pWhite = pShow->_show._flash->getWhiteBoardView();
+			if (pWhite)
+			{
+				pWhite->setMode(mode);
+			}
+		}
+		break;
+	}    
 }
 
 void QCoursewarePannel::SetColor(QString fileName, WBColor clr)
 {
-    LPCOURSEWARESHOW pShow = GetCoursewareShow();
-    if (pShow&&pShow->_show._pdf)
-    {
-        QWhiteBoardView* pWhite = pShow->_show._pdf->getCurWhiteBoardView();
-        if (pWhite)
-        {
-            pWhite->setColor(clr);
-        }
-    }
+    LPCOURSEWARESHOW pShow = GetCurrentCoursewareShow(); //GetCoursewareShowByFileName(fileName);
+	if(NULL == pShow)
+	{
+		return;
+	}
+
+	switch(pShow->_type)
+	{
+	case COURSEWARE_PDF:
+		{
+			if(NULL == pShow->_show._pdf)
+			{
+				break;
+			}
+			QWhiteBoardView* pWhite = pShow->_show._pdf->getCurWhiteBoardView();
+			if (pWhite)
+			{
+				pWhite->setColor(clr);
+			}
+		}
+		break;
+	case COURSEWARE_IMG:
+		{
+			if(NULL == pShow->_show._image)
+			{
+				break;
+			}
+
+			QWhiteBoardView* pWhite = pShow->_show._image->getWhiteBoardView();
+			if (pWhite)
+			{
+				pWhite->setColor(clr);
+			}
+		}
+		break;
+	case COURSEWARE_VIDEO:
+		{
+			if(NULL == pShow->_show._media)
+			{
+				break;
+			}
+
+			QWhiteBoardView* pWhite = pShow->_show._media->getWhiteBoardView();
+			if (pWhite)
+			{
+				pWhite->setColor(clr);
+			}
+		}
+		break;
+	case COURSEWARE_FLASH:
+		{
+			if(NULL == pShow->_show._flash)
+			{
+				break;
+			}
+
+			QWhiteBoardView* pWhite = pShow->_show._flash->getWhiteBoardView();
+			if (pWhite)
+			{
+				pWhite->setColor(clr);
+			}
+		}
+		break;
+	}    
 }
 
 void QCoursewarePannel::SetTextSize(QString fileName, WBSize tSize)
 {
-    LPCOURSEWARESHOW pShow = GetCoursewareShow();
-    if (pShow&&pShow->_show._pdf)
-    {
-        QWhiteBoardView* pWhite = pShow->_show._pdf->getCurWhiteBoardView();
-        if (pWhite)
-        {
-            pWhite->setTextSize(tSize);
-        }
-    }
+    LPCOURSEWARESHOW pShow = GetCurrentCoursewareShow(); //GetCoursewareShowByFileName(fileName);
+	if(NULL == pShow)
+	{
+		return;
+	}
+
+	switch(pShow->_type)
+	{
+	case COURSEWARE_PDF:
+		{
+			if(NULL == pShow->_show._pdf)
+			{
+				break;
+			}
+			QWhiteBoardView* pWhite = pShow->_show._pdf->getCurWhiteBoardView();
+			if (pWhite)
+			{
+				pWhite->setTextSize(tSize);
+			}
+		}
+		break;
+	case COURSEWARE_IMG:
+		{
+			if(NULL == pShow->_show._image)
+			{
+				break;
+			}
+
+			QWhiteBoardView* pWhite = pShow->_show._image->getWhiteBoardView();
+			if (pWhite)
+			{
+				pWhite->setTextSize(tSize);
+			}
+		}
+		break;
+	case COURSEWARE_VIDEO:
+		{
+			if(NULL == pShow->_show._media)
+			{
+				break;
+			}
+
+			QWhiteBoardView* pWhite = pShow->_show._media->getWhiteBoardView();
+			if (pWhite)
+			{
+				pWhite->setTextSize(tSize);
+			}
+		}
+		break;
+	case COURSEWARE_FLASH:
+		{
+			if(NULL == pShow->_show._flash)
+			{
+				break;
+			}
+
+			QWhiteBoardView* pWhite = pShow->_show._flash->getWhiteBoardView();
+			if (pWhite)
+			{
+				pWhite->setTextSize(tSize);
+			}
+		}
+		break;
+	}    
 }
 
 void QCoursewarePannel::SetEnable(QString fileName, WBCtrl enable)
 {
-    LPCOURSEWARESHOW pShow = GetCoursewareShow();
-    if (pShow&&pShow->_show._pdf)
-    {
-        QWhiteBoardView* pWhite = pShow->_show._pdf->getCurWhiteBoardView();
-        if (pWhite)
-        {
-            pWhite->setEnable(enable);
-        }
-    }
+    LPCOURSEWARESHOW pShow = GetCurrentCoursewareShow(); //GetCoursewareShowByFileName(fileName);
+	if(NULL == pShow)
+	{
+		return;
+	}
+
+	switch(pShow->_type)
+	{
+	case COURSEWARE_PDF:
+		{
+			if(NULL == pShow->_show._pdf)
+			{
+				break;
+			}
+			QWhiteBoardView* pWhite = pShow->_show._pdf->getCurWhiteBoardView();
+			if (pWhite)
+			{
+				pWhite->setEnable(enable);
+			}
+		}
+		break;
+	case COURSEWARE_IMG:
+		{
+			if(NULL == pShow->_show._image)
+			{
+				break;
+			}
+
+			QWhiteBoardView* pWhite = pShow->_show._image->getWhiteBoardView();
+			if (pWhite)
+			{
+				pWhite->setEnable(enable);
+			}
+		}
+		break;
+	case COURSEWARE_VIDEO:
+		{
+			if(NULL == pShow->_show._media)
+			{
+				break;
+			}
+
+			QWhiteBoardView* pWhite = pShow->_show._media->getWhiteBoardView();
+			if (pWhite)
+			{
+				pWhite->setEnable(enable);
+			}
+		}
+		break;
+	case COURSEWARE_FLASH:
+		{
+			if(NULL == pShow->_show._flash)
+			{
+				break;
+			}
+
+			QWhiteBoardView* pWhite = pShow->_show._flash->getWhiteBoardView();
+			if (pWhite)
+			{
+				pWhite->setEnable(enable);
+			}
+		}
+		break;
+	}    
 }
 
 void QCoursewarePannel::UnDo(QString fileName)
 {
-    LPCOURSEWARESHOW pShow = GetCoursewareShow();
-    if (pShow&&pShow->_show._pdf)
-    {
-        QWhiteBoardView* pWhite = pShow->_show._pdf->getCurWhiteBoardView();
-        if (pWhite)
-        {
-            pWhite->undo();
-        }
-    }
+    LPCOURSEWARESHOW pShow = GetCurrentCoursewareShow(); //GetCoursewareShowByFileName(fileName);
+	if(NULL == pShow)
+	{
+		return;
+	}
+
+	switch(pShow->_type)
+	{
+	case COURSEWARE_PDF:
+		{
+			if(NULL == pShow->_show._pdf)
+			{
+				break;
+			}
+			QWhiteBoardView* pWhite = pShow->_show._pdf->getCurWhiteBoardView();
+			if (pWhite)
+			{
+				pWhite->undo();
+			}
+		}
+		break;
+	case COURSEWARE_IMG:
+		{
+			if(NULL == pShow->_show._image)
+			{
+				break;
+			}
+
+			QWhiteBoardView* pWhite = pShow->_show._image->getWhiteBoardView();
+			if (pWhite)
+			{
+				pWhite->undo();
+			}
+		}
+		break;
+	case COURSEWARE_VIDEO:
+		{
+			if(NULL == pShow->_show._media)
+			{
+				break;
+			}
+
+			QWhiteBoardView* pWhite = pShow->_show._media->getWhiteBoardView();
+			if (pWhite)
+			{
+				pWhite->undo();
+			}
+		}
+		break;
+	case COURSEWARE_FLASH:
+		{
+			if(NULL == pShow->_show._flash)
+			{
+				break;
+			}
+
+			QWhiteBoardView* pWhite = pShow->_show._flash->getWhiteBoardView();
+			if (pWhite)
+			{
+				pWhite->undo();
+			}
+		}
+		break;
+	}    
 }
 
 void QCoursewarePannel::Clear(QString fileName)
 {
-    LPCOURSEWARESHOW pShow = GetCoursewareShow();
-    if (pShow&&pShow->_show._pdf)
-    {
-        QWhiteBoardView* pWhite = pShow->_show._pdf->getCurWhiteBoardView();
-        if (pWhite)
-        {
-            pWhite->clear();
-        }
-    }
+    LPCOURSEWARESHOW pShow = GetCurrentCoursewareShow(); //GetCoursewareShowByFileName(fileName);
+	if(NULL == pShow)
+	{
+		return;
+	}
+
+	switch(pShow->_type)
+	{
+	case COURSEWARE_PDF:
+		{
+			if(NULL == pShow->_show._pdf)
+			{
+				break;
+			}
+			QWhiteBoardView* pWhite = pShow->_show._pdf->getCurWhiteBoardView();
+			if (pWhite)
+			{
+				pWhite->clear();
+			}
+		}
+		break;
+	case COURSEWARE_IMG:
+		{
+			if(NULL == pShow->_show._image)
+			{
+				break;
+			}
+
+			QWhiteBoardView* pWhite = pShow->_show._image->getWhiteBoardView();
+			if (pWhite)
+			{
+				pWhite->clear();
+			}
+		}
+		break;
+	case COURSEWARE_VIDEO:
+		{
+			if(NULL == pShow->_show._media)
+			{
+				break;
+			}
+
+			QWhiteBoardView* pWhite = pShow->_show._media->getWhiteBoardView();
+			if (pWhite)
+			{
+				pWhite->clear();
+			}
+		}
+		break;
+	case COURSEWARE_FLASH:
+		{
+			if(NULL == pShow->_show._flash)
+			{
+				break;
+			}
+
+			QWhiteBoardView* pWhite = pShow->_show._flash->getWhiteBoardView();
+			if (pWhite)
+			{
+				pWhite->clear();
+			}
+		}
+		break;
+	}    
 }
 
 void QCoursewarePannel::ZoomIn(QString fileName)
 {
-    LPCOURSEWARESHOW pShow = GetCoursewareShow();
+    LPCOURSEWARESHOW pShow = GetCurrentCoursewareShow(); //GetCoursewareShowByFileName(fileName);
 	if(NULL == pShow)
 	{
 		return;
@@ -927,7 +1609,7 @@ void QCoursewarePannel::ZoomIn(QString fileName)
 
 void QCoursewarePannel::ZoomOut(QString fileName)
 {
-	LPCOURSEWARESHOW pShow = GetCoursewareShow();
+	LPCOURSEWARESHOW pShow = GetCurrentCoursewareShow(); //GetCoursewareShowByFileName(fileName);
 	if(NULL == pShow)
 	{
 		return;
@@ -965,7 +1647,7 @@ void QCoursewarePannel::ZoomOut(QString fileName)
 
 void QCoursewarePannel::GotoPage(QString fileName, int nType, int nPage)
 {
-    LPCOURSEWARESHOW pShow = GetCoursewareShow();
+    LPCOURSEWARESHOW pShow = GetCurrentCoursewareShow(); //GetCoursewareShowByFileName(fileName);
     if (pShow)
     {
         switch (pShow->_type)
@@ -1041,7 +1723,7 @@ void QCoursewarePannel::GotoPage(QString fileName, int nType, int nPage)
 
 int QCoursewarePannel::GetTotalPage(QString fileName)
 {
-    LPCOURSEWARESHOW pShow = GetCoursewareShow();
+    LPCOURSEWARESHOW pShow = GetCurrentCoursewareShow(); //GetCoursewareShowByFileName(fileName);
     if (pShow && pShow->_show._pdf)
     {
         return pShow->_show._pdf->getPageCount();
@@ -1102,6 +1784,12 @@ void QCoursewarePannel::doCoursewareCtrl(const QString &fileName, int nCtrl)
             WCHAR wszUpFile[MAX_PATH+1] = {0};
             GetCoursewareUploadFileName((wchar_t*)wstring((wchar_t*)(pShow->_fileName).unicode()).data(), wszUpFile, MAX_PATH);
             wcscpy(sShowInfo._szShowName, wszUpFile);
+
+			if(ClassRoomDialog::isValid())
+			{
+				//2018.10.25 xiewb add later
+				//ClassRoomDialog::getInstance()->setCursewarePageShow(pShow);
+			}
         }
         break;
 
@@ -1128,7 +1816,7 @@ void QCoursewarePannel::doShowPDFPage(const QString& fileName, int nPage)
 }
 
  MediaPlayerShowWnd* QCoursewarePannel::OpenMediaFile(QString fileName,bool onlyOpen /* = false */)
-{
+{	
     if (fileName.isEmpty())
     {
         return NULL;
@@ -1139,13 +1827,20 @@ void QCoursewarePannel::doShowPDFPage(const QString& fileName, int nPage)
 
     do 
     {        
-        pShow = new MediaPlayerShowWnd;
+        pShow = new MediaPlayerShowWnd(NULL);
         if (NULL == pShow)
         {            
             break;
         }
 
-		ClassRoomDialog::getInstance()->addMainView(pShow);
+		/****************************************************************
+         2018.10.25 xiewb add later
+		*****************************************************************/
+		if(ClassRoomDialog::isValid())
+		{
+			ClassRoomDialog::getInstance()->addMainView(pShow);
+		}
+
         std::string strfile;
         Util::QStringToString(fileName, strfile);
         bopen = pShow->play(strfile,onlyOpen);
@@ -1154,7 +1849,21 @@ void QCoursewarePannel::doShowPDFPage(const QString& fileName, int nPage)
             break;
         }
 
-        connect((CMediaFilePlayer*)pShow, SIGNAL(playPosChange(unsigned int)), this, SLOT(doMediaPlayProgress(unsigned int)));
+        connect((CMediaFilePlayer*)pShow, SIGNAL(playPosChange(unsigned int,string&)), this, SLOT(doMediaPlayProgress(unsigned int,string&)));
+
+		pShow->setUserId(ClassSeeion::GetInst()->_nUserId);
+		pShow->setCourseId(ClassSeeion::GetInst()->_nClassRoomId);
+		if (ClassSeeion::GetInst()->IsTeacher())
+		{
+			pShow->setWbCtrl(WB_CTRL_EVERY);
+		}
+		else
+		{
+			pShow->setWbCtrl(WB_CTRL_NONE);
+		}
+
+		pShow->createWhiteboardView();
+
         return pShow;
 
     } while (false);
@@ -1172,22 +1881,31 @@ bool QCoursewarePannel::MediaCtrl(QString fileName, int nCtrl, int nSeek)
 {
     bool bResult = false;
     int nState = nCtrl;
-    LPCOURSEWARESHOW pshow = GetCoursewareShow();
+    LPCOURSEWARESHOW pshow = GetCurrentCoursewareShow(); //GetCoursewareShowByFileName(fileName);
     if (pshow && (COURSEWARE_AUDIO == pshow->_type || COURSEWARE_VIDEO == pshow->_type) && pshow->_show._media)
     {
         switch (nCtrl)
         {
         case CMediaFilePlayer::PLAY:
             {
-                bResult = pshow->_show._media->pause(false);                
-                bResult = true;
+                bResult = pshow->_show._media->pause(false);
+
+				/*
+				bResult = true;
+				*/
             }
             break;
 
         case CMediaFilePlayer::PAUSE:
             {
-                bResult = pshow->_show._media->pause(true);                
-                bResult = true;
+                bResult = pshow->_show._media->pause(true); 
+				UINT curPos = pshow->_show._media->getCurPlayTime(true);				
+				nState |= (curPos << 4);
+				pshow->_show._media->seekEx(curPos);
+
+                /*
+				bResult = true;
+				*/
             }
             break;
 
@@ -1198,58 +1916,19 @@ bool QCoursewarePannel::MediaCtrl(QString fileName, int nCtrl, int nSeek)
             }
             break;
 
-        case -1: // -1: 表示seek
+        case CMediaFilePlayer::SEEK: //表示seek
             {
-                nState = nSeek;
-                bResult = pshow->_show._media->seek(nSeek);
+				bResult = pshow->_show._media->seek(nSeek);	
+				
+				//xiewb 2017.08.19
+				nSeek += 200;
+				nState |= (nSeek << 4);
             }
             break;
         }
     }
-    if (bResult)
-    {
-        if (ClassSeeion::GetInst()->IsTeacher())
-        {
-            biz::SLClassRoomShowInfo sShowInfo;
-            sShowInfo._nRoomId = ClassSeeion::GetInst()->_nClassRoomId;
-            sShowInfo._nShowType = biz::eShowType_Cursewave;
-            WCHAR szFile[MAX_PATH+1] = {0};
-            GetCoursewareUploadFileName((wchar_t*)wstring((wchar_t*)(pshow->_fileName).unicode()).data(), szFile, MAX_PATH);
-            wcscpy(sShowInfo._szShowName, szFile);
-            sShowInfo._nShowPage = nState;
-            biz::GetBizInterface()->ChangeMyShowType(sShowInfo);
-        }
-    }
-    return bResult;
-}
 
-unsigned int QCoursewarePannel::GetMediaState(QString fileName)
-{
-    LPCOURSEWARESHOW pshow = GetCoursewareShow();
-    if (pshow && (COURSEWARE_AUDIO == pshow->_type || COURSEWARE_VIDEO == pshow->_type) && pshow->_show._media)
-    {
-        return pshow->_show._media->getState();
-    }
-    return 0;
-}
-
-void QCoursewarePannel::doMediaPlayProgress(unsigned int nPos)
-{
-    emit setMediaPlayerPro(nPos);
-    if (!ClassSeeion::GetInst()->IsTeacher())
-    {
-        return;
-    }
-    
-    static int nSyncTime = 0; //同步标记(每5s发送一次音视频课件同步)
-    nSyncTime++;
-    if (0 != nSyncTime%5)
-    {
-        return;
-    }
-
-    LPCOURSEWARESHOW pshow = GetCoursewareShow();
-    if (pshow && (COURSEWARE_AUDIO == pshow->_type || COURSEWARE_VIDEO == pshow->_type) && pshow->_show._media)
+    if (bResult && ClassSeeion::GetInst()->IsTeacher() && nCtrl != CMediaFilePlayer::SEEK)  //SEEK不用同步，通过Player的定时器同步
     {
         biz::SLClassRoomShowInfo sShowInfo;
         sShowInfo._nRoomId = ClassSeeion::GetInst()->_nClassRoomId;
@@ -1257,9 +1936,79 @@ void QCoursewarePannel::doMediaPlayProgress(unsigned int nPos)
         WCHAR szFile[MAX_PATH+1] = {0};
         GetCoursewareUploadFileName((wchar_t*)wstring((wchar_t*)(pshow->_fileName).unicode()).data(), szFile, MAX_PATH);
         wcscpy(sShowInfo._szShowName, szFile);
-        sShowInfo._nShowPage = pshow->_show._media->getCurPlayTime();
+        sShowInfo._nShowPage = nState;
         biz::GetBizInterface()->ChangeMyShowType(sShowInfo);
     }
+
+    return bResult;
+}
+
+unsigned int QCoursewarePannel::GetMediaState(QString fileName)
+{
+    LPCOURSEWARESHOW pshow = GetCurrentCoursewareShow(); //GetCoursewareShowByFileName(fileName);
+    if (pshow && (COURSEWARE_AUDIO == pshow->_type || COURSEWARE_VIDEO == pshow->_type) && pshow->_show._media)
+    {
+        return pshow->_show._media->getState();
+    }
+    return 0;
+}
+
+void QCoursewarePannel::doMediaPlayProgress(unsigned int nPos,string& fileName)
+{
+    emit setMediaPlayerPro(nPos,fileName);
+    
+	if (!ClassSeeion::GetInst()->IsTeacher())
+    {
+        return;
+    }
+    
+    static int nSyncTime = 0; //同步标记(每5s发送一次音视频课件同步)
+    nSyncTime++;
+
+    if (0 != nSyncTime%2)
+    {
+        return;
+    }
+
+    LPCOURSEWARESHOW pshow = GetCurrentCoursewareShow();
+	if(NULL == pshow || NULL == pshow->_show._media)
+	{
+		return;
+	}
+
+	if( pshow->_type != COURSEWARE_AUDIO && COURSEWARE_VIDEO != pshow->_type)
+	{
+		return;
+	}
+	
+	string cur_file = pshow->_show._media->getFile();
+	if(cur_file!=fileName)
+	{
+		return;
+	}
+	
+    biz::SLClassRoomShowInfo sShowInfo;
+    sShowInfo._nRoomId = ClassSeeion::GetInst()->_nClassRoomId;
+    sShowInfo._nShowType = biz::eShowType_Cursewave;
+    WCHAR szFile[MAX_PATH+1] = {0};
+    GetCoursewareUploadFileName((wchar_t*)wstring((wchar_t*)(pshow->_fileName).unicode()).data(), szFile, MAX_PATH);
+    wcscpy(sShowInfo._szShowName, szFile);
+
+	unsigned int pstate = pshow->_show._media->getState();
+	if(pstate == CMediaFilePlayer::PLAY)
+    {
+		sShowInfo._nShowPage = CMediaFilePlayer::SEEK;
+	}
+	else
+	{
+		sShowInfo._nShowPage = pstate;
+	}
+	
+	//xiewb 2017.08.19
+	nPos += 200;
+
+	sShowInfo._nShowPage |= (nPos << 4);
+    biz::GetBizInterface()->ChangeMyShowType(sShowInfo);
 }
 
 QImageShow* QCoursewarePannel::OpenImageFile(QString fileName)
@@ -1279,17 +2028,88 @@ QImageShow* QCoursewarePannel::OpenImageFile(QString fileName)
             return NULL;
         }
 
-		ClassRoomDialog::getInstance()->addMainView(pImage);
+		/****************************************************************
+		 2018.10.25 xiewb add later
+		*****************************************************************/
+		if(ClassRoomDialog::isValid())
+		{
+			ClassRoomDialog::getInstance()->addMainView(pImage);
+		}
+
         bOpen = pImage->openFile(fileName);
         if (!bOpen)
         {
             break;
         }
+
+		pImage->setUserId(ClassSeeion::GetInst()->_nUserId);
+		pImage->setCourseId(ClassSeeion::GetInst()->_nClassRoomId);
+		if (ClassSeeion::GetInst()->IsTeacher())
+		{
+			pImage->setWbCtrl(WB_CTRL_EVERY);
+		}
+		else
+		{
+			pImage->setWbCtrl(WB_CTRL_NONE);
+		}
+
+		pImage->createWhiteboardView();
+
         return pImage;
 
     } while (false);
    
     SAFE_DELETE(pImage);    
+    return NULL;
+}
+
+QFlashPlayWidget* QCoursewarePannel::OpenFlashFile(QString fileName)
+{
+    if (fileName.isEmpty())
+    {
+        return NULL;
+    }
+
+    QFlashPlayWidget  *pFlash = NULL;
+    bool bOpen = false;
+    do 
+    {
+        pFlash = new QFlashPlayWidget(ClassRoomDialog::getInstance());
+        if (NULL == pFlash)
+        {
+            return NULL;
+        }
+				
+		//2018.10.25 xiewb add for later
+		if(ClassRoomDialog::isValid())
+		{
+			ClassRoomDialog::getInstance()->addMainView(pFlash);
+		}
+
+        bOpen = pFlash->play(fileName);
+        if (!bOpen)
+        {
+            break;
+        }
+
+		pFlash->setUserId(ClassSeeion::GetInst()->_nUserId);
+		pFlash->setCourseId(ClassSeeion::GetInst()->_nClassRoomId);
+		if (ClassSeeion::GetInst()->IsTeacher())
+		{
+			pFlash->setWbCtrl(WB_CTRL_EVERY);
+		}
+		else
+		{
+			pFlash->setWbCtrl(WB_CTRL_NONE);
+		}
+
+		pFlash->createWhiteboardView();
+
+        return pFlash;
+
+    } while (false);
+   
+    SAFE_DELETE(pFlash);    
     return NULL;
 }
 

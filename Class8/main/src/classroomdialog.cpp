@@ -95,6 +95,7 @@ ClassRoomDialog::ClassRoomDialog(QWidget *parent)
 	, m_bIsSetUI(false)
 	, m_isShowNormal(true)
 	, m_doClose(false)
+	, m_mediaSliderPressed(false)
 {
     ui.setupUi(this);
 	initUI();
@@ -156,16 +157,6 @@ void ClassRoomDialog::unitNetMsgNotify()
 
 void ClassRoomDialog::initUI()
 {
-	//left slide bar
-	QString pixPath = Env::currentThemeResPath() + "widget_leftSildBar_mask.png";
-	QPixmap pix(pixPath);
-	ui.widget_leftSildBar->setRegion();
-	ui.widget_leftSildBar->showUI(false);
-
-	pixPath = Env::currentThemeResPath() + "widget_classroomToolBtns_mask.png";
-	QPixmap pixBtnToolsMask(pixPath);
-	ui.widget_classroomToolBtns->setMask(pixBtnToolsMask.mask());
-
 	//Gif button set
 	QString iconPath = Env::currentThemeResPath();
 	ui.gifIconPushButton_close->setIconPath(iconPath + "gificon_close_normal.gif", iconPath + "gificon_close_hover.gif", iconPath + "gificon_close_pressed.gif");
@@ -174,10 +165,10 @@ void ClassRoomDialog::initUI()
 	ui.gifIconpushButton_showSettingDlg->setIconPath(iconPath + "gificon_setting_normal.gif", iconPath + "gificon_setting_hover.gif", iconPath + "gificon_setting_pressed.gif");
 	ui.gifIconPushButton_lock->setIconPath(iconPath + "lock_normal.gif", iconPath + "lock_hover.gif", iconPath + "lock_pressed.gif");
 	ui.gifIconPushButton_unlock->setIconPath(iconPath + "unlock_normal.gif", iconPath + "unlock_hover.gif", iconPath + "unlock_pressed.gif");
-
-	//widget list tool bar set
-	ui.widget_listTools->setStyleSheet ("venus--TitleBar {background-color: rgb(0,0,0);color: rgb(255,255,255);}");
-	ui.widget_listTools->setWindowOpacity(0.6);
+	ui.gifIconPushButton_classOver->setIconPath(iconPath + "gificon_leave_normal.gif", iconPath + "gificon_leave_hover.gif", iconPath + "gificon_leave_pressed.gif");
+	ui.gifIconPushButton_classBegin->setIconPath(iconPath + "gificon_enter_normal.gif", iconPath + "gificon_enter_hover.gif", iconPath + "gificon_enter_pressed.gif");
+	ui.gifIconPushButton_recordStart->setIconPath(iconPath + "gificon_record_start_normal.gif", iconPath + "gificon_record_start_hover.gif", iconPath + "gificon_record_start_pressed.gif");
+	ui.gifIconPushButton_recordStop->setIconPath(iconPath + "gificon_record_stop_normal.gif", iconPath + "gificon_record_stop_hover.gif", iconPath + "gificon_record_stop_pressed.gif");
 
 	//chat
 	Chat *classChat = m_chatManager.createChatObj();
@@ -198,17 +189,15 @@ void ClassRoomDialog::initUI()
 	m_handsUpDown = new QShortcut(this);
 
 	//set hide interface child control
-	ui.pushButton_webCameraSetting->hide();
-	ui.pushButton_mulitCamera->hide();
 	ui.widget_stuVideoListWnd->hide();
 	ui.widget_teaVideo->hide();
-	ui.pushButton_allowHandsupBtn->hide();
-	ui.pushButton_allowSendMsgBtn->hide();
-	ui.pushButton_showCoursewareDownlistWnd->hide();
+	
 	ui.gifIconPushButton_lock->hide();
-	ui.widget_mediatool->hide();
+	ui.widget_whiteboardToolbar->hide();
+	ui.widget_coursewareToolbar->hide();
+	ui.label_pageNumber->setText(QString("0/0"));
+	ui.pushButton_pauseMedia->hide();
 	ui.tabWidget_classroom->tabBar()->hide();//2018.10.17
-	ui.widget_teaVideoToolBar_bk->hide();  //2018.09.28
 
 	ui.toolButton_chatClass->setEnabled(false);
 	ui.toolButton_userList->setEnabled(true);
@@ -217,6 +206,7 @@ void ClassRoomDialog::initUI()
 	ui.pushButton_cameraDisable->hide();
 	ui.pushButton_micDisable->hide();
 	ui.pushButton_spkDisable->hide();
+	ui.pushButton_closeCourseware->hide();
 
 	ui.slider_micVolume->setRange(0,100);
 	ui.slider_spkVolume->setRange(0,100);
@@ -226,14 +216,11 @@ void ClassRoomDialog::initUI()
 
 void ClassRoomDialog::initUiMsgNotify()
 {
+	//xiewb 2018.10.24 delete
 	//bottom bar button
+	/*
 	connect(ui.pushButton_stuHandsUp, SIGNAL(clicked()), this, SLOT(handUpStuBtnClicked()));
 	connect(ui.pushButton_stuHandsDown, SIGNAL(clicked()), this, SLOT(handDownStuBtnClicked()));
-	connect(ui.pushButton_showAddCoursewareWindow, SIGNAL(clicked()), this, SLOT(showCoursewareWindow()));
-	connect(ui.pushButton_classOverBtn, SIGNAL(clicked()), this, SLOT(classOverBtnClicked()));
-	connect(ui.pushButton_classBeginBtn,SIGNAL(clicked()), this, SLOT(classBeginBtnClicked()));
-	connect(ui.pushButton_recordClassBtn, SIGNAL(clicked()), this, SLOT(recordBtnClicked()));
-	connect(ui.pushButton_stopRecordClassBtn, SIGNAL(clicked()), this, SLOT(stopRecordBtnClicked()));
 	connect(ui.pushButton_disableHandsupBtn, SIGNAL(clicked()), this, SLOT(disableHandsUpBtnClicked()));
 	connect(ui.pushButton_allowHandsupBtn,SIGNAL(clicked()), this, SLOT(enableHandsUpBtnClicked()));
 	connect(ui.pushButton_disableSendMsgBtn, SIGNAL(clicked()), this, SLOT(disableSendMsgBtnClicked()));
@@ -243,6 +230,11 @@ void ClassRoomDialog::initUiMsgNotify()
 	connect(ui.pushButton_mulitCamera,SIGNAL(clicked()), this, SLOT(showTeaMulitVideoBtnClicked()));
 	connect(ui.pushButton_switchMainShow,SIGNAL(clicked()), this, SLOT(switchVideoAndCourseware()));
 
+	//list tool bar button
+	connect(ui.pushButton_in, SIGNAL(clicked()), this, SLOT(zoomInBtnClicked()));
+	connect(ui.pushButton_out, SIGNAL(clicked()), this, SLOT(zoomOutBtnClicked()));
+	*/
+
 	//title bar button
 	connect(ui.pushButton_title, SIGNAL(clicked()), this, SLOT(classSettingBtnClicked()));
 	connect(ui.gifIconpushButton_showSettingDlg,SIGNAL(clicked()), this, SLOT(showSettingDlg()));
@@ -251,13 +243,38 @@ void ClassRoomDialog::initUiMsgNotify()
 	connect(ui.gifIconpushButton_minSize, SIGNAL(clicked()), this, SLOT(showMinimized()));
 	connect(ui.gifIconPushButton_close, SIGNAL(clicked()), this, SLOT(doClose()));
 	connect(ui.gifIconpushButton_max_normalSize, SIGNAL(clicked()), this, SLOT(max_minSizeBtnClicked()));
+	connect(ui.gifIconPushButton_classOver, SIGNAL(clicked()), this, SLOT(classOverBtnClicked()));
+	connect(ui.gifIconPushButton_classBegin,SIGNAL(clicked()), this, SLOT(classBeginBtnClicked()));
+	connect(ui.gifIconPushButton_recordStart, SIGNAL(clicked()), this, SLOT(recordBtnClicked()));
+	connect(ui.gifIconPushButton_recordStop, SIGNAL(clicked()), this, SLOT(stopRecordBtnClicked()));
 
-	//list tool bar button
-	connect(ui.pushButton_in, SIGNAL(clicked()), this, SLOT(zoomInBtnClicked()));
-	connect(ui.pushButton_out, SIGNAL(clicked()), this, SLOT(zoomOutBtnClicked()));
+	//2018.10.24 xiewb 
+	//whiteboard tool bar
+	connect(ui.pushButton_classRoomLeftPenBtn, SIGNAL(clicked()), this, SLOT(wbPenClicked()));
+	connect(ui.pushButton_classRoomLeftTextBtn, SIGNAL(clicked()), this, SLOT(wbTextClicked()));
+	connect(ui.pushButton_classRoomLeftColorBtn, SIGNAL(clicked()), this, SLOT(wbColorClicked()));
+	connect(ui.pushButton_classRoomLeftUndoBtn,SIGNAL(clicked()), this, SLOT(wbUndoClicked()));
+	connect(ui.pushButton_classRoomLeftEraserBtn, SIGNAL(clicked()), this, SLOT(wbEraseClicked()));
+	connect(ui.pushButton_classRoomLeftClearAllBtn, SIGNAL(clicked()), this, SLOT(wbClearClicked()));
+
+	//2018.10.24 xiewb
+	//courseware tool bar
+	connect(ui.pushButton_preCourseware, SIGNAL(clicked()), this, SLOT(preCoursewareClicked()));
+	connect(ui.pushButton_nextCourseware, SIGNAL(clicked()), this, SLOT(nextCoursewareClicked()));
+	connect(ui.pushButton_addCourseware, SIGNAL(clicked()), this, SLOT(showCoursewareWindow()));
+	connect(ui.pushButton_closeCourseware,SIGNAL(clicked()),this,SLOT(closeCoursewareClicked()));
+	
+	connect(ui.pushButton_playMedia, SIGNAL(clicked()), this, SLOT(mediaPlayBtnClicked()));
+	connect(ui.pushButton_pauseMedia, SIGNAL(clicked()), this, SLOT(mediaPauseBtnClicked()));
+	connect(ui.slider_mediaProgress,SIGNAL(sliderPressed()),this,SLOT(mediaSliderPressed()));
+	connect(ui.slider_mediaProgress,SIGNAL(sliderReleased()),this,SLOT(mediaSliderReleased()));
+	connect(ui.slider_mediaProgress,SIGNAL(valueChanged(int)),this,SLOT(mediaSliderValueChanged(int)));
+
+	//courseware file tool bar
+	connect(ui.pushButton_preFilePage, SIGNAL(clicked()), this, SLOT(preFilePageClicked()));
+	connect(ui.pushButton_nextFilePage, SIGNAL(clicked()), this, SLOT(nextFilePageClicked()));
 
 	//widget custom signal
-	connect(ui.widget_leftSildBar, SIGNAL(show_stu_video_list()), this, SLOT(showStuVideoListWndBtnClicked()));
 	connect(ui.label_classroomTitle, SIGNAL(linkActivated(QString)), this, SLOT(doClassSetting(QString)));
 	connect(ui.tab_userList,SIGNAL(sg_privateChatCreate(__int64)),this,SLOT(showPrivateChatWidght(__int64)));
 
@@ -296,14 +313,19 @@ void ClassRoomDialog::showMinimized()
     QDialog::showMinimized();
 }
 
-bool ClassRoomDialog::eventFilter(QObject *o, QEvent *e)
+bool ClassRoomDialog::eventFilter(QObject *obj, QEvent *event)
 {
-    if (o == this && e->type() == QEvent::WindowStateChange)
-    {
-        return true;
-    }
+	if (obj != this){
+		return C8CommonWindow::eventFilter(obj, event);
+	}
 
-    return C8CommonWindow::eventFilter(o, e);
+	switch(event->type())
+	{
+	case QEvent::WindowStateChange:
+		return true;
+	}
+
+    return C8CommonWindow::eventFilter(obj, event);
 }
 
 void ClassRoomDialog::closeWnd()
@@ -319,9 +341,8 @@ void ClassRoomDialog::closeWnd()
     WhiteBoardDataMgr::freeInstance();
     CoursewareTaskMgr::freeInstance();
 
-    ui.widget_coursewaretools->clearData();
-	
 	//......
+	//ui.widget_coursewaretools->clearData();
 	//m_mediaRecord.stop();
 
     ui.widget_teaVideo->stop();
@@ -379,29 +400,6 @@ void ClassRoomDialog::doClose()
     LobbyDialog::getInstance()->setCloseClassRoom();	
 }
 
-void ClassRoomDialog::showCoursewareWindow()
-{
-    if (!ClassSeeion::GetInst()->IsTeacher())
-    {
-        return;
-    }
-    QSize size = m_addCoursewareWindow.size();
-    QPoint ptGlobal = ui.pushButton_showAddCoursewareWindow->mapToGlobal(QPoint(0, 0));
-    ptGlobal.setY(ptGlobal.y() - size.height());
-    ptGlobal.setX(ptGlobal.x() - (size.width() / 2 )+ ui.pushButton_showAddCoursewareWindow->size().width() / 2);
-    m_addCoursewareWindow.setGeometry(QRect(ptGlobal, size));
-	m_addCoursewareWindow.show();
-	m_addCoursewareWindow.activateWindow();
-	qApp->processEvents(); 
-/*  
-	m_addCoursewareWindow.hide();
-    m_addCoursewareWindow.setWindowOpacity(1);
-    m_addCoursewareWindow.showNormal();
-    m_addCoursewareWindow.activateWindow();
-*/
-
-}
-
 void ClassRoomDialog::showSettingDlg()
 {
     m_popupDlg = new SettingDialog();
@@ -416,14 +414,14 @@ void ClassRoomDialog::showClassroomSettingDlg()
 
 void ClassRoomDialog::showCoursewareDownloadWindow()
 {
-    QSize size = m_coursewareDownloadWindow.size();
-    QPoint ptGlobal = ui.pushButton_showCoursewareDownlistWnd->mapToGlobal(QPoint(0, 0));
-    ptGlobal.setY(ptGlobal.y() - size.height());
-    ptGlobal.setX(ptGlobal.x() - size.width() + ui.pushButton_showCoursewareDownlistWnd->size().width() + ui.pushButton_showCoursewareDownlistWnd->size().width()/2);
-    m_coursewareDownloadWindow.setGeometry(QRect(ptGlobal, size));
-    m_coursewareDownloadWindow.setWindowOpacity(1);
-    m_coursewareDownloadWindow.showNormal();
-    m_coursewareDownloadWindow.activateWindow();
+//     QSize size = m_coursewareDownloadWindow.size();
+//     QPoint ptGlobal = ui.pushButton_showCoursewareDownlistWnd->mapToGlobal(QPoint(0, 0));
+//     ptGlobal.setY(ptGlobal.y() - size.height());
+//     ptGlobal.setX(ptGlobal.x() - size.width() + ui.pushButton_showCoursewareDownlistWnd->size().width() + ui.pushButton_showCoursewareDownlistWnd->size().width()/2);
+//     m_coursewareDownloadWindow.setGeometry(QRect(ptGlobal, size));
+//     m_coursewareDownloadWindow.setWindowOpacity(1);
+//     m_coursewareDownloadWindow.showNormal();
+//     m_coursewareDownloadWindow.activateWindow();
 }
 
 void ClassRoomDialog::onRecvStuVideoList(StudentVideoListInfo info)
@@ -469,6 +467,8 @@ void ClassRoomDialog::showTeaMulitVideoBtnClicked()
 
 void ClassRoomDialog::switchVideoAndCourseware()
 {
+	/*xiewb 2018.10.24*/
+	/*
     QBoxLayout *teaVideoToolsLayout = qobject_cast<QBoxLayout*>(ui.widget_teaVideoToolBar_bk->layout());
     QBoxLayout *coursewareLayout = qobject_cast<QBoxLayout*>(ui.widget_listTools->layout());
 
@@ -493,7 +493,7 @@ void ClassRoomDialog::switchVideoAndCourseware()
         coursewareLayout->removeWidget(ui.widget_coursewaretools);
         teaVideoToolsLayout->insertWidget(1, ui.widget_coursewaretools);
         teaVideoToolsLayout->insertSpacerItem(2, new QSpacerItem(40, 20, QSizePolicy::Expanding));
-
+		
         teaVideoToolsLayout->removeWidget(ui.pushButton_webCameraSetting);
         teaVideoToolsLayout->removeWidget(ui.pushButton_mulitCamera);
         teaVideoToolsLayout->removeWidget(ui.pushButton_switchMainShow);
@@ -526,13 +526,14 @@ void ClassRoomDialog::switchVideoAndCourseware()
     else if (m_typeMainShow == biz::eMainShow_VIDEO)
     {
         // 课件换到左边，视频换到右边
+		
         coursewareLayout->removeWidget(ui.pushButton_webCameraSetting);
         coursewareLayout->removeWidget(ui.pushButton_mulitCamera);
         coursewareLayout->removeWidget(ui.pushButton_switchMainShow);
         teaVideoToolsLayout->insertWidget(1, ui.pushButton_webCameraSetting);
         teaVideoToolsLayout->insertWidget(2, ui.pushButton_mulitCamera);
         teaVideoToolsLayout->insertWidget(3, ui.pushButton_switchMainShow);
-
+		
         teaVideoToolsLayout->removeWidget(ui.widget_coursewaretools);
         coursewareLayout->insertWidget(1, ui.widget_coursewaretools);
         
@@ -565,7 +566,9 @@ void ClassRoomDialog::switchVideoAndCourseware()
     }
 
     setClassRoomUI();
+	*/
 }
+
 
 void ClassRoomDialog::onUpdateUserInfo(__int64 userID)
 {
@@ -764,6 +767,8 @@ void ClassRoomDialog::onUserSpeakAction(UserSpeakActionInfo info)
 
         if(classSession->getAuthority() == biz::UserAu_Student || classSession->getAuthority() == biz::UserAu_Assistant)
         {
+			/*xiewb 2018.10.24*/
+			/*
             ui.pushButton_stuHandsDown->hide();
             ui.pushButton_stuHandsUp->show();
 
@@ -775,8 +780,10 @@ void ClassRoomDialog::onUserSpeakAction(UserSpeakActionInfo info)
 			{
 				ui.pushButton_stuHandsUp->setEnabled(true);
 			}
-
-			ui.widget_coursewaretools->setWhiteBoardEnable(WB_CTRL_NONE);
+			
+			ui.widget_coursewaretools->setWhiteboardEnable(WB_CTRL_NONE);
+			*/
+			setWhiteboardEnable(WB_CTRL_NONE);
         }
 
         biz::SLUserInfo * spkUser = pRoom->GetSpeakUserInfo();
@@ -799,7 +806,7 @@ void ClassRoomDialog::onUserSpeakAction(UserSpeakActionInfo info)
 
         if(info._nUserId == classSession->_nUserId)
         {   
-            ui.widget_coursewaretools->setWhiteBoardEnable(WB_CTRL_SELF);            
+            setWhiteboardEnable(WB_CTRL_SELF);
         }
     }
     else if(info._nAction == biz::eUserspeekstate_clean_speak)
@@ -808,16 +815,19 @@ void ClassRoomDialog::onUserSpeakAction(UserSpeakActionInfo info)
 
         if( info._nUserId == classSession->_nUserId && classSession->IsStudent())
         {	
-			ui.widget_coursewaretools->setWhiteBoardEnable(WB_CTRL_NONE);
+			setWhiteboardEnable(WB_CTRL_NONE);
 		}
     }
     else if(info._nAction == biz::eUserspeekstate_Ask_speak)
     {
         if(info._nUserId == classSession->_nUserId)
         {
+			/*xiewb 2018.10.24*/
+			/*
             ui.pushButton_stuHandsUp->hide();
             ui.pushButton_stuHandsDown->setEnabled(true);
             ui.pushButton_stuHandsDown->show();
+			*/
         }
 		
 		if (page)
@@ -833,10 +843,13 @@ void ClassRoomDialog::onUserSpeakAction(UserSpeakActionInfo info)
 		//显示系统消息 - 取消举手
         if(info._nUserId == classSession->_nUserId)
         {
+			/*xiewb 2018.10.24*/
+			/*
             ui.pushButton_stuHandsUp->show();
             ui.pushButton_stuHandsUp->setEnabled(true);
             ui.pushButton_stuHandsDown->setEnabled(false);
             ui.pushButton_stuHandsDown->hide();
+			*/
         }
 
         if (page)
@@ -866,10 +879,14 @@ void ClassRoomDialog::onUserSpeakAction(UserSpeakActionInfo info)
         classSession->IsStudent() && info._nUserId == classSession->_nUserId) //禁言和取消禁言的处理
     {
         BOOL bEnable = (info._nAction == biz::eClassAction_mute) ? FALSE : TRUE;
+		
+		/*xiewb 2018.10.24*/
+		/*
 		ui.pushButton_stuHandsDown->hide();
 		ui.pushButton_stuHandsUp->show();
         ui.pushButton_stuHandsUp->setEnabled(bEnable);
-
+		*/
+		
 		if(!bEnable && page)
 		{
 			page->updateUserHandsUpState(info._nUserId,false);
@@ -880,34 +897,6 @@ void ClassRoomDialog::onUserSpeakAction(UserSpeakActionInfo info)
     return;
 }
 
-void ClassRoomDialog::showMainView(QWidget *pwidget, bool bAddNew)
-{
-    if (NULL == pwidget)
-    {
-        return;
-    }
-
-	/*
-    if (bAddNew)
-    {
-        ui.stackedWidget_main->addWidget(pwidget);
-		pwidget->setParent(ui.stackedWidget_main);
-    }
-	*/
-
-    ui.stackedWidget_main->setCurrentWidget(pwidget);
-}
-
-void ClassRoomDialog::addMainView(QWidget *pwidget)
-{
-	if (NULL == pwidget)
-	{
-		return;
-	}
-	
-	ui.stackedWidget_main->addWidget(pwidget);
-	pwidget->setParent(ui.stackedWidget_main);	
-}
 
 void ClassRoomDialog::classBeginBtnClicked()
 {
@@ -944,9 +933,9 @@ void ClassRoomDialog::classBeginBtnClicked()
 
 	if (ClassSeeion::GetInst()->IsTeacher())
 	{
-		ui.pushButton_classBeginBtn->show();
-		ui.pushButton_classBeginBtn->setEnabled(false);
-		ui.pushButton_classOverBtn->hide();
+		ui.gifIconPushButton_classBegin->show();
+		ui.gifIconPushButton_classBegin->setEnabled(false);
+		ui.gifIconPushButton_classOver->hide();
 	}
 
     return;
@@ -1012,21 +1001,6 @@ void ClassRoomDialog::onRecvClassMsgReminder(ClassMsgReminderInfo info)
     }
 }
 
-void ClassRoomDialog::removeMainView(QWidget *pwidget)
-{
-    if (NULL == pwidget)
-    {
-        return;
-    }
-	
-	if(pwidget->parent() != ui.stackedWidget_main)
-	{
-		return;
-	}
-
-    ui.stackedWidget_main->removeWidget(pwidget);
-}
-
 void ClassRoomDialog::clearStackWidget()
 {
     int ncount = ui.stackedWidget_main->count();
@@ -1040,14 +1014,16 @@ void ClassRoomDialog::showMainState(QString fileName, int nPos)
 {
 	ASSERT_CLASSROOM_DLG_EXSIT;
 
-    if (MAIN_SHOW_TYPE_DOWN_FALIED == nPos || MAIN_SHOW_TYPE_UPLOAD_FAILED == nPos) //表示课件处理失败,弹出提示信息
+    if (MAIN_SHOW_TYPE_DOWN_FAILED == nPos || 
+		MAIN_SHOW_TYPE_UPLOAD_FAILED == nPos ||
+		MAIN_SHOW_TYPE_TRANS_FAILED == nPos) //表示课件处理失败,弹出提示信息
     {
         QString infoText;
         if (MAIN_SHOW_TYPE_UPLOAD_FAILED == nPos)
         {
             infoText = QString(tr("CoursewareUploadFailed").arg(fileName));
         }
-        else if (MAIN_SHOW_TYPE_DOWN_FALIED == nPos)
+        else if (MAIN_SHOW_TYPE_DOWN_FAILED == nPos)
         {
             infoText = QString(tr("CoursewareDownFailed").arg(fileName));
         }
@@ -1061,37 +1037,34 @@ void ClassRoomDialog::showMainState(QString fileName, int nPos)
     }
 
 	QWidget * curShowWidget =ui.stackedWidget_main->currentWidget();
-	if(curShowWidget != (QWidget*)ui.stackedWidget_mainPage1)
+	if(curShowWidget != (QWidget*)ui.stackedWidget_classStatePage)
 	{
-		ui.stackedWidget_main->setCurrentWidget(ui.stackedWidget_mainPage1);
+		ui.stackedWidget_main->setCurrentWidget(ui.stackedWidget_classStatePage);
 	}
 	
     if (100 == nPos)
     {
-        ui.stackedWidget_mainPage1->ShowMainState(ClassSeeion::GetInst()->_bBeginedClass, fileName, ClassSeeion::GetInst()->_bBeginedClass?nPos:nPos);		
+        ui.stackedWidget_classStatePage->ShowMainState(ClassSeeion::GetInst()->_bBeginedClass, fileName, ClassSeeion::GetInst()->_bBeginedClass?nPos:nPos);		
     }
     else
     {	
-        ui.stackedWidget_mainPage1->ShowMainState(ClassSeeion::GetInst()->_bBeginedClass, fileName, nPos);
+        ui.stackedWidget_classStatePage->ShowMainState(ClassSeeion::GetInst()->_bBeginedClass, fileName, nPos);
     }
+
+	//xiewb 2018.10.30
+	ui.widget_whiteboardToolbar->hide();
+	setCoursewareNameShow(tr("addCoursewareTip"));
+	
+	this->setPageShowText(0,0);
+	this->setCoursewareCtrlBtnUI();
 }
 
 void ClassRoomDialog::reshowMainState(QString filename)
 {
     if (!filename.isEmpty())
     {
-        ui.stackedWidget_mainPage1->ReshowMainState(ClassSeeion::GetInst()->_bBeginedClass, filename);
+        ui.stackedWidget_classStatePage->ReshowMainState(ClassSeeion::GetInst()->_bBeginedClass, filename);
     }
-}
-
-void ClassRoomDialog::showPreviewView(QString filePath, int npage)
-{
-    ui.widget_leftSildBar->ShowPreview(filePath, npage);
-}
-
-void ClassRoomDialog::removePreviewView(QString filePath)
-{
-    ui.widget_leftSildBar->RemovePreview(filePath);
 }
 
 void ClassRoomDialog::showSysMsg(QString message)
@@ -1129,21 +1102,18 @@ void ClassRoomDialog::setUserUI()
 
     if (ClassSeeion::GetInst()->IsTeacher())
     {
-        ui.pushButton_classOverBtn->hide();
-        ui.pushButton_stopRecordClassBtn->hide();
-        ui.pushButton_showCoursewareDownlistWnd->hide();
-        ui.pushButton_stuHandsUp->hide();
-        ui.pushButton_stuHandsDown->hide();
-        ui.pushButton_classBeginBtn->show();
-        ui.pushButton_recordClassBtn->show();
-        ui.pushButton_showAddCoursewareWindow->show();
-        ui.pushButton_disableHandsupBtn->show();
-        ui.pushButton_allowHandsupBtn->hide();
-        ui.pushButton_disableSendMsgBtn->show();
-        ui.pushButton_allowSendMsgBtn->hide();
-
-        ui.widget_coursewaretools->showUI();
-        ui.widget_leftSildBar->showUI(true);
+        ui.gifIconPushButton_classOver->hide();
+        ui.gifIconPushButton_recordStop->hide();
+        ui.gifIconPushButton_classBegin->show();
+        ui.gifIconPushButton_recordStart->show();
+        ui.widget_coursewareToolbar->show();
+		ui.widget_coursewareMediaBar->hide();
+		ui.widget_coursewarePageBar->show();
+		ui.pushButton_addCourseware->show();
+		ui.pushButton_preCourseware->setEnabled(false);
+		ui.pushButton_nextCourseware->setEnabled(false);
+		ui.pushButton_preFilePage->setEnabled(false);
+		ui.pushButton_nextFilePage->setEnabled(false);
 
 		if(sBaseInfo._nClassMode & biz::Eclassroommode_Lock)
 		{
@@ -1158,27 +1128,12 @@ void ClassRoomDialog::setUserUI()
     }
     else
     {
-        ui.pushButton_classOverBtn->hide();
-        ui.pushButton_stopRecordClassBtn->hide();
-
-        ui.pushButton_showCoursewareDownlistWnd->show();
-        ui.pushButton_stuHandsUp->show();
-        ui.pushButton_stuHandsDown->hide();
-        ui.pushButton_classBeginBtn->hide();
-        ui.pushButton_recordClassBtn->hide();
-        ui.pushButton_showAddCoursewareWindow->hide();
-        ui.pushButton_disableHandsupBtn->hide();
-        ui.pushButton_allowHandsupBtn->hide();
-        ui.pushButton_disableSendMsgBtn->hide();
-        ui.pushButton_allowSendMsgBtn->hide();
-        ui.pushButton_webCameraSetting->hide();
-        ui.pushButton_mulitCamera->hide();
-        ui.pushButton_switchMainShow->show();
-
-        ui.widget_coursewaretools->showUI();
-        ui.widget_leftSildBar->showUI(false);
-
-        ui.gifIconPushButton_lock->hide();
+        ui.gifIconPushButton_classOver->hide();
+        ui.gifIconPushButton_recordStop->hide();
+        ui.gifIconPushButton_classBegin->hide();
+        ui.gifIconPushButton_recordStart->hide();
+        
+		ui.gifIconPushButton_lock->hide();
         ui.gifIconPushButton_unlock->hide();
     }
 
@@ -1321,8 +1276,8 @@ void ClassRoomDialog::setBenginClass(int nState, bool bISClearCList /* = false *
         doClassRoomState_Other(nState, bISClearCList);
         setClassRoomUI();
         showMainState("", MAIN_SHOW_TYPE_CLASS_OVER);
-        ui.pushButton_classBeginBtn->hide();
-        ui.pushButton_showAddCoursewareWindow->hide();
+        ui.gifIconPushButton_classBegin->hide();
+        ui.pushButton_addCourseware->hide();
 
         if(ClassSeeion::GetInst()->IsStudent())
         {
@@ -1337,9 +1292,9 @@ void ClassRoomDialog::doClassRoomState_Ready()
 {
     if (ClassSeeion::GetInst()->IsTeacher())
     {
-        ui.pushButton_classBeginBtn->show();
-        ui.pushButton_classBeginBtn->setEnabled(true);
-        ui.pushButton_classOverBtn->hide();
+        ui.gifIconPushButton_classBegin->show();
+        ui.gifIconPushButton_classBegin->setEnabled(true);
+        ui.gifIconPushButton_classOver->hide();
     }
 
     if (ClassSeeion::GetInst()->IsStudent())
@@ -1354,9 +1309,9 @@ void ClassRoomDialog::doClassRoomState_Going()
     {
 		return;
 	}
-    ui.pushButton_classBeginBtn->show();
-    ui.pushButton_classBeginBtn->setEnabled(true);
-    ui.pushButton_classOverBtn->hide();
+    ui.gifIconPushButton_classBegin->show();
+    ui.gifIconPushButton_classBegin->setEnabled(true);
+    ui.gifIconPushButton_classOver->hide();
         
 	//提示老师准备上课
     m_popupDlg = new C8MessageBox(C8MessageBox::Question, QString(tr("info")), QString(tr("ClassReminder")));
@@ -1399,8 +1354,8 @@ void ClassRoomDialog::doClassRoomState_Doing()
 	
     if (ClassSeeion::GetInst()->IsTeacher())
     {
-        ui.pushButton_classBeginBtn->hide();
-        ui.pushButton_classOverBtn->show();
+        ui.gifIconPushButton_classBegin->hide();
+        ui.gifIconPushButton_classOver->show();
     }
 	else
 	{
@@ -1510,25 +1465,18 @@ void ClassRoomDialog::doClassRoomStateSignOut()
 void ClassRoomDialog::doClassRoomState_Other( int nState, bool bISClearCList )
 {	
 	//隐藏工具栏
-	ui.widget_listTools->hide();
-	ui.widget_leftSildBar->showUI(false);
-	ui.pushButton_classBeginBtn->hide();
-	ui.pushButton_classOverBtn->hide();
-	ui.pushButton_stopRecordClassBtn->hide();
-	ui.pushButton_showCoursewareDownlistWnd->hide();
-	ui.pushButton_stuHandsUp->hide();
-	ui.pushButton_stuHandsDown->hide();
-	ui.pushButton_recordClassBtn->hide();
-	ui.pushButton_showAddCoursewareWindow->hide();
-	ui.pushButton_disableHandsupBtn->hide();
-	ui.pushButton_allowHandsupBtn->hide();
-	ui.pushButton_disableSendMsgBtn->hide();
-	ui.pushButton_allowSendMsgBtn->hide();
-	ui.pushButton_mulitCamera->hide();
-	ui.pushButton_webCameraSetting->hide();
+	ui.widget_coursewareToolbar->hide();
+	ui.widget_whiteboardToolbar->hide();
+	ui.gifIconPushButton_classBegin->hide();
+	ui.gifIconPushButton_classOver->hide();
+	ui.gifIconPushButton_recordStop->hide();
+	ui.gifIconPushButton_recordStart->hide();
+
+	ui.gifIconPushButton_recordStart->hide();
+	ui.pushButton_addCourseware->hide();
+	
 	ui.gifIconPushButton_lock->hide();
 	ui.gifIconPushButton_unlock->hide();
-	ui.widget_listTools->hide();
 
     if (ClassSeeion::GetInst()->IsTeacher())
     {  
@@ -1568,8 +1516,8 @@ void ClassRoomDialog::disableHandsUpBtnClicked()
     {
         biz::GetBizInterface()->UserClassAction(ClassSeeion::GetInst()->_nClassRoomId, 0, biz::eUserspeekstate_clean_speak, ClassSeeion::GetInst()->_nUserId);
         biz::GetBizInterface()->SetClassMode(ClassSeeion::GetInst()->_nClassRoomId,ClassSeeion::GetInst()->_nUserId,biz::Eclassroommode_Speakdisable);
-        ui.pushButton_disableHandsupBtn->hide();
-        ui.pushButton_allowHandsupBtn->show();
+
+		//change UI......
     }
     else
     {
@@ -1589,8 +1537,8 @@ void ClassRoomDialog::enableHandsUpBtnClicked()
     if (biz::EClassroomstate_Doing == sRoomInfo._nClassState)
     {
         biz::GetBizInterface()->SetClassMode(ClassSeeion::GetInst()->_nClassRoomId,ClassSeeion::GetInst()->_nUserId,biz::Eclassroommode_Speakable);
-        ui.pushButton_allowHandsupBtn->hide();
-        ui.pushButton_disableHandsupBtn->show();
+
+		//change UI......
     }
     else
     {
@@ -1610,8 +1558,7 @@ void ClassRoomDialog::disableSendMsgBtnClicked()
     if (biz::EClassroomstate_Doing == sRoomInfo._nClassState)
     {
         biz::GetBizInterface()->SetClassMode(ClassSeeion::GetInst()->_nClassRoomId,ClassSeeion::GetInst()->_nUserId,biz::Eclassroommode_Textdisable);
-        ui.pushButton_allowSendMsgBtn->show();
-        ui.pushButton_disableSendMsgBtn->hide();
+        //change UI......
     }
     else
     {
@@ -1631,8 +1578,7 @@ void ClassRoomDialog::enableSendMsgBtnClicked()
     if (biz::EClassroomstate_Doing == sRoomInfo._nClassState)
     {
         biz::GetBizInterface()->SetClassMode(ClassSeeion::GetInst()->_nClassRoomId,ClassSeeion::GetInst()->_nUserId,biz::Eclassroommode_Textable);
-        ui.pushButton_allowSendMsgBtn->hide();
-        ui.pushButton_disableSendMsgBtn->show();
+        //change UI......
     }
     else
     {
@@ -1658,12 +1604,18 @@ void ClassRoomDialog::handUpStuBtnClicked()
     }
     if(!(sRoomInfo._nClassMode & biz::Eclassroommode_Speakable))
     {
+		/* 2018.10.24 xiewb*/
+		/*
         ui.pushButton_stuHandsUp->setEnabled(false);
+		*/
         return;
     }
 
     biz::GetBizInterface()->UserClassAction(ClassSeeion::GetInst()->_nClassRoomId, ClassSeeion::GetInst()->_nUserId, eUserspeekstate_Ask_speak, 0);
-    ui.pushButton_stuHandsUp->setEnabled(false);    
+	/* 2018.10.24 xiewb*/
+	/*
+	ui.pushButton_stuHandsUp->setEnabled(false);
+	*/
 }
 
 void ClassRoomDialog::handDownStuBtnClicked()
@@ -1682,11 +1634,18 @@ void ClassRoomDialog::handDownStuBtnClicked()
     }
     if(!(sRoomInfo._nClassMode & biz::Eclassroommode_Speakable))
     {
+		/*xiewb 2018.10.24*/
+		/*
         ui.pushButton_stuHandsDown->setEnabled(false);
+		*/
         return;
     }
     biz::GetBizInterface()->UserClassAction(ClassSeeion::GetInst()->_nClassRoomId, ClassSeeion::GetInst()->_nUserId, biz::eUserspeekstate_cancel_Speak, 0);    
-    ui.pushButton_stuHandsDown->setEnabled(false);
+    
+	/*xiewb 2018.10.24*/
+	/*
+	ui.pushButton_stuHandsDown->setEnabled(false);
+	*/
 }
 
 void ClassRoomDialog::webCameraSettingBtnClicked()
@@ -1926,7 +1885,10 @@ void ClassRoomDialog::setClassMode(int newMode,int oldMode,bool showMsg /* = tru
 
 			if(ClassSeeion::GetInst()->IsStudent() && !(sMyInfo._nUserState & biz::eUserState_user_mute))			
 			{
+				/* 2018.10.24 xiewb*/
+				/*
 				ui.pushButton_stuHandsUp->setEnabled(true);
+				*/
 			}
 		}
 		else
@@ -1935,7 +1897,10 @@ void ClassRoomDialog::setClassMode(int newMode,int oldMode,bool showMsg /* = tru
 			strText = QString(tr("TeacherNotAllowHandUp"));
 			if(!ClassSeeion::GetInst()->IsTeacher())
 			{
+				/* 2018.10.24 xiewb*/
+				/*
 				ui.pushButton_stuHandsUp->setEnabled(false);
+				*/
 			}
 		}
 
@@ -2041,6 +2006,8 @@ void ClassRoomDialog::setStudentSpeak(biz::SLUserInfo& userInfo,bool setSpeak)
     }
     else
     {   
+		/*xiewb 2018.10.24*/
+		/*
         if(setSpeak)
         {
             ui.pushButton_stuHandsDown->show();
@@ -2057,6 +2024,8 @@ void ClassRoomDialog::setStudentSpeak(biz::SLUserInfo& userInfo,bool setSpeak)
             ui.pushButton_stuHandsUp->show();
             ui.pushButton_stuHandsUp->setEnabled(true);
         }
+		*/
+
 
         //开启或关闭音频
         LPPUBLISHSEATINFO seatPublish = CMediaPublishMgr::getInstance()->getPublishSeatInfo(0);
@@ -2282,6 +2251,8 @@ bool ClassRoomDialog::regHotkey(int key, QString value)
 
 void ClassRoomDialog::handsUpDown()
 {
+	/* 2018.10.24 xiewb*/
+	/*
 	if(!ui.pushButton_stuHandsUp->isHidden())
 	{
         handUpStuBtnClicked();
@@ -2290,6 +2261,7 @@ void ClassRoomDialog::handsUpDown()
 	{
         handDownStuBtnClicked();
     }
+	*/
 }
 
 void ClassRoomDialog::windowShowMaxmized() 
@@ -2383,34 +2355,27 @@ void ClassRoomDialog::adjustElementPos()
 		ui.stackedWidget_main->widget(i)->update();
 	}
 
-    QRect rcListTools;
-    rcListTools.setX(ui.widget_main->width() - ui.widget_listTools->width() - 20);
-    rcListTools.setY(ui.widget_main->height() - ui.widget_listTools->height() - 10);
-    rcListTools.setWidth(ui.widget_listTools->width());
-    rcListTools.setHeight(ui.widget_listTools->height());
-    ui.widget_listTools->setGeometry(rcListTools);
+	/******xiewb 2018.10.23********/
+	QRect rectToolbar;
+	
+	rectToolbar.setY(0);
+	rectToolbar.setX(0);//((size.width()-300)/2);
+	rectToolbar.setHeight(50);
+	rectToolbar.setWidth(300);
+	ui.widget_whiteboardToolbar->setGeometry(rectToolbar);
+	/******************************/
 
-    QRect rcRoomToolBtns;
-    rcRoomToolBtns.setX(50);
-    rcRoomToolBtns.setY(ui.widget_main->height() - ui.widget_classroomToolBtns->height());
-    rcRoomToolBtns.setWidth(ui.widget_classroomToolBtns->width());
-    rcRoomToolBtns.setHeight(ui.widget_classroomToolBtns->height());
-    ui.widget_classroomToolBtns->setGeometry(rcRoomToolBtns);
-
-    QRect rcLeftToolBar;
-    rcLeftToolBar.setX(0);
-    rcLeftToolBar.setY(0);
-    rcLeftToolBar.setWidth(ui.widget_leftSildBar->width());
-    rcLeftToolBar.setHeight(ui.widget_main->height());
-    ui.widget_leftSildBar->setGeometry(rcLeftToolBar);
-    ui.widget_leftSildBar->setRegion();
-
+	/******xiewb 2018.10.26********/
+	setCoursewareToolUI();
+	/******************************/
     QRect rcStuVideoList;
     rcStuVideoList.setX(0/*(ui.widget_main->width() - ui.widget_stuVideoListWnd->width()) / 2 + 10*/);
     rcStuVideoList.setY(0);
     rcStuVideoList.setWidth(ui.widget_main->width()/*ui.widget_stuVideoListWnd->width()*/);
     rcStuVideoList.setHeight(ui.widget_stuVideoListWnd->height());
     ui.widget_stuVideoListWnd->setGeometry(rcStuVideoList);
+
+	
 }
 
 void ClassRoomDialog::max_minSizeBtnClicked()
@@ -2454,33 +2419,6 @@ void ClassRoomDialog::unlockClass()
     {
         biz::GetBizInterface()->SetClassMode(ClassSeeion::GetInst()->_nClassRoomId,ClassSeeion::GetInst()->_nUserId,biz::Eclassroommode_Lock);
     }
-}
-void ClassRoomDialog::showMediaTool(bool isMedia, QString filename, long nowTime, long totleTime, int state)
-{
-    if (isMedia)
-    {
-        ui.pushButton_in->hide();
-        ui.pushButton_out->hide();
-        ui.label_page_size->hide();
-        ui.label_empty->hide();
-        ui.widget_mediatool->show();
-        ui.widget_mediatool->SetPlayTime(nowTime, totleTime, state);
-    }
-    else
-    {
-        ui.widget_mediatool->hide();
-        ui.pushButton_in->show();
-        ui.pushButton_out->show();
-        ui.label_page_size->show();
-        ui.label_empty->show();
-        ui.label_empty->setFixedWidth(70);
-    }
-    setCoursewareToolUI(isMedia);
-}
-
-void ClassRoomDialog::setCoursewareToolUI(bool isMedia)
-{
-    ui.widget_coursewaretools->setMediaUI(isMedia);
 }
 
 void ClassRoomDialog::onConnectServerError(ServerErrorInfo info)
@@ -2556,22 +2494,6 @@ void ClassRoomDialog::onRecvSetAssistantMsg(SetAssistantInfo info)
 	
 }
 
-void ClassRoomDialog::showWhiteboardTools(bool bIsShow)
-{
-    if (!ClassSeeion::GetInst()->IsStudent())
-    {
-        return;
-    }
-    if (bIsShow)
-    {
-        ui.widget_leftSildBar->showUI(true);
-    }
-    else 
-    {
-        ui.widget_leftSildBar->showUI(false);
-    }
-}
-
 void ClassRoomDialog::zoomInBtnClicked()
 {
     CoursewareDataMgr::GetInstance()->ZoomIn();
@@ -2609,80 +2531,21 @@ void ClassRoomDialog::setClassRoomUI()
     {
         if (ClassSeeion::GetInst()->IsTeacher())
         {
-            if (ui.widget_coursewaretools->IsHaveCourseware())
-            {
-                ui.widget_listTools->show();
-                ui.widget_coursewaretools->show();
-                ui.widget_leftSildBar->showUI(true);
-                if (ui.widget_coursewaretools->IsCurrentMedia())
-                {
-                    ui.pushButton_in->hide();
-                    ui.pushButton_out->hide();
-                }
-                else
-                {
-                    ui.pushButton_in->show();
-                    ui.pushButton_out->show();
-                }
-            }
-            else
-            {
-                ui.widget_listTools->hide();
-                if(m_typeMainShow == biz::eMainShow_VIDEO)
-                {
-                    ui.widget_listTools->show();
-                    ui.widget_coursewaretools->hide();
-                }
-                ui.widget_leftSildBar->showUI(false);
-            }
+			ui.widget_coursewareToolbar->show();
 
-            ui.pushButton_classBeginBtn->hide();
-            ui.pushButton_classOverBtn->show();
+            ui.gifIconPushButton_classBegin->hide();
+            ui.gifIconPushButton_classOver->show();
 
-            ui.pushButton_stopRecordClassBtn->setEnabled(true);
-            ui.pushButton_recordClassBtn->setEnabled(true);
+            ui.gifIconPushButton_recordStop->hide();
+            ui.gifIconPushButton_recordStart->show();
 
-            ui.pushButton_showAddCoursewareWindow->show();
-
-            ui.pushButton_disableSendMsgBtn->setEnabled(true);
-            ui.pushButton_allowSendMsgBtn->setEnabled(true);
-
-            ui.pushButton_disableHandsupBtn->setEnabled(true);
-            ui.pushButton_allowHandsupBtn->setEnabled(true);
+            ui.pushButton_addCourseware->show();
         }
         
         if (ClassSeeion::GetInst()->IsStudent())
         {
-            if (ui.widget_coursewaretools->IsHaveCourseware())
-            {
-                ui.widget_listTools->show();
-                ui.widget_coursewaretools->show();
-                if (ui.widget_coursewaretools->IsCurrentMedia())
-                {
-                    ui.pushButton_in->hide();
-                    ui.pushButton_out->hide();
-                }
-                else
-                {
-                    ui.pushButton_in->show();
-                    ui.pushButton_out->show();
-                }
-                
-            }
-            else
-            {
-                ui.widget_listTools->hide();
-                if(m_typeMainShow == biz::eMainShow_VIDEO)
-                {
-                    ui.widget_listTools->show();
-                    ui.widget_coursewaretools->hide();
-                }
-                ui.widget_leftSildBar->showUI(false);
-            }
-            
-            ui.pushButton_showCoursewareDownlistWnd->show();
-            ui.pushButton_stuHandsUp->show();
-            ui.pushButton_stuHandsDown->hide();
+			ui.widget_whiteboardToolbar->hide();
+			ui.widget_coursewareToolbar->hide();
         }
 
 		if(NULL != page && teaInfo.nUserId != 0)
@@ -2703,57 +2566,20 @@ void ClassRoomDialog::setClassRoomUI()
     }
     else
     {
+		ui.widget_whiteboardToolbar->hide();
+		ui.widget_coursewareToolbar->hide();
+
         if (ClassSeeion::GetInst()->IsTeacher())
         {
-            ui.widget_leftSildBar->showUI(false);
-            ui.pushButton_in->hide();
-            ui.pushButton_out->hide();
-            if (ui.widget_coursewaretools->IsHaveCourseware())
-            {
-                ui.widget_listTools->show();
-                ui.widget_coursewaretools->show();
-            }
-            else
-            {
-                ui.widget_listTools->hide();
-                if(m_typeMainShow == biz::eMainShow_VIDEO)
-                {
-                    ui.widget_listTools->show();
-                    ui.widget_coursewaretools->hide();
-                }
-            }
+            ui.widget_whiteboardToolbar->hide();
+            
+			ui.gifIconPushButton_classBegin->show();
+            ui.gifIconPushButton_classOver->hide();
 
-            ui.pushButton_classBeginBtn->show();
-            ui.pushButton_classOverBtn->hide();
+            ui.gifIconPushButton_recordStop->hide();
+            ui.gifIconPushButton_recordStart->hide();
 
-            ui.pushButton_stopRecordClassBtn->setEnabled(false);
-            ui.pushButton_recordClassBtn->setEnabled(false);
-
-            ui.pushButton_showAddCoursewareWindow->show();
-
-            ui.pushButton_disableSendMsgBtn->setEnabled(false);
-            ui.pushButton_allowSendMsgBtn->setEnabled(false);
-
-            ui.pushButton_disableHandsupBtn->setEnabled(false);
-            ui.pushButton_allowHandsupBtn->setEnabled(false);
-        }
-
-        if (ClassSeeion::GetInst()->IsStudent())
-        {
-            ui.widget_listTools->hide();
-            ui.widget_leftSildBar->showUI(false);
-
-            ui.pushButton_showCoursewareDownlistWnd->hide();
-            ui.pushButton_stuHandsUp->hide();
-            ui.pushButton_stuHandsDown->hide();
-
-            if(m_typeMainShow == biz::eMainShow_VIDEO)
-            {
-                ui.widget_listTools->show();
-                ui.widget_coursewaretools->hide();
-                ui.pushButton_out->hide();
-                ui.pushButton_in->hide();
-            }
+            ui.pushButton_addCourseware->show();
         }
 
 		if(NULL != page && teaInfo.nUserId != 0)
@@ -2776,7 +2602,8 @@ void ClassRoomDialog::setClassRoomUI()
 	ui.tab_chatWiget->resetUI();
 }
 
-
+/****  xiewb 2018.10.24 delete*/
+/************
 void ClassRoomDialog::setClassCousewareToolUI()
 {
     if (ClassSeeion::GetInst()->_bBeginedClass)
@@ -2872,7 +2699,10 @@ void ClassRoomDialog::setClassCousewareToolUI()
             }
         }
     }
+
+	ui.widget_listTools->hide();
 }
+***************/
 
 void ClassRoomDialog::setClassRoomDlgTitle()
 {
@@ -2979,14 +2809,14 @@ void ClassRoomDialog::customEvent(QEvent * event)
     {
     case CLASSROOM_DLG_BEGIN_RECORD_EVENT:
         {
-            ui.pushButton_stopRecordClassBtn->show();
-            ui.pushButton_recordClassBtn->hide();
+            ui.gifIconPushButton_recordStop->show();
+            ui.gifIconPushButton_recordStart->hide();
         }
         break;
     case CLASSROOM_DLG_STOP_RECORD_EVENT:
         {
-            ui.pushButton_stopRecordClassBtn->hide();
-            ui.pushButton_recordClassBtn->show();
+            ui.gifIconPushButton_recordStop->hide();
+            ui.gifIconPushButton_recordStart->show();
         }
         break;
     default:
@@ -3026,165 +2856,4 @@ void ClassRoomDialog::resizeEvent(QResizeEvent * event)
 	adjustElementPos();
 }
 
-//xiewb 2018.10.17
-void ClassRoomDialog::showClassChatWidget()
-{
-	ui.toolButton_userList->setEnabled(true);
-	ui.toolButton_chatClass->setEnabled(false);
-	ui.tabWidget_classroom->setCurrentIndex(0);
-}
 
-void ClassRoomDialog::showClassUserList()
-{
-	ui.toolButton_chatClass->setEnabled(true);
-	ui.toolButton_userList->setEnabled(false);
-	ui.tabWidget_classroom->setCurrentIndex(1);
-}
-
-//xiewb 2018.10.18
-void ClassRoomDialog::enableCameraClicked()
-{
-	if(!ClassSeeion::GetInst()->_bBeginedClass)
-	{
-		return;
-	}
-
-	if(ClassSeeion::GetInst()->IsTeacher())
-	{
-		PublishSeatList& listPublish = CMediaPublishMgr::getInstance()->getPublishSeatList();
-		for(int i=0;i<listPublish.size();i++)
-		{
-			LPPUBLISHSEATINFO seatPublish = listPublish.at(i);
-			if(NULL == seatPublish || NULL == seatPublish->_rtmp)
-			{
-				continue;
-			}
-
-			if(seatPublish->_ctype != CAMERA_LOCAL)
-			{
-				continue;
-			}
-
-			int sourceType = ((CRTMPPublisher*)(seatPublish->_rtmp))->getSourceType();
-			sourceType |= SOURCECAMERA;
-			((CRTMPPublisher*)(seatPublish->_rtmp))->setSourceType(sourceType);
-			seatPublish->_rtmp->change();
-		}
-	}
-	else
-	{
-		LPPUBLISHSEATINFO seatPublish = CMediaPublishMgr::getInstance()->getPublishSeatInfo(0);
-		if(seatPublish && seatPublish->_rtmp)
-		{
-			CRTMPPublisher* rtmpPublish = dynamic_cast<CRTMPPublisher*>(seatPublish->_rtmp);
-			if(rtmpPublish)
-			{
-				int sourceType = rtmpPublish->getSourceType();
-				sourceType |= SOURCECAMERA;
-				rtmpPublish->setSourceType(sourceType);
-				rtmpPublish->change();
-			}
-		}
-	}
-
-	biz::GetBizInterface()->UserClassAction(ClassSeeion::GetInst()->_nClassRoomId,ClassSeeion::GetInst()->_nUserId,biz::eClassAction_Open_video,0);
-
-	ui.pushButton_cameraEnable->setVisible(true);
-	ui.pushButton_cameraDisable->setVisible(false);
-}
-
-void ClassRoomDialog::disableCameraClicked()
-{
-	if(!ClassSeeion::GetInst()->_bBeginedClass)
-	{
-		return;
-	}
-
-	if(ClassSeeion::GetInst()->IsTeacher())
-	{
-		PublishSeatList& listPublish = CMediaPublishMgr::getInstance()->getPublishSeatList();
-		for(int i=0;i<listPublish.size();i++)
-		{
-			LPPUBLISHSEATINFO seatPublish = listPublish.at(i);
-			if(NULL == seatPublish || NULL == seatPublish->_rtmp)
-			{
-				continue;
-			}
-
-			if(seatPublish->_ctype != CAMERA_LOCAL)
-			{
-				continue;
-			}
-
-			int sourceType = ((CRTMPPublisher*)(seatPublish->_rtmp))->getSourceType();
-			sourceType &=~SOURCECAMERA;
-			((CRTMPPublisher*)(seatPublish->_rtmp))->setSourceType(sourceType);
-			seatPublish->_rtmp->change();
-		}
-	}
-	else
-	{
-		LPPUBLISHSEATINFO seatPublish = CMediaPublishMgr::getInstance()->getPublishSeatInfo(0);
-		if(seatPublish && seatPublish->_rtmp)
-		{
-			CRTMPPublisher* rtmpPublish = dynamic_cast<CRTMPPublisher*>(seatPublish->_rtmp);
-			if(rtmpPublish)
-			{
-				int sourceType = rtmpPublish->getSourceType();
-				sourceType &=~SOURCECAMERA;
-				rtmpPublish->setSourceType(sourceType);
-				rtmpPublish->change();
-			}
-		}
-	}
-
-	biz::GetBizInterface()->UserClassAction(ClassSeeion::GetInst()->_nClassRoomId,ClassSeeion::GetInst()->_nUserId,biz::eClassAction_Close_video,0);
-	ui.pushButton_cameraEnable->setVisible(false);
-	ui.pushButton_cameraDisable->setVisible(true);
-}
-
-void ClassRoomDialog::disableMicrophoneClicked()
-{
-	ui.pushButton_micEnable->setVisible(false);
-	ui.pushButton_micDisable->setVisible(true);
-
-	ui.slider_micVolume->setEnabled(false);
-	CMediaPublishMgr::getInstance()->setMicMute(true);
-}
-
-void ClassRoomDialog::enableMicrophoneClicked()
-{
-	ui.pushButton_micEnable->setVisible(true);
-	ui.pushButton_micDisable->setVisible(false);
-
-	ui.slider_micVolume->setEnabled(true);
-	CMediaPublishMgr::getInstance()->setMicMute(false);
-}
-
-void ClassRoomDialog::disableSpeakerClicked()
-{
-	ui.pushButton_spkEnable->setVisible(false);
-	ui.pushButton_spkDisable->setVisible(true);
-
-	ui.slider_spkVolume->setEnabled(false);
-	CMediaPublishMgr::getInstance()->setSpeakersMute(true);
-}
-
-void ClassRoomDialog::enableSpeakerClicked()
-{
-	ui.pushButton_spkEnable->setVisible(true);
-	ui.pushButton_spkDisable->setVisible(false);
-
-	ui.slider_spkVolume->setEnabled(true);
-	CMediaPublishMgr::getInstance()->setSpeakersMute(false);
-}
-
-void ClassRoomDialog::micVolumeSliderChange(int nVolume)
-{
-	CMediaPublishMgr::getInstance()->setMicVolume(nVolume);
-}
-
-void ClassRoomDialog::spkVolumeSliderChange(int nVolume)
-{
-	CMediaPublishMgr::getInstance()->setSpeakersVolume(nVolume);
-}

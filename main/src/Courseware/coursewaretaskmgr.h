@@ -1,5 +1,5 @@
 //**********************************************************************
-//	Copyright （c） 2018,浙江邦芒数据有限公司. All rights reserved.
+//	Copyright （c） 2015-2020. All rights reserved.
 //	文件名称：coursewaredata.h
 //	版本号：1.0
 //	作者：潘良
@@ -64,7 +64,8 @@ public:
     bool StartTimerTask();
     bool EndTimerTask();
 
-    bool AddCourseBySource(LPCWSTR pszSourceFile, int *nError);
+    PCOURSEWAREDATA AddCourseBySource(LPCWSTR pszSourceFile, int *nError);
+
     bool AddCourseByNet(LPCWSTR pszNetFile, int *nError);
     bool AddCourseBySky(LPCWSTR pszFileName, LPCWSTR pszFielUrl, int *nError);
 
@@ -74,7 +75,8 @@ public:
     bool CloseCourseware(LPCWSTR pszFileName,bool sendMsg = true);
 
     void SetFileOpen(int nCoursewareID, bool bISOpen);
-    
+    void SetFilePage(int nCoursewareID, unsigned int nPage);
+
     PCOURSEWAREDATA GetCoursewareByIdEx(int nCoursewareID);
     PCOURSEWAREDATA GetCoursewareByNameEx(LPCWSTR pszName);
     PCOURSEWAREDATA GetCoursewareByFilePathEx(LPCWSTR pszFilePath);
@@ -89,11 +91,11 @@ public:
 	PTASKMGR GetTask(int nCoursewareID);
 signals:
     void del_courseware(QString);
-    void add_courseware(QString, long long, int);
+    //void add_courseware(QString, long long, int);
     void deal_courseware(QString, int, int);
     void set_pos(QString, int);
-    void set_filesize(QString, long long);
-    void mainshowchanged(int, int, int);
+    //void set_filesize(QString, long long);
+    //void mainshowchanged(int, int, int);
 protected:
     PCOURSEWAREDATA GetCoursewareByName(LPCWSTR pszName);
     PCOURSEWAREDATA GetCoursewareByFilePath(LPCWSTR pszFilePath);

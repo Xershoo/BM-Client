@@ -1,5 +1,5 @@
 //**********************************************************************
-//	Copyright （c） 2018,浙江邦芒数据有限公司. All rights reserved.
+//	Copyright （c） 2015-2020. All rights reserved.
 //	文件名称：courseware.h
 //	版本号：1.0
 //	作者：潘良
@@ -38,7 +38,7 @@ enum tagMainShowType
     MAIN_SHOW_TYPE_NO = 1001,
     MAIN_SHOW_TYPE_TRANS_FAILED,
     MAIN_SHOW_TYPE_UPLOAD_FAILED,
-    MAIN_SHOW_TYPE_DOWN_FALIED,
+    MAIN_SHOW_TYPE_DOWN_FAILED,
     MAIN_SHOW_TYPE_CLASS_OVER,
     MAIN_TYPE_TYPE_IN_CLASS,
 };
@@ -60,6 +60,8 @@ enum CURSEWAVE_TYPE
     COURSEWARE_TEXT,				//txt文件
     COURSEWARE_DOC,					//DOC文件
     COURSEWARE_EXCLE,				//excle文件
+	COURSEWARE_FLASH,				//swf文件
+	COURSEWARE_WHITEBOARD,			//白板
     COURSEWARE_UNKNOWN
 };
 
@@ -227,7 +229,7 @@ extern void GetCoursewareTransFileMedia(LPWSTR pszMD5, LPWSTR pszCopyFile, LPWST
 
 extern long long GetCoursewareFileSize(LPCWSTR pszFile);
 
-extern bool IsExistFile(LPCWSTR pszFilePath);
+extern bool IsExistFile(LPCWSTR pszFilePath,LPCWSTR pszMD5=NULL);
 
 extern bool GetUploadToken(char *pszToken, __int64 nUserId = 0);
 

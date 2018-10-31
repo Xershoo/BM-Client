@@ -30,6 +30,7 @@ public:
 
     string  m_urlCoursewareUpload;
     string  m_urlCoursewareDown;
+	string	m_urlCourseClassList;
     bool    m_tranCourseWareLocal;
 
     string  m_urlUserHeadImage;

@@ -61,7 +61,6 @@ void PictureViewer::openImage(QString path)
     this->activateWindow();
 
 	centerWindow();
-    //qApp->processEvents();
 }
 
 void PictureViewer::closeBtnClicked()

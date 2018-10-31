@@ -12,7 +12,7 @@
   </property>
   <property name="minimumSize">
    <size>
-    <width>1260</width>
+    <width>300</width>
     <height>750</height>
    </size>
   </property>
@@ -21,13 +21,13 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <property name="leftMargin">
-    <number>10</number>
+    <number>20</number>
    </property>
    <property name="topMargin">
     <number>4</number>
    </property>
    <property name="rightMargin">
-    <number>10</number>
+    <number>20</number>
    </property>
    <property name="bottomMargin">
     <number>10</number>
@@ -168,6 +168,66 @@
           </widget>
          </item>
          <item>
+          <widget class="GifIconPushButton" name="gifIconPushButton_recordStart" native="true">
+           <property name="minimumSize">
+            <size>
+             <width>60</width>
+             <height>42</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>60</width>
+             <height>42</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>record</string>
+           </property>
+           <property name="text" stdset="0">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="GifIconPushButton" name="gifIconPushButton_recordStop" native="true">
+           <property name="minimumSize">
+            <size>
+             <width>60</width>
+             <height>42</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>60</width>
+             <height>42</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>stopRecord</string>
+           </property>
+           <property name="text" stdset="0">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_3">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Fixed</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>100</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
           <widget class="MaskLabel" name="label_userpic2">
            <property name="minimumSize">
             <size>
@@ -209,6 +269,50 @@
           </widget>
          </item>
          <item>
+          <widget class="GifIconPushButton" name="gifIconPushButton_classBegin" native="true">
+           <property name="minimumSize">
+            <size>
+             <width>42</width>
+             <height>42</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>42</width>
+             <height>42</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>classBegin</string>
+           </property>
+           <property name="text" stdset="0">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="GifIconPushButton" name="gifIconPushButton_classOver" native="true">
+           <property name="minimumSize">
+            <size>
+             <width>42</width>
+             <height>42</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>42</width>
+             <height>42</height>
+            </size>
+           </property>
+           <property name="toolTip">
+            <string>classOver</string>
+           </property>
+           <property name="text" stdset="0">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="GifIconPushButton" name="gifIconPushButton_lock" native="true">
            <property name="minimumSize">
             <size>
@@ -221,6 +325,9 @@
              <width>42</width>
              <height>42</height>
             </size>
+           </property>
+           <property name="toolTip">
+            <string>unlockClass</string>
            </property>
            <property name="text" stdset="0">
             <string/>
@@ -240,6 +347,9 @@
              <width>42</width>
              <height>42</height>
             </size>
+           </property>
+           <property name="toolTip">
+            <string>lockClass</string>
            </property>
            <property name="text" stdset="0">
             <string/>
@@ -400,410 +510,6 @@
              <height>16777215</height>
             </size>
            </property>
-           <widget class="QWidget" name="widget_classroomToolBtns" native="true">
-            <property name="geometry">
-             <rect>
-              <x>50</x>
-              <y>620</y>
-              <width>731</width>
-              <height>45</height>
-             </rect>
-            </property>
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <layout class="QHBoxLayout" name="horizontalLayout_2">
-             <property name="spacing">
-              <number>19</number>
-             </property>
-             <property name="leftMargin">
-              <number>0</number>
-             </property>
-             <property name="topMargin">
-              <number>0</number>
-             </property>
-             <property name="rightMargin">
-              <number>0</number>
-             </property>
-             <property name="bottomMargin">
-              <number>5</number>
-             </property>
-             <item>
-              <widget class="QPushButton" name="pushButton_classBeginBtn">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>40</width>
-                 <height>40</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>40</width>
-                 <height>40</height>
-                </size>
-               </property>
-               <property name="toolTip">
-                <string>classBegin</string>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_classOverBtn">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>40</width>
-                 <height>40</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>40</width>
-                 <height>40</height>
-                </size>
-               </property>
-               <property name="toolTip">
-                <string>classOver</string>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_recordClassBtn">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>40</width>
-                 <height>40</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>40</width>
-                 <height>40</height>
-                </size>
-               </property>
-               <property name="toolTip">
-                <string>record</string>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_stopRecordClassBtn">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>40</width>
-                 <height>40</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>40</width>
-                 <height>40</height>
-                </size>
-               </property>
-               <property name="toolTip">
-                <string>stopRecord</string>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_showAddCoursewareWindow">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>40</width>
-                 <height>0</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>40</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="toolTip">
-                <string>showAddCoursewareWindow</string>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_disableHandsupBtn">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>40</width>
-                 <height>0</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>40</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="toolTip">
-                <string>disableHandsup</string>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_allowHandsupBtn">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>40</width>
-                 <height>0</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>40</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="toolTip">
-                <string>allowHandsup</string>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_disableSendMsgBtn">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>40</width>
-                 <height>0</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>40</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="toolTip">
-                <string>disableSendMsg</string>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_allowSendMsgBtn">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>40</width>
-                 <height>0</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>40</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="toolTip">
-                <string>allowSendMsg</string>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_showCoursewareDownlistWnd">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>40</width>
-                 <height>0</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>40</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="toolTip">
-                <string>showCoursewareDownloadList</string>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_stuHandsUp">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>40</width>
-                 <height>0</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>40</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="toolTip">
-                <string>stuHandsup</string>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_stuHandsDown">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>40</width>
-                 <height>0</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>40</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="toolTip">
-                <string>stuHandsDown</string>
-               </property>
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <spacer name="horizontalSpacer_2">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-            </layout>
-           </widget>
-           <widget class="whiteboardtools" name="widget_leftSildBar" native="true">
-            <property name="geometry">
-             <rect>
-              <x>0</x>
-              <y>0</y>
-              <width>92</width>
-              <height>689</height>
-             </rect>
-            </property>
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-              <horstretch>150</horstretch>
-              <verstretch>67</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>45</width>
-              <height>675</height>
-             </size>
-            </property>
-           </widget>
            <widget class="StuVideoListWnd" name="widget_stuVideoListWnd" native="true">
             <property name="geometry">
              <rect>
@@ -819,8 +525,8 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>651</width>
-              <height>689</height>
+              <width>664</width>
+              <height>684</height>
              </rect>
             </property>
             <property name="sizeIncrement">
@@ -849,8 +555,8 @@
               <widget class="QStackedWidget" name="stackedWidget_main">
                <property name="minimumSize">
                 <size>
-                 <width>936</width>
-                 <height>666</height>
+                 <width>300</width>
+                 <height>300</height>
                 </size>
                </property>
                <property name="maximumSize">
@@ -862,115 +568,94 @@
                <property name="lineWidth">
                 <number>0</number>
                </property>
-               <widget class="QShowClassState" name="stackedWidget_mainPage1"/>
+               <widget class="QShowClassState" name="stackedWidget_classStatePage"/>
               </widget>
              </item>
             </layout>
            </widget>
-           <widget class="QWidget" name="widget_listTools" native="true">
+           <widget class="QWidget" name="widget_coursewareToolbar" native="true">
             <property name="geometry">
              <rect>
-              <x>340</x>
-              <y>610</y>
-              <width>581</width>
-              <height>40</height>
+              <x>0</x>
+              <y>624</y>
+              <width>664</width>
+              <height>60</height>
              </rect>
             </property>
-            <property name="maximumSize">
+            <property name="minimumSize">
              <size>
-              <width>16777215</width>
-              <height>40</height>
+              <width>300</width>
+              <height>0</height>
              </size>
             </property>
-            <property name="autoFillBackground">
-             <bool>false</bool>
-            </property>
-            <layout class="QHBoxLayout" name="horizontalLayout_6">
+            <layout class="QHBoxLayout" name="horizontalLayout_4">
              <property name="spacing">
-              <number>6</number>
+              <number>0</number>
              </property>
              <property name="leftMargin">
-              <number>10</number>
+              <number>0</number>
              </property>
              <property name="topMargin">
               <number>0</number>
              </property>
              <property name="rightMargin">
-              <number>10</number>
+              <number>0</number>
              </property>
              <property name="bottomMargin">
               <number>0</number>
              </property>
              <item>
-              <widget class="QMediaPlayTool" name="widget_mediatool" native="true">
+              <widget class="QWidget" name="widget_coursewareShowBar" native="true">
                <property name="minimumSize">
                 <size>
-                 <width>330</width>
+                 <width>340</width>
                  <height>0</height>
                 </size>
                </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QcoursewareTools" name="widget_coursewaretools" native="true">
-               <property name="minimumSize">
-                <size>
-                 <width>0</width>
-                 <height>33</height>
-                </size>
-               </property>
                <property name="maximumSize">
                 <size>
-                 <width>310</width>
+                 <width>340</width>
                  <height>16777215</height>
                 </size>
                </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_empty">
-               <property name="text">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QWidget" name="widget_coursewareTools_bk" native="true">
-               <property name="maximumSize">
-                <size>
-                 <width>80</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="layoutDirection">
-                <enum>Qt::LeftToRight</enum>
-               </property>
-               <layout class="QHBoxLayout" name="horizontalLayout_7">
+               <layout class="QHBoxLayout" name="horizontalLayout_10">
+                <property name="spacing">
+                 <number>5</number>
+                </property>
                 <property name="leftMargin">
+                 <number>20</number>
+                </property>
+                <property name="topMargin">
                  <number>0</number>
                 </property>
                 <property name="rightMargin">
                  <number>10</number>
                 </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
                 <item>
-                 <widget class="QPushButton" name="pushButton_in">
+                 <widget class="QPushButton" name="pushButton_preCourseware">
                   <property name="sizePolicy">
-                   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
                     <horstretch>0</horstretch>
                     <verstretch>0</verstretch>
                    </sizepolicy>
                   </property>
                   <property name="minimumSize">
                    <size>
-                    <width>22</width>
-                    <height>22</height>
+                    <width>40</width>
+                    <height>40</height>
                    </size>
                   </property>
                   <property name="maximumSize">
                    <size>
-                    <width>22</width>
-                    <height>22</height>
+                    <width>40</width>
+                    <height>40</height>
                    </size>
+                  </property>
+                  <property name="toolTip">
+                   <string>preCourseware</string>
                   </property>
                   <property name="text">
                    <string/>
@@ -978,14 +663,49 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLabel" name="label_page_size">
-                  <property name="font">
-                   <font>
-                    <pointsize>12</pointsize>
-                   </font>
+                 <widget class="QLabel" name="label_nameCourseware">
+                  <property name="minimumSize">
+                   <size>
+                    <width>150</width>
+                    <height>0</height>
+                   </size>
                   </property>
-                  <property name="layoutDirection">
-                   <enum>Qt::LeftToRight</enum>
+                  <property name="maximumSize">
+                   <size>
+                    <width>150</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="pushButton_addCourseware">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>40</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>40</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="toolTip">
+                   <string>showAddCoursewareWindow</string>
                   </property>
                   <property name="text">
                    <string/>
@@ -993,12 +713,43 @@
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="pushButton_out">
+                 <spacer name="horizontalSpacer_6">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeType">
+                   <enum>QSizePolicy::Fixed</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>10</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="pushButton_nextCourseware">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>40</width>
+                    <height>40</height>
+                   </size>
+                  </property>
                   <property name="maximumSize">
                    <size>
-                    <width>22</width>
-                    <height>22</height>
+                    <width>40</width>
+                    <height>40</height>
                    </size>
+                  </property>
+                  <property name="toolTip">
+                   <string>nextCourseware</string>
                   </property>
                   <property name="text">
                    <string/>
@@ -1008,17 +759,456 @@
                </layout>
               </widget>
              </item>
+             <item>
+              <widget class="QWidget" name="widget_divToolbar" native="true">
+               <property name="minimumSize">
+                <size>
+                 <width>2</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>2</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QWidget" name="widget_coursewareMediaBar" native="true">
+               <property name="minimumSize">
+                <size>
+                 <width>170</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <layout class="QHBoxLayout" name="horizontalLayout_11">
+                <property name="spacing">
+                 <number>5</number>
+                </property>
+                <property name="leftMargin">
+                 <number>20</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>20</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
+                <item alignment="Qt::AlignVCenter">
+                 <widget class="QPushButton" name="pushButton_playMedia">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>20</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>20</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="toolTip">
+                   <string>playMedia</string>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item alignment="Qt::AlignVCenter">
+                 <widget class="QPushButton" name="pushButton_pauseMedia">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>20</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>20</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                  <property name="toolTip">
+                   <string>pauseMedia</string>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item alignment="Qt::AlignVCenter">
+                 <widget class="QSlider" name="slider_mediaProgress">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QWidget" name="widget_coursewarePageBar" native="true">
+               <property name="minimumSize">
+                <size>
+                 <width>150</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <layout class="QHBoxLayout" name="horizontalLayout_12">
+                <property name="spacing">
+                 <number>5</number>
+                </property>
+                <property name="leftMargin">
+                 <number>20</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>20</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <spacer name="horizontalSpacer_4">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item alignment="Qt::AlignVCenter">
+                 <widget class="QPushButton" name="pushButton_preFilePage">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>11</width>
+                    <height>13</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>11</width>
+                    <height>13</height>
+                   </size>
+                  </property>
+                  <property name="toolTip">
+                   <string>prePage</string>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item alignment="Qt::AlignVCenter">
+                 <widget class="QLabel" name="label_pageNumber">
+                  <property name="minimumSize">
+                   <size>
+                    <width>50</width>
+                    <height>15</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>50</width>
+                    <height>15</height>
+                   </size>
+                  </property>
+                  <property name="toolTip">
+                   <string>turnPageTip</string>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item alignment="Qt::AlignVCenter">
+                 <widget class="QPushButton" name="pushButton_nextFilePage">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>11</width>
+                    <height>13</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>11</width>
+                    <height>13</height>
+                   </size>
+                  </property>
+                  <property name="toolTip">
+                   <string>nextPage</string>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_5">
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+               </layout>
+              </widget>
+             </item>
             </layout>
-            <zorder>widget_coursewaretools</zorder>
-            <zorder>widget_coursewareTools_bk</zorder>
-            <zorder>widget_mediatool</zorder>
-            <zorder>label_empty</zorder>
+            <zorder>widget_coursewareShowBar</zorder>
+            <zorder>widget_coursewareMediaBar</zorder>
+            <zorder>widget_coursewarePageBar</zorder>
+            <zorder>widget_divToolbar</zorder>
+           </widget>
+           <widget class="QWidget" name="widget_whiteboardToolbar" native="true">
+            <property name="geometry">
+             <rect>
+              <x>170</x>
+              <y>560</y>
+              <width>300</width>
+              <height>60</height>
+             </rect>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>300</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>300</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_9">
+             <property name="spacing">
+              <number>5</number>
+             </property>
+             <property name="leftMargin">
+              <number>20</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>20</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QPushButton" name="pushButton_classRoomLeftPenBtn">
+               <property name="minimumSize">
+                <size>
+                 <width>41</width>
+                 <height>28</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>41</width>
+                 <height>28</height>
+                </size>
+               </property>
+               <property name="toolTip">
+                <string>wbToolPen</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_classRoomLeftTextBtn">
+               <property name="minimumSize">
+                <size>
+                 <width>41</width>
+                 <height>28</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>41</width>
+                 <height>28</height>
+                </size>
+               </property>
+               <property name="toolTip">
+                <string>wbToolText</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_classRoomLeftColorBtn">
+               <property name="minimumSize">
+                <size>
+                 <width>41</width>
+                 <height>28</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>41</width>
+                 <height>28</height>
+                </size>
+               </property>
+               <property name="toolTip">
+                <string>wbToolColor</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_classRoomLeftEraserBtn">
+               <property name="minimumSize">
+                <size>
+                 <width>41</width>
+                 <height>28</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>41</width>
+                 <height>28</height>
+                </size>
+               </property>
+               <property name="toolTip">
+                <string>wbToolErase</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_classRoomLeftUndoBtn">
+               <property name="minimumSize">
+                <size>
+                 <width>41</width>
+                 <height>28</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>41</width>
+                 <height>28</height>
+                </size>
+               </property>
+               <property name="toolTip">
+                <string>wbToolUndo</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton_classRoomLeftClearAllBtn">
+               <property name="minimumSize">
+                <size>
+                 <width>41</width>
+                 <height>28</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>41</width>
+                 <height>28</height>
+                </size>
+               </property>
+               <property name="toolTip">
+                <string>wbToolClear</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+           <widget class="QPushButton" name="pushButton_closeCourseware">
+            <property name="geometry">
+             <rect>
+              <x>480</x>
+              <y>580</y>
+              <width>20</width>
+              <height>20</height>
+             </rect>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+            <property name="toolTip">
+             <string>deleteCourseware</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
            </widget>
            <zorder>widget_main</zorder>
            <zorder>widget_stuVideoListWnd</zorder>
-           <zorder>widget_leftSildBar</zorder>
-           <zorder>widget_classroomToolBtns</zorder>
-           <zorder>widget_listTools</zorder>
+           <zorder>widget_coursewareToolbar</zorder>
+           <zorder>widget_whiteboardToolbar</zorder>
+           <zorder>pushButton_closeCourseware</zorder>
           </widget>
          </item>
          <item>
@@ -1068,79 +1258,6 @@
                 <height>16777215</height>
                </size>
               </property>
-              <widget class="QWidget" name="widget_teaVideoToolBar_bk" native="true">
-               <property name="geometry">
-                <rect>
-                 <x>1</x>
-                 <y>336</y>
-                 <width>558</width>
-                 <height>33</height>
-                </rect>
-               </property>
-               <property name="styleSheet">
-                <string notr="true"/>
-               </property>
-               <layout class="QHBoxLayout" name="horizontalLayout">
-                <property name="spacing">
-                 <number>0</number>
-                </property>
-                <property name="leftMargin">
-                 <number>1</number>
-                </property>
-                <property name="topMargin">
-                 <number>0</number>
-                </property>
-                <property name="rightMargin">
-                 <number>1</number>
-                </property>
-                <property name="bottomMargin">
-                 <number>0</number>
-                </property>
-                <item>
-                 <spacer name="horizontalSpacer">
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="sizeHint" stdset="0">
-                   <size>
-                    <width>40</width>
-                    <height>20</height>
-                   </size>
-                  </property>
-                 </spacer>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="pushButton_webCameraSetting">
-                  <property name="toolTip">
-                   <string>webCameraSetting</string>
-                  </property>
-                  <property name="text">
-                   <string/>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="pushButton_mulitCamera">
-                  <property name="toolTip">
-                   <string>mulitCameraSetting</string>
-                  </property>
-                  <property name="text">
-                   <string/>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QPushButton" name="pushButton_switchMainShow">
-                  <property name="toolTip">
-                   <string>switchTeaVideoAndCourseware</string>
-                  </property>
-                  <property name="text">
-                   <string/>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </widget>
               <widget class="QWidget" name="widget_teaVideoWnd_bk" native="true">
                <property name="geometry">
                 <rect>
@@ -1167,9 +1284,7 @@
                  <number>0</number>
                 </property>
                 <item>
-                 <widget class="TeacherPublishVideoWnd" name="widget_teaPublishVideo" native="true">
-                  <zorder>widget_classroomVTool</zorder>
-                 </widget>
+                 <widget class="TeacherPublishVideoWnd" name="widget_teaPublishVideo" native="true"/>
                 </item>
                 <item>
                  <widget class="TeacherVideoWnd" name="widget_teaVideo" native="true"/>
@@ -1233,6 +1348,9 @@
                     <height>20</height>
                    </size>
                   </property>
+                  <property name="toolTip">
+                   <string>closeCamera</string>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -1257,6 +1375,9 @@
                     <width>20</width>
                     <height>20</height>
                    </size>
+                  </property>
+                  <property name="toolTip">
+                   <string>openCamera</string>
                   </property>
                   <property name="text">
                    <string/>
@@ -1283,6 +1404,9 @@
                     <height>20</height>
                    </size>
                   </property>
+                  <property name="toolTip">
+                   <string>closeMicrophone</string>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -1308,6 +1432,9 @@
                     <height>20</height>
                    </size>
                   </property>
+                  <property name="toolTip">
+                   <string>openMicrophone</string>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -1320,6 +1447,9 @@
                     <width>120</width>
                     <height>0</height>
                    </size>
+                  </property>
+                  <property name="toolTip">
+                   <string>micVolume</string>
                   </property>
                   <property name="orientation">
                    <enum>Qt::Horizontal</enum>
@@ -1346,6 +1476,9 @@
                     <height>20</height>
                    </size>
                   </property>
+                  <property name="toolTip">
+                   <string>closeSpeaker</string>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -1371,6 +1504,9 @@
                     <height>20</height>
                    </size>
                   </property>
+                  <property name="toolTip">
+                   <string>openSpeaker</string>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -1383,6 +1519,9 @@
                     <width>120</width>
                     <height>0</height>
                    </size>
+                  </property>
+                  <property name="toolTip">
+                   <string>spkVolume</string>
                   </property>
                   <property name="orientation">
                    <enum>Qt::Horizontal</enum>
@@ -1397,6 +1536,9 @@
                     <height>40</height>
                    </size>
                   </property>
+                  <property name="toolTip">
+                   <string>showClassChat</string>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -1410,6 +1552,9 @@
                     <height>40</height>
                    </size>
                   </property>
+                  <property name="toolTip">
+                   <string>showUserList</string>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -1417,9 +1562,6 @@
                 </item>
                </layout>
               </widget>
-              <zorder>widget_teaVideoWnd_bk</zorder>
-              <zorder>widget_teaVideoToolBar_bk</zorder>
-              <zorder>widget_classroomVTool</zorder>
              </widget>
             </item>
             <item>
@@ -1541,16 +1683,6 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>whiteboardtools</class>
-   <extends>QWidget</extends>
-   <header>whiteboardtools.h</header>
-  </customwidget>
-  <customwidget>
-   <class>QcoursewareTools</class>
-   <extends>QWidget</extends>
-   <header>coursewaretools.h</header>
-  </customwidget>
-  <customwidget>
    <class>ChatWidget</class>
    <extends>QWidget</extends>
    <header>chatwidget.h</header>
@@ -1560,11 +1692,6 @@
    <class>QShowClassState</class>
    <extends>QWidget</extends>
    <header>qshowclassstate.h</header>
-  </customwidget>
-  <customwidget>
-   <class>QMediaPlayTool</class>
-   <extends>QWidget</extends>
-   <header>qmediaplaytool.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

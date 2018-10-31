@@ -4,6 +4,7 @@
 #include "Courseware/CourseWareTaskMgr.h"
 #include "Courseware/CoursewarePanel.h"
 #include "Courseware/SkyCursewaveData.h"
+#include "Courseware/coursewaredatamgr.h"
 #include "Courseware/courseware.h"
 #include "whiteboard/WhileBoardDataMgr.h"
 #include "c8messagebox.h"
@@ -92,6 +93,14 @@ void SkyFileDialog::downLoadBtnClicked()
             C8MessageBox msgBox(C8MessageBox::Information, "info", QString::fromWCharArray(szError));
             msgBox.exec();
         }
+		else
+		{
+			CoursewareDataMgr::GetInstance()->setNowFileName(QString::fromWCharArray(szname));			
+			if(nError == COURSEWARE_ERR_REPEAT)
+			{
+				CoursewareDataMgr::GetInstance()->openCoursewareORWb(QString::fromWCharArray(szname));
+			}
+		}
     }
 
 }

@@ -40,6 +40,8 @@ CMediaPublishMgr* CMediaPublishMgr::m_pMediaPublishMgr = NULL;
 
 CMediaPublishMgr::CMediaPublishMgr():m_mediaThread(this)
 {
+	AVP_Init();
+
 	memset(m_addrPull,NULL,sizeof(PlayAddress) * MAX_RTMP_ADDR_NUM);
 	memset(m_addrPush,NULL,sizeof(PushAddress) * MAX_RTMP_ADDR_NUM);
 	memset(m_szPushRecordUrl,NULL,sizeof(char)*MAX_PATH);
@@ -79,6 +81,8 @@ void CMediaPublishMgr::freeInstance()
 {
 	if(m_pMediaPublishMgr)
 	{
+		AVP_Unit();
+
 		m_pMediaPublishMgr->m_freeAll = true;
 		if(m_pMediaPublishMgr->m_mediaThread.isRunning())
 		{

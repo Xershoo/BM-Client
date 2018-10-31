@@ -212,7 +212,8 @@ void AddCoursewareWindow::addLoacalFileBtnClicked()
             return;
         }
         int nError = 0;
-        if (!CoursewareTaskMgr::getInstance()->AddCourseBySource(wszFile, &nError))
+		PCOURSEWAREDATA pCData = CoursewareTaskMgr::getInstance()->AddCourseBySource(wszFile, &nError);
+        if (NULL==pCData)
         {
             //Ìí¼Ó¿Î¼þÊ§°Ü
             wchar_t szError[MAX_PATH] = {0};
@@ -222,7 +223,15 @@ void AddCoursewareWindow::addLoacalFileBtnClicked()
             {
                 addLoacalFileBtnClicked();
             }
-        }
+        } 
+		else
+		{
+			CoursewareDataMgr::GetInstance()->setNowFileName(QString::fromWCharArray(pCData->m_szName));			
+			if(nError == COURSEWARE_ERR_REPEAT)
+			{
+				CoursewareDataMgr::GetInstance()->openCoursewareORWb(QString::fromWCharArray(pCData->m_szName));
+			}
+		}
     }
 }
 
@@ -247,7 +256,8 @@ void AddCoursewareWindow::addWhiteBoardBtnClicked()
 		
 		if(retDlg==QDialog::Accepted)
         {
-            WhiteBoardDataMgr::getInstance()->AddWhiteboard(nId,dlgAdd.getName());
+			WhiteBoardDataMgr::getInstance()->AddWhiteboard(nId,dlgAdd.getName());
+			CoursewareDataMgr::GetInstance()->openCoursewareORWb(dlgAdd.getName(),false);
         }
     }
     else

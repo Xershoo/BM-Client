@@ -1,5 +1,5 @@
 //**********************************************************************
-//	Copyright （c） 2018,浙江邦芒数据有限公司. All rights reserved.
+//	Copyright （c） 2015-2020. All rights reserved.
 //	文件名称：coursewaretask.cpp
 //	版本号：1.0
 //	作者：潘良
@@ -212,8 +212,24 @@ bool CoursewareTask::ExecDown()
     int nError = 0;
 
     wchar_t szFile[MAX_PATH] = {0};
+	wchar_t  szMD5[MAX_PATH]={0};
+	
     wcsncpy(szFile, m_data.m_szFilePath, wcslen(m_data.m_szFilePath)-4);
-    if (IsExistFile(szFile))
+	
+	//xiewb 2017.08.22
+	wchar_t* pspace = wcsrchr(szFile,'\\');
+	if(NULL==pspace)
+	{
+		pspace = wcsrchr(szFile,'/');
+	}
+
+	if(NULL != pspace)
+	{
+		wcscpy_s(szMD5,pspace+1);
+		*(wcsrchr(szMD5,'.')) = NULL;
+	}
+
+    if (IsExistFile(szFile,szMD5))
     {
         //文件已经存在
         wcscpy(m_data.m_szFilePath, szFile);
@@ -347,24 +363,30 @@ bool CoursewareTask::ExecUpload()
 
     case COURSEWARE_VIDEO:
     case COURSEWARE_AUDIO:
-        {
+		/************************************************************************/
+		/* 不支持音视频转码											            */
+		/************************************************************************/
+		/*{
             char szError[MAX_PATH] = {0};
             //设置转换回调函数
             SetEventCallback(&TransMediaOverCallBack, this);
             char sourcepath[1024] = {0};
             char filepath[1024] = {0};
 			char taskfile[1024] = {0};
-			char *filename = NULL;
+			char filename[MAX_PATH] = {0};
 			
 			//先拷贝到临时目录，且没有中文字符，防止非中文系统报错
 			//xiewb 2016.6.16
 			Util::UnicodeToAnsi(m_data.m_szFilePath, wcslen(m_data.m_szFilePath), filepath, sizeof(filepath)-1);
 			Util::UnicodeToAnsi(m_data.m_szSourcePath, wcslen(m_data.m_szSourcePath), taskfile, sizeof(taskfile)-1);
-			filename = strrchr(filepath,'\\');
-			if(NULL== filename)
+			strcpy_s(filename,strrchr(filepath,'\\'));
+			if(NULL==filename[0])
 			{
-				filename = strrchr(filepath,'/');
+				strcpy_s(filename,strrchr(filepath,'/'));				
 			}
+
+			*(strrchr(filename,'.')+1)=NULL;
+			strcat_s(filename,(strrchr(taskfile,'.')+1));
 
 			QString qstrTemp;
 			QString qstrSrc = QString::fromWCharArray(m_data.m_szSourcePath);
@@ -373,10 +395,6 @@ bool CoursewareTask::ExecUpload()
 			QFile::copy(qstrSrc,qstrTemp);
 
 			Util::QStringToAnsi(qstrTemp,sourcepath,sizeof(sourcepath)-1);
-			/*			
-			Util::UnicodeToAnsi(m_data.m_szSourcePath, wcslen(m_data.m_szSourcePath), sourcepath, MAX_PATH);
-            Util::UnicodeToAnsi(m_data.m_szFilePath, wcslen(m_data.m_szFilePath), filepath, MAX_PATH);
-			*/
 
             bool br = TrancodeFile(sourcepath, filepath, szError);
             m_data.m_nState = COURSEWARE_STATE_TRANS;
@@ -400,9 +418,10 @@ bool CoursewareTask::ExecUpload()
             }
         }
         break;
-
+		*/
     case COURSEWARE_PDF:
     case COURSEWARE_IMG:
+	case COURSEWARE_FLASH:
         {
             if (!CopyFileToMD5Path(m_data.m_szFilePath, m_data.m_szSourcePath))
             {

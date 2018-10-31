@@ -39,7 +39,7 @@ QPDFWnd::QPDFWnd(QWidget* parent):QWidget(parent)
 
 QPDFWnd::~QPDFWnd()
 {
-    closeFile();
+    closeFile(false);
 }
 
 bool QPDFWnd::openFile(QString& file)
@@ -397,6 +397,8 @@ void QPDFWnd::pdfHandledEvent(const QString& file,int ctl,bool ret)
 			initWBItemParamsList();						
 			setPreviewImage();
 			resizeEvent(NULL);
+
+			qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 		}
 
 		break;
@@ -406,7 +408,7 @@ void QPDFWnd::pdfHandledEvent(const QString& file,int ctl,bool ret)
 		{
 			setWhiteBoardViewShow();
 			
-			QMetaObject::invokeMethod(this,"update",Qt::QueuedConnection);//update();
+			QMetaObject::invokeMethod(this,"update",Qt::QueuedConnection);
 
 			emit showPdfPage(m_fileName,getCurPage());
 			
@@ -414,6 +416,8 @@ void QPDFWnd::pdfHandledEvent(const QString& file,int ctl,bool ret)
             {
 				emit doPdfCtrl(m_fileName, ctl);
 			}
+
+			qApp->processEvents(QEventLoop::ExcludeUserInputEvents);
 		}
 
 		break;
@@ -424,13 +428,12 @@ void QPDFWnd::pdfHandledEvent(const QString& file,int ctl,bool ret)
 				break;
 			}
 
-			QMetaObject::invokeMethod(this,"update",Qt::QueuedConnection);//update();
+			QMetaObject::invokeMethod(this,"update",Qt::QueuedConnection);
 		}
 
 		break;
 	}
 
-	qApp->processEvents();
 	::InterlockedDecrement((unsigned int*)&m_numOperation);
 }
 
@@ -660,7 +663,7 @@ void QPDFWnd::setWhiteBoardViewShow()
 
 bool QPDFWnd::eventFilter(QObject * obj, QEvent * event)
 {
-    if(obj != m_viewWhiteBoard)
+    if(obj != m_viewWhiteBoard || m_viewWhiteBoard->getEnable() == WB_CTRL_NONE)
     {
         return false;
     }
@@ -698,6 +701,20 @@ void QPDFWnd::freeWBItemParamsList()
 		return;
 	}
 
-	qDeleteAll(m_lstWBItemParams); 
+	for(int i=0;m_lstWBItemParams.size();i++){
+		QWbItemParamList* itemParamList = m_lstWBItemParams.at(0);
+		if(NULL != itemParamList){
+			itemParamList->clear();
+			delete itemParamList;
+			itemParamList = NULL;
+		}
+
+		m_lstWBItemParams.pop_front();
+	}
+
+	//xiewb 2018.10.30
+	//qDeleteAll(m_lstWBItemParams);
+	//
+
 	m_lstWBItemParams.clear();
 }

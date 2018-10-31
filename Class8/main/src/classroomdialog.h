@@ -15,6 +15,9 @@
 #include "src/chat/chatmanager.h"
 #include "media/MediaRecord.h"
 #include "WaitDlg.h"
+#include "qselectcolor.h"
+#include "qselecttext.h"
+#include "coursewaretoolsData.h"
 
 //刷新时长
 #define  TIMER_LEN_BENGIN_TIME      (1000)   //上课倒计时
@@ -122,18 +125,41 @@ protected slots:
 
 	void micVolumeSliderChange(int);
 	void spkVolumeSliderChange(int);
+
+	//xiewb 2018.10.24
+	void wbUndoClicked();
+	void wbTextClicked();
+	void wbPenClicked();
+	void wbEraseClicked();
+	void wbColorClicked();
+	void wbClearClicked();
+
+	//xiewb 2018.10.25
+	void preCoursewareClicked();
+	void nextCoursewareClicked();
+	void preFilePageClicked();
+	void nextFilePageClicked();
+
+	//xiewb 2018.10.29
+	void mediaPlayBtnClicked();
+	void mediaPauseBtnClicked();
+	void mediaSliderPressed();
+	void mediaSliderReleased();
+	void mediaSliderValueChanged(int);
+
+	//xiewb 2018.10.30
+	void closeCoursewareClicked();
 public slots:	
 	void addMainView(QWidget *pwidget);
-    void showMainView(QWidget *pwidget, bool bAddNew);
+    void showMainView(QWidget *pwidget, bool bAddNew = false);
     void removeMainView(QWidget *pwidget);
 
-    void showPreviewView(QString, int);
-    void removePreviewView(QString);
+    void showPreviewView(QString, int){};
+    void removePreviewView(QString){};
 
     void showMainState(QString, int);
     void reshowMainState(QString);
-    void showMediaTool(bool, QString, long, long, int);
-
+    
     void onUserEnter(__int64 userID);
     void onRecvStuVideoList(StudentVideoListInfo info);
     void onUpdateUserInfo(__int64 userID);
@@ -147,11 +173,13 @@ public slots:
     void showHideMainWnd();
 
     void setClassRoomUI();
-    void setClassCousewareToolUI();
-
     void onMediaInitFinish();
-
     void updateUserHead();
+
+	//xiewb 2018.10.24
+	void setCoursewareTool(int type,int cur,int all,int state);
+	void setCoursewareToolUI();
+	void setPageShowText(int curPage,int allPage);
 protected:
     void addUserToList(__int64 userID);
     void clearStackWidget();
@@ -188,7 +216,18 @@ protected:
 
 	void initUI();
 	void initUiMsgNotify();
-	
+
+	//xiewb 2018.10.25
+	void setWhiteboardEnable(int enable);
+
+	//xiewb 2018.10.26
+	void coursewareShowCtrl(int showCtrl);
+
+	//xiewb 2018.10.29
+	void setCoursewareCtrlBtnUI();
+
+	//xiewb 2018.10.30
+	void setCoursewareNameShow(QString qstrName);
 protected:
     void customEvent(QEvent * event);
 	void resizeEvent(QResizeEvent *);
@@ -201,9 +240,7 @@ private:
     void doClassRoomStateSignOut();
     void doClassRoomState_Other( int nState, bool bISClearCList );
 	
-    bool doClassOver(bool timeOut = false);
-    void setCoursewareToolUI(bool isMedia);
- 
+    bool doClassOver(bool timeOut = false); 
 private:
     Ui::ClassRoomDialog ui;
 	AddCoursewareWindow m_addCoursewareWindow;
@@ -252,8 +289,15 @@ protected:
 	//xiewb 2018.09.06
 	QWaitDlg*		m_dlgWait;
 
-	//xiewb 2018.010.15
+	//xiewb 2018.10.15
 	bool			m_doClose;
+
+	//xiewb 2018.10.24
+	QSelectColor       m_selectColor;
+	QSelectText        m_selectText;
+
+	//xiewb 2018.10.29
+	bool			   m_mediaSliderPressed;
 };
 
 

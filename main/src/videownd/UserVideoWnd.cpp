@@ -1,5 +1,5 @@
 //**********************************************************************
-//	Copyright （c） 2015,北京微恩科技有限公司. All rights reserved.
+//	Copyright （c） 2015-2020. All rights reserved.
 //	文件名称：UserVideoWnd.h
 //	版本号：1.0
 //	作者：谢文兵

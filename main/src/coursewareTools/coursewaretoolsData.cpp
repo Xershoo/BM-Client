@@ -70,7 +70,7 @@ void CoursewareToolData::doCoursewareCtrl(QString filename, int nPage, QString m
 
     if (nPage >= 0 && (CoursewareDataMgr::GetInstance()->m_NowFileName == filename))
     {
-        CoursewareDataMgr::GetInstance()->m_CoursewarePanel->SetCoursewareShow(biz::eShowType_Cursewave, md5name, nPage);
+        CoursewareDataMgr::GetInstance()->getCoursewarePannel()->SetCoursewareShow(biz::eShowType_Cursewave, md5name, nPage);
         return;
     }
 
@@ -218,7 +218,7 @@ bool CoursewareToolData::deleteCoursewareORWb(QString fileName)
     }
    
     QString fielpath = QString::fromWCharArray(pData->m_szName);
-    CoursewareDataMgr::GetInstance()->m_CoursewarePanel->CloseCoursewareFile(QString::fromWCharArray(pData->m_szFilePath));
+    CoursewareDataMgr::GetInstance()->getCoursewarePannel()->CloseCoursewareFile(QString::fromWCharArray(pData->m_szFilePath));
     CoursewareTaskMgr::getInstance()->DeleteCourseByName(pData->m_szName);
     CoursewareDataMgr::GetInstance()->setNowFileName("");
 
@@ -263,7 +263,7 @@ bool CoursewareToolData::closeCourseware(QString fileName)
 	}
 	
 	QString fielpath = QString::fromWCharArray(pData->m_szName);
-	CoursewareDataMgr::GetInstance()->m_CoursewarePanel->CloseCoursewareFile(QString::fromWCharArray(pData->m_szFilePath),false);
+	CoursewareDataMgr::GetInstance()->getCoursewarePannel()->CloseCoursewareFile(QString::fromWCharArray(pData->m_szFilePath),false);
 	CoursewareTaskMgr::getInstance()->CloseCourseware(pData->m_szName);
 	CoursewareDataMgr::GetInstance()->setNowFileName("");
 
@@ -567,7 +567,7 @@ bool CoursewareToolData::openCoursewareORWb(QString fileName,bool onlyOpen /* = 
         PCOURSEWAREDATA pData = CoursewareTaskMgr::getInstance()->GetCoursewareByNameEx(wstring((wchar_t*)(lastFile).unicode()).data());
         if (pData)
         {
-            CoursewareDataMgr::GetInstance()->m_CoursewarePanel->PauseCoursewareShow(QString::fromWCharArray(pData->m_szFilePath), true);
+            CoursewareDataMgr::GetInstance()->getCoursewarePannel()->PauseCoursewareShow(QString::fromWCharArray(pData->m_szFilePath), true);
             SAFE_DELETE(pData);
         }
     }
@@ -596,7 +596,7 @@ bool CoursewareToolData::openCoursewareORWb(QString fileName,bool onlyOpen /* = 
                     return true;
                 }
 				
-                if (CoursewareDataMgr::GetInstance()->m_CoursewarePanel->OpenCoursewareFile(QString::fromWCharArray(pData->m_szFilePath), true,onlyOpen))
+                if (CoursewareDataMgr::GetInstance()->getCoursewarePannel()->OpenCoursewareFile(QString::fromWCharArray(pData->m_szFilePath), true,onlyOpen))
                 {
                     CoursewareTaskMgr::getInstance()->OpenCourseware(pData->m_szFilePath);
                 }
@@ -632,7 +632,7 @@ bool CoursewareToolData::openCoursewareORWb(QString fileName,bool onlyOpen /* = 
             isMedia = true;
         }
         
-        LPCOURSEWARESHOW pshow = CoursewareDataMgr::GetInstance()->m_CoursewarePanel->GetCoursewareShow();        
+        LPCOURSEWARESHOW pshow = CoursewareDataMgr::GetInstance()->getCoursewarePannel()->GetCoursewareShow();        
         if (pshow )
         {
 			int nNowTime = 0;
@@ -681,7 +681,7 @@ bool CoursewareToolData::openCoursewareORWb(QString fileName,bool onlyOpen /* = 
 bool CoursewareToolData::showCourseware(int nID, int nState)
 {
     PCOURSEWAREDATA pData = CoursewareTaskMgr::getInstance()->GetCoursewareByIdEx(nID);
-    LPCOURSEWARESHOW pShow = CoursewareDataMgr::GetInstance()->m_CoursewarePanel->GetCoursewareShow();
+    LPCOURSEWARESHOW pShow = CoursewareDataMgr::GetInstance()->getCoursewarePannel()->GetCoursewareShow();
     if(NULL == pData || NULL == pShow)
     {
         SAFE_DELETE(pData);

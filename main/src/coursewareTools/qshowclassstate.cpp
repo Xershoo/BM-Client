@@ -29,7 +29,7 @@ void QShowClassState::doShowMainState(bool bISBenginClass, QString fileName /* =
 		return;
 	}
 
-    if (m_fileName == fileName && (MAIN_SHOW_TYPE_UPLOAD_FAILED == m_pos || MAIN_SHOW_TYPE_DOWN_FALIED == m_pos))
+    if (m_fileName == fileName && (MAIN_SHOW_TYPE_UPLOAD_FAILED == m_pos || MAIN_SHOW_TYPE_DOWN_FAILED == m_pos))
     {
         return;
     }
@@ -64,7 +64,7 @@ void QShowClassState::doShowMainState(bool bISBenginClass, QString fileName /* =
         }
         break;
 
-    case MAIN_SHOW_TYPE_DOWN_FALIED:
+    case MAIN_SHOW_TYPE_DOWN_FAILED:
         {
             doShowDownFailed();
         }
@@ -78,148 +78,6 @@ void QShowClassState::doShowMainState(bool bISBenginClass, QString fileName /* =
         break;
     }
 
-    /*if (m_pos < 0 && 0 == nPos)
-    {
-        return;
-    }
-	m_pos = nPos;
-
-    if (nPos < 0 && !fileName.isEmpty())
-    {
-        QString strInfo = fileName;
-        fileName = QString("%1%2").arg(strInfo).arg(QString::fromWCharArray(L" 课件下载失败"));
-    }
-
-    if (ClassSeeion::GetInst()->IsTeacher())
-    {
-        if (bISBenginClass)
-        {
-            if (fileName.isEmpty() || 0 == fileName.length())
-            {
-                //老师 已上课，无课件
-                ui.widget_pic->hide();
-                ui.widget_info->hide();                
-                ui.widget_pro->hide();
-            }
-            else
-            {
-                //老师 已上课，有课件
-                ui.widget_pic->hide();
-                ui.widget_info->hide();
-                ui.widget_pro->show();
-                if (0 == nPos)
-                {
-                    QString strInfo = fileName;
-                    fileName = QString("%1%2").arg(strInfo).arg(QString::fromWCharArray(L" 课件等待中··"));
-                }
-                ui.label_courseware_name->setText(fileName);
-                ui.progressBar_progress->setValue(nPos);
-            }
-        }
-        else
-        {
-            if (fileName.isEmpty() || 0 == fileName.length())
-            {
-                //老师 未上课，无课件
-                if (-2 == nPos) //老师已下课
-                {
-                    QPixmap map = Env::currentThemeResPath() + "classover.png";;
-                    ui.label_picture->setPixmap(map);
-                }
-                else
-                {
-                    QPixmap map = Env::currentThemeResPath() + "notclass.png";;
-                    ui.label_picture->setPixmap(map);
-                }
-
-                ui.widget_pic->show();
-                ui.widget_info->hide();                
-                ui.widget_pro->hide();
-            }
-            else
-            {
-                //老师 未上课，有课件
-                if (nPos < 100)
-                {
-                    ui.widget_pic->hide();
-                    ui.widget_info->hide();
-                    ui.widget_pro->show();
-                    if (0 == nPos)
-                    {
-                        QString strInfo = fileName;
-                        fileName = QString("%1%2").arg(strInfo).arg(QString::fromWCharArray(L" 课件等待中··"));
-                    }
-                    ui.label_courseware_name->setText(fileName);
-                    ui.progressBar_progress->setValue(nPos);
-                }
-                else if (100 == nPos)
-                {
-                    ui.widget_pic->show();
-                    ui.widget_info->hide();
-                    QString strinfo;
-                    strinfo  = QString("%1 %2.").arg(QString(tr("Ready for"))).arg(fileName);
-                    ui.label_info->setText(strinfo);
-                    ui.widget_pro->hide();
-                }
-            }
-        }
-    }
-    else
-    {
-        if (bISBenginClass)
-        {
-            if (fileName.isEmpty() || 0 == fileName.length())
-            {
-                //学生 已上课，无课件
-                ui.widget_pic->hide();
-                ui.widget_info->hide();                
-                ui.widget_pro->hide();
-            }
-            else
-            {
-                //学生 已上课，有课件
-                ui.widget_pic->hide();
-                ui.widget_info->hide();
-                ui.widget_pro->show();
-                if (0 == nPos)
-                {
-                    QString strInfo = fileName;
-                    fileName = QString("%1%2").arg(strInfo).arg(QString::fromWCharArray(L" 课件等待中··"));
-                }
-                ui.label_courseware_name->setText(fileName);
-                ui.progressBar_progress->setValue(nPos);
-            }
-        }
-        else
-        {
-            if (fileName.isEmpty() || 0 == fileName.length())
-            {
-                //学生 未上课，无课件
-                if (-2 == nPos) //老师已下课
-                {
-                    QPixmap map = Env::currentThemeResPath() + "classover.png";;
-                    ui.label_picture->setPixmap(map);
-                }
-                else
-                {
-                    QPixmap map = Env::currentThemeResPath() + "notclass.png";;
-                    ui.label_picture->setPixmap(map);
-                }
-               
-                ui.widget_pic->show();
-                ui.widget_info->hide();                
-                ui.widget_pro->hide();
-            }
-            else
-            {
-                //学生 未上课，有课件
-                ui.widget_pic->show();
-                ui.widget_info->hide();                
-                ui.widget_pro->hide();
-            }
-        }
-    }
-    */
 	update();
 }
 
@@ -235,6 +93,15 @@ void QShowClassState::updatePic(const QSize &size)
 {
     ui.label_picture->setFixedSize(size);
     ui.label_picture->update();
+
+	if(!ui.label_picture->isVisible()){
+		return;
+	}
+
+	const QPixmap* picPixmap = ui.label_picture->pixmap();
+	if(NULL != picPixmap){
+		ui.label_picture->setPixmap(picPixmap->scaled(ui.label_picture->size(),Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
+	}
 }
 
 void QShowClassState::resizeEvent(QResizeEvent *event)
@@ -246,20 +113,19 @@ void QShowClassState::doShowNothing()
 {
     if (m_beginClass)
     {
-        //已上课，无课件
-        ui.widget_pic->hide();
-        ui.widget_info->hide();                
-        ui.widget_pro->hide();
+		//已上课，无课件
+		QPixmap map = Env::currentThemeResPath() + "courseware_state_back.png";;
+		ui.label_picture->setPixmap(map.scaled(ui.label_picture->size(),Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
     }
     else
     {
-        QPixmap map = Env::currentThemeResPath() + "notclass.png";;
-        ui.label_picture->setPixmap(map);
-
-        ui.widget_pic->show();
-        ui.widget_info->hide();                
-        ui.widget_pro->hide();
+		QPixmap map = Env::currentThemeResPath() + "notclass.png";;
+		ui.label_picture->setPixmap(map.scaled(ui.label_picture->size(),Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
     }
+
+	ui.widget_pic->show();
+	ui.widget_info->hide();                
+	ui.widget_pro->hide();
 }
 
 void QShowClassState::doShowClassOver()
@@ -274,18 +140,30 @@ void QShowClassState::doShowClassOver()
 
 void QShowClassState::doShowDownFailed()
 {
+	ui.widget_pic->hide();
+	ui.widget_info->show();                
+	ui.widget_pro->hide();
+
     QString strInfo = QString(tr("CoursewareDownFailed")).arg(m_fileName);
     ui.label_courseware_name->setText(strInfo);
 }
 
 void QShowClassState::doShowUploadFailed()
 {
+	ui.widget_pic->hide();
+	ui.widget_info->show();                
+	ui.widget_pro->hide();
+
     QString strInfo = QString(tr("CoursewareUploadFailed")).arg(m_fileName);
     ui.label_courseware_name->setText(strInfo);
 }
 
 void QShowClassState::doShowTranFailed()
 {
+	ui.widget_pic->hide();
+	ui.widget_info->show();                
+	ui.widget_pro->hide();
+
     QString strInfo = QString(tr("CoursewareTransFailed")).arg(m_fileName);
     ui.label_courseware_name->setText(strInfo);
 }
@@ -297,6 +175,7 @@ void QShowClassState::doShowProgress(bool bISBenginClass, QString fileName, int 
         return;
     }
 
+	ui.widget_pic->hide();
     ui.widget_pro->show();
 
     if (fileName == m_fileName && nPos == m_pos)

@@ -232,6 +232,10 @@ void Config::readConfigBuf(char* bufConfig,int bufLength)
     GetPrivateProfileStringA("coureware","down_url","",szTemp,1024,szTempFile);
     m_urlCoursewareDown = szTemp;
 
+	memset(szTemp,NULL,sizeof(szTemp));
+	GetPrivateProfileStringA("coureware","list_url","",szTemp,1024,szTempFile);
+	m_urlCourseClassList = szTemp;
+
     m_tranCourseWareLocal = (bool)GetPrivateProfileIntA("coureware","local_tran",0,szTempFile);
 
     memset(szTemp,NULL,sizeof(szTemp));

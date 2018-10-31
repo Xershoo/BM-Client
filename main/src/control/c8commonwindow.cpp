@@ -184,6 +184,15 @@ bool C8CommonWindow::nativeEvent(const QByteArray &eventType, void *message, lon
 			*result=0;
 		}
 		return true;
+	case WM_KEYDOWN:
+	case WM_KEYUP:
+		{
+			if(msg->wParam==VK_ESCAPE){
+				*result = 0;
+				return true;
+			}
+		}
+		break;
 	}
 
 	return QDialog::nativeEvent(eventType, message, result);

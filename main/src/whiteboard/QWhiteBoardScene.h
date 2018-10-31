@@ -80,6 +80,7 @@ public:
     inline void setColor(WBColor clr);
     inline void setTextSize(WBSize tSize);
     inline void setEnable(WBCtrl ctl);
+	inline WBCtrl getEnable();
 
     inline void setUserId(__int64 userId)
     {
@@ -160,4 +161,8 @@ void QWhiteBoardScene::setEnable(WBCtrl ctl)
     m_ctrlPaint = ctl;
 }
 
+WBCtrl QWhiteBoardScene::getEnable()
+{
+	return m_ctrlPaint;
+}
 #endif
