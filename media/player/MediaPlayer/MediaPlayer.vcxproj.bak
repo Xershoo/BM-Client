@@ -58,7 +58,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;MEDIAPLAYER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>../../SDL/include;../libspeex/include;./;../librtmp/include;./include;../common/include;../../ffmpeg/include;../../;../../publish/voice_was</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../SDL/include;../libspeex/include;./;../librtmp/include;./include;../common/include;../../ffmpeg/include;../../</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -67,7 +67,7 @@
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalLibraryDirectories>$(SolutionDir)lib\$(Configuration)\Player\;$(SolutionDir)lib\$(Configuration)\;$(SolutionDir)lib\</AdditionalLibraryDirectories>
       <ImportLibrary>$(SolutionDir)lib\$(Configuration)\$(TargetName).lib</ImportLibrary>
-      <AdditionalDependencies>libmp4v2.lib;SDLmain.lib;SDL.lib;libspeexd.lib;swresample.lib;swscale.lib;dsound.lib;avutil.lib;avformat.lib;avcodec.lib;dxguid.lib;ddraw.lib;Winmm.lib;librtmpd.lib;sc_commond.lib;ws2_32.lib;libeay32.lib;ssleay32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;voice_was.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libmp4v2.lib;SDLmain.lib;SDL.lib;libspeexd.lib;swresample.lib;swscale.lib;dsound.lib;avutil.lib;avformat.lib;avcodec.lib;dxguid.lib;ddraw.lib;Winmm.lib;librtmpd.lib;sc_commond.lib;ws2_32.lib;libeay32.lib;ssleay32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>MSVCRT.lib;LIBCMTD.lib</IgnoreSpecificDefaultLibraries>
       <OptimizeReferences>
       </OptimizeReferences>
@@ -77,12 +77,13 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <Optimization>Disabled</Optimization>
+      <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;MEDIAPLAYER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>../../SDL/include;../libspeex/include;./;../librtmp/include;./include;../common/include;../../ffmpeg/include;../../;../../publish/voice_was</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../SDL/include;../libspeex/include;./;../librtmp/include;./include;../common/include;../../ffmpeg/include;../../</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <StructMemberAlignment>Default</StructMemberAlignment>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -91,10 +92,9 @@
       <OptimizeReferences>false</OptimizeReferences>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalLibraryDirectories>$(SolutionDir)lib\$(Configuration)\Player\;$(SolutionDir)lib\$(Configuration)\;$(SolutionDir)lib\</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDLmain.lib;SDL.lib;libspeex.lib;swresample.lib;swscale.lib;dsound.lib;libmp4v2.lib;avutil.lib;avformat.lib;avcodec.lib;dxguid.lib;ddraw.lib;Winmm.lib;librtmp.lib;sc_common.lib;ws2_32.lib;libeay32.lib;ssleay32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;voice_was.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDLmain.lib;SDL.lib;libspeex.lib;swresample.lib;swscale.lib;dsound.lib;libmp4v2.lib;avutil.lib;avformat.lib;avcodec.lib;dxguid.lib;ddraw.lib;Winmm.lib;librtmp.lib;sc_common.lib;ws2_32.lib;libeay32.lib;ssleay32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>msvcrt.lib</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>$(SolutionDir)lib\$(Configuration)\$(TargetName).lib</ImportLibrary>
-      <ProgramDatabaseFile>$(SolutionDir)pdb\$(TargetName).pdb</ProgramDatabaseFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

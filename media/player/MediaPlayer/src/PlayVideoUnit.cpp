@@ -5,18 +5,29 @@
 #include "flvHeader.h"
 #include "MP4Encoder.h"
 
+#define MAX_READ_TIMES		(300*1000)
 #define AV_NOSYNC_THRESHOLD 10000.0
 int sample_rate[13] = {96000,88200,64000,48000,44100,32000,24000,22050,16000,12000,11025,8000,7350};
 
+extern bool g_initPlay;
+
 void CALLBACK  _ShowVideo(void* dwUser)
 {
+	if(!g_initPlay)
+	{
+		return;
+	}
 
-      CPlayVideoUnit * pThis=(CPlayVideoUnit*)dwUser;//由this指针获得实例的指针
-      pThis->OnShowVideo();//调用要回调的成员方法
+	CPlayVideoUnit * pThis=static_cast<CPlayVideoUnit*>(dwUser);//由this指针获得实例的指针
+	if(NULL == pThis)
+	{
+		return;
+	}
 
+    pThis->OnShowVideo();//调用要回调的成员方法
 }
 
-CMP4Encoder g_encMP4;
+//CMP4Encoder g_encMP4;
 CPlayVideoUnit::CPlayVideoUnit(fEvent_Callback fcallback,void* dwUser)
 {
 	m_isVideoPlaying = 0;
@@ -53,18 +64,18 @@ CPlayVideoUnit::CPlayVideoUnit(fEvent_Callback fcallback,void* dwUser)
 
 CPlayVideoUnit::~CPlayVideoUnit()
 {
-	if(m_netProcess)
-	{
-		DestoryNetProcess(m_netProcess);
-		m_netProcess = NULL;
-	}
-
-	if(m_playFile)
-	{
-		delete m_playFile;
-		m_playFile = NULL;
-	}
-
+ 	if(m_netProcess)
+ 	{
+ 		DestoryNetProcess(m_netProcess);
+ 		m_netProcess = NULL;
+ 	}
+ 
+ 	if(m_playFile)
+ 	{
+ 		delete m_playFile;
+ 		m_playFile = NULL;
+ 	}
+ 
 	if(m_pFlvBuf)
 	{
 		free(m_pFlvBuf);
@@ -75,10 +86,10 @@ CPlayVideoUnit::~CPlayVideoUnit()
 		free(m_pFlvParseBuf);
 		m_pFlvParseBuf = NULL;
 	}
+ 
+ 	ClearAllShowVideo();
 
-	ClearAllShowVideo();
-
-    g_encMP4.close();
+    //g_encMP4.close();
 }
 
 
@@ -178,7 +189,9 @@ void  CPlayVideoUnit::ClearAllShowVideo()
 		if(pSV)
 		{
 			if(pSV->getShowType() == DRAWTYPEBX)
+			{
 				delete (CShowVideoByDX*)pSV;
+			}
 		}
 	}
 	m_mapShowHand.clear();
@@ -408,6 +421,8 @@ void CPlayVideoUnit::OnShowVideo()
 
 		m_ShowLock.Unlock();
 
+		nSleepTime = nSleepTime <= 0 ? 10*1000 : nSleepTime;
+
 		av_usleep(nSleepTime);
 	}
 }
@@ -511,8 +526,8 @@ bool CPlayVideoUnit::StopMeida(void* hPlayHand)
 				moudle_commond_t cmd = STOP;
 				m_netProcess->SetCommond(cmd,NULL);
 			}
-			m_threadReadMedia.End();
-			m_threadShowVideo.End();
+			m_threadReadMedia.End(2);
+			m_threadShowVideo.End(2);
 			bIsStop = true;
 		}
 		else
@@ -526,6 +541,8 @@ bool CPlayVideoUnit::StopMeida(void* hPlayHand)
 		m_vidJitterBuf.clear();
 		m_FlvParsePos = 0;
 	}
+
+	InterlockedExchange(&m_isVideoPlaying,0);
 	return bIsStop;
 }
 
@@ -550,7 +567,7 @@ int CPlayVideoUnit::ReadMediaData()
 		}
 		else
 		{
-			if(nCurReadMediaTime - m_nLastReadMediaTime > 60 * 1000)
+			if(nCurReadMediaTime - m_nLastReadMediaTime > MAX_READ_TIMES)
 			{
 				moudle_commond_t cmd = STOP;
 				m_netProcess->SetCommond(cmd,NULL);
@@ -658,7 +675,7 @@ int CPlayVideoUnit::flvParse(unsigned char**pFlvPBuf,unsigned int& nFlvParseBufS
 					if(pNode.audJitterBuf)
 						pNode.audJitterBuf->Push((char*)aaf.pFrame,aaf.nFrameSize,aaf.pts);
 
-                    g_encMP4.setAudio(pNode.samplerate,pNode.nchannel);
+                    //g_encMP4.setAudio(pNode.samplerate,pNode.nchannel);
                     
 				}
 				else if(pstart[0] == 0xAF && pstart[1] == 0x01)
@@ -666,14 +683,16 @@ int CPlayVideoUnit::flvParse(unsigned char**pFlvPBuf,unsigned int& nFlvParseBufS
 					aaf.pts = nstmp;
 					aaf.nFrameSize  = data_size - 2;
 					if(pNode.audJitterBuf)
+					{
 						pNode.audJitterBuf->Push((char*)pstart+2,aaf.nFrameSize,aaf.pts);
-
-                    dataAudio.buf = (char*)(pstart+2);
-                    dataAudio.size = data_size - 2;
-                    dataAudio.duration = nstmp;
-                    dataAudio.type = 1;
-
-                    g_encMP4.writeData(dataAudio);
+					}
+// 
+//                     dataAudio.buf = (char*)(pstart+2);
+//                     dataAudio.size = data_size - 2;
+//                     dataAudio.duration = nstmp;
+//                     dataAudio.type = 1;
+// 
+//                     g_encMP4.writeData(dataAudio);
 				}
 
                 break;
@@ -805,7 +824,7 @@ int CPlayVideoUnit::flvParse(unsigned char**pFlvPBuf,unsigned int& nFlvParseBufS
                     }
                 }
 
-                g_encMP4.setVideo(videoWidth,videoHeight,videoFPS);
+                //g_encMP4.setVideo(videoWidth,videoHeight,videoFPS);
                 break;
 			}
 			
@@ -844,11 +863,11 @@ int    CPlayVideoUnit::flvParseVideo(unsigned char*pstart,unsigned int data_size
 			m_H264PPSAndSPS[nPos+6] = 0x00;
 			m_H264PPSAndSPS[nPos+7] = 0x01;
 			memcpy(m_H264PPSAndSPS+4+nPos+4,pstart,4);
-
-            uint32_t ppsSize = 4;
-            uint8_t * pps = pstart;
-            
-            g_encMP4.setSpsAndPps(sps,spsSize,pps,ppsSize);
+// 
+//             uint32_t ppsSize = 4;
+//             uint8_t * pps = pstart;
+//             
+//             g_encMP4.setSpsAndPps(sps,spsSize,pps,ppsSize);
 		}
 	}
 	else
@@ -874,21 +893,21 @@ int    CPlayVideoUnit::flvParseVideo(unsigned char*pstart,unsigned int data_size
 		{	
 			m_vidJitterBuf.push(prefix,4,pstart,data_size - 9,nstmp);
 		}
-              
-        sizeBuf = 4 + (data_size - 9);
-        bufFrame = (char*)malloc(sizeBuf);
-        memcpy(bufFrame,prefix,4);
-        memcpy(bufFrame + 4,pstart,data_size-9);
-
-        dataVideo.buf = (char*)bufFrame;
-        dataVideo.size = sizeBuf;
-        dataVideo.duration = nstmp;
-        dataVideo.type = 0;
-        dataVideo.frame = true;
-
-        g_encMP4.writeData(dataVideo);
-
-        free(bufFrame);
+//               
+//         sizeBuf = 4 + (data_size - 9);
+//         bufFrame = (char*)malloc(sizeBuf);
+//         memcpy(bufFrame,prefix,4);
+//         memcpy(bufFrame + 4,pstart,data_size-9);
+// 
+//         dataVideo.buf = (char*)bufFrame;
+//         dataVideo.size = sizeBuf;
+//         dataVideo.duration = nstmp;
+//         dataVideo.type = 0;
+//         dataVideo.frame = true;
+// 
+//         g_encMP4.writeData(dataVideo);
+// 
+//         free(bufFrame);
 	}
 	return 1;
 }
@@ -959,6 +978,43 @@ bool CPlayVideoUnit::SeekFile(unsigned int nPalyPos)
 	return false;
 }
 
+bool CPlayVideoUnit::SeekFileStream(unsigned int nPlayPos,bool bVideo)
+{
+	if(NULL==m_playFile)
+	{
+		return false;
+	}
+	
+	unsigned int framePos = nPlayPos;	
+	bool br = m_playFile->seek_in_frame(framePos,bVideo);	
+	if(!br)
+	{
+		return false;
+	}
+
+	if(!bVideo)
+	{
+		return true;
+	}
+	
+	VideoFrame	videoFrame;
+	int			nSpan = 0;
+	
+	br = m_playFile->get_video_frame(nPlayPos,videoFrame);
+	if(!br)
+	{
+		return false;
+	}
+
+	if((videoFrame.pVideoFrameBuf && videoFrame.nVideoFrameSize > 0))
+	{		
+		bool bIsFlag = m_decoder.getVideoWHReverseFlag() || m_playFile;
+		DrawVideo(videoFrame.pVideoFrameBuf,videoFrame.nVideoFrameSize,videoFrame.nVideoFrameHeight,videoFrame.nVideoFrameWidth,bIsFlag);
+	}
+	
+	return true;
+}
+
 bool CPlayVideoUnit::SwitchPaly(play_audio_callback pCallback,void* dwUser,bool bIsFlag)
 {
 	if(m_playFile)
@@ -976,11 +1032,21 @@ unsigned int CPlayVideoUnit::GetFileDuration()
 	}
 	return 0;
 }
+
 unsigned int CPlayVideoUnit::getFileCurPlayTime()
 {
 	if(m_playFile)
 	{
 		return m_playFile->get_in_file_current_play_time();
+	}
+	return 0;
+}
+
+unsigned int CPlayVideoUnit::getFileStreamCurTime(bool bVideo)
+{
+	if(m_playFile)
+	{
+		return m_playFile->get_in_file_current_stream_time(bVideo);
 	}
 	return 0;
 }
@@ -1000,12 +1066,14 @@ void CPlayVideoUnit::stopFile()
 	{
 		if(m_playFile)
 		{
-			m_threadShowVideo.End();
+			m_threadShowVideo.End(2);
 			m_playFile->CloseLocalMediaFile();
 			delete m_playFile;
 			m_playFile = NULL;
 		}
 	}
+
+	InterlockedExchange(&m_isVideoPlaying,0);
 }
 
 bool   CPlayVideoUnit::bIsHaveVideo()
@@ -1022,7 +1090,6 @@ void  CPlayVideoUnit::SDLPlayAudio(void *udata,Uint8 *stream,int len)
 	if(m_playFile && m_playFile->getExistAudioStream())
 	{
 		m_playFile->audio_play(udata,stream,len,m_nPlayAudioTime);
-
 	}
 }
 

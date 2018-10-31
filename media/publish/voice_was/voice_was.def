@@ -1,0 +1,4 @@
+LIBRARY  voice_was.DLL
+EXPORTS
+
+CreateWasVoiceEngine			@1 

@@ -176,7 +176,7 @@ bool  CPlayFile::CloseLocalMediaFile()
 {
 	if(!m_read_file_and_proc_thread.GetStop())
 	{
-		m_read_file_and_proc_thread.End();
+		m_read_file_and_proc_thread.End(2);
 	}
 
 	m_refLock.Lock();
@@ -436,6 +436,15 @@ void CPlayFile::read_in_file_data_to_proc()
 			}
 			else
 			{
+				if(m_in_audio_st)
+				{
+					m_audio_cur_pts = m_in_fmt_ctx->duration * m_in_audio_st->time_base.den / (AV_TIME_BASE * m_in_audio_st->time_base.num);
+				}
+				else if(m_in_video_st)
+				{
+					m_video_cur_pts = m_in_fmt_ctx->duration * m_in_video_st->time_base.den / (AV_TIME_BASE * m_in_video_st->time_base.num);
+				}
+
 				m_play_lock.Unlock();
 				put_free_pkt(pkt);
 			}
@@ -686,16 +695,10 @@ double CPlayFile::get_master_clock(int ntype)
     return val;
 }
 
-
-
-
 int CPlayFile::synchronize_audio(int nb_samples)
 {
-
-    int audio_diff_avg_count;
-
+	int audio_diff_avg_count;
     int wanted_nb_samples = nb_samples;
-
     double diff, avg_diff;
     int min_nb_samples, max_nb_samples;
     diff = get_clock(&m_audclk) - get_master_clock(AV_SYNC_AUDIO_MASTER);
@@ -985,9 +988,21 @@ void  CPlayFile::audio_play(void *udata,unsigned char *stream,int len,int64_t& p
 bool CPlayFile::pause_in_file(bool bIsPause)
 {
 	m_play_lock.Lock();
-	if(m_in_fmt_ctx)
+	bool br = false;
+	do 
 	{
-		m_push_and_play_pause = bIsPause;
+		int nr = 0;
+		if(NULL==m_in_fmt_ctx)
+		{
+			break;
+		}
+
+		if(m_push_and_play_pause == bIsPause)
+		{
+			br = true;
+			break;
+		}
+
 		SDL_PauseAudio(bIsPause);
 		if(bIsPause)
 		{
@@ -998,9 +1013,12 @@ bool CPlayFile::pause_in_file(bool bIsPause)
 		{
 			av_read_play(m_in_fmt_ctx);
 		}
-	}
+		
+		m_push_and_play_pause = bIsPause;		
+	} while (false);
+	
 	m_play_lock.Unlock();
-	return true;
+	return br;
 }
 
 bool CPlayFile::seek_in_file(unsigned int nSeekTime)
@@ -1009,7 +1027,7 @@ bool CPlayFile::seek_in_file(unsigned int nSeekTime)
 	clear_busy_cache_list();
 	if(m_in_fmt_ctx)
 	{
-		int64_t seet_time = ((int64_t)nSeekTime) * AV_TIME_BASE;
+		int64_t seet_time = ((int64_t)nSeekTime) * AV_TIME_BASE / 1000;
 		if(avformat_seek_file(m_in_fmt_ctx,-1,0,seet_time,m_in_fmt_ctx->duration,0)== 0)
 		{
 			m_play_lock.Unlock();
@@ -1020,11 +1038,61 @@ bool CPlayFile::seek_in_file(unsigned int nSeekTime)
 	return false;
 }
 
+bool CPlayFile::seek_in_frame(unsigned int nSeekTime,bool video /* = true */)
+{	
+	bool br = false;
+	m_play_lock.Lock();
+
+	do 
+	{
+		if(m_push_and_play_pause)
+		{
+			av_read_play(m_in_fmt_ctx);
+		}
+		int64_t seet_time =  (int64_t)nSeekTime;
+		clear_busy_cache_list();
+
+		if(NULL==m_in_fmt_ctx)
+		{
+			break;
+		}
+
+		if(!video)
+		{
+			if(NULL==m_in_audio_st)
+			{
+				break;
+			}
+
+			seet_time = seet_time * m_in_audio_st->time_base.den /((double)m_in_audio_st->time_base.num * 1000);
+			br = av_seek_frame(m_in_fmt_ctx,m_in_audio_index,seet_time,AVSEEK_FLAG_BACKWARD)>=0 ? true:false;
+			break;
+		}
+
+		if(NULL==m_in_video_st)
+		{
+			break;
+		}
+
+		seet_time = seet_time * m_in_video_st->time_base.den /((double)m_in_video_st->time_base.num * 1000);
+		br = av_seek_frame(m_in_fmt_ctx,m_in_video_index,seet_time,AVSEEK_FLAG_BACKWARD)>=0 ? true:false;
+
+		if(m_push_and_play_pause)
+		{
+			av_read_pause(m_in_fmt_ctx);
+		}
+	} while (false);
+	
+	m_play_lock.Unlock();
+	return br;
+}
+
+
 unsigned int CPlayFile::get_in_file_duration()
 {
 	if(m_in_fmt_ctx)
 	{
-		return m_in_fmt_ctx->duration / AV_TIME_BASE;
+		return m_in_fmt_ctx->duration * 1000 / AV_TIME_BASE;
 	}
 	return 0;
 }
@@ -1032,16 +1100,41 @@ unsigned int CPlayFile::get_in_file_duration()
 unsigned int CPlayFile::get_in_file_current_play_time()
 {
 	int audio_time = 0;
-	int vido_time = 0;
+	int video_time = 0;
+	
 	if(m_in_audio_st)
 	{
-	    return m_audio_cur_pts * ((double)m_in_audio_st->time_base.num/m_in_audio_st->time_base.den);
+	    audio_time=m_audio_cur_pts * ((double)m_in_audio_st->time_base.num * 1000/m_in_audio_st->time_base.den);
 	}
-	else if(m_in_video_st)
+	
+	if(m_in_video_st)
 	{
-        return m_video_cur_pts* ((double)m_in_video_st->time_base.num/m_in_video_st->time_base.den) ;
+        video_time=m_video_cur_pts* ((double)m_in_video_st->time_base.num * 1000/m_in_video_st->time_base.den);		
 	}
-	return 0;
+
+	return audio_time == 0 ? video_time : audio_time;
+}
+
+unsigned int CPlayFile::get_in_file_current_stream_time(bool video /* = true */)
+{
+	int cur_time = 0;
+	
+	if(video)
+	{
+		if(m_in_video_st)
+		{
+			cur_time=m_video_cur_pts* ((double)m_in_video_st->time_base.num * 1000/m_in_video_st->time_base.den);		
+		}
+	}
+	else
+	{
+		if(m_in_audio_st)
+		{
+			cur_time=m_audio_cur_pts * ((double)m_in_audio_st->time_base.num * 1000/m_in_audio_st->time_base.den);
+		}
+	}
+
+	return cur_time;
 }
 
 double CPlayFile::get_video_one_frame_duration()
@@ -1070,24 +1163,415 @@ double CPlayFile::get_video_one_frame_duration()
 bool CPlayFile::switch_paly(play_audio_callback pCallback,void* dwUser,bool bflag)
 {
 	m_refLock.Lock();
-	if(SDL_GetAudioStatus() == SDL_AUDIO_STOPPED)
-	{
-		if(m_in_audio_codec_ctx && bflag)
-		{
-			if(audio_open(pCallback,dwUser) < 0)
-			{
-				m_refLock.Unlock();
-				return false;
-			}
 
-			SDL_Delay(10);
-			SDL_PauseAudio(0); 
+	SDL_audiostatus audioStatus = SDL_GetAudioStatus();
+	if(!bflag)
+	{
+		if(audioStatus != SDL_AUDIO_STOPPED)
+		{
+			SDL_CloseAudio();
 		}
+
+		return true;
 	}
-	else
+	
+	bool br = false;
+	if(audioStatus != SDL_AUDIO_STOPPED)
 	{
 		SDL_CloseAudio();
 	}
+
+	if(m_in_audio_codec_ctx)
+	{
+		if(audio_open(pCallback,dwUser)>=0)
+		{
+			SDL_Delay(10);
+			SDL_PauseAudio(0);
+			br = true;
+		}
+	}	
 	m_refLock.Unlock();
 	return true;
+}
+
+bool CPlayFile::get_video_frame(unsigned int nFramePos,VideoFrame& vf,int& nSpan)
+{
+// 	if(!m_push_and_play_pause)
+// 	{
+// 		return false;
+// 	}
+
+	if(NULL == m_in_video_codec_ctx)
+	{
+		return false;
+	}
+
+	bool br = false;
+	AVPacket *pkt = false;
+	AVFrame *pframe = NULL;
+
+	unsigned int frameTimestamp = nFramePos * m_in_video_st->time_base.den /((double)m_in_video_st->time_base.num * 1000);
+
+	m_play_lock.Lock();
+	pkt = get_free_pkt();
+
+	av_read_play(m_in_fmt_ctx);
+
+	while(true)
+	{		
+		if(NULL==pkt)
+		{
+			break;
+		}
+
+		if(av_read_frame(m_in_fmt_ctx, pkt)<0)
+		{
+			break;
+		}
+
+		if(pkt->stream_index != m_in_video_index)
+		{
+			continue;
+		}
+
+		AVStream *in_stream, *out_stream;
+		in_stream  = m_in_fmt_ctx->streams[pkt->stream_index];
+		out_stream = m_in_fmt_ctx->streams[pkt->stream_index];
+
+		//转换PTS/DTS（Convert PTS/DTS）
+		pkt->pts = av_rescale_q_rnd(pkt->pts, in_stream->time_base, out_stream->time_base, (AVRounding)(AV_ROUND_NEAR_INF|AV_ROUND_PASS_MINMAX));
+		pkt->dts = av_rescale_q_rnd(pkt->dts, in_stream->time_base, out_stream->time_base, (AVRounding)(AV_ROUND_NEAR_INF|AV_ROUND_PASS_MINMAX));
+		pkt->duration = av_rescale_q(pkt->duration, in_stream->time_base, out_stream->time_base);
+
+		int got_picture = 0;
+		pframe = av_frame_alloc();
+		if(NULL==pframe)
+		{
+			break;
+		}
+
+		avcodec_decode_video2(m_in_video_codec_ctx, pframe, &got_picture, pkt);
+
+		if(!got_picture)
+		{	
+			av_frame_free(&pframe);
+			pframe = NULL;
+			continue;
+		}
+
+		if (pkt->pts != AV_NOPTS_VALUE)
+		{
+			pframe->pts = pframe->pkt_pts;
+		}
+		else if(pkt->dts != AV_NOPTS_VALUE)
+		{
+			pframe->pts = pframe->pkt_dts;
+		}
+		else
+		{
+			pframe->pts = av_frame_get_best_effort_timestamp(pframe);
+		}
+
+		if(pframe->pts >= frameTimestamp)
+		{
+			if(pframe->pts == frameTimestamp)
+			{
+				br = true;
+			}
+
+			break;
+		}
+
+		av_frame_free(&pframe);
+		pframe = NULL;
+	};
+	
+	av_read_pause(m_in_fmt_ctx);
+
+	double sp  = 0.0;
+	AVRational base_time  = {m_in_fmt_ctx->streams[m_in_video_index]->avg_frame_rate.den,m_in_fmt_ctx->streams[m_in_video_index]->avg_frame_rate.num};
+	if(base_time.num != 0)
+	{
+		sp =  av_q2d(base_time) * 1000.0;
+		nSpan = sp ;
+	}
+	else
+	{
+		nSpan = (pframe->pts - m_video_cur_pts) ;
+	}
+
+	if(m_video_duration > -0.0000001 && m_video_duration < 0.0000001)
+	{
+		vf.fltOneFrameDuration = nSpan ;
+	}
+	else
+	{
+		vf.fltOneFrameDuration = m_video_duration * 1000;
+	}
+
+	m_video_cur_pts = pframe->pts;
+	vf.nVideoFrameHeight = pframe->height;
+	vf.nVideoFrameWidth= pframe->width;
+
+	vf.mVideoFramePts = (m_video_cur_pts *1.0 / m_video_stream_timebase) * 1000; 
+
+	if(m_pic_bufffer == NULL)
+	{
+		m_pic_bufffer = new unsigned char[m_pic_size];
+	}
+	for(int i=0, nDataLen=0; i<3; i++)
+	{
+		int nShift = (i == 0) ? 0 : 1;
+		unsigned char *pYUVData = pframe->data[i];
+		unsigned int  nW = pframe->width >> nShift;
+		unsigned int  nH = pframe->height >> nShift;
+		for(int j = 0; j< nH;j++)
+		{
+			memcpy(m_pic_bufffer+nDataLen,pframe->data[i] + j * pframe->linesize[i], nW); 
+			nDataLen += nW;
+		}
+	}
+
+	vf.pVideoFrameBuf = m_pic_bufffer;
+	vf.nVideoFrameSize = m_pic_size;
+
+	av_frame_free(&pframe);	
+	put_free_pkt(pkt);
+	m_play_lock.Unlock();
+	
+	return br;
+}
+
+bool CPlayFile::get_video_frame(unsigned int nFramePos,VideoFrame& vf)
+{
+	//打开输入文件
+	AVFormatContext *	fmt_ctx = NULL;
+	AVCodec *			video_cdc = NULL;
+	AVCodecContext *	video_cdc_ctx = NULL;
+	AVStream	*		video_st = NULL;
+	AVStream	*		audio_st = NULL;
+	AVPacket *			packet_read = NULL;
+	AVFrame *			frame_read = NULL;
+
+	bool	br = false;
+	int		video_index = 0;
+	int		audio_index = 0;
+	int		space_time = 0;
+	unsigned int frameTime = 0;
+
+	do 
+	{
+		if (avformat_open_input(&fmt_ctx, m_str_in_file_url, 0, 0)< 0)
+		{
+			break;
+		}
+
+		//查找文件的流信息
+		if (avformat_find_stream_info(fmt_ctx, 0) < 0)
+		{
+			return false;
+		}
+
+		av_dump_format(fmt_ctx, 0, m_str_in_file_url, 0);
+
+		//解复用流
+		for (int i = 0; i < fmt_ctx->nb_streams; i++) 
+		{
+			if ( fmt_ctx->streams[i]->codec->codec_type == AVMEDIA_TYPE_VIDEO) 
+			{
+				video_index = i;
+				video_st = fmt_ctx->streams[video_index];
+			}
+
+			if ( fmt_ctx->streams[i]->codec->codec_type == AVMEDIA_TYPE_AUDIO)
+			{
+				audio_index = i;
+				audio_st = fmt_ctx->streams[audio_index];
+			}
+		}
+
+		if(NULL == video_st)
+		{
+			break;
+		}
+
+		video_cdc_ctx = video_st->codec;
+		if(NULL==video_cdc_ctx)
+		{
+			break;
+		}
+
+		video_cdc = avcodec_find_decoder(video_cdc_ctx->codec_id);
+		if (NULL==video_cdc) 
+		{
+			break;
+		}
+
+		if (avcodec_open2(video_cdc_ctx, video_cdc,NULL) < 0) 
+		{
+			break;
+		}
+
+		frameTime = nFramePos * video_st->time_base.den /((double)video_st->time_base.num * 1000);
+		packet_read = new AVPacket();
+		if(NULL == packet_read)
+		{
+			break;
+		}
+
+		av_init_packet(packet_read);
+		av_read_play(fmt_ctx);
+
+		if(frameTime > 2000)
+		{
+			av_seek_frame(fmt_ctx,video_index,frameTime-2000,AVSEEK_FLAG_BACKWARD);
+		}
+
+		while(true)
+		{
+			int got_picture = 0;
+			if(av_read_frame(fmt_ctx, packet_read)<0)
+			{
+				break;
+			}
+
+			if(packet_read->stream_index != video_index)
+			{
+				continue;
+			}
+
+			AVStream *in_stream = NULL;
+			AVStream *out_stream = NULL;
+			
+			in_stream  = fmt_ctx->streams[packet_read->stream_index];
+			out_stream = fmt_ctx->streams[packet_read->stream_index];
+
+			//转换PTS/DTS（Convert PTS/DTS）
+			packet_read->pts = av_rescale_q_rnd(packet_read->pts, in_stream->time_base, out_stream->time_base, (AVRounding)(AV_ROUND_NEAR_INF|AV_ROUND_PASS_MINMAX));
+			packet_read->dts = av_rescale_q_rnd(packet_read->dts, in_stream->time_base, out_stream->time_base, (AVRounding)(AV_ROUND_NEAR_INF|AV_ROUND_PASS_MINMAX));
+			packet_read->duration = av_rescale_q(packet_read->duration, in_stream->time_base, out_stream->time_base);
+
+			frame_read = av_frame_alloc();
+			if(NULL==frame_read)
+			{
+				break;
+			}
+
+			avcodec_decode_video2(video_cdc_ctx, frame_read, &got_picture, packet_read);
+
+			if(!got_picture)
+			{	
+				av_frame_free(&frame_read);
+				frame_read = NULL;
+				continue;
+			}
+
+			if (packet_read->pts != AV_NOPTS_VALUE)
+			{
+				frame_read->pts = frame_read->pkt_pts;
+			}
+			else if(packet_read->dts != AV_NOPTS_VALUE)
+			{
+				frame_read->pts = frame_read->pkt_dts;
+			}
+			else
+			{
+				frame_read->pts = av_frame_get_best_effort_timestamp(frame_read);
+			}
+
+			if(frame_read->pts >= frameTime)
+			{
+				if(frame_read->pts == frameTime)
+				{
+					br = true;
+				}
+
+				break;
+			}
+
+			av_frame_free(&frame_read);
+			frame_read = NULL;
+		}
+
+		if(!br)
+		{
+			break;
+		}
+
+		av_read_pause(fmt_ctx);
+
+		double space  = 0.0;
+		AVRational base_time  = {fmt_ctx->streams[video_index]->avg_frame_rate.den,fmt_ctx->streams[video_index]->avg_frame_rate.num};
+		if(base_time.num != 0)
+		{
+			space =  av_q2d(base_time) * 1000.0;
+			space_time = space ;
+		}
+		else
+		{
+			space_time = (frame_read->pts - m_video_cur_pts) ;
+		}
+
+		if(m_video_duration > -0.0000001 && m_video_duration < 0.0000001)
+		{
+			vf.fltOneFrameDuration = space_time ;
+		}
+		else
+		{
+			vf.fltOneFrameDuration = m_video_duration * 1000;
+		}
+
+		
+		vf.nVideoFrameHeight = frame_read->height;
+		vf.nVideoFrameWidth= frame_read->width;
+
+		vf.mVideoFramePts = (m_video_cur_pts *1.0 / m_video_stream_timebase) * 1000; 
+
+		if(m_pic_bufffer == NULL)
+		{
+			m_pic_bufffer = new unsigned char[m_pic_size];
+		}
+		for(int i=0, nDataLen=0; i<3; i++)
+		{
+			int nShift = (i == 0) ? 0 : 1;
+			unsigned char *pYUVData = frame_read->data[i];
+			unsigned int  nW = frame_read->width >> nShift;
+			unsigned int  nH = frame_read->height >> nShift;
+			for(int j = 0; j< nH;j++)
+			{
+				memcpy(m_pic_bufffer+nDataLen,frame_read->data[i] + j * frame_read->linesize[i], nW); 
+				nDataLen += nW;
+			}
+		}
+
+		vf.pVideoFrameBuf = m_pic_bufffer;
+		vf.nVideoFrameSize = m_pic_size;
+
+	} while (false);
+
+	if(NULL!=frame_read)
+	{
+		av_frame_free(&frame_read);
+		frame_read = NULL;
+	}
+
+	if(NULL !=packet_read)
+	{
+		av_free_packet(packet_read);
+		DELMEM(packet_read);
+	}
+
+	if(NULL!=video_cdc)
+	{
+		avcodec_close(video_cdc_ctx);
+		video_cdc = NULL;
+	}
+	
+	if(NULL != fmt_ctx)
+	{
+		avformat_close_input(&fmt_ctx);
+		fmt_ctx = NULL;
+	}
+
+	return br;
 }

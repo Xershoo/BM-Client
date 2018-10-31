@@ -45,6 +45,19 @@ StopUnit       g_QuitStopUnit[MAXPLAYERNUM*2];
 list<PlayUnit> m_glistPlayUnit;
 CMutexLock     m_gPlayUnitLock;
 
+bool		   g_initPlay = false;
+
+MPLATER_API bool   AVP_Init()
+{
+	g_initPlay = true;
+	return true;
+}
+
+MPLATER_API void   AVP_Unit()
+{
+	g_initPlay = false;
+}
+
 void* FindPlayUnit(const char* szVideoURL,const char*szAudioURL)
 {
 	m_gPlayUnitLock.Lock();
@@ -296,14 +309,13 @@ MPLATER_API bool   AVP_Stop(const char* szPlayUrl,PlayAddress arrAddress[4],int 
 
 	for(int n = 0;n < narrAddressNum;n++)
 	{        
+		rp->SetCallBack(szPlayUrl,NULL);
 		rp->StopShowVideo(arrAddress[n].szPushAddr);
 		if(rp->GetShowHandCount(arrAddress[n].szPushAddr)  > 1)
 		{
 			rp->StopMedia(arrAddress[n].szPushAddr,arrAddress[n].hwnd);
 			//PutPlayUnit(szVideoURL,szAudioURL,rp,false);
 		}
-
-        rp->SetCallBack(szPlayUrl,NULL);
 	}
 
 	int i = 0;
@@ -353,6 +365,8 @@ MPLATER_API bool   AVP_StopFile(const char* szFileName,HWNDHANDLE hwnd)
 	}
         
 	rp->SetCallBack(szFileName,NULL);
+	rp->stopFile(szFileName);
+	
 	int i = 0;
 	g_gStopUnitLock.Lock();
 	for(i = 0; i< MAXPLAYERNUM*2 ; i++)
@@ -394,6 +408,18 @@ MPLATER_API bool   AVP_SeekFile(const char* szFileName,unsigned int nPalyPos)
 	return false;
 }
 
+//seek 文件
+MPLATER_API bool   AVP_SeekFileStream(const char* szFileName,unsigned int nPlayPos,bool bVideo)
+{
+	CPlayProcess * rp = NULL;
+	rp = (CPlayProcess*)FindPlayUnit(szFileName,"");
+	if(rp)
+	{
+		return rp->SeekFileStream(szFileName,nPlayPos,bVideo);
+	}
+	return false;
+}
+
 //取得文件的总的播放时间长度
 //参数：szFileName 本地音视频文件
 //返回值：播放的时间总长度单位秒
@@ -422,6 +448,17 @@ MPLATER_API unsigned int getFileCurPlayTime(const char* szFileName)
 	return 0;
 }
 
+MPLATER_API unsigned int getFileStreamCurTime(const char* szFileName,bool bVideo)
+{
+	CPlayProcess * rp = NULL;
+	rp = (CPlayProcess*)FindPlayUnit(szFileName,"");
+	if(rp)
+	{
+		return rp->getFileStreamCurTime(szFileName,bVideo);
+	}
+	return 0;
+}
+
 MPLATER_API bool  playFileSwitch(const char* szCurPlayLocalFileName)
 {
 	m_gPlayUnitLock.Lock();
@@ -434,15 +471,17 @@ MPLATER_API bool  playFileSwitch(const char* szCurPlayLocalFileName)
 		if(pu.pPlayProcess && rpTemp->getIsPlayFile())
 		{
 			if(pu.PUCmp(szCurPlayLocalFileName,""))
-			{
-				
+			{				
 				rp = rpTemp;
 			}
-
-			rpTemp->PauseFile(pu.szPlayMediaUrl,true);
-			rpTemp->SwitchPaly(pu.szPlayMediaUrl);
+			else
+			{
+				rpTemp->PauseFile(pu.szPlayMediaUrl,true);
+				rpTemp->SwitchPaly(pu.szPlayMediaUrl);
+			}
 		}
 	}
+
 	m_gPlayUnitLock.Unlock();
 	if(rp)
 	{

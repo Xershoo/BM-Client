@@ -1,5 +1,6 @@
 #include "ShowVideoByDX.h"
 
+
 CShowVideoByDX::CShowVideoByDX(PBITMAP hBGbitmap,HWND hShowWnd):CShowVideo(DRAWTYPEBX)
 {
 	m_lpDD = NULL;    // DirectDraw ¶ÔÏóÖ¸Õë
@@ -43,20 +44,25 @@ CShowVideoByDX::~CShowVideoByDX()
 	{
 		m_sws_context = NULL;
 	}
+	
+	m_lockRGBBuf.Lock();
 
 	if(m_pRGBBuf)
 	{
 		delete m_pRGBBuf;
 		m_pRGBBuf = NULL;
 	}
+	
 	if( m_pRGBBackBuf )
 	{
 		delete m_pRGBBackBuf;
 		m_pRGBBackBuf = NULL;
 	}
-	m_nRGBBackSize = 0;
 
+	m_nRGBBackSize = 0;
 	m_nRGBSize = 0;
+
+	m_lockRGBBuf.Unlock();
 }
 
 bool CShowVideoByDX::getShowHwndStatus()
@@ -170,13 +176,24 @@ bool CShowVideoByDX::InitSurface()
 	return true;
 }
 
+extern bool g_initPlay;
+
 bool CShowVideoByDX::ShowVideo(unsigned char* pBuf,unsigned int nBufSize,int nVH,int nVW,bool bIsPlayFlie,IMediaPlayerEvent* pShowCallback)
 {
+	if(!g_initPlay)
+	{
+		return false;
+	}
+
     if(pShowCallback)
     {
         CutBGRFromYUV420(pBuf,nVW,nVH);
-        pShowCallback->ShowVideo(m_show_rect.hwnd,m_pRGBBuf,m_nRGBSize,nVW,nVH);
-        return true;
+
+		m_lockRGBBuf.Lock();
+        pShowCallback->ShowVideo(m_show_rect.hwnd,m_pRGBBuf,m_nRGBSize,nVW,nVH);        
+		m_lockRGBBuf.Unlock();
+
+		return true;
     }
 
 	if(!m_bIsInitYUVEnv || m_nErrCountNum > 3 || nVH > nVW)
@@ -423,6 +440,8 @@ bool CShowVideoByDX::CutRGBFromYUV420(unsigned char *yuv420,int nWidth,int nHeig
 		m_sws_context = sws_getContext(nWidth, nHeight,AV_PIX_FMT_YUV420P , nWidth, nHeight,AV_PIX_FMT_RGB24,SWS_BILINEAR, NULL, NULL, NULL);
 	}
 
+	m_lockRGBBuf.Lock();
+
 	int nSize = nWidth * nHeight * 3;
 	if(m_nRGBSize < nSize)
 	{
@@ -458,6 +477,8 @@ bool CShowVideoByDX::CutRGBFromYUV420(unsigned char *yuv420,int nWidth,int nHeig
 		nSrcStride[2] = nWidth / 2;
 		sws_scale(m_sws_context, pSrcBuff,nSrcStride, 0, nHeight,pDstBuff, nDstStride);
 	}
+
+	m_lockRGBBuf.Unlock();
 	return TRUE;
 }
 
@@ -482,6 +503,8 @@ bool CShowVideoByDX::CutBGRFromYUV420(unsigned char *yuv420,int nWidth,int nHeig
 		}
 		m_sws_context = sws_getContext(nWidth, nHeight,AV_PIX_FMT_YUV420P , nWidth, nHeight,AV_PIX_FMT_BGR24,SWS_BILINEAR, NULL, NULL, NULL);
 	}
+
+	m_lockRGBBuf.Lock();
 
 	int nSize = nWidth * nHeight * 3;
 	if(m_nRGBSize < nSize)
@@ -518,6 +541,8 @@ bool CShowVideoByDX::CutBGRFromYUV420(unsigned char *yuv420,int nWidth,int nHeig
 		nSrcStride[2] = nWidth / 2;
 		sws_scale(m_sws_context, pSrcBuff,nSrcStride, 0, nHeight,pDstBuff, nDstStride);
 	}
+
+	m_lockRGBBuf.Unlock();
 	return TRUE;
 }
 

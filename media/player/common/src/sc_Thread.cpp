@@ -63,6 +63,11 @@ bool CSCThread::End(long nWaitSec)
 	{
 		m_bStopThread = TRUE;
 		DWORD dwRet = WaitForSingleObject(m_hThread,nWaitSec * 1000);
+		if(dwRet != WAIT_OBJECT_0)
+		{
+			TerminateThread(m_hThread,0);
+		}
+
 		CloseHandle(m_hThread);
 		m_hThread = NULL;
 	}

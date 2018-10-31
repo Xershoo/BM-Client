@@ -58,8 +58,10 @@ public:
 	void  stopFile();
 	bool PauseFile(bool bIsPause);
 	bool SeekFile(unsigned int nPalyPos);
+	bool SeekFileStream(unsigned int nPlayPos,bool bVideo);
 	unsigned int GetFileDuration();
 	unsigned int getFileCurPlayTime();
+	unsigned int getFileStreamCurTime(bool bVideo);
 	bool SwitchPaly(play_audio_callback pCallback,void* dwUser,bool bIsFlag = false);
 	void  SDLPlayAudio(void *udata,Uint8 *stream,int len);
 	bool getPalyStutas();

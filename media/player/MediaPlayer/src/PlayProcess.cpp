@@ -8,6 +8,23 @@ CMutexLock   CPlayProcess::m_PlayrArrayLock;
 int    CPlayProcess::m_nRefCount = 0;
  UINT_PTR	CPlayProcess::m_nPlayAudioTimer = 0;
 
+ bool IsXPHigher()
+ {
+	 static bool bIsXPHigher = false;
+	 static bool bIsInited = false;
+
+	 // 取得当前系统版本
+	 OSVERSIONINFO VersionInfo = {0};
+	 VersionInfo.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
+	 GetVersionEx(&VersionInfo);
+
+	 // 判断并返回
+	 bIsXPHigher = VersionInfo.dwMajorVersion > 5;
+	 bIsInited = TRUE;
+
+	 return bIsXPHigher;
+ }
+
 static void CALLBACK TimerPlayCallBack(UINT uTimerID, UINT uMsg, DWORD dwUser, DWORD dw1, DWORD dw2)
 {
 
@@ -76,6 +93,7 @@ CPlayProcess::CPlayProcess()
 
 	m_pcmHighbuffer.setConfig(true);
 	m_playSound = NULL;
+	m_playAudio = NULL;
 	m_bIsPlayLocal = false;
 	m_playVideoUnit.clear();			
 }
@@ -104,10 +122,52 @@ CPlayProcess::~CPlayProcess()
 	}
 }
 
+bool CPlayProcess::initWasAudioPlay()
+{
+	if(!IsXPHigher())
+	{
+		return false;
+	}
+
+	do 
+	{
+		if(NULL != m_playAudio)
+		{
+			break;
+		}
+
+		IWasVoiceEngine * wasEngine = CreateWasVoiceEngine();
+		if(NULL==wasEngine)
+		{
+			break;
+		}
+
+		int defSpk = wasEngine->getDefaultSpk();
+		if(defSpk < 0)
+		{
+			break;
+		}
+
+		m_playAudio = wasEngine->getSpkAudioImpl(defSpk);
+	} while (false);
+
+	if(NULL == m_playAudio)
+	{
+		return false;
+	}
+
+	if(m_playAudio->isOpen())
+	{
+		return true;
+	}
+
+	m_playAudio->setParam(m_nchannel,16,m_samplerate);
+
+	return m_playAudio->open();
+}
 
 bool  CPlayProcess::PlayFile(const char* szURL,void* hPlayHand,void* hBGbitmap)
 {
-
 	ViedePlayNode* pvu = findPVUnit(szURL);
 	bool bIsExit = true;
 	if(pvu == NULL)
@@ -161,6 +221,16 @@ bool CPlayProcess::SeekFile(const char* szURL,unsigned int nPalyPos)
 	return false;
 }
 
+bool CPlayProcess::SeekFileStream(const char* szURL,unsigned int nPlayPos,bool bVideo)
+{
+	ViedePlayNode* pvu = findPVUnit(szURL);
+	if(pvu && pvu->pVideoPlayUnit)
+	{
+		return pvu->pVideoPlayUnit->SeekFileStream(nPlayPos,bVideo);
+	}
+	return false;
+}
+
 bool CPlayProcess::SwitchPaly(const char* szURL,bool bIsFlag)
 {
 	ViedePlayNode* pvu = findPVUnit(szURL);
@@ -191,9 +261,18 @@ unsigned int CPlayProcess::getFileCurPlayTime(const char* szURL)
 	return 0;
 }
 
+unsigned int CPlayProcess::getFileStreamCurTime(const char* szURL,bool bVideo)
+{
+	ViedePlayNode* pvu = findPVUnit(szURL);
+	if(pvu && pvu->pVideoPlayUnit)
+	{
+		return pvu->pVideoPlayUnit->getFileStreamCurTime(bVideo);
+	}
+	return 0;
+}
+
 void CPlayProcess::stopFile(const char* szURL)
 {
-
 	ViedePlayNode* pvu = findPVUnit(szURL);
 	if(pvu && pvu->pVideoPlayUnit)
 	{
@@ -264,7 +343,6 @@ void  CPlayProcess::ADDPVUnit(ViedePlayNode* pvu)
 
 void CPlayProcess::OnReadMediaDataTimer(void * pUser)
 {
-
 	CPlayVideoUnit* puv = (CPlayVideoUnit* )pUser;
 	if(puv)
 	{
@@ -525,13 +603,25 @@ void CPlayProcess::OnPlayTimer(int nEventID)//调用要回调的成员方法
 				m_bIsHaveAudio = true;
 				m_nPlayAudioSysDiffTime = nCurSysTime - m_begPlayAudioSysTime;
 
-				if(m_playSound == NULL)
+
+				if(IsXPHigher())
 				{
-					m_playSound = new CPlayAudio();
+					if(initWasAudioPlay())
+					{
+						m_playAudio->putRenderData(buf,bufsize);
+					}
 				}
-				if(m_playSound)
+				else
 				{
-					m_playSound->PlaySoundByDS(buf,bufsize,m_nchannel,m_samplerate);
+					if(m_playSound == NULL)
+					{
+						m_playSound = new CPlayAudio();
+					}
+
+					if(m_playSound)
+					{
+						m_playSound->PlaySoundByDS(buf,bufsize,m_nchannel,m_samplerate);
+					}
 				}
 			}
 		}
@@ -544,15 +634,23 @@ void CPlayProcess::OnPlayTimer(int nEventID)//调用要回调的成员方法
 		if(nSysSpan > 500)
 		{
 			m_PlayAudioLock.Lock();
-			if(m_playSound)
+			if(IsXPHigher())
 			{
-				m_playSound->StopSound();
+				if(m_playAudio)
+				{
+					m_playAudio->close();
+				}
+			}
+			else
+			{
+				if(m_playSound)
+				{
+					m_playSound->StopSound();
+				}
 			}
 			m_PlayAudioLock.Unlock();
 		}
 	}
-
-	
 }
 
 void CPlayProcess::StopAudio()
@@ -564,10 +662,25 @@ void CPlayProcess::StopAudio()
 	m_nLastPlayPcmSysTime = 0;
 	m_nPlayAudioTime = 0;
 	m_begPlayAudioSysTime = 0;
-	if(m_playSound)
+
+	if(IsXPHigher())
 	{
-		m_playSound->StopSound();
+		if(m_playAudio)
+		{
+			m_playAudio->close();
+			m_playAudio->release();
+			m_playAudio = NULL;
+		}
 	}
+	else
+	{
+		if(m_playSound)
+		{
+			delete m_playSound;
+			m_playSound = NULL;
+		}
+	}
+
 	m_PlayAudioLock.Unlock();
 
 }
@@ -723,12 +836,7 @@ bool  CPlayProcess::ChangeMedia(const char* szURL,int nPlayStreamType,HWNDHANDLE
 				m_FlvAudioParsePos = 0;
 				m_pcmLowbuffer.ClearBuffer();
 				m_pcmHighbuffer.ClearBuffer();
-				if(m_playSound)
-				{
-					delete m_playSound;
-					m_playSound = NULL;
-				}
-
+								
 				InterlockedExchange(&m_isAudioPlaying,0);				
 			}
 		}
@@ -834,69 +942,96 @@ bool  CPlayProcess::PlayMedia(const char* szURL,int nPlayStreamType,void* hPlayH
 
 bool  CPlayProcess::StopALLMedia()
 {
-	if(m_playVideoUnit.size() > 0)
+	m_playVideoLock.Lock();
+	
+	if(m_playVideoUnit.size() <= 0)
 	{
-		m_playVideoLock.Lock();
-		list<ViedePlayNode*>::iterator iter;
-		for(iter = m_playVideoUnit.begin(); iter != m_playVideoUnit.end();iter++)
-		{
-			ViedePlayNode* pNode = (*iter);
-			if(pNode)
-			{
-				if(pNode->pVideoPlayUnit)
-				{
-					if(m_bIsPlayLocal)
-						pNode->pVideoPlayUnit->stopFile();
-					else
-						pNode->pVideoPlayUnit->StopMeida(NULL);
-					delete pNode->pVideoPlayUnit;
-					pNode->pVideoPlayUnit = NULL;
-				}
-				delete pNode;
-				pNode = NULL;
-			}
-		}
-		m_playVideoUnit.clear();
 		m_playVideoLock.Unlock();
+		return true;
+	}
 
-		if(InterlockedExchange(&m_isAudioPlaying,m_isAudioPlaying))
+	list<ViedePlayNode*>::iterator iter;
+	for(iter = m_playVideoUnit.begin(); iter != m_playVideoUnit.end();iter++)
+	{
+		ViedePlayNode* pNode = (*iter);
+		if(pNode)
 		{
-			m_threadReadAudio.End();
-			if(m_netAudioProcess)
+			if(pNode->pVideoPlayUnit)
 			{
-				moudle_commond_t cmd = STOP;
-				m_netAudioProcess->SetCommond(cmd,NULL);
-			}
-			InterlockedExchange(&m_isAudioPlaying,0);
-		}
+				if(m_bIsPlayLocal)
+				{
+					pNode->pVideoPlayUnit->stopFile();
+				}
+				else
+				{
+					pNode->pVideoPlayUnit->StopMeida(NULL);
+				}
 
-		CPlayProcess::m_PlayrArrayLock.Lock();
-		for(int i = 0; i < MAXPLAYERNUM ; i++)
-		{
-			if(g_PlayrArray[i] == this)
-			{
-				CPlayProcess::m_nRefCount--;
-				g_PlayrArray[i] = NULL;
+				delete pNode->pVideoPlayUnit;
+				pNode->pVideoPlayUnit = NULL;
 			}
-		}
-		if(CPlayProcess::m_nRefCount == 0 && CPlayProcess::m_nPlayAudioTimer)
-		{
-			timeKillEvent(CPlayProcess::m_nPlayAudioTimer);
-			CPlayProcess::m_nPlayAudioTimer = 0;
-		}
 
-		m_audJitterBuf.unInit();
-		m_FlvAudioParsePos = 0;
-		StopAudio();
-		m_pcmLowbuffer.ClearBuffer();
-		m_pcmHighbuffer.ClearBuffer();
+			delete pNode;
+			pNode = NULL;
+		}
+	}
+	m_playVideoUnit.clear();
+	m_playVideoLock.Unlock();
+	
+	if(InterlockedExchange(&m_isAudioPlaying,m_isAudioPlaying))
+	{
+		m_threadReadAudio.End(2);
+		if(m_netAudioProcess)
+		{
+			moudle_commond_t cmd = STOP;
+			m_netAudioProcess->SetCommond(cmd,NULL);
+		}
+		InterlockedExchange(&m_isAudioPlaying,0);
+	}
+		
+	CPlayProcess::m_PlayrArrayLock.Lock();
+	for(int i = 0; i < MAXPLAYERNUM ; i++)
+	{
+		if(g_PlayrArray[i] == this)
+		{
+			CPlayProcess::m_nRefCount--;
+			g_PlayrArray[i] = NULL;
+		}
+	}
+
+	if(CPlayProcess::m_nRefCount == 0 && CPlayProcess::m_nPlayAudioTimer)
+	{
+		timeKillEvent(CPlayProcess::m_nPlayAudioTimer);
+		CPlayProcess::m_nPlayAudioTimer = 0;
+	}
+
+	CPlayProcess::m_PlayrArrayLock.Unlock();
+	
+	m_audJitterBuf.unInit();
+	m_FlvAudioParsePos = 0;
+	StopAudio();
+	
+	m_pcmLowbuffer.ClearBuffer();
+	m_pcmHighbuffer.ClearBuffer();
+	
+	if(IsXPHigher())
+	{
+		if(m_playAudio)
+		{
+			m_playAudio->close();
+			m_playAudio->release();
+			m_playAudio = NULL;
+		}
+	}
+	else
+	{
 		if(m_playSound)
 		{
 			delete m_playSound;
 			m_playSound = NULL;
 		}
-		CPlayProcess::m_PlayrArrayLock.Unlock();
 	}
+
 	return true;
 }
 
@@ -924,7 +1059,7 @@ bool  CPlayProcess::StopMedia(const char* szURL,void* hPlayHand)
 	{
 		if(InterlockedExchange(&m_isAudioPlaying,m_isAudioPlaying))
 		{
-			m_threadReadAudio.End();
+			m_threadReadAudio.End(2);
 			if(m_netAudioProcess)
 			{
 				moudle_commond_t cmd = STOP;
@@ -960,11 +1095,7 @@ bool  CPlayProcess::StopMedia(const char* szURL,void* hPlayHand)
 		m_FlvAudioParsePos = 0;
 		m_pcmLowbuffer.ClearBuffer();
 		m_pcmHighbuffer.ClearBuffer();
-		if(m_playSound)
-		{
-			delete m_playSound;
-			m_playSound = NULL;
-		}
+		
 		CPlayProcess::m_PlayrArrayLock.Unlock();
 	}
 	return true;

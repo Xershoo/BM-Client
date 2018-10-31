@@ -341,7 +341,7 @@ RTMP_Init(RTMP *r)
   r->Link.timeout = 10;
   r->Link.swfAge = 30;
   r->Link.connectblock = 0;
-  r->Link.connecttime = 5;
+  r->Link.connecttime = 800;
 }
 
 void
@@ -944,8 +944,8 @@ RTMP_Connect0(RTMP *r, struct sockaddr * service)
 			   int error=-1;
 			   int len = sizeof(int);
 			   struct timeval tm;
-			   tm.tv_sec = r->Link.connecttime;
-			   tm.tv_usec = 0;
+			   tm.tv_sec = 0;
+			   tm.tv_usec = r->Link.connecttime * 1000;
 
 			   FD_ZERO(&set);
 			   FD_SET(r->m_sb.sb_socket, &set);

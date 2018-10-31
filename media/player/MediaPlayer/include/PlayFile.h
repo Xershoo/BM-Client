@@ -58,8 +58,14 @@ public:
 	void  audio_play(void *udata,unsigned char *stream,int len,int64_t& pts);
 
 	bool seek_in_file(unsigned int nSeekTime);
+	bool seek_in_frame(unsigned int nSeekTime,bool video = true);
+	bool get_video_frame(unsigned int nFramePos,VideoFrame&  vf,int& nSpan);
+	bool get_video_frame(unsigned int nFramePos,VideoFrame&  vf);
+
 	unsigned int get_in_file_duration();
 	unsigned int get_in_file_current_play_time();
+	unsigned int get_in_file_current_stream_time(bool video = true);
+
 	double CPlayFile::get_video_one_frame_duration();
 	bool pause_in_file(bool bIsPause);
 	bool switch_paly(play_audio_callback pCallback,void* dwUser,bool bflag = false);

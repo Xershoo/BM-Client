@@ -4,6 +4,7 @@
 #include "PCMBuffer.h"
 #include "playaudio.h"
 #include "PlayVideoUnit.h"
+#include "voice_was_interface.h"
 
 #include <map>
 
@@ -39,8 +40,12 @@ public:
 	void  stopFile(const char* szURL);
 	bool PauseFile(const char* szURL,bool bIsPause);
 	bool SeekFile(const char* szURL,unsigned int nPalyPos);
+	bool SeekFileStream(const char* szURL,unsigned int nPlayPos,bool bVideo);
+
 	unsigned int GetFileDuration(const char* szURL);
 	unsigned int getFileCurPlayTime(const char* szURL);
+	unsigned int getFileStreamCurTime(const char* szURL,bool bVideo);
+
 	bool SwitchPaly(const char* szURL,bool bIsFlag = false);
 	bool getPalyStutas(const char* szURL);
 	bool bIsHaveVideo(const char* szURL);
@@ -70,6 +75,10 @@ private:
 	ViedePlayNode* findPVUnit(const char* szURL);
 	ViedePlayNode* RemovePVUnit(const char* szURL);
 	void           ADDPVUnit(ViedePlayNode* pvu);
+
+protected:
+	bool initWasAudioPlay();
+
 private:
 	char   m_szPlayAudioURL[512];
 private:
@@ -97,6 +106,7 @@ private:
 	CPCMBuffer               m_pcmHighbuffer;
 private:
 	CPlayAudio*              m_playSound;
+	IWasAudioImpl*			 m_playAudio;
 	CMutexLock               m_sAudioLock;
 private:
 	int						m_samplerate;

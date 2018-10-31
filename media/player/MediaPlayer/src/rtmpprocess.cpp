@@ -295,7 +295,7 @@ int CRTMPProcess::ReadMedia(unsigned char* pBuf,unsigned nBufSize)
 			{
 				DWORD dwCurTime = GetTickCount();
 				DWORD dwDiff = dwCurTime - m_dwLastConnectTime;
-				if(dwDiff > 10000)
+				if(dwDiff > 5000)
 				{
 					rtmp_connect();
 					m_dwLastConnectTime = dwCurTime;

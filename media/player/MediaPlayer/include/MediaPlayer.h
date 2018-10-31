@@ -34,6 +34,11 @@ struct  PlayAddress
 	}
 };
 
+
+//xiewb 2017.3.1
+MPLATER_API bool   AVP_Init();
+MPLATER_API void   AVP_Unit();
+
 MPLATER_API bool   AVP_parsePalyAddrURL(const char* szPlayUrl,PlayAddress pa[4],int& nPaNum);
 
 //播放
@@ -57,7 +62,7 @@ MPLATER_API bool   AVP_PauseFile(const char* szFileName,bool bIsPause);
 
 //seek 文件
 MPLATER_API bool   AVP_SeekFile(const char* szFileName,unsigned int  nPalyPos);
-
+MPLATER_API bool   AVP_SeekFileStream(const char* szFileName,unsigned int  nPlayPos,bool bVideo);
 
 //取得文件的总的播放时间长度
 //参数：szFileName 本地音视频文件
@@ -68,6 +73,7 @@ MPLATER_API unsigned int  AVP_GetFileDuration(const char* szFileName);
 //参数：szLocalFile 本地音视频文件
 //返回值：播放的时间总长度单位秒
 MPLATER_API unsigned int  getFileCurPlayTime(const char* szFileName);
+MPLATER_API unsigned int  getFileStreamCurTime(const char* szFileName,bool bVideo);
 
 
 MPLATER_API bool  playFileSwitch(const char* szCurPlayLocalFileName);

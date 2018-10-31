@@ -44,7 +44,7 @@ public:
 	@return 是否成功
 	@see Begin()
 	*/	
-	bool End(long nWaitSec = 10);
+	bool End(long nWaitSec = 5);
 
 	/** 得到线程是否停止	
 	@return 线程是否停止

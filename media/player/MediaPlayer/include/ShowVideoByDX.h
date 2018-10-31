@@ -6,6 +6,7 @@
 #include "MediaDecode.h"
 
 #include "ddraw.h"
+#include "sc_CSLock.h"
 
 class CShowVideoByDX : public CShowVideo
 {
@@ -53,6 +54,8 @@ private:
 
 	bool		m_bIsInitYUVEnv;
 	int         m_nErrCountNum;
+
+	CMutexLock	m_lockRGBBuf;
 
 private:
 		//用于YUV转RGB数组
