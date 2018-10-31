@@ -1,5 +1,9 @@
 #include "MediaConfig.h"
 
+#define DEF_CAPSCREEN_VIDEO_WIDTH		(1024)
+#define DEF_CAPSCREEN_VIDEO_HEIGHT_L	(768)
+#define DEF_CAPSCREEN_VIDEO_HEIGHT_S	(576)
+
 CMediaConfig::CMediaConfig()
 {
 
@@ -628,8 +632,17 @@ void CMediaConfig::getCapScreenConfig(PublishParam pparam,StreamParam& param)
 		nWndHeight = rectWnd.bottom - rectWnd.top;
 	}
 
-	param.nVideoW = nWndWidth * 3 / 4;
-	param.nVideoH = nWndHeight * 3 / 4;
+	float rwh = (float)nWndHeight / (float)nWndWidth;
+	if(rwh < 0.75){
+		param.nVideoW = DEF_CAPSCREEN_VIDEO_WIDTH;
+		param.nVideoH = DEF_CAPSCREEN_VIDEO_HEIGHT_S;
+	}else{
+		param.nVideoW = DEF_CAPSCREEN_VIDEO_WIDTH;
+		param.nVideoH = DEF_CAPSCREEN_VIDEO_HEIGHT_L;
+	}
+
+	//param.nVideoW = nWndWidth * 3 / 4;
+	//param.nVideoH = nWndHeight * 3 / 4;
 
 	memcpy(&param.VU,&pparam.VU,sizeof(pparam.VU));
 	param.nVUNum = 1;
