@@ -33,26 +33,35 @@ public:
 		m_autoShowBack = autoShowBack;
 	};
 
+	inline void setVideoKeepRadio(bool keepRadio){
+		m_videoKeepRadio = keepRadio;
+	};
+
 	void repaint(bool delBufImage = false);
 public:
 	virtual void showVideoBuffer(int videoWidth,int videoHeight,bool isYUVData,unsigned int buffsize,unsigned char*  videoBuf);
 
 protected:
-	void initializeGL();						// OpenGL initialization
-	void paintGL();								// OpenGL Rendering
-	void resizeGL(int width, int height);       // Widget Resize Event
+	virtual void initializeGL();						// OpenGL initialization
+	virtual void paintGL();								// OpenGL Rendering
+	virtual void resizeGL(int width, int height);       // Widget Resize Event
 	
 protected:
 	virtual void timerEvent(QTimerEvent *timerEvent);
 
 protected:
-	virtual void 	getRenderImage();					
+	virtual void 	getRenderImage();
+	virtual void	drawRenderImage();
 	virtual void	updateScene();
 
 	virtual void	loadBackImage(int videoType);
 	virtual QRect	calcImagePaintRect(QRect& rectImage,int imageW, int imageH);
 
 	virtual bool	isSameVideoBuffer(int videoWidth,int videoHeight,bool isYUVData,unsigned int buffsize,unsigned char*  videoBuf);
+
+	virtual void	drawVideoOnImage();
+	virtual void	drawNoVideoImage();
+	virtual void	drawLocationRect();
 protected:
 	QMutex	m_mutexRenderImage;
 	QImage* m_renderImage;
@@ -72,6 +81,7 @@ protected:
 	bool	m_isYUVData;
 	UINT	m_buffsize;
 	bool	m_autoShowBack;
+	bool	m_videoKeepRadio;
 };
 
 #endif

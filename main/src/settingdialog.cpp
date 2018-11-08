@@ -67,6 +67,8 @@ SettingDialog::SettingDialog(QWidget *parent)
     ui.tableWidget_hotkeySetting->setFocusPolicy(Qt::NoFocus);
     QHeaderView* headerView = ui.tableWidget_hotkeySetting->horizontalHeader(); // 这个例子是列方向上的表头
     headerView->setDefaultAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+
+	CMediaPublishMgr::getInstance()->setPlayVideo(true);
 }
 
 SettingDialog::~SettingDialog()
@@ -639,6 +641,11 @@ void SettingDialog::closeEvent(QCloseEvent *event)
 
     CMediaPublishMgr::getInstance()->setSelMic(nSelMic);
     CMediaPublishMgr::getInstance()->setSelCamera(nSelCamera);
+
+	if(!ClassRoomDialog::isValid())
+	{
+		CMediaPublishMgr::getInstance()->setPlayVideo(false);
+	}
 
     enableMicSound(false);
 }

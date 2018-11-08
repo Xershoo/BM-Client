@@ -206,8 +206,12 @@ namespace biz
 					}
 
 					if(timerId == _timerPing){
+						::KillTimer(NULL,_timerPing);
+						_timerPing = 0;
+
 						bool ret =  _ping.ping(_classSession.getServAddr());
 						if(ret){
+							_timerPing = ::SetTimer(NULL,0,2000,NULL);
 							break;
 						}
 						
@@ -215,9 +219,6 @@ namespace biz
 						if(_callback){
 							_callback->OnConnectServerError(eServerState_ConFailed, "connect server failed");
 						}
-
-						::KillTimer(NULL,_timerPing);
-						_timerPing = 0;
 					}
 				}
 				break;

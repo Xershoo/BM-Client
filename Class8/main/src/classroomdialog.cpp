@@ -113,6 +113,7 @@ ClassRoomDialog::ClassRoomDialog(QWidget *parent)
 	CMediaPublishMgr* pMediaMgr = CMediaPublishMgr::getInstance();
 	if(pMediaMgr)
 	{
+		pMediaMgr->setPlayVideo(true);
 		connect(pMediaMgr,SIGNAL(initFinished()),this,SLOT(onMediaInitFinish()));
 	}
 
@@ -335,6 +336,11 @@ void ClassRoomDialog::closeWnd()
 	unitNetMsgNotify();
 
 	::savePushDataToLocalFlvFileEnd();
+	CMediaPublishMgr::getInstance()->setPlayVideo(false);
+	CMediaPublishMgr::getInstance()->stopSeatVideo(-1);
+	CMediaPublishMgr::getInstance()->setMediaUrl(L"",L"");
+	CMediaPublishMgr::getInstance()->stopRecordScreen();
+
     CHttpSessionMgr::freeInstance();
     CSkyCursewaveData::freeInstance();
     CoursewareDataMgr::freeInstance();
@@ -371,10 +377,6 @@ void ClassRoomDialog::closeWnd()
 		delete dlg;
 		dlg = NULL;
 	}
-
-    CMediaPublishMgr::getInstance()->stopSeatVideo(-1);
-    CMediaPublishMgr::getInstance()->setMediaUrl(L"",L"");
-	CMediaPublishMgr::getInstance()->stopRecordScreen();
 }
 
 void ClassRoomDialog::doClose()
@@ -762,7 +764,8 @@ void ClassRoomDialog::onUserSpeakAction(UserSpeakActionInfo info)
 				page->clearAllSpeakState();
 			}
 
-            showWhiteboardTools(false);
+			//xiewb 2018.1.1
+            //showWhiteboardTools(false);
         }
 
         if(classSession->getAuthority() == biz::UserAu_Student || classSession->getAuthority() == biz::UserAu_Assistant)
@@ -1053,6 +1056,17 @@ void ClassRoomDialog::showMainState(QString fileName, int nPos)
 
 	//xiewb 2018.10.30
 	ui.widget_whiteboardToolbar->hide();
+	if(ui.widget_coursewarePageBar->isVisible()){
+		ui.pushButton_preFilePage->setEnabled(false);
+		ui.pushButton_nextFilePage->setEnabled(false);
+	}
+
+	if(ui.widget_coursewareMediaBar->isVisible()){
+		ui.pushButton_playMedia->setEnabled(false);
+		ui.pushButton_pauseMedia->setEnabled(false);
+		ui.slider_mediaProgress->setEnabled(false);
+	}
+	
 	setCoursewareNameShow(tr("addCoursewareTip"));
 	
 	this->setPageShowText(0,0);
@@ -2061,7 +2075,8 @@ void ClassRoomDialog::setStudentSpeak(biz::SLUserInfo& userInfo,bool setSpeak)
         }
 
         //开起或关闭白板工具栏功能
-        showWhiteboardTools(setSpeak);       
+		//xiewb 2018.1.1
+        //showWhiteboardTools(setSpeak);       
     }
     
 	if(!setSpeak && m_rtmpSpeakPlayer)

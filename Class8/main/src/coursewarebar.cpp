@@ -168,10 +168,17 @@ void ClassRoomDialog::setCoursewareToolUI()
 	ui.pushButton_closeCourseware->move(ptBtn);
 }
 
-void ClassRoomDialog::setCoursewareTool(int type,int cur,int all,int state)
+void ClassRoomDialog::setCoursewareTool(int type,int cur,int all,int state,QWidget* showWidget/* =NULL */)
 {
 	if(!ClassSeeion::GetInst()->IsTeacher()){
 		return;
+	}
+
+	if(NULL!=showWidget){
+		QWidget * curWidget = ui.stackedWidget_main->currentWidget();
+		if(showWidget != curWidget){
+			return;
+		}
 	}
 
 	switch(type)
@@ -223,6 +230,10 @@ void ClassRoomDialog::setCoursewareTool(int type,int cur,int all,int state)
 				ui.pushButton_playMedia->show();
 				ui.pushButton_pauseMedia->hide();
 			}
+
+			ui.slider_mediaProgress->setEnabled(true);
+			ui.pushButton_playMedia->setEnabled(true);
+			ui.pushButton_pauseMedia->setEnabled(true);
 		}
 		break;
 	case COURSEWARE_VIDEO:
@@ -243,6 +254,9 @@ void ClassRoomDialog::setCoursewareTool(int type,int cur,int all,int state)
 				ui.pushButton_playMedia->show();
 				ui.pushButton_pauseMedia->hide();
 			}
+			ui.slider_mediaProgress->setEnabled(true);
+			ui.pushButton_playMedia->setEnabled(true);
+			ui.pushButton_pauseMedia->setEnabled(true);
 		}
 		break;
 	case COURSEWARE_TEXT:

@@ -26,6 +26,10 @@ enum pdf_ctrl
 typedef struct pdf_show_image
 {
 public:
+	static void pdfImageClean(void* imageBuf)
+	{
+	}
+
 	pdf_show_image()
 	{
 		_xPos = 0;
@@ -53,7 +57,7 @@ public:
 
 			memcpy(_data,data,_size);
 
-			_image = new QImage(_data,_width,_height,_width * 4,QImage::Format_ARGB32);
+			_image = new QImage(_data,_width,_height,_width * 4,QImage::Format_ARGB32,pdf_show_image::pdfImageClean,NULL);
 		}
 		else
 		{
@@ -89,7 +93,7 @@ public:
 
 			memcpy(_data,a._data,_size);
 
-			_image = new QImage(_data,_width,_height,_width * 4,QImage::Format_ARGB32);
+			_image = new QImage(_data,_width,_height,_width * 4,QImage::Format_ARGB32,pdf_show_image::pdfImageClean,NULL);
 		}
 		else
 		{

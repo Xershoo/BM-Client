@@ -115,6 +115,7 @@ void CRTMPStreamShow::setRtmpStream(CRTMPStream* rtmpStream)
 CRtmpStreamCallback::CRtmpStreamCallback()
 {
 	m_rtmpStream = NULL;
+	m_showVideo = true;
 };
 
 CRtmpStreamCallback::~CRtmpStreamCallback()
@@ -128,7 +129,7 @@ CRtmpStreamCallback::~CRtmpStreamCallback()
 
 void CRtmpStreamCallback::ShowVideo(void* ShowHandle,unsigned char* pData,unsigned int nSize,int nVideoW,int nVideoH)
 {
-	if(NULL == m_rtmpStream)
+	if(NULL == m_rtmpStream || !m_showVideo)
 	{
 		return;
 	}

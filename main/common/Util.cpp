@@ -371,6 +371,37 @@ namespace Util
         {
             return false;
         }
+		
+		char fileName[MAX_PATH]={0};
+		QStringToAnsi(strFile,fileName,MAX_PATH);
+
+		if(NULL==fileName||NULL==fileName[0]){
+			return false;
+		}
+
+		FILE* file_p = fopen(fileName,"rb");
+		if(NULL==file_p){
+			return false;
+		}
+
+		CMD5 md5;
+		md5.Init();
+		unsigned char md5_output[32]={0};
+		unsigned char file_buf[1024]={0};
+		unsigned int  buf_size = 0;
+
+		while((buf_size=fread(file_buf,sizeof(char),sizeof(file_buf),file_p))){
+			md5.Update((unsigned char *)file_buf,buf_size);
+		}
+
+		fclose(file_p);
+		file_p = NULL;
+
+		memcpy(md5_output,md5.Finalize(),16); 
+		strMd5 = Digest2String(md5_output, 16);
+
+		return true;
+		/*
         QFile file(strFile);
         
         if (file.exists() && file.open(QIODevice::ReadOnly))
@@ -386,9 +417,11 @@ namespace Util
             DWORD dwCaluSize = 0;
             CMD5 md5;
             DWORD dwRead = 0;
+			QDataStream fileStream(&file);
+
             while (dwCaluSize < nFileSize)
             {
-                dwRead = (DWORD)file.read((char*)buf, nBufferLen);
+                dwRead = (DWORD)fileStream.readRawData((char*)buf, nBufferLen);
                 if (-1 == dwRead)
                 {
                     file.close();
@@ -406,6 +439,8 @@ namespace Util
             return true;
         }
         return false;
+		*/
+		
     }
 
     QString CaleBufferMd5(QString& strBuffer)
@@ -548,6 +583,36 @@ namespace Util
 
 		OutputDebugStringA(szText);
 		OutputDebugStringA("\n");
+	}
+
+	bool GetDebugPrivilege()
+	{
+		HANDLE hToken = NULL;
+		LUID sedebugnameValue;
+		TOKEN_PRIVILEGES tkp;
+
+		if (!::OpenProcessToken(::GetCurrentProcess(),TOKEN_ADJUST_PRIVILEGES | TOKEN_QUERY, &hToken))
+		{
+			return false;
+		}
+
+		if (!::LookupPrivilegeValue( NULL, SE_DEBUG_NAME, &sedebugnameValue ))
+		{
+			CloseHandle( hToken );
+			return false;
+		}
+
+		tkp.PrivilegeCount = 1;
+		tkp.Privileges[0].Luid = sedebugnameValue;
+		tkp.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
+
+		if (!::AdjustTokenPrivileges( hToken, FALSE, &tkp, sizeof tkp, NULL, NULL))
+		{
+			CloseHandle( hToken );
+			return false;
+		}
+
+		return true;
 	}
 };
 

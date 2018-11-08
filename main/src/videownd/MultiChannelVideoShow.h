@@ -40,7 +40,7 @@ public:
 
 protected:
 	virtual QRect getVideoShowRect() = 0; 
-// 	virtual void  getRenderImage();
+// 	virtual void  drawRenderImage();
 
 	virtual void  showVideoData(int nIndex,const RtmpVideoBuf& videoData);
 

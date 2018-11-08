@@ -412,12 +412,17 @@ void QCoursewarePannel::SetCoursewareShow(char nType, QString fileName, int nPag
 			case CMediaFilePlayer::SEEK:
 			default:
 				{
-					int nowSeek = pShow->_show._media->getCurPlayTime();
-					int seekPos = (nPage >> 4);					
-					if (abs(nowSeek-seekPos) > 200)
+					int curPos = pShow->_show._media->getCurPlayTime();
+					int seekPos = (nPage >> 4);		
+
+					Util::PrintTrace("media file seek,file : %s, total : %d ,cur pos: %d ,seek pos: %d",pShow->_show._media->getFile().c_str(),
+						pShow->_show._media->getTotalPlayTime(),pShow->_show._media->getCurPlayTime(),seekPos);
+
+					if (abs(curPos-seekPos) > 200)
 					{
 						pShow->_show._media->seek(seekPos,true);
-					}				
+
+					}
 				}
 				break;			
             }
@@ -554,6 +559,9 @@ void QCoursewarePannel::PauseCoursewareShow(QString fileName, bool pause)
     bool bResult = false;
 	QWidget * widgetShow = NULL;
 	UINT curPos = 0;
+	UINT allPos = 0;
+	UINT state = 0;
+
     switch(pShow->_type)
     {
     case COURSEWARE_PDF:
@@ -576,6 +584,9 @@ void QCoursewarePannel::PauseCoursewareShow(QString fileName, bool pause)
 			}
 			
 			curPos = pShow->_show._media->getCurPlayTime(true);
+			allPos = pShow->_show._media->getTotalPlayTime();
+			state = pShow->_show._media->getState();
+
 			widgetShow = pShow->_show._media;
             bResult = true;
         }
@@ -600,6 +611,7 @@ void QCoursewarePannel::PauseCoursewareShow(QString fileName, bool pause)
         }
         break;
     }
+
     if (bResult)
     {
         if (ClassSeeion::GetInst()->IsTeacher())
@@ -618,15 +630,14 @@ void QCoursewarePannel::PauseCoursewareShow(QString fileName, bool pause)
 
             biz::GetBizInterface()->ChangeMyShowType(sShowInfo);
         }
-
-
     }
+
     AutoLock.unlock();
 
 	if(ClassRoomDialog::isValid() && bResult && widgetShow)
 	{
 		//xiewb 2018.10.25 add later
-		//ClassRoomDialog::getInstance()->setCoursewarePlayPos(widgetShow,curPos);
+		ClassRoomDialog::getInstance()->setCoursewareTool(pShow->_type,curPos,allPos,state,widgetShow);
 	}
 }
 
@@ -1715,6 +1726,9 @@ void QCoursewarePannel::GotoPage(QString fileName, int nType, int nPage)
                     break;
                 }
                 pShow->_show._media->seek(nPage);
+				
+				Util::PrintTrace("media file seek,file : %s, total : %d ,cur pos: %d ,seek pos: %d",pShow->_show._media->getFile().c_str(),
+					pShow->_show._media->getTotalPlayTime(),pShow->_show._media->getCurPlayTime(),nPage);
             }
             break;
         }
@@ -1920,8 +1934,11 @@ bool QCoursewarePannel::MediaCtrl(QString fileName, int nCtrl, int nSeek)
             {
 				bResult = pshow->_show._media->seek(nSeek);	
 				
-				//xiewb 2017.08.19
-				nSeek += 200;
+				//xiewb 2018.11.19
+				int total = pshow->_show._media->getTotalPlayTime();
+				int maxOff = (total - nSeek) > 200 ? 200 : 0;
+				nSeek += maxOff;
+				
 				nState |= (nSeek << 4);
             }
             break;
@@ -2005,10 +2022,14 @@ void QCoursewarePannel::doMediaPlayProgress(unsigned int nPos,string& fileName)
 	}
 	
 	//xiewb 2017.08.19
-	nPos += 200;
+	int total = pshow->_show._media->getTotalPlayTime();
+	int maxOff = (total - nPos) > 200 ? 200 : 0;
+	nPos += maxOff;
 
 	sShowInfo._nShowPage |= (nPos << 4);
     biz::GetBizInterface()->ChangeMyShowType(sShowInfo);
+
+	Util::PrintTrace("chang show play pos,file :%s,length : %d,pos : %d",fileName.c_str(),total,nPos);
 }
 
 QImageShow* QCoursewarePannel::OpenImageFile(QString fileName)

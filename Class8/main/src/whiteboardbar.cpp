@@ -65,10 +65,13 @@ void ClassRoomDialog::wbUndoClicked()
 
 void ClassRoomDialog::setWhiteboardEnable(int enable)
 {
+	/*xiewb 2018.11.1 
 	WhiteBoardDataMgr::getInstance()->SetAllEnable((WBCtrl)enable);
-	if(enable == WB_CTRL_NONE){
+	CoursewareDataMgr::GetInstance()->SetEnable((WBCtrl)enable);
+	if(enable != WB_CTRL_EVERY){
 		ui.widget_whiteboardToolbar->hide();
 	}else{
 		ui.widget_whiteboardToolbar->show();
 	}
+	*/
 }

@@ -377,7 +377,7 @@ void CoursewareDataMgr::onCursewaveListEvent(biz::SLCursewaveListOpt info)
 					if(pData)
 					{
 						QString qstrFileName=QString::fromWCharArray(pData->m_szName);
-						if(m_NowFileName.compare(qstrFileName)!=0)
+						if(m_NowFileName.compare(qstrFileName,Qt::CaseInsensitive)!=0)
 						{
 							openCoursewareORWb(qstrFileName);
 						}
@@ -755,7 +755,7 @@ void CoursewareDataMgr::doCoursewareCtrl(QString filename, int nPage, QString md
 		return;
 	}
 
-	if (nPage >= 0 && m_NowFileName == filename)
+	if (nPage >= 0 && m_NowFileName.compare(filename,Qt::CaseInsensitive)==0)
 	{
 		m_CoursewarePanel->SetCoursewareShow(biz::eShowType_Cursewave, md5name, nPage);		
 		PCOURSEWAREDATA pData = CoursewareTaskMgr::getInstance()->GetCoursewareByNameEx(wstring((wchar_t*)(filename).unicode()).data());
@@ -837,7 +837,7 @@ void CoursewareDataMgr::onCoursewareSetPos(QString fileName, int nPercent)
 		return;
 	}
 
-	if (fileName == m_NowFileName) 
+	if (m_NowFileName.compare(fileName,Qt::CaseInsensitive)==0) 
 	{
 		//2018.10.25 xiewb add for later
 		ClassRoomDialog::getInstance()->showMainState(fileName, nPercent);
@@ -886,7 +886,7 @@ void CoursewareDataMgr::onCoursewareStateChange(QString fileName, int nState, in
 				pData->m_nCoursewareType == COURSEWARE_FLASH)
 			{
 				CoursewareTaskMgr::getInstance()->SetFileOpen(pData->m_nCoursewareID, true);
-				if (fileName == m_NowFileName)
+				if (m_NowFileName.compare(fileName,Qt::CaseInsensitive)==0)
 				{			
 					//xiewb 2017.05.18
 					openCoursewareORWb(fileName,false);
@@ -935,7 +935,7 @@ void CoursewareDataMgr::onCoursewareStateChange(QString fileName, int nState, in
 			}
     
 			CoursewareTaskMgr::getInstance()->SetFileOpen(pData->m_nCoursewareID, true);
-			if (fileName == m_NowFileName)
+			if (m_NowFileName.compare(fileName,Qt::CaseInsensitive)==0)
 			{		
 				//xiewb 2017.05.18
 				openCoursewareORWb(fileName,false);
@@ -1112,6 +1112,7 @@ void CoursewareDataMgr::onMediaPlayPosChange(unsigned int nPos,string&fileName)
 
 	QString qstrFile;
 	Util::AnsiToQString(fileName.c_str(),fileName.length(),qstrFile);
+
 	LPCOURSEWARESHOW pSelShow = m_CoursewarePanel->GetCoursewareShowByFileName(qstrFile);
 	if(pSelShow != pShow)
 	{
@@ -1122,7 +1123,7 @@ void CoursewareDataMgr::onMediaPlayPosChange(unsigned int nPos,string&fileName)
 		return;
 	}
 
-	if(NULL==pShow->_show._media){
+	if(NULL==pShow->_show._media ){
 		return;
 	}
 
@@ -1132,7 +1133,7 @@ void CoursewareDataMgr::onMediaPlayPosChange(unsigned int nPos,string&fileName)
 		int all = pShow->_show._media->getTotalPlayTime();
 		int state = pShow->_show._media->getState();
 
-		ClassRoomDialog::getInstance()->setCoursewareTool(pShow->_type,nPos,all,state);
+		ClassRoomDialog::getInstance()->setCoursewareTool(pShow->_type,nPos,all,state,(QWidget*)pShow->_show._media);
 	}
 }
 
@@ -1240,7 +1241,7 @@ void CoursewareDataMgr::setCoursewareShowBar(LPWBAndCourseView pView,int nType)
 				}
 			} while (false);
 
-			ClassRoomDialog::getInstance()->setCoursewareTool(nType,curPos,length,state);
+			ClassRoomDialog::getInstance()->setCoursewareTool(nType,curPos,length,state,pView->m_widget);
 		}
 		break;
 	case COURSEWARE_PDF:
@@ -1271,13 +1272,13 @@ void CoursewareDataMgr::setCoursewareShowBar(LPWBAndCourseView pView,int nType)
 				allPage = pShow->_show._pdf->getPageCount();				
 			} while (false);
 
-			ClassRoomDialog::getInstance()->setCoursewareTool(nType,curPage,allPage,0);
+			ClassRoomDialog::getInstance()->setCoursewareTool(nType,curPage,allPage,0,pView->m_widget);
 		}
 		break;
 	default:
 		if(ClassRoomDialog::isValid())
 		{
-			ClassRoomDialog::getInstance()->setCoursewareTool(nType,0,0,0);
+			ClassRoomDialog::getInstance()->setCoursewareTool(nType,0,0,0,pView->m_widget);
 		}	
 		break;
 	}

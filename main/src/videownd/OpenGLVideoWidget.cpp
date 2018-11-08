@@ -16,7 +16,8 @@ OpenGLVideoWidget::OpenGLVideoWidget(QWidget* parent,int videoType) :QOpenGLWidg
 	,m_isYUVData(0)
 	,m_buffsize(0)
 	,m_videoBuf(NULL)
-	,m_autoShowBack(true)	
+	,m_autoShowBack(true)
+	,m_videoKeepRadio(false)
 {
 	loadBackImage(videoType);
 	setUpdateBehavior(QOpenGLWidget::PartialUpdate);
@@ -115,11 +116,10 @@ void OpenGLVideoWidget::paintGL()
 	glPixelZoom(1, -1);
 
 	QMutexLocker autoLocker(&m_mutexRenderImage);
+	
 	getRenderImage();
-	if(NULL != m_renderImage && !m_renderImage->isNull())
-	{
-		glDrawPixels(m_renderImage->width(), m_renderImage->height(), GL_RGBA, GL_UNSIGNED_BYTE, m_renderImage->bits());
-	}
+	drawRenderImage();
+
 	autoLocker.unlock();
 
 	glPopMatrix();
@@ -128,76 +128,119 @@ void OpenGLVideoWidget::paintGL()
 	glFlush();	
 }
 
+void OpenGLVideoWidget::drawRenderImage()
+{
+	if(NULL==m_renderImage){
+		return;
+	}
+
+	if(m_renderImage->isNull()){
+		return;
+	}
+	
+	QRect rectShow = this->rect();
+	int imageWidth = m_renderImage->width();
+	int imageHeight = m_renderImage->height();
+	QRect rectImage = calcImagePaintRect(rectShow,imageWidth,imageHeight);
+
+	glRasterPos2i(rectImage.left(),-rectImage.top());
+
+	glDrawPixels(imageWidth, imageHeight, GL_RGBA, GL_UNSIGNED_BYTE, m_renderImage->bits());
+
+	return;
+}
+
 void OpenGLVideoWidget::getRenderImage()
 {	
 	if(!this->isVisible())
 	{
 		return ;
 	}
-		
-	QRect rectShow = this->rect();	
+	drawVideoOnImage();
+	drawNoVideoImage();
+	drawLocationRect();
+}
+
+
+void OpenGLVideoWidget::drawVideoOnImage()
+{
+	QRect rectShow = this->rect();
+	QMutexLocker autoLocker(&m_mutexBufImage);
+	if(NULL == m_bufImage) {
+		return;
+	}
+
+	//xiewb 2018.10.17 width and height are added 1 to solve the problem of black side.
+	int imgWidth = rectShow.width() + 1;
+	int imgHeight = rectShow.height() + 1;
 	
-	if(NULL != m_bufImage)
-	{
-		SAFE_DELETE(m_renderImage);
-
-		QMutexLocker autoLocker(&m_mutexBufImage);
-		//xiewb 2018.10.17 width and height are added 1 to solve the problem of black side.
-		int imgWidth = rectShow.width() + 1;
-		int imgHeight = rectShow.height() + 1;
-		QImage imageScaled = m_bufImage->scaled(QSize(imgWidth,imgHeight),Qt::IgnoreAspectRatio,Qt::SmoothTransformation);
-		if(imageScaled.isNull())
-		{
-			return;
-		}
-
-		m_renderImage = new QImage(imageScaled);
-		
-		SAFE_DELETE_BUF_IMAGE(m_bufImage,m_videoBuf);
-		autoLocker.unlock();
-
-		if(m_refreshTimerId !=0)
-		{
-			killTimer(m_refreshTimerId);
-			m_refreshTimerId = 0;
-		}
-
-		m_refreshTimerId = this->startTimer(3000,Qt::PreciseTimer);
-	}
-	else if(!m_backImage.isNull())
-	{	
-		if(NULL == m_renderImage)
-		{
-			m_renderImage = new QImage(rectShow.width(),rectShow.height(),QImage::Format_RGBA8888);
-		
-			QPainter painter(m_renderImage);
-			QRect imageRect = calcImagePaintRect(rectShow,m_backImage.width(),m_backImage.height());
-			QBrush backBrush(QColor(247,247,247,255));
-		
-			painter.fillRect(rectShow,backBrush);
-			painter.drawImage(imageRect,m_backImage);
-		}
-	}
-	else
-	{
-		return ;
-	}
+	Qt::AspectRatioMode ratioMode = m_videoKeepRadio ? Qt::KeepAspectRatio:Qt::IgnoreAspectRatio;
+	QImage imageScaled = m_bufImage->scaled(QSize(imgWidth,imgHeight),ratioMode,Qt::SmoothTransformation);
 	
-	if(m_drawRect)
-	{
-		QPainter painter(m_renderImage);
-		QBrush rectBrush(QColor(211,255,255,255));
-		QPen rectPen(rectBrush,2.0);
-		QRect rectPrev ;
-
-		rectPrev.setLeft(rectShow.left() + rectShow.width() / 4);
-		rectPrev.setTop(rectShow.top() + rectShow.height() / 4);
-		rectPrev.setWidth(rectShow.width()/2);
-		rectPrev.setHeight(rectShow.height()/2);
-
-		painter.setPen(rectPen);
-		painter.drawRect(rectPrev);
+	if(imageScaled.isNull()) {
+		return;
 	}
+
+	SAFE_DELETE(m_renderImage);
+	m_renderImage = new QImage(imageScaled);
+
+	SAFE_DELETE_BUF_IMAGE(m_bufImage,m_videoBuf);
+	autoLocker.unlock();
+
+	if(m_refreshTimerId !=0)
+	{
+		killTimer(m_refreshTimerId);
+		m_refreshTimerId = 0;
+	}
+
+	m_refreshTimerId = this->startTimer(3000,Qt::PreciseTimer);
+}
+
+void OpenGLVideoWidget::drawNoVideoImage()
+{
+	if(m_backImage.isNull()){
+		return;
+	}
+
+	if(NULL != m_renderImage){
+		return;
+	}
+
+	QRect rectShow = this->rect();
+
+	m_renderImage = new QImage(rectShow.width(),rectShow.height(),QImage::Format_RGBA8888);
+	QPainter painter(m_renderImage);
+	QRect imageRect = calcImagePaintRect(rectShow,m_backImage.width(),m_backImage.height());
+	QBrush backBrush(QColor(247,247,247,255));
+
+	painter.fillRect(rectShow,backBrush);
+	painter.drawImage(imageRect,m_backImage);
+
+}
+
+void OpenGLVideoWidget::drawLocationRect()
+{
+	if(!m_drawRect){
+		return;
+	}
+
+	if(NULL==m_renderImage){
+		return;
+	}
+
+	QRect rectShow = this->rect();
+	QPainter painter(m_renderImage);
+	QBrush rectBrush(QColor(211,255,255,255));
+	QPen rectPen(rectBrush,2.0);
+	QRect rectPrev ;
+
+	rectPrev.setLeft(rectShow.left() + rectShow.width() / 4);
+	rectPrev.setTop(rectShow.top() + rectShow.height() / 4);
+	rectPrev.setWidth(rectShow.width()/2);
+	rectPrev.setHeight(rectShow.height()/2);
+
+	painter.setPen(rectPen);
+	painter.drawRect(rectPrev);
 
 	return;
 }
@@ -299,8 +342,10 @@ void OpenGLVideoWidget::timerEvent(QTimerEvent *timerEvent)
 	int timerId = timerEvent->timerId();
 	if(timerId == m_refreshTimerId)
 	{		
-		QMutexLocker autoLocker(&m_mutexRenderImage);
-		SAFE_DELETE(m_renderImage);
+		if(m_autoShowBack){
+			QMutexLocker autoLocker(&m_mutexRenderImage);
+			SAFE_DELETE(m_renderImage);
+		}
 
 		this->killTimer(m_refreshTimerId);
 		m_refreshTimerId = 0;
@@ -345,8 +390,10 @@ bool OpenGLVideoWidget::isSameVideoBuffer(int videoWidth,int videoHeight,bool is
 
 void OpenGLVideoWidget::repaint(bool delBufImage /* = false */)
 {
-	QMutexLocker autoLocker(&m_mutexRenderImage);
-	SAFE_DELETE(m_renderImage);
+	if(m_autoShowBack){
+		QMutexLocker renderLocker(&m_mutexRenderImage);
+		SAFE_DELETE(m_renderImage);
+	}
 
 	if(delBufImage && m_bufImage)
 	{

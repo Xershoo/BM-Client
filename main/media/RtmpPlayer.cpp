@@ -426,6 +426,7 @@ void CRTMPPlayer::stop(void)
     if(m_rtmpCallback)
     {
         m_rtmpCallback->setRtmpStream(NULL);
+		CMediaPublishMgr::getInstance()->delCallback(m_rtmpCallback);
     }
 
     m_rtmpCallback = NULL;

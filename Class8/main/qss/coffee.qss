@@ -2377,7 +2377,7 @@ QTabWidget#tabWidget_classroom>QTabBar::tab:first:selected:hover {
 
 /* xiewb 2018.10.18 右侧视频下面的工具栏*/
 QWidget#widget_classroomVTool{
-	background-color:rgba(255,255,255,32);
+	background-color:rgba(168,168,168,64);
 }
 
 QPushButton#pushButton_cameraEnable{

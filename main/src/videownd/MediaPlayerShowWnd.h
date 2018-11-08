@@ -46,6 +46,11 @@ protected:
 
 	void resizeEvent(QResizeEvent *event);
 	bool eventFilter(QObject * obj, QEvent * event);
+
+	virtual void initializeGL();
+	virtual void resizeGL(int width,int height);
+
+	virtual void drawNoVideoImage();
 protected:    
     virtual void ShowVideo(void* ShowHandle,unsigned char* pData,unsigned int nSize,int nVideoW,int nVideoH);
 

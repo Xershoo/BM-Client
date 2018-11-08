@@ -255,11 +255,17 @@ public:
     {
         return m_rtmpStream;
     };
+
+	inline void setShowVideo(bool showVideo)
+	{
+		m_showVideo = showVideo;
+	};
 public:
     virtual void ControlPaint() {};
     virtual void ShowVideo(void* ShowHandle,unsigned char* pData,unsigned int nSize,int nVideoW,int nVideoH);
     
 protected:
     CRTMPStream * m_rtmpStream;
+	bool		  m_showVideo;
 };
 #endif

@@ -17,11 +17,21 @@
 //////////////////////////////////////////////////////////////////////////
 void localVideoshowCallBack(EventInfoType enmuType,void* dwUser,unsigned char* pBuf,unsigned int nBufSize,void* Param)
 {
+	if(!CMediaPublishMgr::isValidate())
+	{
+		return;
+	}
+
     CMediaPublishMgr* mediaPublishMgr = static_cast<CMediaPublishMgr*>(dwUser);
     if(NULL == mediaPublishMgr)
     {
         return;
     }
+
+	if(!mediaPublishMgr->getPlayVideo())
+	{
+		return;
+	}
 
     ShowVideoParam* showVideoParam = static_cast<ShowVideoParam*>(Param);
     if(NULL == showVideoParam)
@@ -56,6 +66,7 @@ CMediaPublishMgr::CMediaPublishMgr():m_mediaThread(this)
     m_userId = 0;
     m_initMedia = false;
 	m_freeAll = false;
+	m_playVideo = false;
 
     qRegisterMetaType<RtmpVideoBuf>("RtmpVideoBuf");
 
@@ -98,6 +109,11 @@ void CMediaPublishMgr::freeInstance()
 	}
 
 	SAFE_DELETE(m_pMediaPublishMgr);
+}
+
+bool CMediaPublishMgr::isValidate()
+{
+	return m_pMediaPublishMgr == NULL ? false:true;
 }
 
 void CMediaPublishMgr::setUserId(__int64 userId)
@@ -762,18 +778,21 @@ void CMediaPublishMgr::freeDeviceList()
 
 void CMediaPublishMgr::freeCallbackList()
 {
-    if(m_listCallback.empty())
-    {
-        return;
-    }
+/* 
+	for(unsigned int i= 0; i<m_listCallback.size();i++)
+	{
+		CRtmpStreamCallback* pCallback = m_listCallback.at(i);
+		SAFE_DELETE(pCallback);
+	}
 
-    for(unsigned int i= 0; i<m_listCallback.size();i++)
-    {
-        CRtmpStreamCallback* pCallback = m_listCallback.at(i);
-        SAFE_DELETE(pCallback);
-    }
-
+	for(unsigned int i= 0; i<m_listCallbackDel.size();i++)
+	{
+		CRtmpStreamCallback* pCallback = m_listCallbackDel.at(i);
+		SAFE_DELETE(pCallback);
+	}
+*/
     m_listCallback.clear();
+	m_listCallbackDel.clear();
 }
 //////////////////////////////////////////////////////////////////////////
 
@@ -854,6 +873,7 @@ CRtmpStreamCallback* CMediaPublishMgr::getCallback(CRTMPStream* rtmpStream)
 {
     CRtmpStreamCallback* rtmpCallback = NULL;
 
+	/*  xiewb 2018.11.01 synchor biling code
     if(!m_listCallback.empty())
     {
         for(unsigned int i= 0; i<m_listCallback.size();i++)
@@ -871,7 +891,7 @@ CRtmpStreamCallback* CMediaPublishMgr::getCallback(CRTMPStream* rtmpStream)
             }
         }
     }
-        
+    */    
     rtmpCallback = new CRtmpStreamCallback();
     if(NULL == rtmpCallback)
     {
@@ -879,9 +899,38 @@ CRtmpStreamCallback* CMediaPublishMgr::getCallback(CRTMPStream* rtmpStream)
     }
 
     rtmpCallback->setRtmpStream(rtmpStream);
+	rtmpCallback->setShowVideo(m_playVideo);
     m_listCallback.push_back(rtmpCallback);
 
 	return rtmpCallback;
+}
+
+void CMediaPublishMgr::delCallback(CRtmpStreamCallback* pCallback)
+{
+	if(NULL == pCallback)
+	{
+		return;
+	}
+
+	if(m_listCallback.empty())
+	{
+		return;
+	}
+	for(unsigned int i= 0; i<m_listCallback.size();i++)
+	{
+		CRtmpStreamCallback* spCallback = m_listCallback.at(i);
+		if(NULL == spCallback)
+		{
+			continue;
+		}
+
+		if(spCallback == pCallback)
+		{	
+			m_listCallback.erase(m_listCallback.begin() + i);
+			m_listCallbackDel.push_back(pCallback);
+			return ;
+		}
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -1369,4 +1418,30 @@ void CMediaPublishMgr::stopRecordScreen()
 
 	::rtmpPushStreamToServerEnd(m_szPushRecordUrl);
 	m_recordScreen = false;
+}
+
+//////////////////////////////////////////////////////////////////////////
+bool CMediaPublishMgr::getPlayVideo()
+{
+	return m_playVideo;
+}
+
+void CMediaPublishMgr::setPlayVideo(bool playVideo)
+{
+	m_playVideo = playVideo;
+
+	if(m_listCallback.empty())
+	{
+		return;
+	}
+
+	for(unsigned int i= 0; i<m_listCallback.size();i++)
+	{
+		CRtmpStreamCallback* spCallback = m_listCallback.at(i);
+		if(NULL == spCallback)
+		{
+			continue;
+		}
+		spCallback->setShowVideo(playVideo);
+	}
 }

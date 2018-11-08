@@ -17,6 +17,7 @@
 #include "SingleApp/SingleApp.h"
 
 #include <Windows.h>
+#include <TlHelp32.h>
 #include "common/GTBugReportLib.h"
 #include "common/Env.h"
 #include "copyUpdate/copyUpdate.h"
@@ -28,21 +29,35 @@
 #include "token/UploadTokenMgr.h"
 #include "common/Config.h"
 #include "QClassWebDialog.h"
+#include "./common/macros.h"
+#include "./common/HttpSessionMgr.h"
+#include "./common/Util.h"
 
 #include "lang.h"
 
-//#include <vld.h>
+//2018.11.01 after exit,system maybe popup error dialog 
+//eg:Qt (RtlWerpReportException failed with status code :-1073741823)
+static void ProcessCloseAll()
+{
+	HANDLE hProcess = ::GetCurrentProcess();
+	HANDLE hThread  = ::GetCurrentThread();
+	
+	//设置实时退出程序
+	::SetPriorityClass(hProcess, REALTIME_PRIORITY_CLASS);
+	::SetThreadPriority(hThread, THREAD_PRIORITY_TIME_CRITICAL);
+	
+	::ExitProcess(0);
+	//::TerminateProcess(hProcess,0);
+}
 
 QTranslator* g_tran = NULL;
-
 static void setAppTranslator(int langId)
 {	
     bool reload = false;
     if (NULL!=g_tran)
     {
         qApp->removeTranslator(g_tran);
-        delete g_tran;
-        g_tran = NULL;
+        SAFE_DELETE(g_tran);
 
         reload = true;
     }
@@ -67,13 +82,7 @@ static void setAppTranslator(int langId)
  
 static void freeAppTranslator()
 {
-	if(NULL == g_tran)
-	{
-		return;
-	}
-
-	delete g_tran;
-	g_tran = NULL;
+	SAFE_DELETE(g_tran);
 }
 
 SystemTray* g_systemTray = NULL;
@@ -181,33 +190,31 @@ int main(int argc, char *argv[])
     }
 	
     int ret = g_singApp->exec();
+	
 	CMediaPublishMgr::freeInstance();
     ClassRoomDialog::freeInstance();
     CWebDlgMgr::freeInstance();
+	NoticWindow::freeInstance();
     ClassSeeion::FreeInst();
     CLoginTokenMgr::FreeInstance();
     CUploadTokenMgr::Release();
     
 	QLoginBtTokenDialog::freeInstance();
     LobbyDialog::freeInstance();
-	delete g_loginDlg;
-	g_loginDlg = NULL;
-
+	CHttpSessionMgr::freeInstance();
+	SAFE_DELETE(g_loginDlg);
+	freeAppTranslator();
     ::unitBizLibray();
     run_time::stop();
 	QPDFThread::destroyPDFThread();
-	delete g_systemTray;
+	SAFE_DELETE(g_systemTray);
     
-	freeAppTranslator();
 	Config::freeConfig();
-
-    if (g_singApp)
-    {
-        delete g_singApp;
-        g_singApp = NULL;
-    }
-        
     freeLog();
 
+	SAFE_DELETE(g_singApp);
+	Util::PrintTrace("Exit.....OK.");
+	
+	ProcessCloseAll();
     return ret;
 }

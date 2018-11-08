@@ -13,6 +13,7 @@
 #include "FilePlayer.h"
 #include <QtCore/QEvent>
 #include <math.h>
+#include "./common/Util.h"
 
 CMediaFilePlayer::CMediaFilePlayer(QWidget* parent):OpenGLVideoWidget(parent,VIDEO_COURSEWARE)
 	,m_state(STOP)
@@ -194,6 +195,8 @@ bool CMediaFilePlayer::seek(unsigned int pos,bool force /* = false */)
 	{
 		return true;
 	}
+
+	Util::PrintTrace("CMediaFilePlayer::seek %d",pos);
 
 	return ::AVP_SeekFile(m_fileName.c_str(),pos);
 }

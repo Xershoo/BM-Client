@@ -177,7 +177,7 @@ public slots:
     void updateUserHead();
 
 	//xiewb 2018.10.24
-	void setCoursewareTool(int type,int cur,int all,int state);
+	void setCoursewareTool(int type,int cur,int all,int state,QWidget* showWidget=NULL);
 	void setCoursewareToolUI();
 	void setPageShowText(int curPage,int allPage);
 protected:

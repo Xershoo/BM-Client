@@ -7,11 +7,22 @@
 #include "./session/classsession.h"
 #include "./token/LoginTokenMgr.h"
 #include "setdebugnew.h"
+#include "./common/macros.h"
+
+NoticWindow* NoticWindow::m_instance = NULL;
 
 NoticWindow* NoticWindow::getInstance()
 {
-    static NoticWindow noticWindow;
-    return &noticWindow;
+    if(NULL==m_instance){
+		m_instance = new NoticWindow(NULL);
+	}
+
+    return m_instance;
+}
+
+void NoticWindow::freeInstance()
+{
+	SAFE_DELETE(m_instance);
 }
 
 NoticWindow::NoticWindow(QWidget *parent)

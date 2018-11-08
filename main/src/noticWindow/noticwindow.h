@@ -13,6 +13,8 @@ class NoticWindow : public C8PopupWindow
     Q_OBJECT
 public:
     static NoticWindow *getInstance();
+	static void freeInstance();
+
     NoticWindow(QWidget *parent = 0);
     ~NoticWindow();
 
@@ -33,7 +35,7 @@ private:
     Ui::NoticWindow ui;
     bool m_bISClickedAllMsg;
     
-    //static NoticWindow *m_getinst;
+    static NoticWindow * m_instance;
 };
 
 #endif // SKYFILEDIALOG_H

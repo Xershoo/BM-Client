@@ -23,30 +23,113 @@ MediaPlayerShowWnd::MediaPlayerShowWnd(QWidget * parent) : CMediaFilePlayer(pare
 	, m_courseId(0)	
 	, m_wbCtrl(WB_CTRL_NONE)
 {
-    
+	setAutoShowBack(false);
+	setVideoKeepRadio(true);
 }
 
 MediaPlayerShowWnd::~MediaPlayerShowWnd()
 {
 
-};
+}
+
+void MediaPlayerShowWnd::initializeGL()
+{
+	makeCurrent();
+	initializeOpenGLFunctions();
+
+	glClearColor(0.0f,0.0f,0.0f,1.0f);
+}
+
+void MediaPlayerShowWnd::resizeGL(int width,int height)
+{
+	makeCurrent();
+	glViewport(0, 0, (GLint)width, (GLint)height);
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+
+	glOrtho(0, width, -height, 0, 0, 1);
+
+	glMatrixMode(GL_MODELVIEW);
+
+	QMutexLocker renderLocker(&m_mutexRenderImage);
+	if(m_isVideo) {
+		if(NULL != m_renderImage){
+			QImage tranImage = m_renderImage->scaled(this->size(),Qt::KeepAspectRatio,Qt::SmoothTransformation);
+			if(!tranImage.isNull()){
+				delete m_renderImage;
+				m_renderImage = new QImage(tranImage);
+			}
+		}
+	} else {
+		SAFE_DELETE(m_renderImage);
+	}
+
+
+	updateScene();
+}
 
 void MediaPlayerShowWnd::ShowVideo(void* ShowHandle,unsigned char* pData,unsigned int nSize,int nVideoW,int nVideoH)
 {
     CMediaFilePlayer* userHandle = (CMediaFilePlayer*)ShowHandle;
-    if(userHandle != this)
-    {
+    if(userHandle != this) {
         return;
     }
+
+	if(!m_isVideo){
+		return;
+	}
 
     if(NULL == pData || 0 >= nSize || 0 >= nVideoW || 0 >= nVideoH)
     {
         return;
     }
 
-	if(m_isVideo)
-	{
-		showVideoBuffer(nVideoW,nVideoH,true,nSize,pData);
+	unsigned char* decData = pData;
+	if ((nVideoW%4) !=0 || (nVideoH%4) !=0){
+		//****xie wen bing  2018.11.7 ******
+		//后面QT与OpenGL的图像数据处理时数据必须能被4整除，要不然会出现内存崩溃
+		//......截取数据内容............
+		// 0 0 0 0 0 0 0 0 0 0 0 
+		// 0 0 0 0 0 0 0 0 0 0 0 
+		// 0 0 0 1 1 1 1 1 1 1 1 
+		// 0 0 0 1 1 1 1 1 1 1 1 
+		// 0 0 0 1 1 1 1 1 1 1 1 
+		// 0 0 0 1 1 1 1 1 1 1 1 
+		int vw = nVideoW - (nVideoW%4);
+		int vh = nVideoH - (nVideoH%4);
+		int vs = vw*vh*3;
+		unsigned char* vbuf = (unsigned char*)malloc(vs);
+
+		for(int w = 0;w<vw;w++){
+			for(int h=0;h<vh;h++){
+				int d_off = (h * vw + w) * 3;
+				int s_off = d_off + ((nVideoH%4)* nVideoW + (nVideoW%4)* h)*3;
+				memcpy(vbuf+d_off,pData+s_off,3);
+			}
+		}
+
+		nVideoW = vw;
+		nVideoH = vh;
+
+		pData = vbuf;
+		nSize = vs;
+	}
+
+	bool setWhiteboard = false;
+	if(nVideoW!=m_videoWidth||nVideoH !=m_videoHeight){
+		setWhiteboard = true;
+	}
+
+	showVideoBuffer(nVideoW,nVideoH,true,nSize,pData);
+
+	if(setWhiteboard) {
+		setWhiteboardViewBack();
+	}
+
+	if(decData != pData){
+		free(pData);
+		pData = decData;
 	}
 }
 
@@ -67,9 +150,7 @@ bool MediaPlayerShowWnd::play(const string& file,bool onlyOpen/* = false*/)
 	default:
 		return false;		
 	}
-	setAutoShowBack(false);
-	setWhiteboardViewBack();
-
+	
 	return CMediaFilePlayer::play(file,onlyOpen);
 }
 
@@ -80,18 +161,19 @@ void MediaPlayerShowWnd::createWhiteboardView()
 		return;
 	}
 
-	__int64 idOwner = (__int64)calcFileId(); 
 	m_viewWhiteboard = new QWhiteBoardView(this,false);
 	if(NULL == m_viewWhiteboard)
 	{
 		return;
 	}
 
+	__int64 idOwner = (__int64)calcFileId(); 
+
 	m_viewWhiteboard->setUserId(m_userId);
 	m_viewWhiteboard->setPageId(0);
 	m_viewWhiteboard->setCourseId(m_courseId);
 	m_viewWhiteboard->setOwnerId(idOwner);
-	m_viewWhiteboard->show();
+	m_viewWhiteboard->hide();
 	m_viewWhiteboard->installEventFilter(this);
 	m_viewWhiteboard->setEnable((WBCtrl)m_wbCtrl);
 	m_viewWhiteboard->setColor(WB_COLOR_BLUE);
@@ -125,9 +207,19 @@ void MediaPlayerShowWnd::setWhiteboardViewBack()
 	{
 		return;
 	}
+	
+	if(m_videoWidth<=0||m_videoHeight<=0){
+		return;
+	}
 
+	QSize sizeImage(m_videoWidth,m_videoHeight);
 	QRect rectWidget= this->rect();
-	m_viewWhiteboard->setSizeAndSceneRect(rectWidget); 	
+
+	sizeImage.scale(rectWidget.width()+1,rectWidget.height()+1,Qt::KeepAspectRatio);
+
+	QRect rectImage = this->calcImagePaintRect(rectWidget,sizeImage.width(),sizeImage.height());
+	
+	m_viewWhiteboard->setSizeAndSceneRect(rectImage); 	
 	m_viewWhiteboard->setBackColor(QColor(255,255,255,0));
 	m_viewWhiteboard->show();
 	m_viewWhiteboard->update();
@@ -135,9 +227,8 @@ void MediaPlayerShowWnd::setWhiteboardViewBack()
 
 void MediaPlayerShowWnd::resizeEvent(QResizeEvent *event)
 {	
-	SAFE_DELETE(m_renderImage);
-	setWhiteboardViewBack();
 	CMediaFilePlayer::resizeEvent(event);
+	setWhiteboardViewBack();
 }
 
 bool MediaPlayerShowWnd::eventFilter(QObject * obj, QEvent * event)
@@ -174,6 +265,7 @@ unsigned int MediaPlayerShowWnd::getCurPlayTime(bool video /* = false */)
 
 bool MediaPlayerShowWnd::seekEx(unsigned int pos)
 {
+	Util::PrintTrace("MediaPlayerShowWnd::seekEx %d",pos);
 	bool br = false;
 	unsigned int curPlay = 0;	
 	if(m_isVideo)
@@ -197,4 +289,26 @@ bool MediaPlayerShowWnd::seekEx(unsigned int pos)
 	}
 
 	return br;
+}
+
+void MediaPlayerShowWnd::drawNoVideoImage()
+{
+	if(m_backImage.isNull()){
+		return;
+	}
+
+	if(NULL != m_renderImage){
+		return;
+	}
+
+	QRect rectShow = this->rect();
+
+	m_renderImage = new QImage(rectShow.width(),rectShow.height(),QImage::Format_RGBA8888);
+	QPainter painter(m_renderImage);
+
+	QRect imageRect = calcImagePaintRect(rectShow,m_backImage.width(),m_backImage.height());
+	QBrush backBrush(QColor(255,255,255,255));
+
+	painter.fillRect(rectShow,backBrush);
+	painter.drawImage(imageRect,m_backImage);
 }

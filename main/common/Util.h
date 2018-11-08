@@ -81,6 +81,7 @@ namespace Util
 	extern bool IsXPHigher();
 
 	extern void PrintTrace(char* format,...);
+	extern bool GetDebugPrivilege();
 };
 
 #endif

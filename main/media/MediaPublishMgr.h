@@ -98,6 +98,7 @@ public:
 
 	static CMediaPublishMgr* getInstance();
 	static void freeInstance();
+	static bool isValidate();
 
 public:
     void setUserId(__int64 userId);
@@ -122,6 +123,9 @@ public:
     {
         return m_selSpeaker;
     };
+
+	void setPlayVideo(bool playVideo);
+	bool getPlayVideo();
 
 public:     //多媒体一些其他相关接口
     bool setMicMute(bool vol);      //设置本地麦克风的静音
@@ -173,7 +177,7 @@ public:   //机位相关接口
 
 public:
     CRtmpStreamCallback* getCallback(CRTMPStream* rtmpStream);
-
+	void delCallback(CRtmpStreamCallback* pCallback);
 public:
     void localVideoShow(unsigned char* pBuf,unsigned int nBufSize,ShowVideoParam* pVideoParam);
 
@@ -217,6 +221,7 @@ protected:
     CRTMPPlayerList     m_lstPlayer;
     CRTMPPublisherList  m_lstPublisher;
     CRtmpStreamCallbackList     m_listCallback;
+	CRtmpStreamCallbackList		m_listCallbackDel;
 
 	string      		m_urlPush;
 	string      		m_urlPull;
@@ -236,6 +241,7 @@ protected:
     int                 m_mainSeat;
     bool                m_initMedia;
 
+	bool				m_playVideo;
     CMediaThread		m_mediaThread;
 	bool				m_freeAll;
    
