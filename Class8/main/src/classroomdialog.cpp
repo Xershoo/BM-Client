@@ -726,7 +726,7 @@ void ClassRoomDialog::onUserLeave(UserLeaveInfo info)
     if (sInfo.nUserAuthority >= biz::UserAu_Teacher)
     {
         ui.widget_teaVideo->stop();
-        showSysMsg(tr("teacher_left"));        
+        showSysMsg(tr("teacher_left"));
     }
     
     auto pSpeakUser = biz::GetBizInterface()->GetClassRoomDataContainer()->GetClassRoomInterface(ClassSeeion::GetInst()->_nClassRoomId)->GetSpeakUserInfo();

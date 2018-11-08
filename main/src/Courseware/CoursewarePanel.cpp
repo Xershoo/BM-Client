@@ -418,7 +418,7 @@ void QCoursewarePannel::SetCoursewareShow(char nType, QString fileName, int nPag
 					Util::PrintTrace("media file seek,file : %s, total : %d ,cur pos: %d ,seek pos: %d",pShow->_show._media->getFile().c_str(),
 						pShow->_show._media->getTotalPlayTime(),pShow->_show._media->getCurPlayTime(),seekPos);
 
-					if (abs(curPos-seekPos) > 200)
+					if (abs(curPos-seekPos) > 2000)
 					{
 						pShow->_show._media->seek(seekPos,true);
 

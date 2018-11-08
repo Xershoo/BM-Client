@@ -1028,7 +1028,8 @@ bool CPlayFile::seek_in_file(unsigned int nSeekTime)
 	if(m_in_fmt_ctx)
 	{
 		int64_t seet_time = ((int64_t)nSeekTime) * AV_TIME_BASE / 1000;
-		if(avformat_seek_file(m_in_fmt_ctx,-1,0,seet_time,m_in_fmt_ctx->duration,0)== 0)
+		bool br = avformat_seek_file(m_in_fmt_ctx,-1,0,seet_time,m_in_fmt_ctx->duration,0)>= 0 ? true : false;
+		if(br)
 		{
 			m_play_lock.Unlock();
 			return true;
@@ -1422,9 +1423,14 @@ bool CPlayFile::get_video_frame(unsigned int nFramePos,VideoFrame& vf)
 		av_init_packet(packet_read);
 		av_read_play(fmt_ctx);
 
-		if(frameTime > 2000)
+		//find frame from 5 second before...xie wen bing 2018.11.8
+		if(frameTime > 5000)
 		{
-			av_seek_frame(fmt_ctx,video_index,frameTime-2000,AVSEEK_FLAG_BACKWARD);
+			av_seek_frame(fmt_ctx,video_index,frameTime-5000,AVSEEK_FLAG_BACKWARD);
+		}
+		else
+		{
+			av_seek_frame(fmt_ctx,video_index,0,AVSEEK_FLAG_BACKWARD);
 		}
 
 		while(true)
@@ -1481,7 +1487,9 @@ bool CPlayFile::get_video_frame(unsigned int nFramePos,VideoFrame& vf)
 
 			if(frame_read->pts >= frameTime)
 			{
-				if(frame_read->pts == frameTime)
+				//add frame pos compare ......xiewenbing 2018.11.8 
+				unsigned int read_pos = frame_read->pts * video_st->time_base.num * 1000 / video_st->time_base.den;
+				if(frame_read->pts == frameTime || nFramePos == read_pos)
 				{
 					br = true;
 				}
