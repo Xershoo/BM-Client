@@ -1443,13 +1443,21 @@ QLabel#titleLabel {
 	image: url(:/res/res/image/default/class_logo.png);
 }
 
-QLabel#label_username {
-	width: 60px;
+QLabel#label_username{
 	height: 40px;
 	border-width: 0px;
-	color:rgb(255,255,255);
+	color:rgb(100,177,255);
 	font-family: "Microsoft YaHei";
-	font-size: 12px;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+QLabel#label_userId {
+	height: 40px;
+	border-width: 0px;
+	color:rgb(100,177,255);
+	font-family: "Microsoft YaHei";
+	font-size: 18px;
 }
 
 QPushButton#pushButton_auth {
@@ -4452,3 +4460,70 @@ QPushButton#pushButton_classCtrl:disabled {
 	background-color: rgb(131, 178, 226);
 }
 /*课程课节信息界面设置*/
+
+/*日历表界面*/
+QLabel#label_weekMon,#label_weekTue,#label_weekWed,#label_weekThu,#label_weekFri,#label_weekSat,#label_weekSun{
+	font-family: "Microsoft YaHei";
+	font-size: 18px;
+	color: rgb(128,128,128);
+}
+
+QLabel#label_Years{
+	font-family: "Microsoft YaHei";
+	font-size: 24px;
+	color: rgb(255,255,255);
+}
+
+QWidget#widget_Years{
+	background-color: rgb(25,118,210);
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	border-bottom-right-radius: 0px;
+	border-bottom-left-radius: 0px;
+}
+
+QWidget#widget_Days{
+	border-top-left-radius: 0px;
+	border-top-right-radius: 0px;
+	border-bottom-right-radius: 8px;
+	border-bottom-left-radius: 8px;
+}
+
+QPushButton#pushButton_preMonth {
+	width: 40px;
+	height: 40px;
+	background-color: none;
+	image: url(:/res/res/image/default/month_left_normal.png);
+}
+QPushButton#pushButton_preMonth:hover:!pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/month_left_hover.png);
+}
+QPushButton#pushButton_preMonth:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/month_left_pressed.png);
+}
+QPushButton#pushButton_preMonth:disabled {
+	background-color: none;
+	image: url(:/res/res/image/default/month_left_normal.png);
+}
+
+QPushButton#pushButton_nextMonth {
+	width: 40px;
+	height: 40px;
+	background-color: none;
+	image: url(:/res/res/image/default/month_right_normal.png);
+}
+QPushButton#pushButton_nextMonth:hover:!pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/month_right_hover.png);
+}
+QPushButton#pushButton_nextMonth:pressed {
+	background-color: none;
+	image: url(:/res/res/image/default/month_right_pressed.png);
+}
+QPushButton#pushButton_nextMonth:disabled {
+	background-color: none;
+	image: url(:/res/res/image/default/month_right_normal.png);
+}
+/*日历表界面*/

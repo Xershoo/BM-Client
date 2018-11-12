@@ -2423,4 +2423,47 @@ ESC ESC;</translation>
       <translation type="unfinished">Play Record</translation>
     </message>
 </context>
+<context>
+    <name>QCustomCalendarWidget</name>
+    <message>
+        <source>weekMonday</source>
+        <translation type="unfinished">Mon</translation>
+    </message>
+    <message>
+        <source>weekTuesday</source>
+        <translation type="unfinished">Tue</translation>
+    </message>
+    <message>
+        <source>weekWednesday</source>
+        <translation type="unfinished">Wed</translation>
+    </message>
+    <message>
+        <source>weekThursday</source>
+        <translation type="unfinished">Thu</translation>
+    </message>
+    <message>
+        <source>weekFriday</source>
+        <translation type="unfinished">Fri</translation>
+    </message>
+    <message>
+        <source>weekSaturday</source>
+        <translation type="unfinished">Sat</translation>
+    </message>
+    <message>
+        <source>weekSunday</source>
+        <translation type="unfinished">Sun</translation>
+    </message>
+    <message>
+        <source>yearAndMonth</source>
+        <translation type="unfinished">%1/%2</translation>
+    </message>
+    <message>
+        <source>prevMonth</source>
+        <translation type="unfinished">Last month</translation>
+    </message>
+    <message>
+        <source>nextMonth</source>
+        <translation type="unfinished">Next month</translation>
+    </message>
+</context>
 </TS>

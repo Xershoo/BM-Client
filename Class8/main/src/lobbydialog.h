@@ -33,8 +33,8 @@ public:
     static void freeInstance();
 
     ~LobbyDialog();
-    void openClassWebPage(bool force=false);
-    void setCloseClassRoom();
+    
+	void setCloseClassRoom();
 
 	void hide();
 
@@ -56,13 +56,11 @@ public slots:
     void close();
 	void onConnectServerError(ServerErrorInfo);
 
-	void onWebPageLoadFinished();
-	void onWebViewLoadFinished(bool);
 protected:
     virtual void setTitleBarRect() override;
     void showSelfHome(LPCWSTR wszToken);
 
-    void updateUserInfo();
+    void updateUserHead();
     void timerEvent(QTimerEvent *event);
 
     void showSysTimer();
@@ -73,8 +71,6 @@ protected:
 	int getDevState();
     
     QString getLangString();
-
-	void openLocalPage();
 
 	void showCourseClass(string jsonList);
 
@@ -87,7 +83,6 @@ protected slots:
     void clickedSetting();
     void clickedUserInfo(QString);
     void clickedShowCourse();
-    void addObjectToJs();
 
     void HttpDownImageCallBack(int, unsigned int, bool, unsigned int);
 private:
@@ -97,7 +92,6 @@ private:
 	int		m_enterClassTimer;
 
     bool    m_isClickedHome;
-    bool    m_isOpenWebCourseware;
 	bool	m_autoEnterClass;
     WCHAR   m_wszWebToken[MAX_PATH];
 
@@ -105,22 +99,13 @@ signals:
 	void	setWaitStop();
 
 protected:
-    int     m_nsysTime;
-    int     m_nnotifyTimer;
-    int     m_reloadTimer;
+    int     m_sysTimer;
+    int     m_notifyTimer;
     int     m_idDownHeadImage;
 	int		m_idGetClassList;
     
     QWebView * m_webViewChat;
-
-    QNetworkDiskCache *m_netDiskCache ;
-    QNetworkAccessManager * m_netAccessMger;
-
-	QClassWebWidget*	m_webWidget;
-
-	QWaitDlg*			m_dlgWait;
-
-//	CourseDialog*		m_dlgCourse;
+	QWaitDlg * m_dlgWait;
 private:
     static LobbyDialog*  m_instance;
 };

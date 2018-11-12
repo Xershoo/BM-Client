@@ -573,6 +573,12 @@
         <file>res/image/default/closeCoursewareBtn_normal.png</file>
         <file>res/image/default/closeCoursewareBtn_pressed.png</file>
         <file>res/image/default/courseware_state_back.png</file>
+        <file>res/image/default/month_left_hover.png</file>
+        <file>res/image/default/month_left_normal.png</file>
+        <file>res/image/default/month_left_pressed.png</file>
+        <file>res/image/default/month_right_hover.png</file>
+        <file>res/image/default/month_right_normal.png</file>
+        <file>res/image/default/month_right_pressed.png</file>
     </qresource>
     <qresource prefix="/face">
         <file>res/face/li/1 (1).gif</file>

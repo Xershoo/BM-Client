@@ -1218,6 +1218,15 @@
     <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_FlashPlayWidget.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_CalendarWidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_CalendarWidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CalendarWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\..\main\3rdparty\qxtglobalshortcut\qxtglobalshortcut.h">
@@ -1679,6 +1688,12 @@
     <CustomBuild Include="src\FlashPlayWidget.h">
       <Filter>Generated Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="src\CalendarWidget.ui">
+      <Filter>Source Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\CalendarWidget.h">
+      <Filter>Source Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <None Include="qss\coffee.qss">
@@ -1967,6 +1982,9 @@
       <Filter>Common Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_CourseClassItem.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_CalendarWidget.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>

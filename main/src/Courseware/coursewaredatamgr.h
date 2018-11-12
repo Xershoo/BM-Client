@@ -43,6 +43,13 @@ class CoursewareTaskMgr;
 class CoursewareDataMgr : public QObject
 {
     Q_OBJECT
+
+public:
+	static CoursewareDataMgr *GetInstance();
+	static QCoursewarePannel *getCoursewarePannel();
+	static void freeInstance();
+	static bool isValid();
+
 public:
     CoursewareDataMgr();
     virtual ~CoursewareDataMgr();
@@ -79,10 +86,6 @@ protected:
 	//xiewb 2018.10.29
 	void setCoursewareShowBar(LPWBAndCourseView pView,int nType);
 public:
-    static CoursewareDataMgr *GetInstance();
-    static void freeInstance();
-    static bool isValid();
-
     void ReleaseData();
 
     void setNowFileName(QString fileName);
@@ -103,7 +106,21 @@ public:
 
 	//xiewb 2018.10.26
 	int getCurShowType();
-public:
+
+	//xiewb 2018.11.08
+	QString getNowFileName(){
+		return m_NowFileName;
+	};
+
+	int getFontSize(){
+		return m_nFontSize;
+	};
+
+	int getColorType() {
+		return m_nColorType;
+	};
+
+protected:
     QCoursewarePannel   *m_CoursewarePanel;
 
     QString     m_NowFileName;

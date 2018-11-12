@@ -15,8 +15,8 @@ void ClassRoomDialog::wbClearClicked()
 
 void ClassRoomDialog::wbColorClicked()
 {
-	int nType = GetCoursewareFileType(wstring((wchar_t*)(CoursewareDataMgr::GetInstance()->m_NowFileName).unicode()).data());
-	if (COURSEWARE_AUDIO == nType || COURSEWARE_TEXT == nType || CoursewareDataMgr::GetInstance()->m_NowFileName.isEmpty())
+	int nType = GetCoursewareFileType(wstring((wchar_t*)(CoursewareDataMgr::GetInstance()->getNowFileName()).unicode()).data());
+	if (COURSEWARE_AUDIO == nType || COURSEWARE_TEXT == nType || CoursewareDataMgr::GetInstance()->getNowFileName().isEmpty())
 	{
 		return;
 	}
@@ -25,7 +25,7 @@ void ClassRoomDialog::wbColorClicked()
 	ptGlobal.setY(ptGlobal.y() + 40);
 	ptGlobal.setX(ptGlobal.x() + (ui.pushButton_classRoomLeftColorBtn->size().width()-size.width())/2);
 	m_selectColor.setGeometry(QRect(ptGlobal, size));
-	m_selectColor.SetColor(CoursewareDataMgr::GetInstance()->m_nColorType);
+	m_selectColor.SetColor(CoursewareDataMgr::GetInstance()->getColorType());
 	m_selectColor.show();
 	m_selectColor.activateWindow();
 }
@@ -42,8 +42,8 @@ void ClassRoomDialog::wbPenClicked()
 
 void ClassRoomDialog::wbTextClicked()
 {
-	int nType = GetCoursewareFileType(wstring((wchar_t*)(CoursewareDataMgr::GetInstance()->m_NowFileName).unicode()).data());
-	if (COURSEWARE_AUDIO == nType || COURSEWARE_TEXT == nType || CoursewareDataMgr::GetInstance()->m_NowFileName.isEmpty())
+	int nType = GetCoursewareFileType(wstring((wchar_t*)(CoursewareDataMgr::GetInstance()->getNowFileName()).unicode()).data());
+	if (COURSEWARE_AUDIO == nType || COURSEWARE_TEXT == nType || CoursewareDataMgr::GetInstance()->getNowFileName().isEmpty())
 	{
 		return;
 	}
@@ -53,7 +53,7 @@ void ClassRoomDialog::wbTextClicked()
 	ptGlobal.setX(ptGlobal.x() + (ui.pushButton_classRoomLeftTextBtn->size().width()-size.width())/2);
 	m_selectText.setGeometry(QRect(ptGlobal, size));
 	CoursewareDataMgr::GetInstance()->SetMode(WB_MODE_TEXT);
-	m_selectText.SetFontSize(CoursewareDataMgr::GetInstance()->m_nFontSize);
+	m_selectText.SetFontSize(CoursewareDataMgr::GetInstance()->getFontSize());
 	m_selectText.show();
 	m_selectText.activateWindow();
 }

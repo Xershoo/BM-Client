@@ -60,7 +60,7 @@ void QMediaPlayTool::SetPlayTime(long nNowTime, long nTotleTime, unsigned int nS
         ui.pushButton_pause->hide();
     }
     
-    connect(CoursewareDataMgr::GetInstance()->m_CoursewarePanel, SIGNAL(setMediaPlayerPro(unsigned int)), this, SLOT(setShowProgress(unsigned int)));
+    connect(CoursewareDataMgr::getCoursewarePannel(), SIGNAL(setMediaPlayerPro(unsigned int)), this, SLOT(setShowProgress(unsigned int)));
 
     if (!ClassSeeion::GetInst()->IsTeacher())
     {

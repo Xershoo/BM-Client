@@ -53,10 +53,8 @@ bool QCoursewarePannel::OpenCoursewareFile(QString fileName, bool bCtrl,bool onl
     {
         return false;
     }
-    
-    OutputDebugStringW(L"Lock OpenCoursewareFile.\n");
 
-    QMutexLocker AutoLock(&m_mutex);
+	QMutexLocker AutoLock(&m_mutex);
 
     size_t i = 0;
     for (; i < m_vecCourShow.size(); i++)
@@ -177,8 +175,6 @@ void QCoursewarePannel::CloseCoursewareFile(QString fileName,bool delCourseware 
         return;
     }
 
-    OutputDebugStringW(L"Lock CloseCoursewareFile.\n");
-
     QMutexLocker AutoLock(&m_mutex);
 
     if (m_vecCourShow.empty())
@@ -244,8 +240,6 @@ void QCoursewarePannel::CloseAllCoursewareFile()
 
 bool QCoursewarePannel::GetShowCourseware(char &nType, QString &fileName, int &nPage)
 {
-    OutputDebugStringW(L"Lock GetShowCourseware....\n");
-
     QMutexLocker AutoLock(&m_mutex);
 
     if (m_vecCourShow.empty() || m_nSelIndex >= m_vecCourShow.size())
@@ -413,10 +407,7 @@ void QCoursewarePannel::SetCoursewareShow(char nType, QString fileName, int nPag
 			default:
 				{
 					int curPos = pShow->_show._media->getCurPlayTime();
-					int seekPos = (nPage >> 4);		
-
-					Util::PrintTrace("media file seek,file : %s, total : %d ,cur pos: %d ,seek pos: %d",pShow->_show._media->getFile().c_str(),
-						pShow->_show._media->getTotalPlayTime(),pShow->_show._media->getCurPlayTime(),seekPos);
+					int seekPos = (nPage >> 4);	
 
 					if (abs(curPos-seekPos) > 2000)
 					{
@@ -525,8 +516,6 @@ void QCoursewarePannel::PauseAllMediaCourseware(QString fileNo)
 
 void QCoursewarePannel::PauseCoursewareShow(QString fileName, bool pause)
 {
-    OutputDebugStringW(L"Lock PauseCoursewareShow.\n");
-
     QMutexLocker AutoLock(&m_mutex);
 
     if (m_vecCourShow.empty() || m_nSelIndex >= m_vecCourShow.size())
@@ -643,8 +632,6 @@ void QCoursewarePannel::PauseCoursewareShow(QString fileName, bool pause)
 
 LPCOURSEWARESHOW QCoursewarePannel::GetCurrentCoursewareShow()
 {
-    OutputDebugStringW(L"Lock GetCurrentCoursewareShow.\n");
-
     QMutexLocker AutoLock(&m_mutex);
 
     if(m_vecCourShow.empty() || m_nSelIndex >= m_vecCourShow.size() || m_nSelIndex < 0)
@@ -663,8 +650,6 @@ LPCOURSEWARESHOW QCoursewarePannel::GetCoursewareShowByFileName(QString& fileNam
 	{
 		return NULL;
 	}
-
-	OutputDebugStringW(L"Lock GetCoursewareShowByFileName.\n");
 
 	QMutexLocker AutoLock(&m_mutex);
 	if(m_vecCourShow.empty())
@@ -698,8 +683,6 @@ LPCOURSEWARESHOW QCoursewarePannel::GetCoursewareShowByShowWidget(QWidget* showW
 		return NULL;
 	}
 	
-	OutputDebugStringW(L"Lock GetCoursewareShowByShowWidget.\n");
-
 	QMutexLocker AutoLock(&m_mutex);
 	if(m_vecCourShow.empty())
 	{
@@ -1726,9 +1709,6 @@ void QCoursewarePannel::GotoPage(QString fileName, int nType, int nPage)
                     break;
                 }
                 pShow->_show._media->seek(nPage);
-				
-				Util::PrintTrace("media file seek,file : %s, total : %d ,cur pos: %d ,seek pos: %d",pShow->_show._media->getFile().c_str(),
-					pShow->_show._media->getTotalPlayTime(),pShow->_show._media->getCurPlayTime(),nPage);
             }
             break;
         }
@@ -1756,8 +1736,6 @@ void QCoursewarePannel::doCoursewareCtrl(const QString &fileName, int nCtrl)
     {
         return;
     }
-
-    OutputDebugStringW(L"Lock doCoursewareCtrl.\n");
 
     QMutexLocker AutoLock(&m_mutex);
     LPCOURSEWARESHOW pShow = NULL;
@@ -2028,8 +2006,6 @@ void QCoursewarePannel::doMediaPlayProgress(unsigned int nPos,string& fileName)
 
 	sShowInfo._nShowPage |= (nPos << 4);
     biz::GetBizInterface()->ChangeMyShowType(sShowInfo);
-
-	Util::PrintTrace("chang show play pos,file :%s,length : %d,pos : %d",fileName.c_str(),total,nPos);
 }
 
 QImageShow* QCoursewarePannel::OpenImageFile(QString fileName)

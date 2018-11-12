@@ -60,28 +60,17 @@ LobbyDialog::LobbyDialog(QWidget *parent)
     : C8CommonWindow(parent,SHADOW_AERO)
 	, m_enterClassState(enterClass_undo)
 	, m_isClickedHome(false)
-	, m_isOpenWebCourseware(false)
     , m_webViewChat(NULL)
-    , m_netAccessMger(NULL)
-    , m_netDiskCache(NULL)
 	, m_idDownHeadImage(0)
-	, m_webWidget(NULL)
 	, m_enterClassTimer(0)
 	, m_dlgWait(NULL)
 	, m_autoEnterClass(false)
-	, m_nsysTime(-1)
-	, m_nnotifyTimer(-1)
-	, m_reloadTimer(-1)
+	, m_sysTimer(-1)
+	, m_notifyTimer(-1)
 	, m_idGetClassList(0)
-//	, m_dlgCourse(NULL)
 {   
     ui.setupUi(this);
 
-	//xiewb 2018.10.8
-	m_webWidget = new QClassWebWidget(NULL);
-	m_webWidget->setGeometry(0,0,500,600);
-	m_webWidget->hide();
-	
 	QMovie* loadingMovie = new QMovie(QString(":/res/res/image/default/web_loading.gif"));
 	ui.label_loading->setMovie(loadingMovie);
 	loadingMovie->start();
@@ -89,13 +78,7 @@ LobbyDialog::LobbyDialog(QWidget *parent)
     connect(ui.gifIconpushButton_notify, SIGNAL(clicked()), this, SLOT(clickedNotify()));
     connect(ui.gifIconpushButton_showSettingDlg, SIGNAL(clicked()), this, SLOT(clickedSetting()));
 
-	ui.webView_course->setContextMenuPolicy(Qt::NoContextMenu);
-	connect(ui.webView_course->page()->mainFrame(), SIGNAL(javaScriptWindowObjectCleared()), this, SLOT(addObjectToJs()));
-    
 	//hide ui element xiewenbing 2019.10.09
-	ui.webView_course->hide();
-	ui.label_username->hide();
-	ui.label_userpic->hide();
 	ui.btn_showCourse->hide();
 	ui.widget_course->hide();
 	ui.widget_courseListItems->hide();
@@ -107,7 +90,7 @@ LobbyDialog::LobbyDialog(QWidget *parent)
 
     connect(ui.btn_showCourse,SIGNAL(clicked()),this,SLOT(clickedShowCourse()));
     connect(ui.label_username,SIGNAL(linkActivated(QString)),this,SLOT(clickedUserInfo(QString)));  
-    
+    connect(ui.widget_calendar,SIGNAL(clickDay(QString)),this,SLOT(showClassList(QString)));
     connect(CLoginTokenMgr::GetInstance(), SIGNAL(recvLoginToken(QString)), this, SLOT(onRecvLoginToken(QString)));
 
     CBizCallBack * pCallback = ::getBizCallBack();
@@ -125,38 +108,24 @@ LobbyDialog::LobbyDialog(QWidget *parent)
     ui.gifIconpushButton_showSettingDlg->setIconPath(iconPath + "gificon_setting_normal.gif", iconPath + "gificon_setting_hover.gif", iconPath + "gificon_setting_pressed.gif");
     ui.gifIconpushButton_notify->setIconPath(iconPath + "gificon_notification_normal.gif", iconPath + "gificon_notification_hover.gif", iconPath + "gificon_notification_pressed.gif");
     
-	m_reloadTimer = startTimer(1800000);;
-    
     memset(m_wszWebToken,NULL,sizeof(m_wszWebToken));
 
     CMediaPublishMgr::getInstance()->setUserId(ClassSeeion::GetInst()->_nUserId);
 
 	initChatWebStyle();
 
-    //Set cache
-    m_netDiskCache = new QNetworkDiskCache(this);    
-    QString location = QStandardPaths::writableLocation(QStandardPaths::CacheLocation);     
-    m_netDiskCache->setCacheDirectory(location);    
-    ui.webView_course->page()->networkAccessManager()->setCache(m_netDiskCache); 
-
     //http callback
     connect(CHttpSessionMgr::GetInstance(),SIGNAL(httpEvent(int, unsigned int, bool, unsigned int)),this,SLOT(HttpDownImageCallBack(int, unsigned int, bool, unsigned int)),Qt::QueuedConnection);
 
-	connect(m_webWidget,SIGNAL(enterClassroom(QString,QString)),this,SLOT(enterClass(QString,QString)));
-	connect(m_webWidget,SIGNAL(playClassroom(QString,QString)),this,SLOT(playClass(QString,QString)));
-	connect(m_webWidget,SIGNAL(showClassList(QString)),this,SLOT(showClassList(QString)));
-	connect(m_webWidget,SIGNAL(webPageloadFinished()),this,SLOT(onWebPageLoadFinished()));
-	connect(ui.webView_course,SIGNAL(loadFinished()),this,SLOT(onWebViewLoadFinished(bool)));
-
 	centerWindow();
+
+	g_systemTray->setSysSettingActionEnable(true);
+	g_systemTray->setLogoutActionEnable(true);
 }
 
 LobbyDialog::~LobbyDialog()
 {
-//	SAFE_DELETE(m_dlgCourse);
     SAFE_DELETE(m_webViewChat);
-    SAFE_DELETE(m_netDiskCache);
-    SAFE_DELETE(m_netAccessMger);
 }
 
 void LobbyDialog::initChatWebStyle()
@@ -184,14 +153,8 @@ void LobbyDialog::showMinimized()
 
 void LobbyDialog::close()
 {
-// 	if(m_dlgCourse)
-// 	{
-// 		m_dlgCourse->close();
-// 	}
-
-    this->killTimer(m_nsysTime);
-    this->killTimer(m_nnotifyTimer);
-    this->killTimer(m_reloadTimer);
+    this->killTimer(m_sysTimer);
+    this->killTimer(m_notifyTimer);
     QDialog::close();
 
     CWebDlgMgr::getInstance()->closeAll();
@@ -214,53 +177,6 @@ QString LobbyDialog::getLangString()
     }
 
     return strLang;
-}
-
-void LobbyDialog::openClassWebPage(bool force/* =false */)
-{
-	if(m_isOpenWebCourseware&&!force)
-    {
-        return;
-    }
-
-    __int64 uid = ClassSeeion::GetInst()->_nUserId;
-
-    if(NULL == m_wszWebToken[0])
-    {
-        if(!CLoginTokenMgr::GetInstance()->GetLoginToken(uid, m_wszWebToken))
-        {
-			if(m_webWidget)
-			{
-				ui.label_loading->show();
-				m_webWidget->hide();
-			}
-
-            return;
-        }
-    }
-    
-    QString strToken(QString::fromWCharArray(m_wszWebToken));
-    QString strUrl = QString(Config::getConfig()->m_urlCourseSelf.c_str()).arg(uid).arg(strToken).arg(uid).arg(getLangString());
-	
-	if(m_webWidget)
-	{
-		m_webWidget->openUrl(strUrl);
-	}
-
-	onWebPageLoadFinished();
-	/*
-	QString strUrl = QString(Config::getConfig()->m_urlClassHome.c_str()).arg(uid).arg(strToken).arg(getLangString());
-
-	QNetworkRequest webRequest;    
-    webRequest.setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::PreferCache);
-    webRequest.setUrl(QUrl(strUrl));
-    ui.webView_course->load(webRequest);    
-	*/
-
-    m_isOpenWebCourseware = true;
-	
-    g_systemTray->setSysSettingActionEnable(true);
-    g_systemTray->setLogoutActionEnable(true);
 }
 
 void LobbyDialog::clickedNotify()
@@ -292,30 +208,11 @@ void LobbyDialog::clickedUserInfo(QString str)
 
 void LobbyDialog::clickedShowCourse()
 {
-// 	if(NULL == m_dlgCourse)
-// 	{
-// 		m_dlgCourse = new CourseDialog();
-// 	}
-// 
-// 	m_dlgCourse->openCoursePage();
-// 	m_dlgCourse->show();    
 }
 
 void LobbyDialog::onRecvLoginToken(QString token)
 {
-	/*
-    if(m_isOpenWebCourseware)
-    {
-        showSelfHome(wstring((wchar_t*)(token).unicode()).data());
-    }
-    else
-    {
-        wcscpy_s(m_wszWebToken,(wchar_t*)(token).unicode());
-        openClassWebPage();
-    }
-	*/
-
-	this->openClassWebPage();
+	
 }
 
 void LobbyDialog::showSelfHome(LPCWSTR wszToken)
@@ -336,18 +233,11 @@ void LobbyDialog::showSelfHome(LPCWSTR wszToken)
     QDesktopServices::openUrl(QUrl(strUrl));
 }
 
-void LobbyDialog::addObjectToJs()
-{
-    ui.webView_course->page()->mainFrame()->addToJavaScriptWindowObject("CoursePage", this);
-}
-
 void LobbyDialog::onReturnUserInfo(__int64 nUserId)
 {
-	// 标题栏不显示个人信息
-	/*
-    biz::SLUserInfo myInfo = biz::GetBizInterface()->GetUserInfoDataContainer()->GetUserInfoById(nUserId);	
-    updateUserInfo();
-    
+	biz::SLUserInfo myInfo = biz::GetBizInterface()->GetUserInfoDataContainer()->GetUserInfoById(nUserId);	
+    updateUserHead();
+
 	if (wcslen(myInfo.szRealName) > 0)
     {
         ui.label_username->setText(QString::fromWCharArray(myInfo.szRealName));
@@ -356,7 +246,8 @@ void LobbyDialog::onReturnUserInfo(__int64 nUserId)
     {
         ui.label_username->setText(QString::fromWCharArray(myInfo.szNickName));
     }
-	*/
+	
+	ui.label_userId->setText(QString("%1").arg(myInfo.nUserId));
 
     CUploadTokenMgr::GetInstance()->SetUserId(nUserId);
     if (ClassSeeion::GetInst()->m_loginBytokenUid)
@@ -371,15 +262,12 @@ void LobbyDialog::onReturnUserInfo(__int64 nUserId)
 	
 
     biz::GetBizInterface()->QueryMessageList(ClassSeeion::GetInst()->_nUserId, 1);
-    m_nnotifyTimer = this->startTimer(60000);
+    m_notifyTimer = this->startTimer(60000);
 
-	/*
-	change by xiewb 2018.10.08
-	*/
-	openLocalPage();
+	showClassList(QString(""));
 }
 
-void LobbyDialog::updateUserInfo()
+void LobbyDialog::updateUserHead()
 {  
     QString imgFile;
     QPixmap headPixmap ;
@@ -398,11 +286,10 @@ void LobbyDialog::updateUserInfo()
         br = headImage.loadFromData(fileHead.readAll());
         headPixmap = QPixmap::fromImage(headImage);
     }
-        
-    QSize size = QSize(30,30);
-    headPixmap = headPixmap.scaled(size, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    
+    headPixmap = headPixmap.scaled(ui.label_userpic->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
     ui.label_userpic->clear();
-    ui.label_userpic->setPixmap(headPixmap.scaled(size));
+    ui.label_userpic->setPixmap(headPixmap);
     
     //更新图片
     if(m_idDownHeadImage == 0)
@@ -502,14 +389,6 @@ void LobbyDialog::setCloseClassRoom()
     m_enterClassState = enterClass_undo;
     this->show();
     g_singApp->m_widget = this;
-
-	/*
-    if (!m_isOpenWebCourseware) 
-    {	
-		memset(m_wszWebToken,NULL,sizeof(m_wszWebToken));
-        openClassWebPage(true);
-    }
-	*/
 }
 
 void LobbyDialog::showSysTimer()
@@ -549,21 +428,14 @@ void LobbyDialog::timerEvent(QTimerEvent *event)
         return;
     }
 
-    if (event->timerId() == m_nsysTime)
+    if (event->timerId() == m_sysTimer)
     {
         showSysTimer();
     }
 
-    if (event->timerId() == m_nnotifyTimer)
+    if (event->timerId() == m_notifyTimer)
     {
         flushNotifyMsgTimer();
-    }
-
-    if(event->timerId() == m_reloadTimer)
-    {
-        m_isOpenWebCourseware = false;
-        memset(m_wszWebToken,NULL,sizeof(m_wszWebToken));
-        openClassWebPage();
     }
 
 	if(event->timerId() == m_enterClassTimer)
@@ -725,10 +597,6 @@ int LobbyDialog::getDevState()
 
 void LobbyDialog::hide()
 {
-// 	if(m_dlgCourse)
-// 	{
-// 		m_dlgCourse->close();
-// 	}
 	m_enterClassState = enterClass_undo;
 	C8CommonWindow::hide();
 }
@@ -760,7 +628,7 @@ void LobbyDialog::HttpDownImageCallBack(int httpEventType, unsigned int lpUser, 
         {   
 			if(pHttpS->id==m_idDownHeadImage)
             {
-				updateUserInfo();
+				updateUserHead();
 				m_idDownHeadImage = 0;
 
 				if(ClassRoomDialog::isValid())
@@ -780,43 +648,6 @@ void LobbyDialog::HttpDownImageCallBack(int httpEventType, unsigned int lpUser, 
     }
 }
 
-void LobbyDialog::onWebPageLoadFinished()
-{	
-	if(NULL==m_webWidget)
-	{
-		return;
-	}
-	
-	QBoxLayout *showLayout = qobject_cast<QBoxLayout*>(ui.widget_calendar->layout());
-	if(showLayout)
-	{
-		showLayout->addWidget(m_webWidget);
-	}
-	
-	ui.label_loading->hide();
-	ui.widget_course->show();
-	m_webWidget->show();
-
-	m_isOpenWebCourseware = false;
-	memset(m_wszWebToken,NULL,sizeof(m_wszWebToken));
-
-	//xiewenbing 2018.10.08
-	biz::SLUserInfo myInfo = biz::GetBizInterface()->GetUserInfoDataContainer()->GetUserInfoById(ClassSeeion::GetInst()->_nUserId);
-	QString imgUrl = QString(Config::getConfig()->m_urlUserHeadImage.c_str()) + QString::fromWCharArray(myInfo.szPicUrl);
-	QString uname = QString::fromStdWString(myInfo.szRealName);
-	if(uname.isEmpty()){
-		uname = QString::fromStdWString(myInfo.szNickName);
-	}
-
-	m_webWidget->setUserInfo(myInfo.nUserId,uname,imgUrl);
-	showClassList(QString(""));
-}
-
-void LobbyDialog::onWebViewLoadFinished(bool error)
-{
-
-}
-
 void LobbyDialog::autoEnterClass()
 {
 	m_autoEnterClass = true;
@@ -826,21 +657,6 @@ void LobbyDialog::autoEnterClass()
 		m_dlgWait = new QWaitDlg(this,false);
 		m_dlgWait->wait(this,SIGNAL(setWaitStop()),QString(tr("WatiEnterClass")),QString(""));
 	}
-}
-
-void LobbyDialog::openLocalPage()
-{
-	if(NULL==m_webWidget){
-		return;
-	}
-
-	QString urlPath = Env::getExePath();
-	int nPos = urlPath.lastIndexOf('/');
-	if(nPos>0){
-		urlPath = QString("file:///")+urlPath.left(nPos)+QString("/page/lobby.html");
-	}
-
-	m_webWidget->openUrl(urlPath);
 }
 
 void LobbyDialog::showClassList(QString qstrDate)
@@ -857,13 +673,20 @@ void LobbyDialog::showClassList(QString qstrDate)
 	char szRequest[MAX_PATH]={0};
 	Util::QStringToChar(qstrRequest,szRequest,MAX_PATH);
 	strcpy_s(szUrl,Config::getConfig()->m_urlCourseClassList.c_str());
+
+	//reconnect signal and slot
+	if(!CHttpSessionMgr::isValid()){
+		connect(CHttpSessionMgr::GetInstance(),SIGNAL(httpEvent(int, unsigned int, bool, unsigned int)),this,
+			SLOT(HttpDownImageCallBack(int, unsigned int, bool, unsigned int)),Qt::QueuedConnection);
+	}
+
 	m_idGetClassList = CHttpSessionMgr::GetInstance()->DoHttpRequest(
 		HTTP_SESSION_POST,
 		szUrl,szRequest,
 		HTTP_DOWN_TIMEOUT, 
 		(LPVOID)NULL, (LPVOID)this);
 
-	connect(CHttpSessionMgr::GetInstance(),SIGNAL(httpEvent(int, unsigned int, bool, unsigned int)),this,SLOT(HttpDownImageCallBack(int, unsigned int, bool, unsigned int)),Qt::QueuedConnection);
+	
 }
 
 void LobbyDialog::showCourseClass(string jsonList)
@@ -931,6 +754,11 @@ void LobbyDialog::showCourseClass(string jsonList)
 	}else{
 		ui.label_noCourseTip->hide();
 	}
+
+	if(!ui.widget_course->isVisible()){
+		ui.widget_course->show();
+		ui.label_loading->hide();
+	}
 }
 
 void LobbyDialog::setCourseClassItem(CourseClassItem* ccItem,string courseId,string classId, string classState,string imageUrl,string className,string isTeacher, string teacherName,string startTime,string endTime)
@@ -975,4 +803,3 @@ void LobbyDialog::setCourseClassItem(CourseClassItem* ccItem,string courseId,str
 	ccItem->setItemParam(_courseId,_classId,_classState,_imageUrl,_isTeacher,_className,_teacherName,_startTime,_endTime);
 	ccItem->show();
 }
-

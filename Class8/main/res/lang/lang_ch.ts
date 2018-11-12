@@ -2423,4 +2423,47 @@ ESC退出;</translation>
       <translation type="unfinished">观看回放</translation>
     </message>
   </context>
+  <context>
+      <name>QCustomCalendarWidget</name>
+      <message>
+          <source>weekMonday</source>
+          <translation type="unfinished">一</translation>
+      </message>
+      <message>
+          <source>weekTuesday</source>
+          <translation type="unfinished">二</translation>
+      </message>
+      <message>
+          <source>weekWednesday</source>
+          <translation type="unfinished">三</translation>
+      </message>
+      <message>
+          <source>weekThursday</source>
+          <translation type="unfinished">四</translation>
+      </message>
+      <message>
+          <source>weekFriday</source>
+          <translation type="unfinished">五</translation>
+      </message>
+      <message>
+          <source>weekSaturday</source>
+          <translation type="unfinished">六</translation>
+      </message>
+      <message>
+          <source>weekSunday</source>
+          <translation type="unfinished">日</translation>
+      </message>
+      <message>
+          <source>yearAndMonth</source>
+          <translation type="unfinished">%1年%2月</translation>
+      </message>
+      <message>
+          <source>prevMonth</source>
+          <translation type="unfinished">上一月</translation>
+      </message>
+      <message>
+          <source>nextMonth</source>
+          <translation type="unfinished">下一月</translation>
+      </message>
+  </context>
 </TS>

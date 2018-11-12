@@ -16,6 +16,35 @@
 #include "./session/classsession.h"
 
 CoursewareDataMgr*  CoursewareDataMgr::  m_instance = NULL;
+
+CoursewareDataMgr *CoursewareDataMgr::GetInstance()
+{
+	if (NULL == m_instance)
+	{
+		m_instance = new CoursewareDataMgr;
+	}
+	return m_instance;
+}
+
+void CoursewareDataMgr::freeInstance()
+{
+	SAFE_DELETE(m_instance);
+}
+
+bool CoursewareDataMgr::isValid()
+{
+	return m_instance ? true : false;
+}
+
+QCoursewarePannel* CoursewareDataMgr::getCoursewarePannel()
+{
+	if(m_instance) {
+		return m_instance->m_CoursewarePanel;
+	}
+
+	return NULL;
+}
+
 CoursewareDataMgr::CoursewareDataMgr()
 { 
     m_CoursewarePanel = new QCoursewarePannel();
@@ -42,25 +71,6 @@ CoursewareDataMgr::CoursewareDataMgr()
 CoursewareDataMgr::~CoursewareDataMgr()
 {
     ReleaseData();
-}
-
-CoursewareDataMgr *CoursewareDataMgr::GetInstance()
-{
-    if (NULL == m_instance)
-    {
-        m_instance = new CoursewareDataMgr;
-    }
-    return m_instance;
-}
-
-void CoursewareDataMgr::freeInstance()
-{
-    SAFE_DELETE(m_instance);
-}
-
-bool CoursewareDataMgr::isValid()
-{
-    return m_instance ? true : false;
 }
 
 void CoursewareDataMgr::ReleaseData()
