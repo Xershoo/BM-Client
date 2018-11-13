@@ -68,6 +68,8 @@ void UserListMenue::setMenueType(MenueType menueType,bool inClassroom /* = true 
 			
 			//xiewb 2018.09.10
 			ui.kickout_Btn->hide();
+			ui.disableSpeak_Btn->hide();
+			ui.line_userListMenue_1->hide();
 			break;
 		}
 		case STUDENT_TO_STUDENT:

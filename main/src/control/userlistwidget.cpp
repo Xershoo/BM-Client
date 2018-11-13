@@ -132,7 +132,7 @@ void UserListWidget::contextMenuEvent(QContextMenuEvent *e)
 			m_userListMenue->setPromotedToAssistantBtnText(tr("cancel promoted to assistant"));
         else
 			m_userListMenue->setPromotedToAssistantBtnText(tr("promoted to assistant"));
-
+		
         if (isTriggeredItemDisableSpeaking(e->pos()))
             m_userListMenue->setDisableSpeakBtnText(tr("cancel disable speak"));
         else
