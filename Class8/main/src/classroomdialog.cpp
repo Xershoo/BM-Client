@@ -396,6 +396,9 @@ void ClassRoomDialog::doClose()
 	if(ClassSeeion::GetInst()->IsTeacher() )
 	{   
 		biz::GetBizInterface()->UserClassAction(ClassSeeion::GetInst()->_nClassRoomId, 0, biz::eUserspeekstate_clean_speak, ClassSeeion::GetInst()->_nUserId);
+		
+		//xiewb 2018.11.13
+		CoursewareDataMgr::GetInstance()->MediaCtrl(CMediaFilePlayer::PAUSE);
 	}
 
     biz::GetBizInterface()->LeaveClass(ClassSeeion::GetInst()->_nClassRoomId);
@@ -658,6 +661,9 @@ void ClassRoomDialog::onUserEnter(__int64 userID)
 		{
 			ui.widget_teaPublishVideo->hide();
 			ui.widget_teaVideo->show();
+
+			//xiewb 2018.11.08
+			CoursewareDataMgr::getCoursewarePannel()->PauseAllMediaCourseware(QString(""));
 		}
 		
 		setUserUI();

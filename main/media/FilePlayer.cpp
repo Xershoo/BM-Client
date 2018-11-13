@@ -92,6 +92,18 @@ bool CMediaFilePlayer::play(const string& file,bool onlyOpen /* = false */)
 
 bool CMediaFilePlayer::pause(bool isPause)
 {
+	if(m_state == STOP)
+	{		
+		if(!::AVP_PlayFile(m_fileName.c_str(),(HWNDHANDLE)this,NULL,this))
+		{
+			return false;
+		}
+
+		m_totalPlayTime = AVP_GetFileDuration(m_fileName.c_str());
+
+		m_state = PLAY;
+	}
+
 	if (isPause)
 	{
 		if (0 != m_idTimePlay)
@@ -106,19 +118,6 @@ bool CMediaFilePlayer::pause(bool isPause)
 		{
 			m_idTimePlay = this->startTimer(1000, Qt::CoarseTimer);
 		}		
-	}
-
-	if(m_state == STOP)
-	{		
-		if(!::AVP_PlayFile(m_fileName.c_str(),(HWNDHANDLE)this,NULL,this))
-		{
-			return false;
-		}
-
-		m_totalPlayTime = AVP_GetFileDuration(m_fileName.c_str());
-
-		m_state = PLAY;
-		return true;
 	}
 
 	if( m_state == (isPause ? PAUSE : PLAY))
