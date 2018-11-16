@@ -190,7 +190,7 @@ void ClassRoomDialog::initUI()
 	m_handsUpDown = new QShortcut(this);
 
 	//set hide interface child control
-	ui.widget_stuVideoListWnd->hide();
+	//ui.widget_stuVideoListWnd->hide(); xiewb 2018.11.16
 	ui.widget_teaVideo->hide();
 	
 	ui.gifIconPushButton_lock->hide();
@@ -354,9 +354,10 @@ void ClassRoomDialog::closeWnd()
     ui.widget_teaVideo->stop();
     ui.widget_teaVideo->setUrl(NULL);
 	ui.widget_teaVideo->setStudentVideoStream(m_rtmpSpeakPlayer,false);
-	ui.widget_stuVideoListWnd->hideStuVideoListWnd();
 	ui.widget_teaPublishVideo->setStudentVideoStream(m_rtmpSpeakPlayer,false);
-
+	
+	//ui.widget_stuVideoListWnd->hideStuVideoListWnd(); xiewb 2018.11.16
+	
 	if(m_rtmpSpeakPlayer)
 	{
 		m_rtmpSpeakPlayer->stop();
@@ -436,6 +437,7 @@ void ClassRoomDialog::onRecvStuVideoList(StudentVideoListInfo info)
 
 void ClassRoomDialog::showStuVideoListWndBtnClicked()
 {
+	/*  2018.11.16
     if (!ui.widget_stuVideoListWnd->isVisible())
     {
         ui.widget_stuVideoListWnd->showStuVideoListWnd();
@@ -444,6 +446,7 @@ void ClassRoomDialog::showStuVideoListWndBtnClicked()
     {
         ui.widget_stuVideoListWnd->hideStuVideoListWnd();
     }
+	*/
 }
 
 void ClassRoomDialog::showTeaMulitVideoBtnClicked()
@@ -646,7 +649,7 @@ void ClassRoomDialog::onUserEnter(__int64 userID)
 		{
             CMediaPublishMgr::getInstance()->setMediaUrl(userInfo.szPushUrl, userInfo.szPullUrl);
             CMediaPublishMgr::getInstance()->setPublishParam(ClassSeeion::GetInst()->IsTeacher());
-            if(isClassBegin)
+            if(isClassBegin && ClassSeeion::GetInst()->IsTeacher())  //xiewb 2018.11.16
             {
                 CMediaPublishMgr::getInstance()->startAllPublishVideoAsync();
             }
@@ -1379,6 +1382,8 @@ void ClassRoomDialog::doClassRoomState_Doing()
     {
         ui.gifIconPushButton_classBegin->hide();
         ui.gifIconPushButton_classOver->show();
+
+		CMediaPublishMgr::getInstance()->startAllPublishVideoAsync();//xiewb 2018.11.16
     }
 	else
 	{
@@ -1393,7 +1398,6 @@ void ClassRoomDialog::doClassRoomState_Doing()
 	}
 
 	biz::SLUserInfo myInfo = biz::GetBizInterface()->GetUserInfoDataContainer()->GetUserInfoById(ClassSeeion::GetInst()->_nUserId);	
-	CMediaPublishMgr::getInstance()->startAllPublishVideoAsync();
 
 	auto pSpeakUserInfo = classRoomInfo->GetSpeakUserInfo();
 	if(pSpeakUserInfo)
@@ -1966,13 +1970,15 @@ void ClassRoomDialog::setClassMode(int newMode,int oldMode,bool showMsg /* = tru
 
 
 void ClassRoomDialog::setStudentSpeak(biz::SLUserInfo& userInfo,bool setSpeak)
-{
-    bool isSelf =  userInfo.nUserId == ClassSeeion::GetInst()->_nUserId ? true : false;
-	StudentVideoWnd * wndStudentVideo = ui.widget_stuVideoListWnd->getStudentVideoWnd(userInfo.nUserId);
+{	
 	CRTMPPlayer * player = NULL;
+	bool isSelf =  userInfo.nUserId == ClassSeeion::GetInst()->_nUserId ? true : false;
+	
+	//StudentVideoWnd * wndStudentVideo = ui.widget_stuVideoListWnd->getStudentVideoWnd(userInfo.nUserId);
 
     if(!isSelf)
 	{
+		/* xiewb 2018.11.16
         if(wndStudentVideo)
 	    {
 		    player = wndStudentVideo->getPlayer();
@@ -2001,8 +2007,32 @@ void ClassRoomDialog::setStudentSpeak(biz::SLUserInfo& userInfo,bool setSpeak)
 		    {
 			    player = m_rtmpSpeakPlayer;
 		    }
-	    }
+			}
+		*/
 
+		if(setSpeak)
+		{
+			player = new CRTMPPlayer();
+
+			std::string url;
+			Util::QStringToString(QString::fromWCharArray(userInfo.szPullUrl), url);
+
+			player->setUrl(url.c_str());
+			player->setUserId(ClassSeeion::GetInst()->_nUserId);
+
+			if(m_rtmpSpeakPlayer)
+			{
+				m_rtmpSpeakPlayer->stop();
+				delete m_rtmpSpeakPlayer;
+			}
+
+			m_rtmpSpeakPlayer = player;
+		}
+		else
+		{
+			player = m_rtmpSpeakPlayer;
+		}
+	    
         if(setSpeak)
         {
             player->setVideoIndex(0);
@@ -2065,16 +2095,30 @@ void ClassRoomDialog::setStudentSpeak(biz::SLUserInfo& userInfo,bool setSpeak)
 					rtmpPublish->setMediaLevel(STANDARRDLEVEL);
 					rtmpPublish->setPublish(true);
 					rtmpPublish->setMediaRole(LISTENERROLE);
+
+					//xiewb 2018.11.16
+					if(rtmpPublish->isStart()){
+						rtmpPublish->change();
+					}else{
+						rtmpPublish->start();
+					}
 				}
 				else
 				{	
 					sourceType &= ~SOURCEDEVAUDIO;
 					rtmpPublish->setMediaLevel(SMOOTHLEVEL);
-					rtmpPublish->setSourceType(sourceType);					
+					rtmpPublish->setSourceType(sourceType);
+
+					//xiewb 2018.11.16
+					if(!rtmpPublish->hasShow()){
+						rtmpPublish->stop();
+					}else{
+						rtmpPublish->change();
+					}
 				}
 
-
-                rtmpPublish->change();
+				//xiewb 2018.11.16
+				//rtmpPublish->change();
 
                 if(!ClassSeeion::GetInst()->IsTeacher())
                 {
@@ -2392,14 +2436,16 @@ void ClassRoomDialog::adjustElementPos()
 	/******xiewb 2018.10.26********/
 	setCoursewareToolUI();
 	/******************************/
-    QRect rcStuVideoList;
-    rcStuVideoList.setX(0/*(ui.widget_main->width() - ui.widget_stuVideoListWnd->width()) / 2 + 10*/);
-    rcStuVideoList.setY(0);
-    rcStuVideoList.setWidth(ui.widget_main->width()/*ui.widget_stuVideoListWnd->width()*/);
-    rcStuVideoList.setHeight(ui.widget_stuVideoListWnd->height());
-    ui.widget_stuVideoListWnd->setGeometry(rcStuVideoList);
 
 	
+//	   2018.11.16 xiewb
+//     QRect rcStuVideoList;
+//     rcStuVideoList.setX(0/*(ui.widget_main->width() - ui.widget_stuVideoListWnd->width()) / 2 + 10*/);
+//     rcStuVideoList.setY(0);
+//     rcStuVideoList.setWidth(ui.widget_main->width()/*ui.widget_stuVideoListWnd->width()*/);
+//     rcStuVideoList.setHeight(ui.widget_stuVideoListWnd->height());
+//     ui.widget_stuVideoListWnd->setGeometry(rcStuVideoList);
+//
 }
 
 void ClassRoomDialog::max_minSizeBtnClicked()
@@ -2815,7 +2861,7 @@ void ClassRoomDialog::onMediaInitFinish()
     CMediaPublishMgr::getInstance()->setMediaUrl(userInfo.szPushUrl,userInfo.szPullUrl);
     CMediaPublishMgr::getInstance()->setPublishParam(ClassSeeion::GetInst()->IsTeacher());
 
-    if(ClassSeeion::GetInst()->_bBeginedClass)
+    if(ClassSeeion::GetInst()->_bBeginedClass&&ClassSeeion::GetInst()->IsTeacher()) //xiewb 2018.11.16
     {
         CMediaPublishMgr::getInstance()->startAllPublishVideoAsync();
     }

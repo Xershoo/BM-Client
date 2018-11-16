@@ -510,16 +510,6 @@
              <height>16777215</height>
             </size>
            </property>
-           <widget class="StuVideoListWnd" name="widget_stuVideoListWnd" native="true">
-            <property name="geometry">
-             <rect>
-              <x>70</x>
-              <y>0</y>
-              <width>761</width>
-              <height>80</height>
-             </rect>
-            </property>
-           </widget>
            <widget class="QWidget" name="widget_main" native="true">
             <property name="geometry">
              <rect>
@@ -1204,11 +1194,6 @@
              <string/>
             </property>
            </widget>
-           <zorder>widget_main</zorder>
-           <zorder>widget_stuVideoListWnd</zorder>
-           <zorder>widget_coursewareToolbar</zorder>
-           <zorder>widget_whiteboardToolbar</zorder>
-           <zorder>pushButton_closeCourseware</zorder>
           </widget>
          </item>
          <item>
@@ -1640,18 +1625,18 @@
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>C8CommonWindow</class>
-   <extends>QWidget</extends>
-   <header>c8commonwindow.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>GifIconPushButton</class>
    <extends>QWidget</extends>
    <header>gificonpushbutton.h</header>
    <slots>
     <signal>clicked()</signal>
    </slots>
+  </customwidget>
+  <customwidget>
+   <class>C8CommonWindow</class>
+   <extends>QWidget</extends>
+   <header>c8commonwindow.h</header>
+   <container>1</container>
   </customwidget>
   <customwidget>
    <class>MaskLabel</class>
@@ -1662,12 +1647,6 @@
    <class>UserListTabPage</class>
    <extends>QWidget</extends>
    <header>userlisttabpage.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>StuVideoListWnd</class>
-   <extends>QWidget</extends>
-   <header>stuvideolistwnd.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>

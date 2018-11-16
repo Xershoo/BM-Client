@@ -4,7 +4,7 @@
 #include <Windows.h>
 
 #define MAX_HOST_NUM				(5)
-#define DEF_ICMP_TIMEOUT			(3000)		//定义超时为3秒
+#define DEF_ICMP_TIMEOUT			(5000)		//定义超时为5秒
 
 typedef unsigned int SOCKET;
 

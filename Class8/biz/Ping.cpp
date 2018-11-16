@@ -259,8 +259,9 @@ bool CPing::doPing(ULONG destIP)
 
 	//填充ICMP数据包个各字段
 	ICMP_HEADER *pIcmpHeader  = (ICMP_HEADER*)m_icmpData;
+	bool br = false;
 
-	while( seq <= 3)
+	while( seq <= 5)
 	{
 		pIcmpHeader->seq = htons(seq) ;
 		pIcmpHeader->cksum = 0;
@@ -297,6 +298,8 @@ bool CPing::doPing(ULONG destIP)
 			if(decodeICMPHeader(m_recvBuf , recv_ret , &ret))
 			{
 				PrintTrace("receive %s reply: length = %d time = %dms TTL = %d\n" , inet_ntoa(ret.addr),recv_ret - 20,ret.time ,ret.ttl) ;
+				br = true;
+				break;
 			}
 			else
 			{
@@ -315,6 +318,7 @@ bool CPing::doPing(ULONG destIP)
 			break;
 		}
 
+		/*
 		if(err > 2){
 			break;
 		}
@@ -322,6 +326,7 @@ bool CPing::doPing(ULONG destIP)
 		if(seq>=1&&err==0){
 			break;
 		}
+		*/
 
 		seq++ ;
 		Sleep(1000);
@@ -329,7 +334,7 @@ bool CPing::doPing(ULONG destIP)
 
 	closesocket(m_sockRaw);
 	m_sockRaw = NULL;
-	return err<=2 ? true:false;
+	return br;//err<=2 ? true:false;
 }
 
 bool CPing::setSocket()

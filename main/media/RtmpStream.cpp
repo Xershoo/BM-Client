@@ -51,6 +51,12 @@ void CRTMPStream::delShow(int index)
 	return;
 }
 
+bool CRTMPStream::hasShow()
+{
+	QMutexLocker autoLock(&m_mutexShow);
+	return m_mapShow.empty()?false:true;
+}
+
 void CRTMPStream::show(const RtmpVideoBuf& videoBuf)
 {
     QMutexLocker autoLock(&m_mutexShow);

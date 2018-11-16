@@ -178,6 +178,7 @@ public:
 public:
 	int  addShow(CRTMPStreamShow* rtmpShow);
 	void delShow(int index);
+	bool hasShow();
 
 protected:
     string  m_rtmpUrl;
