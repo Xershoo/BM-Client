@@ -2466,4 +2466,182 @@ ESC ESC;</translation>
         <translation type="unfinished">Next month</translation>
     </message>
 </context>
+  <context>
+    <name>DeviceDetectHelpDialog</name>
+    <message>
+      <source>DeviceDetectHelp</source>
+      <translation type="unfinished">Device Detect Help Message</translation>
+    </message>
+    <message>
+      <source>exitDetect</source>
+      <translation type="unfinished">Exit Detect</translation>
+    </message>
+    <message>
+      <source>skipDetect</source>
+      <translation type="unfinished">Next Device Detect</translation>
+    </message>
+    <message>
+      <source>devDetHelpStepTitle</source>
+      <translation type="unfinished">There may be problems with your device. You can try the following methods and then reload the software for detecting:</translation>
+    </message>
+    <message>
+      <source>devDetHelpStepA</source>
+      <translation type="unfinished">1.Please pull out the equipment and insert the correct Jack again.</translation>
+    </message>
+    <message>
+      <source>devDetHelpStepB</source>
+      <translation type="unfinished">2.Open the Device Manager and check if the device is disabled</translation>
+    </message>
+    <message>
+      <source>devDetHelpStepC</source>
+      <translation type="unfinished">3.Please check if there is a switch on the connection of your equipment, and if so, turn it on.</translation>
+    </message>
+    <message>
+      <source>devDetHelpStepD</source>
+      <translation type="unfinished">4.When using the safety software pop-up device, please select "Allow Use"</translation>
+    </message>
+    <message>
+      <source>devDetHelpLast</source>
+      <translation type="unfinished">If your problem is still unsolved, please contact our technical support staff.</translation>
+    </message>
+  </context>
+  <context>
+    <name>DeviceDetectDialog</name>
+    <message>
+      <source>DeviceDetect</source>
+      <translation type="unfinished">Device Detect</translation>
+    </message>
+    <message>
+      <source>tipDevDecReady</source>
+      <translation type="unfinished">In order to ensure the quality of class, please do the following device detect.</translation>
+    </message>
+    <message>
+      <source>nameSpeaker</source>
+      <translation type="unfinished">Speaker</translation>
+    </message>
+    <message>
+      <source>cameraName</source>
+      <translation type="unfinished">Camera</translation>
+    </message>
+    <message>
+      <source>microphoneName</source>
+      <translation type="unfinished">Microphone</translation>
+    </message>
+    <message>
+      <source>nameNetwork</source>
+      <translation type="unfinished">Network</translation>
+    </message>
+    <message>
+      <source>tipNameSpk</source>
+      <translation type="unfinished">Please insert a green jack into the headphone</translation>
+    </message>
+    <message>
+      <source>tipNameMic</source>
+      <translation type="unfinished">Please insert pink jack into the microphone</translation>
+    </message>
+    <message>
+      <source>tipSpeakerDetect</source>
+      <translation type="unfinished">Welcome to Bangmang Classroom. Here are headphones and speaker detection. Can you hear the music playing?</translation>
+    </message>
+    <message>
+      <source>readyDeviceDetect</source>
+      <translation type="unfinished">Start detect</translation>
+    </message>
+    <message>
+      <source>jumpDeviceDetect</source>
+      <translation type="unfinished">Skip detect</translation>
+    </message>
+    <message>
+      <source>txtSelSpeaker</source>
+      <translation type="unfinished">If you can't hear the sound, try other speaker devices</translation>
+    </message>
+    <message>
+      <source>hearVoice</source>
+      <translation type="unfinished">Audible</translation>
+    </message>
+    <message>
+      <source>noHearVoice</source>
+      <translation type="unfinished">Inaudible</translation>
+    </message>
+    <message>
+      <source>seePreview</source>
+      <translation type="unfinished">Visible</translation>
+    </message>
+    <message>
+      <source>noPreview</source>
+      <translation type="unfinished">Invisible</translation>
+    </message>
+    <message>
+      <source>tipCameraDetect</source>
+      <translation type="unfinished">Please aim the camera at yourself. Can you see your video below?</translation>
+    </message>
+    <message>
+      <source>txtSelCamera</source>
+      <translation type="unfinished">If you can't see the picture, try other camera devices</translation>
+    </message>
+    <message>
+      <source>tipMicrophoneDetect</source>
+      <translation type="unfinished">Speak to the microphone, can you hear yourself in 1~2 seconds?</translation>
+    </message>
+    <message>
+      <source>txtSelMic</source>
+      <translation type="unfinished">If you can't hear the sound, try other microphone devices</translation>
+    </message>
+    <message>
+      <source>tipNetworkDetect</source>
+      <translation type="unfinished">Now we are checking the network connection, please wait a while......</translation>
+    </message>
+    <message>
+      <source>txtFinishDetect</source>
+      <translation type="unfinished">Complete</translation>
+    </message>
+    <message>
+      <source>tipNetworkGood</source>
+      <translation type="unfinished">Network good</translation>
+    </message>
+    <message>
+      <source>tipNetworkNormal</source>
+      <translation type="unfinished">Network normal</translation>
+    </message>
+    <message>
+      <source>tipNetworkBad</source>
+      <translation type="unfinished">Network poor</translation>
+    </message>
+    <message>
+      <source>tipNetworkOfClass</source>
+      <translation type="unfinished">In order to ensure the quality of class, please try to use wired network or close to wireless router during class, and turn off downloads, video applications.</translation>
+    </message>
+    <message>
+      <source>noSpeakerFind</source>
+      <translation type="unfinished">There is no speaker or earphone on your computer,would you like to quit the software to check the hardware of the system?</translation>
+    </message>
+    <message>
+      <source>msgNoSpeaker</source>
+      <translation type="unfinished">There is no speaker or earphone on your computer,please quit the software and check the hardware of the system</translation>
+    </message>
+    <message>
+      <source>msgNoCamera</source>
+      <translation type="unfinished">There is no camera on your computer</translation>
+    </message>
+    <message>
+      <source>msgNoMicrophone</source>
+      <translation type="unfinished">There is no microphone on your computer</translation>
+    </message>
+    <message>
+      <source>errorTip</source>
+      <translation type="unfinished">Error Message</translation>
+    </message>
+    <message>
+      <source>closeMsg</source>
+      <translation type="unfinished">Device detecting is not completed yer,are you sure terminate detecting?</translation>
+    </message>
+    <message>
+      <source>networkDetectOK</source>
+      <translation type="unfinished">Network connection detection Completed, network Connection is ok</translation>
+    </message>
+    <message>
+      <source>networkDetectNoOK</source>
+      <translation type="unfinished">The network connection is not stable,please check the network settings of the system.</translation>
+    </message>
+  </context>
 </TS>

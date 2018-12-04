@@ -52,6 +52,10 @@ private:
     void addItemToAccountListWidget();
     void setControlState(bool bISEnble);
 
+protected:
+	//xiewb 2018.11.26
+	void doDeviceDetect();
+	
 private:
 
     Ui::LoginDialog ui;

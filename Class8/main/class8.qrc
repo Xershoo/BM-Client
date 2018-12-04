@@ -579,6 +579,14 @@
         <file>res/image/default/month_right_hover.png</file>
         <file>res/image/default/month_right_normal.png</file>
         <file>res/image/default/month_right_pressed.png</file>
+        <file>res/image/default/detect_camera.png</file>
+        <file>res/image/default/detect_microphone.png</file>
+        <file>res/image/default/detect_network.png</file>
+        <file>res/image/default/detect_speaker.png</file>
+        <file>res/image/default/hole_spk.png</file>
+        <file>res/image/default/hole_mic.png</file>
+        <file>res/image/default/network_detect.gif</file>
+        <file>res/image/default/detect_help.png</file>
     </qresource>
     <qresource prefix="/face">
         <file>res/face/li/1 (1).gif</file>
@@ -688,5 +696,8 @@
     </qresource>
     <qresource prefix="/config">
         <file>config/config.xml</file>
+    </qresource>
+    <qresource prefix="/media">
+        <file>res/media/audio.pcm</file>
     </qresource>
 </RCC>

@@ -17,6 +17,7 @@
 #include "SingleApp/SingleApp.h"
 #include "c8messagebox.h"
 
+#include "DeviceDetectDialog.h"
 #include "setdebugnew.h"
 
 extern SingleApp *g_singApp;
@@ -272,6 +273,7 @@ void LoginDialog::DoLoginOK(LoginInfo info)
             delete item;
             //ui.comboBox_name->removeItem(i);
         }
+
         QString strUser = ui.comboBox_name->currentText();
         QListWidgetItem *listItem = new QListWidgetItem(m_accountListWidget);
         AccountItem *item = new AccountItem(m_accountListWidget);
@@ -279,21 +281,41 @@ void LoginDialog::DoLoginOK(LoginInfo info)
         item->setItem(listItem);
         m_accountListWidget->setItemWidget(listItem, item);
     }
+
     m_login.loginOk();
-    if (ClassSeeion::GetInst()->m_loginBytokenUid)
-    {
-        LobbyDialog::getInstance()->hide();
-    }
-    else
-    {        
-		ClassSeeion::GetInst()->_nUserId = info._nUserId;
-        LobbyDialog::getInstance()->show();
-        g_singApp->m_widget = LobbyDialog::getInstance();
-    }
+	ClassSeeion::GetInst()->_nUserId = info._nUserId;
+
 	ui.widget_logininfo->hide();
-	
 	this->hide();   
-    setControlState(true);
+	setControlState(true);
+
+	doDeviceDetect();	//xie wen bing 2018.11.26
+}
+
+//xie wen bing 2018.11.26
+extern bool doDeviceDetect(__int64 uid);
+void LoginDialog::doDeviceDetect()
+{
+	if(!::doDeviceDetect(ClassSeeion::GetInst()->_nUserId)){
+		close();
+		return;
+	}
+
+	//server error,need to connect again
+	if(this->isVisible()){
+		return;
+	}
+
+	if (ClassSeeion::GetInst()->m_loginBytokenUid)
+	{
+		LobbyDialog::getInstance()->hide();
+	}
+	else
+	{
+		//show lobby dialog
+		LobbyDialog::getInstance()->show();
+		g_singApp->m_widget = LobbyDialog::getInstance();
+	}
 }
 
 void LoginDialog::DoLoginError(int nErrorCode)

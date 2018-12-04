@@ -139,6 +139,9 @@
     <Filter Include="Common Files\lang">
       <UniqueIdentifier>{2d88511e-c10c-432a-88d6-ebaa67950f19}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\multimedia">
+      <UniqueIdentifier>{dd46a519-7158-4e50-9621-26d3b92ef9af}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\main\3rdparty\qxtglobalshortcut\qxtglobalshortcut.cpp">
@@ -1227,6 +1230,36 @@
     <ClCompile Include="src\CalendarWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\DeviceDetectDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_DeviceDetectDialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_DeviceDetectDialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\multimedia\AudioDeviceDetect.cpp">
+      <Filter>Source Files\multimedia</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_AudioDeviceDetect.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_AudioDeviceDetect.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\common\Ping.cpp">
+      <Filter>Common Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\DeviceDetectHelpDialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_DeviceDetectHelpDialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_DeviceDetectHelpDialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\..\main\3rdparty\qxtglobalshortcut\qxtglobalshortcut.h">
@@ -1694,6 +1727,21 @@
     <CustomBuild Include="src\CalendarWidget.h">
       <Filter>Source Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="src\DeviceDetectDialog.ui">
+      <Filter>Source Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\DeviceDetectDialog.h">
+      <Filter>Source Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\multimedia\AudioDeviceDetect.h">
+      <Filter>Source Files\multimedia</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\DeviceDetectHelpDialog.ui">
+      <Filter>Source Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\DeviceDetectHelpDialog.h">
+      <Filter>Source Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <None Include="qss\coffee.qss">
@@ -1985,6 +2033,15 @@
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_CalendarWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_DeviceDetectDialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\main\common\Ping.h">
+      <Filter>Common Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_DeviceDetectHelpDialog.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>

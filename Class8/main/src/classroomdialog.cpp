@@ -213,6 +213,8 @@ void ClassRoomDialog::initUI()
 	ui.slider_spkVolume->setRange(0,100);
 	ui.slider_micVolume->setValue(CMediaPublishMgr::getInstance()->getMicVolume());
 	ui.slider_spkVolume->setValue(CMediaPublishMgr::getInstance()->getSpeakersVolume());
+
+	ui.gifIconpushButton_showSettingDlg->hide();
 }
 
 void ClassRoomDialog::initUiMsgNotify()
@@ -300,7 +302,6 @@ void ClassRoomDialog::initUiMsgNotify()
 	connect(ui.pushButton_spkDisable,SIGNAL(clicked()),this,SLOT(enableSpeakerClicked()));
 	connect(ui.slider_micVolume,SIGNAL(valueChanged(int)),this,SLOT(micVolumeSliderChange(int)));
 	connect(ui.slider_spkVolume,SIGNAL(valueChanged(int)),this,SLOT(spkVolumeSliderChange(int)));
-
 }
 
 void ClassRoomDialog::setTitleBarRect()

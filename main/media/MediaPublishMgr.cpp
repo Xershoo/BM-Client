@@ -1398,6 +1398,7 @@ bool CMediaPublishMgr::startRecordScreen()
 	PublishParam paramPublish;
 	int typeStream = SOURCESCREEN | SOURCEDEMUSIC;
 	paramPublish.ml = STANDARRDLEVEL;
+	paramPublish.nSelectMicID = m_selMic;
 	paramPublish.bAudioKaraoke = true;
 	paramPublish.bIsFullScreen = true;
 

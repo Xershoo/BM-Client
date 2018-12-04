@@ -24,6 +24,19 @@ public:
     QString getHotkeyValue(const QString &name);
     bool updateHotkey(const QString &name, const QString &value);
 
+	bool isDeviceDetect();
+	int  getSelSpeaker();
+	int	 getSelCamera();
+	int	 getSelMic();
+
+	void getSpeakerList(QVector<QString>&);
+	void getCameraList(QVector<QString>&);
+	void getMicList(QVector<QString>&);
+
+	void setDeviceDetect(bool isDetect);
+	void updateSpeakerList(int selSpk,QVector<QString>& vecSpkName);
+	void updateCameraList(int selCamera,QVector<QString>& vecCameraName);
+	void updateMicList(int selMic,QVector<QString>& vecMicName);
 private:
     QFile m_file;
     QDomDocument m_domDoc;

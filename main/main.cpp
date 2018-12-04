@@ -29,11 +29,36 @@
 #include "token/UploadTokenMgr.h"
 #include "common/Config.h"
 #include "QClassWebDialog.h"
+#include "DeviceDetectDialog.h"
 #include "./common/macros.h"
 #include "./common/HttpSessionMgr.h"
 #include "./common/Util.h"
 
 #include "lang.h"
+
+//2018.11.26 add device detect on login
+bool doDeviceDetect(__int64 uid)
+{
+	DeviceDetectDialog* devDlg = new DeviceDetectDialog(uid,false);
+	if(NULL == devDlg){
+		return true;
+	}
+
+	bool ret = true;
+	do 
+	{
+		if(!devDlg->isNeedDetect()){
+			break;
+		}
+
+		ret = (devDlg->exec() == QDialog::Accepted)?true:false;
+	} while (false);
+
+	delete devDlg;
+	devDlg = NULL;
+
+	return ret;
+}
 
 //2018.11.01 after exit,system maybe popup error dialog 
 //eg:Qt (RtlWerpReportException failed with status code :-1073741823)
@@ -174,11 +199,18 @@ int main(int argc, char *argv[])
     {
         strcpy_s(token, "updater_start");
     }
-    WebStartParam webparam;
-    if (IsStartByWeb(token, webparam))
+    
+	int ret = 0;
+	WebStartParam webparam;
+	if (IsStartByWeb(token, webparam))
     {
         SetLoginByWebInfo(webparam);
         g_loginDlg->hide();
+
+		//xie wen bing 2018.11.26
+		if(!doDeviceDetect(webparam.uid)){
+			goto _end;
+		}
 
         QLoginBtTokenDialog::getInstance()->show();
         Sleep(1000);    //等待资源加载，防止UI一直卡在进入课堂页面
@@ -188,9 +220,10 @@ int main(int argc, char *argv[])
     {
         g_loginDlg->show();
     }
-	
-    int ret = g_singApp->exec();
-	
+
+    ret = g_singApp->exec();
+
+_end:
 	CMediaPublishMgr::freeInstance();
     ClassRoomDialog::freeInstance();
     CWebDlgMgr::freeInstance();

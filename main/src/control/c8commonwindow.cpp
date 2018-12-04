@@ -232,7 +232,7 @@ void C8CommonWindow::resetContentsMargin(QLayout* layout)
 
 void C8CommonWindow::centerWindow()
 {
-	QRect rectScreen = QApplication::desktop()->screenGeometry();
+	QRect rectScreen = QApplication::desktop()->availableGeometry();
 	QRect rectWidget = this->geometry();
 
 	QPoint pt((rectScreen.width() - rectWidget.width()) / 2,

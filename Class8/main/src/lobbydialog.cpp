@@ -34,6 +34,7 @@
 #include "setdebugnew.h"
 #include "CourseClassItem.h"
 #include "jason/include/json.h"
+#include "DeviceDetectDialog.h"
 
 extern SingleApp *g_singApp;
 
@@ -67,6 +68,7 @@ LobbyDialog::LobbyDialog(QWidget *parent)
 	, m_autoEnterClass(false)
 	, m_sysTimer(-1)
 	, m_notifyTimer(-1)
+	, m_getUserInfoTimer(-1)
 	, m_idGetClassList(0)
 {   
     ui.setupUi(this);
@@ -121,6 +123,8 @@ LobbyDialog::LobbyDialog(QWidget *parent)
 
 	g_systemTray->setSysSettingActionEnable(true);
 	g_systemTray->setLogoutActionEnable(true);
+
+	m_getUserInfoTimer = startTimer(3000);
 }
 
 LobbyDialog::~LobbyDialog()
@@ -155,6 +159,7 @@ void LobbyDialog::close()
 {
     this->killTimer(m_sysTimer);
     this->killTimer(m_notifyTimer);
+	this->killTimer(m_getUserInfoTimer);
     QDialog::close();
 
     CWebDlgMgr::getInstance()->closeAll();
@@ -192,8 +197,13 @@ void LobbyDialog::clickedNotify()
 
 void LobbyDialog::clickedSetting()
 {
+	/*
 	SettingDialog settingDlg;
     settingDlg.exec();
+	*/
+
+	DeviceDetectDialog detectDlg(ClassSeeion::GetInst()->_nUserId);
+	detectDlg.exec();
 }
 
 void LobbyDialog::clickedUserInfo(QString str)
@@ -263,6 +273,11 @@ void LobbyDialog::onReturnUserInfo(__int64 nUserId)
 
     biz::GetBizInterface()->QueryMessageList(ClassSeeion::GetInst()->_nUserId, 1);
     m_notifyTimer = this->startTimer(60000);
+
+	if(m_getUserInfoTimer>=0){
+		this->killTimer(m_getUserInfoTimer);
+		m_getUserInfoTimer = -1;
+	}
 
 	showClassList(QString(""));
 }
@@ -431,11 +446,13 @@ void LobbyDialog::timerEvent(QTimerEvent *event)
     if (event->timerId() == m_sysTimer)
     {
         showSysTimer();
+		return;
     }
 
     if (event->timerId() == m_notifyTimer)
     {
         flushNotifyMsgTimer();
+		return;
     }
 
 	if(event->timerId() == m_enterClassTimer)
@@ -461,8 +478,15 @@ void LobbyDialog::timerEvent(QTimerEvent *event)
 				m_dlgWait->endWait(QString(tr("enterClassFailed")));;
 				m_dlgWait = NULL;
 			}
-			
 		}
+
+		return;
+	}
+
+	if (event->timerId() == m_getUserInfoTimer)
+	{
+		biz::GetBizInterface()->QueryUserInfo(ClassSeeion::GetInst()->_nUserId);
+		return;
 	}
 }
 

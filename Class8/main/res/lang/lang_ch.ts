@@ -2466,4 +2466,182 @@ ESC退出;</translation>
           <translation type="unfinished">下一月</translation>
       </message>
   </context>
+  <context>
+      <name>DeviceDetectHelpDialog</name>
+      <message>
+          <source>DeviceDetectHelp</source>
+          <translation type="unfinished">设备检测帮助提示</translation>
+      </message>
+      <message>
+          <source>exitDetect</source>
+          <translation type="unfinished">退出检测</translation>
+      </message>
+      <message>
+          <source>skipDetect</source>
+          <translation type="unfinished">下一步检测</translation>
+      </message>
+      <message>
+          <source>devDetHelpStepTitle</source>
+          <translation type="unfinished">您的设备可能存在问题，您可以尝试进行下面方法后重新打开软件进行检测:</translation>
+      </message>
+      <message>
+          <source>devDetHelpStepA</source>
+          <translation type="unfinished">1.请将设备拔出后重新插入正确的插孔</translation>
+      </message>
+      <message>
+          <source>devDetHelpStepB</source>
+          <translation type="unfinished">2.打开设备管理器，检查设备是否禁用</translation>
+      </message>
+      <message>
+          <source>devDetHelpStepC</source>
+          <translation type="unfinished">3.请检测您的设备的连线是否有开关，如果有，请打开</translation>
+      </message>
+      <message>
+          <source>devDetHelpStepD</source>
+          <translation type="unfinished">4.在安全软件弹出设备使用提示时，请选择“允许使用”</translation>
+      </message>
+      <message>
+          <source>devDetHelpLast</source>
+          <translation type="unfinished">如果您的问题，还是没有解决，请联系我们的技术支持人员。</translation>
+      </message>
+  </context>  
+  <context>
+      <name>DeviceDetectDialog</name>
+      <message>
+          <source>DeviceDetect</source>
+          <translation type="unfinished">设备检测</translation>
+      </message>
+      <message>
+          <source>tipDevDecReady</source>
+          <translation type="unfinished">为了保证上课质量，请您进行下面的设备测试</translation>
+      </message>
+      <message>
+          <source>nameSpeaker</source>
+          <translation type="unfinished">耳机</translation>
+      </message>
+      <message>
+          <source>cameraName</source>
+          <translation type="unfinished">摄像头</translation>
+      </message>
+      <message>
+          <source>microphoneName</source>
+          <translation type="unfinished">麦克风</translation>
+      </message>
+      <message>
+          <source>nameNetwork</source>
+          <translation type="unfinished">网络</translation>
+      </message>
+      <message>
+          <source>tipNameSpk</source>
+          <translation type="unfinished">耳机请插入绿色插孔</translation>
+      </message>
+      <message>
+          <source>tipNameMic</source>
+          <translation type="unfinished">麦克风请插入粉色插孔</translation>
+      </message>
+      <message>
+          <source>tipSpeakerDetect</source>
+          <translation type="unfinished">欢迎来到邦芒培训课堂，下面是耳机、扬声器检测，您能听到播放的音乐声音吗?</translation>
+      </message>
+      <message>
+          <source>readyDeviceDetect</source>
+          <translation type="unfinished">开始检测</translation>
+      </message>
+      <message>
+          <source>jumpDeviceDetect</source>
+          <translation type="unfinished">跳过检测</translation>
+      </message>
+      <message>
+          <source>txtSelSpeaker</source>
+          <translation type="unfinished">听不到声音，选择其他扬声器设备试试</translation>
+      </message>
+      <message>
+          <source>hearVoice</source>
+          <translation type="unfinished">听得见</translation>
+      </message>
+      <message>
+          <source>noHearVoice</source>
+          <translation type="unfinished">听不见</translation>
+      </message>
+      <message>
+          <source>seePreview</source>
+          <translation type="unfinished">看得见</translation>
+      </message>
+      <message>
+          <source>noPreview</source>
+          <translation type="unfinished">看不见</translation>
+      </message>
+      <message>
+          <source>tipCameraDetect</source>
+          <translation type="unfinished">请将摄像头对准自己，您能在下面看到自己的视频画面吗?</translation>
+      </message>
+      <message>
+          <source>txtSelCamera</source>
+          <translation type="unfinished">看不到画面，选择其他摄像头设备试试</translation>
+      </message>
+      <message>
+          <source>tipMicrophoneDetect</source>
+          <translation type="unfinished">请对着麦克风说话，您能在1~2秒后听到自己的说话吗?</translation>
+      </message>
+      <message>
+          <source>txtSelMic</source>
+          <translation type="unfinished">听不到说话声音，请选择其他麦克风设备试试</translation>
+      </message>
+      <message>
+          <source>tipNetworkDetect</source>
+          <translation type="unfinished">下面正在对网络连接进行检测，请稍候......</translation>
+      </message>
+      <message>
+          <source>txtFinishDetect</source>
+          <translation type="unfinished">完成检测</translation>
+      </message>
+      <message>
+          <source>tipNetworkGood</source>
+          <translation type="unfinished">网络状态良好</translation>
+      </message>
+      <message>
+          <source>tipNetworkNormal</source>
+          <translation type="unfinished">网络正常</translation>
+      </message>
+      <message>
+          <source>tipNetworkBad</source>
+          <translation type="unfinished">网络连接较差</translation>
+      </message>
+      <message>
+          <source>tipNetworkOfClass</source>
+          <translation type="unfinished">为了保证上课质量，请在上课期间尽量使用有线网络或靠近无线路由器，并关闭下载，视频相关的应用</translation>
+      </message>    
+      <message>
+          <source>noSpeakerFind</source>
+          <translation type="unfinished">您的计算机上面没有找到扬声器或耳机等音频播放设备，无法进行上课，您是否退出软件检查系统硬件设备？</translation>
+      </message>    
+      <message>
+          <source>msgNoSpeaker</source>
+          <translation type="unfinished">您的计算机上面没有找到扬声器或耳机，无法正常上课，请退出软件并插入扬声器或耳机后重新打开软件</translation>
+      </message>
+      <message>
+          <source>msgNoCamera</source>
+          <translation type="unfinished">您的计算机上面没有找到摄像头</translation>
+      </message>
+      <message>
+          <source>msgNoMicrophone</source>
+          <translation type="unfinished">您的计算机上面没有找到麦克风</translation>
+      </message>
+      <message>
+          <source>errorTip</source>
+          <translation type="unfinished">错误提示</translation>
+      </message>  
+      <message>
+          <source>closeMsg</source>
+          <translation type="unfinished">设备检测还没有完成，您是否确定终止设备检测？</translation>
+      </message>
+      <message>
+          <source>networkDetectOK</source>
+          <translation type="unfinished">网络连接检测完成，网络连接正常</translation>
+      </message>
+      <message>
+          <source>networkDetectNoOK</source>
+          <translation type="unfinished">网络连接不稳定，请检测系统的网络设置</translation>
+      </message>
+    </context>
 </TS>

@@ -101,6 +101,7 @@ signals:
 protected:
     int     m_sysTimer;
     int     m_notifyTimer;
+	int		m_getUserInfoTimer;
     int     m_idDownHeadImage;
 	int		m_idGetClassList;
     
