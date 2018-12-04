@@ -615,8 +615,8 @@ void CMediaConfig::getCapScreenConfig(PublishParam pparam,StreamParam& param)
 	param.nAudioSmpRateCap = 32000;
 	param.nAudioChannels = 2;
 	param.nAudioBitRate = 64000;
-	param.nVideoFps = 8;
-	param.nVideoBitRate = 1200;
+	param.nVideoFps = 5;
+	param.nVideoBitRate = 2048;
 
 	int nWndWidth = 0;
 	int nWndHeight = 0;
@@ -631,14 +631,20 @@ void CMediaConfig::getCapScreenConfig(PublishParam pparam,StreamParam& param)
 		nWndWidth = rectWnd.right - rectWnd.left;
 		nWndHeight = rectWnd.bottom - rectWnd.top;
 	}
-
+	
 	float rwh = (float)nWndHeight / (float)nWndWidth;
 	if(rwh < 0.75){
 		param.nVideoW = DEF_CAPSCREEN_VIDEO_WIDTH;
 		param.nVideoH = DEF_CAPSCREEN_VIDEO_HEIGHT_S;
+
+		param.nVideoW = nWndWidth;
+		param.nVideoH = (int)((float)(nWndWidth*9)/(float)16);
 	}else{
 		param.nVideoW = DEF_CAPSCREEN_VIDEO_WIDTH;
 		param.nVideoH = DEF_CAPSCREEN_VIDEO_HEIGHT_L;
+
+		param.nVideoW = nWndWidth;
+		param.nVideoH = (int)((float)(nWndWidth*3)/(float)4);
 	}
 
 	//param.nVideoW = nWndWidth * 3 / 4;
