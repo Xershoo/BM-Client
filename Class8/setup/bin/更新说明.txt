@@ -36,4 +36,6 @@ tomcat123
 /export/update_class8
 
 D:\∞Ó√¢ø∆ºº\Source\Client\Source\Class8\setup\bin\BMClass
+C:\Work\Source\Client\BMClass\Class8\setup\bin\BMClass
 http://www.50ketang.com:12080/update/1.0.0.1104/
+http://www.bmclass.com:12080/update/1.0.0.1126/

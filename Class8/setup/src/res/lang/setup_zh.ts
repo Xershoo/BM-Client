@@ -102,7 +102,7 @@
     <message>
         <location filename="../../../../../setup/setup.cpp" line="47"/>
         <source>VersionString</source>
-        <translation type="unfinished">1.0.0.1118</translation>
+        <translation type="unfinished">1.0.0.1142</translation>
     </message>
     <message>
         <source>titleSetup</source>

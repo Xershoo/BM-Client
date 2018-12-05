@@ -83,8 +83,6 @@ bool C8CommonWindow::setShadowByAero()
 	LONG style = WS_POPUP|WS_BORDER|WS_CAPTION|WS_CLIPCHILDREN ;
 	SetWindowLongPtr(hwnd, GWL_STYLE, style);
 	
-	
-
 	if(!QtAeroWin::extendFrameIntoClientArea(this,5, -1, 5, 5))
 	{
 		return false;

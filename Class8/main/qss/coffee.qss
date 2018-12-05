@@ -4529,8 +4529,9 @@ QPushButton#pushButton_nextMonth:disabled {
 /*日历表界面*/
 
 /*设备检测界面*/
+
 QWidget#widget_mainDeviceDetect{
-	background-color: rgb(241,241,241);
+	background-color: rgba(25, 118, 210);
 	border-radius: 5px;
 }
 

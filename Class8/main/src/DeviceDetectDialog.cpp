@@ -123,9 +123,8 @@ void QNetworkDetectThread::stop()
 	this->wait();
 	this->quit();
 }
-
 //////////////////////////////////////////////////////////////////////////
-DeviceDetectDialog::DeviceDetectDialog(__int64 uid,bool detectManual/* =true */,QWidget * parent/* =NULL */) :C8CommonWindow(parent,SHADOW_AERO),
+DeviceDetectDialog::DeviceDetectDialog(__int64 uid,bool detectManual/* =true */,QWidget * parent/* =NULL */) :C8CommonWindow(parent,SHADOW_NO),
 	m_uid(uid),
 	m_mgrUserInfo(NULL),
 	m_detectAudioDevice(NULL),
