@@ -79,10 +79,10 @@
     <ClCompile>
       <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_WEBKITWIDGETS_LIB;QT_WIDGETS_LIB;CURL_STATICLIB;QT_XML_LIB;QT_NETWORK_LIB;STUDENT_VIDEO_DRAW_HAND;MEDIA_NO_UDP;QT_OPENGL_LIB;QT_MULTIMEDIA_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>.\;.\src;$(SolutionDir)biz\;$(SolutionDir)main\;$(SolutionDir)main\media;$(SolutionDir)main\biz;$(QTDIR)\include;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWebKit;$(QTDIR)\include\QtWebkitWidgets;$(QTDIR)\include\QtWidgets;$(SolutionDir)main\src;$(SolutionDir)main\src\soundMicophone;$(SolutionDir)main\src\control;$(SolutionDir)main\src\define;$(SolutionDir)main\common;$(SolutionDir)main\common\include;$(SolutionDir)$(ProjectName);$(SolutionDir)third\;$(SolutionDir)third\zlib\;$(SolutionDir)third\curl-7.41.0\include\;$(SolutionDir)main\src\noticWindow;$(SolutionDir)main\src\videownd\;$(SolutionDir)main\src\coursewareTools;$(SolutionDir)pdf;$(QTDIR)\include\QtXml;$(SolutionDir)main\src\chat;$(SolutionDir)main\src\LoginByToken;$(QTDIR)\include\QtNetwork;$(SolutionDir)main\src\systemtray;$(SolutionDir)main\src\coltrol;$(SolutionDir)build\GeneratedFiles\$(ProjectName)\;.\..\..\build\GeneratedFiles\Class8;$(QTDIR)\include\QtOpenGL;$(QTDIR)\include\ActiveQt;$(QTDIR)\include\QtMultimedia;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
-      <Optimization>MaxSpeed</Optimization>
+      <Optimization>Disabled</Optimization>
       <StructMemberAlignment>Default</StructMemberAlignment>
     </ClCompile>
     <Link>
@@ -144,6 +144,9 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_chatmanager.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_ChatMsgShowWidget.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_chatupdownserver.cpp">
@@ -431,6 +434,9 @@
     <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_webcamerasettingpage.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_WebChatWidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_WhileBoardDataMgr.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -480,6 +486,9 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_chatmanager.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_ChatMsgShowWidget.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_chatupdownserver.cpp">
@@ -767,6 +776,9 @@
     <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_webcamerasettingpage.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_WebChatWidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_WhileBoardDataMgr.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -815,6 +827,7 @@
     <ClCompile Include="..\..\main\src\control\beautybutton.cpp" />
     <ClCompile Include="..\..\main\src\control\c8commonwindow.cpp" />
     <ClCompile Include="..\..\main\src\control\c8popupwindow.cpp" />
+    <ClCompile Include="..\..\main\src\control\ChatMsgShowWidget.cpp" />
     <ClCompile Include="..\..\main\src\control\chatwidget.cpp" />
     <ClCompile Include="..\..\main\src\control\chatwindowoutputedit.cpp" />
     <ClCompile Include="..\..\main\src\control\chatwindowtextedit.cpp" />
@@ -911,6 +924,7 @@
     <ClCompile Include="src\FlashPlayWidget.cpp" />
     <ClCompile Include="src\multimedia\AudioDeviceDetect.cpp" />
     <ClCompile Include="src\videobottombar.cpp" />
+    <ClCompile Include="src\WebChatWidget.cpp" />
     <ClCompile Include="src\whiteboardbar.cpp" />
     <ClCompile Include="src\classroomsetting.cpp" />
     <ClCompile Include="src\ClassWebBrowser.cpp" />
@@ -989,6 +1003,7 @@
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Uic%27ing %(Identity)...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\..\..\build\GeneratedFiles\Class8\ui_%(Filename).h;%(Outputs)</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\..\..\build\GeneratedFiles\Class8\ui_%(Filename).h" "%(FullPath)"</Command>
+      <SubType>Designer</SubType>
     </CustomBuild>
     <CustomBuild Include="..\..\main\src\control\coursewaredownloadlistitemwidget.ui">
       <FileType>Document</FileType>
@@ -1539,6 +1554,16 @@
     <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_WaitDlg.h" />
     <ClInclude Include="..\..\build\GeneratedFiles\Class8\ui_webcamerasettingpage.h" />
     <ClInclude Include="..\..\main\3rdparty\qxtglobalshortcut\qxtglobal.h" />
+    <CustomBuild Include="src\WebChatWidget.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing WebChatWidget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\..\..\build\GeneratedFiles\$(ConfigurationName)\Class8\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\..\..\build\GeneratedFiles\$(ConfigurationName)\Class8\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WEBKITWIDGETS_LIB -DQT_WIDGETS_LIB -DCURL_STATICLIB -DQT_XML_LIB -DQT_NETWORK_LIB -DSTUDENT_VIDEO_DRAW_HAND -DMEDIA_NO_UDP -DQT_OPENGL_LIB -DQT_MULTIMEDIA_LIB -D_MBCS "-I." "-I.\src" "-I$(SolutionDir)biz" "-I$(SolutionDir)main" "-I$(SolutionDir)main\media" "-I$(SolutionDir)main\biz" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWebKit" "-I$(QTDIR)\include\QtWebkitWidgets" "-I$(QTDIR)\include\QtWidgets" "-I$(SolutionDir)main\src" "-I$(SolutionDir)main\src\soundMicophone" "-I$(SolutionDir)main\src\control" "-I$(SolutionDir)main\src\define" "-I$(SolutionDir)main\common" "-I$(SolutionDir)main\common\include" "-I$(SolutionDir)$(ProjectName)\." "-I$(SolutionDir)third\zlib" "-I$(SolutionDir)third" "-I$(SolutionDir)third\curl-7.41.0\include" "-I$(SolutionDir)main\src\noticWindow" "-I$(SolutionDir)main\src\videownd" "-I$(SolutionDir)main\src\coursewareTools" "-I$(SolutionDir)pdf" "-I$(QTDIR)\include\QtXml" "-I$(SolutionDir)main\src\chat" "-I$(SolutionDir)main\src\LoginByToken" "-I$(QTDIR)\include\QtNetwork" "-I$(SolutionDir)main\src\systemtray" "-I$(SolutionDir)main\src\coltrol" "-I$(SolutionDir)build\GeneratedFiles\$(ProjectName)\." "-I.\..\..\build\GeneratedFiles\Class8" "-I$(QTDIR)\include\QtOpenGL" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtMultimedia"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing WebChatWidget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\..\..\build\GeneratedFiles\$(ConfigurationName)\Class8\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\..\..\build\GeneratedFiles\$(ConfigurationName)\Class8\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WEBKITWIDGETS_LIB -DQT_WIDGETS_LIB -DCURL_STATICLIB -DQT_XML_LIB -DQT_NETWORK_LIB -DSTUDENT_VIDEO_DRAW_HAND -DMEDIA_NO_UDP -DQT_OPENGL_LIB -DQT_MULTIMEDIA_LIB "-I." "-I.\src" "-I$(SolutionDir)biz" "-I$(SolutionDir)main" "-I$(SolutionDir)main\media" "-I$(SolutionDir)main\biz" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWebKit" "-I$(QTDIR)\include\QtWebkitWidgets" "-I$(QTDIR)\include\QtWidgets" "-I$(SolutionDir)main\src" "-I$(SolutionDir)main\src\soundMicophone" "-I$(SolutionDir)main\src\control" "-I$(SolutionDir)main\src\define" "-I$(SolutionDir)main\common" "-I$(SolutionDir)main\common\include" "-I$(SolutionDir)$(ProjectName)\." "-I$(SolutionDir)third" "-I$(SolutionDir)third\zlib" "-I$(SolutionDir)third\curl-7.41.0\include" "-I$(SolutionDir)main\src\noticWindow" "-I$(SolutionDir)main\src\videownd" "-I$(SolutionDir)main\src\coursewareTools" "-I$(SolutionDir)pdf" "-I$(QTDIR)\include\QtXml" "-I$(SolutionDir)main\src\chat" "-I$(SolutionDir)main\src\LoginByToken" "-I$(QTDIR)\include\QtNetwork" "-I$(SolutionDir)main\src\systemtray" "-I$(SolutionDir)main\src\coltrol" "-I$(SolutionDir)build\GeneratedFiles\$(ProjectName)\." "-I.\..\..\build\GeneratedFiles\Class8" "-I$(QTDIR)\include\QtOpenGL" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtMultimedia"</Command>
+    </CustomBuild>
     <CustomBuild Include="..\..\main\src\WaitDlg.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing WaitDlg.h...</Message>
@@ -1628,6 +1653,16 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\..\..\build\GeneratedFiles\$(ConfigurationName)\Class8\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WEBKITWIDGETS_LIB -DQT_WIDGETS_LIB -DCURL_STATICLIB -DQT_XML_LIB -DQT_NETWORK_LIB -DSTUDENT_VIDEO_DRAW_HAND -DMEDIA_NO_UDP -DQT_OPENGL_LIB -DQT_MULTIMEDIA_LIB -D_MBCS "-I." "-I.\src" "-I$(SolutionDir)biz" "-I$(SolutionDir)main" "-I$(SolutionDir)main\media" "-I$(SolutionDir)main\biz" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWebKit" "-I$(QTDIR)\include\QtWebkitWidgets" "-I$(QTDIR)\include\QtWidgets" "-I$(SolutionDir)main\src" "-I$(SolutionDir)main\src\soundMicophone" "-I$(SolutionDir)main\src\control" "-I$(SolutionDir)main\src\define" "-I$(SolutionDir)main\common" "-I$(SolutionDir)main\common\include" "-I$(SolutionDir)$(ProjectName)\." "-I$(SolutionDir)third\zlib" "-I$(SolutionDir)third" "-I$(SolutionDir)third\curl-7.41.0\include" "-I$(SolutionDir)main\src\noticWindow" "-I$(SolutionDir)main\src\videownd" "-I$(SolutionDir)main\src\coursewareTools" "-I$(SolutionDir)pdf" "-I$(QTDIR)\include\QtXml" "-I$(SolutionDir)main\src\chat" "-I$(SolutionDir)main\src\LoginByToken" "-I$(QTDIR)\include\QtNetwork" "-I$(SolutionDir)main\src\systemtray" "-I$(SolutionDir)main\src\coltrol" "-I$(SolutionDir)build\GeneratedFiles\$(ProjectName)\." "-I.\..\..\build\GeneratedFiles\Class8" "-I$(QTDIR)\include\QtOpenGL" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtMultimedia"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing DeviceDetectHelpDialog.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\..\..\build\GeneratedFiles\$(ConfigurationName)\Class8\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\..\..\build\GeneratedFiles\$(ConfigurationName)\Class8\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WEBKITWIDGETS_LIB -DQT_WIDGETS_LIB -DCURL_STATICLIB -DQT_XML_LIB -DQT_NETWORK_LIB -DSTUDENT_VIDEO_DRAW_HAND -DMEDIA_NO_UDP -DQT_OPENGL_LIB -DQT_MULTIMEDIA_LIB "-I." "-I.\src" "-I$(SolutionDir)biz" "-I$(SolutionDir)main" "-I$(SolutionDir)main\media" "-I$(SolutionDir)main\biz" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWebKit" "-I$(QTDIR)\include\QtWebkitWidgets" "-I$(QTDIR)\include\QtWidgets" "-I$(SolutionDir)main\src" "-I$(SolutionDir)main\src\soundMicophone" "-I$(SolutionDir)main\src\control" "-I$(SolutionDir)main\src\define" "-I$(SolutionDir)main\common" "-I$(SolutionDir)main\common\include" "-I$(SolutionDir)$(ProjectName)\." "-I$(SolutionDir)third" "-I$(SolutionDir)third\zlib" "-I$(SolutionDir)third\curl-7.41.0\include" "-I$(SolutionDir)main\src\noticWindow" "-I$(SolutionDir)main\src\videownd" "-I$(SolutionDir)main\src\coursewareTools" "-I$(SolutionDir)pdf" "-I$(QTDIR)\include\QtXml" "-I$(SolutionDir)main\src\chat" "-I$(SolutionDir)main\src\LoginByToken" "-I$(QTDIR)\include\QtNetwork" "-I$(SolutionDir)main\src\systemtray" "-I$(SolutionDir)main\src\coltrol" "-I$(SolutionDir)build\GeneratedFiles\$(ProjectName)\." "-I.\..\..\build\GeneratedFiles\Class8" "-I$(QTDIR)\include\QtOpenGL" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtMultimedia"</Command>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\control\ChatMsgShowWidget.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing ChatMsgShowWidget.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\..\..\build\GeneratedFiles\$(ConfigurationName)\Class8\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\..\..\build\GeneratedFiles\$(ConfigurationName)\Class8\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WEBKITWIDGETS_LIB -DQT_WIDGETS_LIB -DCURL_STATICLIB -DQT_XML_LIB -DQT_NETWORK_LIB -DSTUDENT_VIDEO_DRAW_HAND -DMEDIA_NO_UDP -DQT_OPENGL_LIB -DQT_MULTIMEDIA_LIB -D_MBCS "-I." "-I.\src" "-I$(SolutionDir)biz" "-I$(SolutionDir)main" "-I$(SolutionDir)main\media" "-I$(SolutionDir)main\biz" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWebKit" "-I$(QTDIR)\include\QtWebkitWidgets" "-I$(QTDIR)\include\QtWidgets" "-I$(SolutionDir)main\src" "-I$(SolutionDir)main\src\soundMicophone" "-I$(SolutionDir)main\src\control" "-I$(SolutionDir)main\src\define" "-I$(SolutionDir)main\common" "-I$(SolutionDir)main\common\include" "-I$(SolutionDir)$(ProjectName)\." "-I$(SolutionDir)third\zlib" "-I$(SolutionDir)third" "-I$(SolutionDir)third\curl-7.41.0\include" "-I$(SolutionDir)main\src\noticWindow" "-I$(SolutionDir)main\src\videownd" "-I$(SolutionDir)main\src\coursewareTools" "-I$(SolutionDir)pdf" "-I$(QTDIR)\include\QtXml" "-I$(SolutionDir)main\src\chat" "-I$(SolutionDir)main\src\LoginByToken" "-I$(QTDIR)\include\QtNetwork" "-I$(SolutionDir)main\src\systemtray" "-I$(SolutionDir)main\src\coltrol" "-I$(SolutionDir)build\GeneratedFiles\$(ProjectName)\." "-I.\..\..\build\GeneratedFiles\Class8" "-I$(QTDIR)\include\QtOpenGL" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtMultimedia"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing ChatMsgShowWidget.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\..\..\build\GeneratedFiles\$(ConfigurationName)\Class8\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\..\..\build\GeneratedFiles\$(ConfigurationName)\Class8\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WEBKITWIDGETS_LIB -DQT_WIDGETS_LIB -DCURL_STATICLIB -DQT_XML_LIB -DQT_NETWORK_LIB -DSTUDENT_VIDEO_DRAW_HAND -DMEDIA_NO_UDP -DQT_OPENGL_LIB -DQT_MULTIMEDIA_LIB "-I." "-I.\src" "-I$(SolutionDir)biz" "-I$(SolutionDir)main" "-I$(SolutionDir)main\media" "-I$(SolutionDir)main\biz" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWebKit" "-I$(QTDIR)\include\QtWebkitWidgets" "-I$(QTDIR)\include\QtWidgets" "-I$(SolutionDir)main\src" "-I$(SolutionDir)main\src\soundMicophone" "-I$(SolutionDir)main\src\control" "-I$(SolutionDir)main\src\define" "-I$(SolutionDir)main\common" "-I$(SolutionDir)main\common\include" "-I$(SolutionDir)$(ProjectName)\." "-I$(SolutionDir)third" "-I$(SolutionDir)third\zlib" "-I$(SolutionDir)third\curl-7.41.0\include" "-I$(SolutionDir)main\src\noticWindow" "-I$(SolutionDir)main\src\videownd" "-I$(SolutionDir)main\src\coursewareTools" "-I$(SolutionDir)pdf" "-I$(QTDIR)\include\QtXml" "-I$(SolutionDir)main\src\chat" "-I$(SolutionDir)main\src\LoginByToken" "-I$(QTDIR)\include\QtNetwork" "-I$(SolutionDir)main\src\systemtray" "-I$(SolutionDir)main\src\coltrol" "-I$(SolutionDir)build\GeneratedFiles\$(ProjectName)\." "-I.\..\..\build\GeneratedFiles\Class8" "-I$(QTDIR)\include\QtOpenGL" "-I$(QTDIR)\include\ActiveQt" "-I$(QTDIR)\include\QtMultimedia"</Command>
     </CustomBuild>

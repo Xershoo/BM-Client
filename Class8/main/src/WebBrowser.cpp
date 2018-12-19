@@ -74,8 +74,6 @@ BOOL WebBrowser::Initialize()
 
 void WebBrowser::Uninitialize()
 {
-	return;
-
 	if(!_bInit)
 	{
 		return;

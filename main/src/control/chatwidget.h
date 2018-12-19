@@ -18,13 +18,18 @@ enum ChatType{
 	CLASS_CHAT
 };
 
-const int MAXMSGNUM = 10;	//每页显示的最多信息
-const int CLEARMSGNUM = 5;	//删除最前的N条消息
-
 namespace Ui {
 class ChatWidget;
 }
 
+typedef struct _chat_msg 
+{
+	QString content;
+	__int64 _nSendUserId;
+	__int64 _nUserId;
+}CHAT_MSG,*LPCHATMSG;
+
+typedef QList<CHAT_MSG>   QChatMsgList;
 class ChatWidget : public QWidget
 {
     Q_OBJECT
@@ -44,11 +49,10 @@ public:
 	void showSysMsg(const QString &msg);
 	void setChatType(ChatType chatType);
     void setEnbleChat(bool bISEnble);
-	
+	void recvMsg(CHAT_MSG msg);
 	void resetUI();
     
     bool eventFilter(QObject *o, QEvent *e);
-    void loadChatStyle();
     bool isLoadFinished() {return m_isLoadFinished;}
 public slots:
 
@@ -59,7 +63,7 @@ public slots:
     void open_closeMic();
     void incressSound();
     void decressSound();
-    void loadChatStyleFinished(bool);
+    void loadChatStyleFinished();
 protected slots:
 
 	void showFaceSelectWindowBtnClicked();	
@@ -73,14 +77,9 @@ protected slots:
 	void cameraDisableBtnClicked();
 
 	void insertFace(QString strFacePath);
-	void recvMsg(QVariant var);
-
 	void getScreenShotPix(const QPixmap& pix);
-	void refresh();
-
 	void micophoneSliderChange(int value);
 	void soundSliderChange(int value);
-    void addJavaScriptObject();
 
     QRect getWidgetScreenRect(QWidget* widget);
 protected:
@@ -91,7 +90,6 @@ private:
 	fullScreenWidget *m_fullWidget;
 	FaceSelectWindow m_faceSelectWindow;
 	QPixmap m_fullPixmap;
-	int m_msgNum;
     SliderWidget m_micophoneSliderWidget;
     SliderWidget m_soundSliderWidget;
 
@@ -102,8 +100,6 @@ private:
 private:
 	void changeShow(QPushButton *toShowBtn,QPushButton *toHideBtn,SliderWidget* sliderWidget);
 	void clearAll();
-	void clearMsg();
-
 };
 
 #endif // CHATWIDGET_H

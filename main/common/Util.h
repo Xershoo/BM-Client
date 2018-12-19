@@ -58,7 +58,8 @@ namespace Util
 
     bool isAllNumber(const QString &text);
     
-    bool IsExistDir(QString dir);
+    bool IsExistDir(const QString& dir);
+	bool isFileExists(const QString& fileName);
 
     template < class T >
     void releaseArray(std::vector< T >& v)

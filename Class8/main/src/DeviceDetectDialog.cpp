@@ -497,8 +497,10 @@ void DeviceDetectDialog::initUIDeviceList()
 	
 	for(int i=0;i<devList.size();i++){
 		QString deviceName;
-		Util::AnsiToQString(devList[i]->_name.c_str(),devList[i]->_name.length(),deviceName);
 
+		Util::AnsiToQString(devList[i]->_name.c_str(),devList[i]->_name.length(),deviceName);
+		deviceName = QString::fromLocal8Bit(devList[i]->_name.c_str());
+		
 		switch(devList[i]->_type)
 		{
 		case SPEAKER_LOCAL:

@@ -482,7 +482,7 @@ namespace Util
         return true;
     }
 
-    bool IsExistDir(QString strdir)
+    bool IsExistDir(const QString& strdir)
     {
         if (strdir.isEmpty())
         {
@@ -498,6 +498,21 @@ namespace Util
         dir.mkdir(strdir);
         return true;
     }
+
+	bool isFileExists(const QString& fileName){
+		if(fileName.isEmpty()||fileName.isNull()){
+			return false;
+		}
+
+		QFile file(fileName);
+		bool  br = file.open(QIODevice::ReadOnly);
+		if(br){
+			br = file.size() > 0 ? true : false;
+			file.close();
+		}
+
+		return br;
+	}
 
 	QString getMaxFreeSpaceDisk()
 	{

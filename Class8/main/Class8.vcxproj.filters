@@ -1260,6 +1260,24 @@
     <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_DeviceDetectHelpDialog.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="src\WebChatWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_WebChatWidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_WebChatWidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\main\src\control\ChatMsgShowWidget.cpp">
+      <Filter>src\control</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Debug\Class8\moc_ChatMsgShowWidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\build\GeneratedFiles\Release\Class8\moc_ChatMsgShowWidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\..\main\3rdparty\qxtglobalshortcut\qxtglobalshortcut.h">
@@ -1741,6 +1759,12 @@
     </CustomBuild>
     <CustomBuild Include="src\DeviceDetectHelpDialog.h">
       <Filter>Source Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\WebChatWidget.h">
+      <Filter>Source Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\..\main\src\control\ChatMsgShowWidget.h">
+      <Filter>src\control</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

@@ -335,12 +335,16 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </None>
     <None Include="res\lang\setup_en.qm" />
-    <None Include="res\lang\setup_en.ts" />
+    <None Include="res\lang\setup_en.ts">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="res\lang\setup_zh.qm">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </None>
-    <None Include="res\lang\setup_zh.ts" />
+    <None Include="res\lang\setup_zh.ts">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="res\style\stylesheet.qss">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>

@@ -3,8 +3,6 @@
 
 #include <QtWidgets/QWidget>
 #include <ui_CourseClassItem.h>
-#include <QNetworkAccessManager>
-#include <QNetworkReply>
 #include "control/c8commonwindow.h"
 
 class CourseClassItem : public C8CommonWindow
@@ -34,11 +32,11 @@ protected:
 	virtual bool eventFilter(QObject *, QEvent *);
 
 	QString getImageFileName();
-
+	void    loadClassImage();
 public slots:
 	void enterClass();
-	void imageDownloadFinished(QNetworkReply *reply);
 
+	void HttpDownImageCallBack(int, unsigned int, bool, unsigned int);
 private:
 	Ui::CourseClassItem ui;
 
@@ -48,7 +46,7 @@ private:
 	QString  m_imageName;
 	QPixmap* m_pixmap;
 
-	QNetworkAccessManager m_mgrNetwork;
+	int      m_idDownClassImage;
 };
 
 #endif

@@ -1,0 +1,178 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="apple-mobile-web-app-capable" content="yes">
+</head>
+
+<script src="http://code.jquery.com/jquery-1.8.0.min.js"></script>
+
+<style>
+::-webkit-scrollbar {
+            width: 8px;
+}
+::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.2);
+            border-radius: 4px;
+}
+::-webkit-scrollbar-thumb {
+            border-radius: 4px;
+            background:rgba(192,192,192,0.4);
+}
+
+.arrow_left {
+	position:relative;
+	top: 20px;
+    	left: 33px; 
+	width:0;
+	height:0;
+	font-size:0;
+	border-width:6px 10px 6px 0;  
+    	border-style:solid;
+	border-color:transparent #92d3f3 transparent transparent;
+}
+
+.arrow_right {
+	position:relative;
+	top: 20px;
+    	left: 90%; 
+	width:0;
+	height:0;
+	font-size:0;
+	border-width:6px 0px 6px 10px;  
+    	border-style:solid;
+	border-color:transparent transparent transparent #22b14c;
+}
+
+.person_name {
+	font-size:13px;
+	font-family:"Microsoft YaHei";
+	color: #202020;
+	margin-bottom:-8px;
+}
+
+.sendMsg{
+	height:auto;
+	overflow:hidden;
+	margin:10px auto;
+}
+
+.leftmsg{
+	min-height:20px;
+	word-wrap: break-word;
+	overflow:hidden;
+	max-width:200px;
+	float:left;
+	border-width:7px;
+	border-left-width:12px;
+	border-radius:5px; /* 圆角*/
+	background:#92d3f3;
+	margin-left: 12px;
+	padding: 5px;
+	font-family:"SimSun";
+	font-size:14px;
+	color:#000;
+}
+
+.rightmsg{
+	min-height:20px;
+	word-wrap: break-word;
+	overflow:hidden;
+	max-width:200px;
+	float:right;
+	border-width:7px;
+	border-right-width:12px;
+	border-radius:5px; /* 圆角*/
+	background:#22b14c;
+	margin-right: 20px;
+	padding: 5px;
+	font-family:"SimSun";
+	font-size:14px;
+	color:#fff;
+}
+
+.sysMsg{
+	text-align: center;
+	font-family:"SimSun";
+	font-size:14px;
+	color:red;
+}
+
+
+#main{
+	width:100%;
+	height:auto;
+	float:left;
+	overflow:hidden;
+	padding-bottom:10px;
+}
+</style>
+
+<script language="JavaScript" type="text/javascript">
+function insertLeft(person_id,head_pic,msg){
+	var value = $(".person_name").html();
+	var html = 
+	'<div class = "sendMsg">'
+	+'<div class = "person_name" align="left">'+person_id+'</div>'
+	+'<div class = "arrow_left"></div>'
+	+'<img src="'+head_pic+'" alt="无脸逗比" border = "0" width="30" height="30" align ="left" onClick="toShowPersonalMsg(this)" draggable="false" style="-webkit-user-select:none;"/>'
+    +'<div class = "leftmsg">'+msg+'</div>'
+	+'</div>';
+	$('#main').append(html);
+}
+
+function insertRight(person_id,head_pic,msg){
+	var value = $(".person_name").html();
+	var html = 
+	'<div class = "sendMsg">'
+	+'<div class = "person_name" align="right">'+person_id+'</div>'
+	+'<div class = "arrow_right"></div>'
+	+'<img src="'+head_pic+'" alt="无脸逗比" border = "0" width="30" height="30" align ="right" onClick="toShowPersonalMsg(this)" draggable="false" style="-webkit-user-select:none;"/>'
+    +'<div class = "rightmsg">'+msg+'</div>'
+	+'</div>';
+	$('#main').append(html);
+}
+
+function insertSysMsg(info)
+{
+	var html = '<div class = "sysMsg">'
+			   +info
+			   +'</div>';
+	$('#main').append(html);		   
+}
+
+function clearMsg(num)
+{
+	$(".sendMsg:lt("+num+")").remove();
+}
+
+function clearAll()
+{
+	$("#main").html("");
+}
+
+function toShowPersonalMsg(obj)
+{
+	ChatWidget.showPersonalInfo(obj.src);
+}
+
+function toShowBigPic(obj)
+{
+    ChatWidget.showBigPic(decodeURI(obj.src));
+}
+
+/*
+$(function(){
+	insertLeft("Tom","","hello,god boy");
+	insertRight("Rubby","","hello,teacher");
+	insertLeft("Tom","","evening");
+	insertLeft("Tom","","too");
+});*/
+</script>
+
+<body>
+<div id="main">
+</div>
+</body> 
+</html>

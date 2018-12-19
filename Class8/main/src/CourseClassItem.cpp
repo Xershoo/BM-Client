@@ -6,6 +6,7 @@
 #include "common/Env.h"
 #include "common/Util.h"
 #include "common/macros.h"
+#include "./common/HttpSessionMgr.h"
 
 CourseClassItem::CourseClassItem(QWidget* parent):C8CommonWindow(parent,SHADOW_QT)
 	,m_classId(0)
@@ -13,6 +14,7 @@ CourseClassItem::CourseClassItem(QWidget* parent):C8CommonWindow(parent,SHADOW_Q
 	,m_state(class_unknow)
 	,m_imageName("")
 	,m_pixmap(NULL)
+	,m_idDownClassImage(0)
 {
 	ui.setupUi(this);
 	setItemRound();
@@ -20,6 +22,8 @@ CourseClassItem::CourseClassItem(QWidget* parent):C8CommonWindow(parent,SHADOW_Q
 	connect(ui.pushButton_classCtrl,SIGNAL(clicked()),this,SLOT(enterClass()));
 	ui.label_classImage->installEventFilter(this);
 	ui.label_classImage->setMouseTracking(true);
+
+	connect(CHttpSessionMgr::GetInstance(),SIGNAL(httpEvent(int, unsigned int, bool, unsigned int)),this,SLOT(HttpDownImageCallBack(int, unsigned int, bool, unsigned int)),Qt::QueuedConnection);
 }
 
 CourseClassItem::~CourseClassItem()
@@ -56,7 +60,7 @@ void CourseClassItem::enterClass()
 void CourseClassItem::setItemParam(__int64 courseId,__int64 classId,int classState, 
 	QString classImage,bool isTeacher, QString className,
 	QString courseTeacher, QString timeStart,QString timeEnd)
-{
+{	
 	m_courseId = courseId;
 	m_classId = classId;
 
@@ -86,25 +90,30 @@ void CourseClassItem::setItemParam(__int64 courseId,__int64 classId,int classSta
 	ui.label_classTeacher->setText(tr("classTeacher")+courseTeacher);
 	ui.label_classTime->setText(tr("classTime")+timeStart+QString("-")+timeEnd);
 
-	//load save file
-	m_imageName = classImage.right(classImage.length() - classImage.lastIndexOf('/')-1);
-	QString imgFile = getImageFileName();
-	if(imgFile.isEmpty()){
+	if(classImage.isEmpty()||classImage.isNull()){
 		return;
 	}
 
-	if(QFile::exists(imgFile)){
-		SAFE_DELETE(m_pixmap);
-		m_pixmap = new QPixmap(imgFile);
-		QSize sizeImage(ui.label_classImage->width(),ui.label_classImage->height());
-		ui.label_classImage->setPixmap(m_pixmap->scaled(sizeImage,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
+	//load save file
+	m_imageName = classImage.right(classImage.length() - classImage.lastIndexOf('/')-1);
+	QString imageFileName = getImageFileName();
+	loadClassImage();
+	
+	char szImageUrl[1024]={0};
+	char szImageFile[1024]={0};
+	Util::QStringToChar(classImage,szImageUrl,sizeof(szImageUrl));
+	Util::QStringToChar(imageFileName,szImageFile,sizeof(szImageFile));
+
+	if(!CHttpSessionMgr::isValid()){
+		connect(CHttpSessionMgr::GetInstance(),SIGNAL(httpEvent(int, unsigned int, bool, unsigned int)),this,
+			SLOT(HttpDownImageCallBack(int, unsigned int, bool, unsigned int)),Qt::QueuedConnection);
 	}
 
 	//refresh image from network
-	QNetworkRequest request;
-	request.setUrl(classImage);
-	connect(&m_mgrNetwork, SIGNAL(finished(QNetworkReply *)), this, SLOT(imageDownloadFinished(QNetworkReply *)));
-	m_mgrNetwork.get(request);
+	m_idDownClassImage = CHttpSessionMgr::GetInstance()->HttpDownloadFile(
+		szImageUrl,szImageFile,
+		300, 0, 
+		(LPVOID)NULL, (LPVOID)this);
 }
 
 void CourseClassItem::paintEvent(QPaintEvent * event)
@@ -119,49 +128,42 @@ void CourseClassItem::paintEvent(QPaintEvent * event)
 	painter.fillRect(rectWnd,QColor(250,250,250));
 }
 
-void CourseClassItem::imageDownloadFinished(QNetworkReply *reply)
+void CourseClassItem::HttpDownImageCallBack(int httpEventType, unsigned int lpUser, bool bIsFirst, unsigned int Param)
 {
-	if(NULL==reply){
+	CourseClassItem *pThis = (CourseClassItem*)lpUser;
+	LPHTTPSESSION pHttpS = (LPHTTPSESSION)Param;
+	if (NULL == pThis || NULL == pHttpS ||pHttpS->id != m_idDownClassImage)
+	{
 		return;
 	}
 
-	if (reply->error() != QNetworkReply::NoError){
-		return;
+	switch (httpEventType)
+	{
+	case HTTP_EVENT_BEGIN:
+		{
+
+		}
+		break;
+
+	case HTTP_EVENT_PROGRESS:
+		{
+
+		}
+		break;
+
+	case HTTP_EVENT_END:
+		{   
+			if(pHttpS->id==m_idDownClassImage)
+			{
+				m_idDownClassImage = 0;
+				loadClassImage();
+
+				break;
+			}
+		}
+
+		break;
 	}
-
-	//set class image
-	QByteArray bytes = reply->readAll();
-	if(bytes.length()<=0){
-		return;
-	}
-
-	SAFE_DELETE(m_pixmap);
-	m_pixmap = new QPixmap();
-	m_pixmap->loadFromData(bytes);
-
-	QSize sizeImage(ui.label_classImage->width(),ui.label_classImage->height());
-	ui.label_classImage->setPixmap(m_pixmap->scaled(sizeImage,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
-	
-	//save class image file
-	QString imgFile = getImageFileName();
-	if(imgFile.isEmpty()){
-		return;
-	}
-
-	if(QFile::exists(imgFile)){
-		QFile::remove(imgFile);
-	}
-
-	m_pixmap->save(imgFile);
-
-	/* set widget background image - no use 
-	QPalette palette;
-	palette.setBrush(ui.widget_classImage->backgroundRole(),QBrush(pixmap));
-
-	ui.widget_classImage->setPalette(palette);
-	ui.widget_classImage->setAutoFillBackground(true);
-	ui.widget_classImage->setMask(pixmap.mask());
-	*/
 }
 
 QString CourseClassItem::getImageFileName()
@@ -178,7 +180,7 @@ QString CourseClassItem::getImageFileName()
 	};
 
 	QString imgFile = imgPath + QString("%1_%2").arg(m_courseId).arg(m_imageName);
-
+	imgFile.replace('/','\\');
 	return imgFile;
 }
 
@@ -189,7 +191,7 @@ bool CourseClassItem::eventFilter(QObject * obj, QEvent * event)
 	}
 
 	if(obj == ui.label_classImage){
-		if(NULL == m_pixmap){
+		if(NULL == m_pixmap||m_pixmap->isNull()){
 			return false;
 		}
 		QSize sizeImage(ui.label_classImage->width(),ui.label_classImage->height());
@@ -208,4 +210,43 @@ bool CourseClassItem::eventFilter(QObject * obj, QEvent * event)
 	}
 
 	return false;
+}
+
+void CourseClassItem::loadClassImage()
+{
+	QString imageFileName = getImageFileName();
+	if(imageFileName.isEmpty()){
+		return;
+	}
+
+	if(!Util::isFileExists(imageFileName)){
+		return;
+	}
+	
+	QFile fileImage(imageFileName);
+	if(!fileImage.open(QFile::ReadOnly)){
+		return;
+	}
+
+	do 
+	{
+		if(fileImage.size()<=4){
+			break;
+		}
+
+		SAFE_DELETE(m_pixmap);
+		m_pixmap = new QPixmap();
+		if(NULL==m_pixmap){
+			break;
+		}
+
+		if(!m_pixmap->loadFromData(fileImage.readAll())){
+			break;
+		}
+
+		QSize sizeImage(ui.label_classImage->width(),ui.label_classImage->height());
+		ui.label_classImage->setPixmap(m_pixmap->scaled(sizeImage,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
+	} while (false);
+	
+	fileImage.close();
 }

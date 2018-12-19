@@ -11,17 +11,6 @@ class ChatManager;
 class QWidget;
 class ChatWidget;
 
-struct Msg 
-{
-	QString content;
-	__int64 _nSendUserId;
-	__int64 _nUserId;
-
-};
-Q_DECLARE_METATYPE(Msg)
-
-
-
 struct ChatData
 {
 	biz::ETextMsgType m_chatType;
@@ -47,14 +36,7 @@ struct ChatData
 class Chat : public QObject
 {
     Q_OBJECT
-
-signals:
-
-	void refresh();
-	void recvMsgSignal(QVariant var);
-
 public:
-
 	explicit Chat(QObject *parent = 0,ChatManager *chatManager = NULL,const ChatData &chatData = ChatData());
 	virtual ~Chat();
 
@@ -68,6 +50,7 @@ public:
     
 protected:
     ChatWidget *getChatWidget();
+	void showChatMsg(const QString& msgHtml,__int64 sendUserId,__int64 userId);
 
 private slots:
 	void sendMsg(QString msg);

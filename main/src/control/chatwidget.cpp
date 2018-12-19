@@ -4,10 +4,6 @@
 #include <QImageReader>
 #include <QMovie>
 #include <QTime>
-#include <QWebView>
-#include <QWebElementCollection>
-#include <QWebPage>
-#include <QWebFrame>
 #include <QXmlStreamReader>
 #include <time.h>
 #include <QByteArray>
@@ -32,7 +28,6 @@
 #include "pictureviewer.h"
 
 ChatWidget::ChatWidget(QWidget *parent) : QWidget(parent)
-	,m_msgNum(0)
 	,m_isLoadFinished(false)
 	,m_enableChat(true)
 	,ui(new Ui::ChatWidget)
@@ -55,11 +50,6 @@ ChatWidget::ChatWidget(QWidget *parent) : QWidget(parent)
 	ui->screenShot_pushBtn->setEnabled(false);
 	ui->send_pushBtn->setEnabled(false);
 
-	ui->webView->setContextMenuPolicy (Qt::NoContextMenu);
-	ui->webView->page()->mainFrame()->addToJavaScriptWindowObject("ChatWidget",this);
-    ui->webView->page()->settings()->setAttribute(QWebSettings::JavascriptEnabled, true);
-    ui->webView->page()->settings()->setAttribute(QWebSettings::PluginsEnabled, true);
-    connect(ui->webView->page()->mainFrame(), SIGNAL(javaScriptWindowObjectCleared()), this, SLOT(addJavaScriptObject()));
 	m_fullWidget = new fullScreenWidget;
 	m_soundSliderWidget.setRange(0,100);
 	m_micophoneSliderWidget.setRange(0,100);
@@ -83,41 +73,28 @@ ChatWidget::ChatWidget(QWidget *parent) : QWidget(parent)
 	connect(ui->soundDisable_pushBtn, SIGNAL(clicked()), this, SLOT(soundDisableBtnClicked()));
 	connect(&m_soundSliderWidget,SIGNAL(sliderValueChanged(int)),this,SLOT(soundSliderChange(int)));
 	
-	connect(ui->webView->page()->mainFrame(), SIGNAL(loadFinished(bool)), this, SLOT(loadChatStyleFinished(bool)));
-	loadChatStyle(); 
-
     ui->textEdit_input->installEventFilter(this);
     ui->soundEnable_pushBtn->installEventFilter(this);
     ui->micEnable_pushBtn->installEventFilter(this);
+
+	connect(ui->widget_listChatMsg,SIGNAL(loadFinished()),this,SLOT(loadChatStyleFinished()));
 }
 
-void ChatWidget::loadChatStyle()
-{
-    QFile source(":/chatstyle/res/chatstyle/test.html");
-    if (source.open(QIODevice::ReadOnly))
-    {
-        ui->webView->setHtml(QString::fromUtf8(source.readAll().constData()));
-    }
-    source.close();
-}
 
-void ChatWidget::loadChatStyleFinished(bool finished)
+void ChatWidget::loadChatStyleFinished()
 {
-    if (finished)
-    {
-        if (!m_isLoadFinished)
-        {
-			ui->textEdit_input->setText("");
-		}
+	if (!m_isLoadFinished)
+	{
+		ui->textEdit_input->setText("");
+	}
 
-        ui->textEdit_input->setEnabled(true);
-        ui->send_pushBtn->setEnabled(m_enableChat);
-        ui->showFaceSelectWindow_pushBtn->setEnabled(true);
-        ui->screenShot_pushBtn->setEnabled(true);
-        update();
-        m_isLoadFinished = true;
-        emit sg_loadChatStyleFinished();
-    }
+	ui->textEdit_input->setEnabled(true);
+	ui->send_pushBtn->setEnabled(m_enableChat);
+	ui->showFaceSelectWindow_pushBtn->setEnabled(true);
+	ui->screenShot_pushBtn->setEnabled(true);
+	update();
+	m_isLoadFinished = true;
+	emit sg_loadChatStyleFinished();
 }
 
 bool ChatWidget::eventFilter(QObject *o, QEvent *e)
@@ -188,11 +165,6 @@ bool ChatWidget::eventFilter(QObject *o, QEvent *e)
     return QWidget::eventFilter(o, e);
 }
 
-void ChatWidget::addJavaScriptObject()
-{
-    ui->webView->page()->mainFrame()->addToJavaScriptWindowObject("ChatWidget",this);
-}
-
 void ChatWidget::setChatType(ChatType chatType)
 {
 	switch (chatType)
@@ -206,11 +178,9 @@ void ChatWidget::setChatType(ChatType chatType)
 		ui->camera_pushBtn->hide();
 
 		ui->textEdit_input->setObjectName("private_textEdit_input");
-		ui->webView->setObjectName("private_webView");
-		ui->chat_webView_background_widget->setObjectName("privateChat_webView_background_widget");
-		ui->webView->setFixedHeight(220);
-		ui->textEdit_input->setFixedHeight(86);
-
+		ui->widget_listChatMsg->setObjectName("private_webView");
+		ui->chat_webView_background_widget->setObjectName("privateChat_webView_background_widget");	
+		ui->chat_belowWidget->setObjectName("private_chat_belowWidget");
 		break;
 	case CLASS_CHAT:
 		break;
@@ -255,19 +225,13 @@ void ChatWidget::insertFace(QString strFacePath)
 	ui->textEdit_input->insertHtml(strUrl);
 }
 
-void ChatWidget::recvMsg(QVariant var)
+void ChatWidget::recvMsg(CHAT_MSG msg)
 {
     if (!m_isLoadFinished)
     {
         return;
     }
-	Msg msg = var.value<Msg>();
-	++m_msgNum;
-	if(m_msgNum >= MAXMSGNUM)
-	{
-		clearMsg();
-	}
-
+	
 	bool isSelf = false;
 	if(msg._nSendUserId == msg._nUserId)
 		isSelf = true;
@@ -307,17 +271,7 @@ void ChatWidget::recvMsg(QVariant var)
 		name = QString::fromWCharArray(userInfo.szRealName);
 	}
 
-	if(!isSelf)
-	{
-		QString insertLeftMsg = QString("insertLeft('%1','%2','%3');").arg(name).arg(headPic).arg(msg.content);
-		ui->webView->page()->mainFrame()->evaluateJavaScript(insertLeftMsg);
-	}
-	else
-	{
-		QString insertRightMsg = QString("insertRight('%1','%2','%3');").arg(name).arg(headPic).arg(msg.content);
-		ui->webView->page()->mainFrame()->evaluateJavaScript(insertRightMsg);
-	}
-	refresh();
+	ui->widget_listChatMsg->addChatMsg(isSelf,name,headPic,msg.content);
 }
 
 void ChatWidget::screenShotBtnClicked()
@@ -513,15 +467,7 @@ void ChatWidget::changeShow(QPushButton *toShowBtn,QPushButton *toHideBtn,Slider
 
 void ChatWidget::clearAll()
 {
-	QString JS = "clearAll()";
-	ui->webView->page()->mainFrame()->evaluateJavaScript(JS);
-}
-
-void ChatWidget::clearMsg()
-{
-	QString JS = QString("clearMsg(%1)").arg(CLEARMSGNUM);
-	m_msgNum = MAXMSGNUM - CLEARMSGNUM;
-	ui->webView->page()->mainFrame()->evaluateJavaScript(JS);
+	ui->widget_listChatMsg->clearAllMsg();
 }
 
 void ChatWidget::getScreenShotPix(const QPixmap& pix)
@@ -536,15 +482,9 @@ void ChatWidget::getScreenShotPix(const QPixmap& pix)
 	QFile file(picCachePath);
 	QString md5Path = ChatUpDownServer::getMd5Path(picCachePath);
 	file.rename(md5Path);
-	QString strUrl = QString("<img src=\"%1\"'/>").arg(md5Path);
+	QString strUrl = QString("<img src=\"%1\"' width='80' height='60'/>").arg(md5Path);
 	ui->textEdit_input->insertHtml(strUrl);
 	ui->textEdit_input->activateWindow();
-}
-
-void ChatWidget::refresh()
-{
-	ui->webView->page()->mainFrame()->setHtml(ui->webView->page()->mainFrame()->toHtml());
-	ui->webView->page()->mainFrame()->setScrollBarValue(Qt::Vertical,ui->webView->page()->mainFrame()->scrollBarMaximum(Qt::Vertical));
 }
 
 void ChatWidget::showBigPic(const QString &path)
@@ -562,8 +502,7 @@ void ChatWidget::showPersonalInfo(const QVariant &path)
 
 void ChatWidget::showSysMsg(const QString &msg)
 {
-	QString JS = QString("insertSysMsg('%1')").arg(msg);
-	ui->webView->page()->mainFrame()->evaluateJavaScript(JS);
+	ui->widget_listChatMsg->addSystemMsg(msg);
 }
 
 void ChatWidget::micophoneSliderChange(int value)

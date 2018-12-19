@@ -35,6 +35,7 @@
 #include "CourseClassItem.h"
 #include "jason/include/json.h"
 #include "DeviceDetectDialog.h"
+#include "./common/Util.h"
 
 extern SingleApp *g_singApp;
 
@@ -61,7 +62,6 @@ LobbyDialog::LobbyDialog(QWidget *parent)
     : C8CommonWindow(parent,SHADOW_AERO)
 	, m_enterClassState(enterClass_undo)
 	, m_isClickedHome(false)
-    , m_webViewChat(NULL)
 	, m_idDownHeadImage(0)
 	, m_enterClassTimer(0)
 	, m_dlgWait(NULL)
@@ -70,12 +70,13 @@ LobbyDialog::LobbyDialog(QWidget *parent)
 	, m_notifyTimer(-1)
 	, m_getUserInfoTimer(-1)
 	, m_idGetClassList(0)
+	, m_loadingMovie(NULL)
 {   
-    ui.setupUi(this);
+	ui.setupUi(this);
 
-	QMovie* loadingMovie = new QMovie(QString(":/res/res/image/default/web_loading.gif"));
-	ui.label_loading->setMovie(loadingMovie);
-	loadingMovie->start();
+	m_loadingMovie = new QMovie(QString(":/res/res/image/default/web_loading.gif"));
+	ui.label_loading->setMovie(m_loadingMovie);
+	m_loadingMovie->start();
 
     connect(ui.gifIconpushButton_notify, SIGNAL(clicked()), this, SLOT(clickedNotify()));
     connect(ui.gifIconpushButton_showSettingDlg, SIGNAL(clicked()), this, SLOT(clickedSetting()));
@@ -114,34 +115,22 @@ LobbyDialog::LobbyDialog(QWidget *parent)
 
     CMediaPublishMgr::getInstance()->setUserId(ClassSeeion::GetInst()->_nUserId);
 
-	initChatWebStyle();
-
-    //http callback
+	//http callback
     connect(CHttpSessionMgr::GetInstance(),SIGNAL(httpEvent(int, unsigned int, bool, unsigned int)),this,SLOT(HttpDownImageCallBack(int, unsigned int, bool, unsigned int)),Qt::QueuedConnection);
 
 	centerWindow();
 
-	g_systemTray->setSysSettingActionEnable(true);
-	g_systemTray->setLogoutActionEnable(true);
+	if(NULL!=g_systemTray){
+		g_systemTray->setSysSettingActionEnable(true);
+		g_systemTray->setLogoutActionEnable(true);
+	}
 
 	m_getUserInfoTimer = startTimer(3000);
 }
 
 LobbyDialog::~LobbyDialog()
 {
-    SAFE_DELETE(m_webViewChat);
-}
-
-void LobbyDialog::initChatWebStyle()
-{
-	m_webViewChat = new QWebView(this);
-	m_webViewChat->hide();
-	QFile chatFile(":/chatstyle/res/chatstyle/test.html");
-	if (chatFile.open(QIODevice::ReadOnly))
-	{
-		m_webViewChat->setHtml(QString::fromUtf8(chatFile.readAll().constData()));        
-	}
-	chatFile.close();
+ 	SAFE_DELETE(m_loadingMovie);
 }
 
 void LobbyDialog::setTitleBarRect()
@@ -791,8 +780,12 @@ void LobbyDialog::setCourseClassItem(CourseClassItem* ccItem,string courseId,str
 		return;
 	}
 	
-	__int64 _courseId = QString::fromStdString(courseId).toLongLong();
-	__int64 _classId = QString::fromStdString(classId).toLongLong();
+	QString qstrTemp;
+	Util::AnsiToQString(courseId.c_str(),courseId.length(),qstrTemp);
+	__int64 _courseId = qstrTemp.toLongLong();
+	
+	Util::AnsiToQString(classId.c_str(),courseId.length(),qstrTemp);
+	__int64 _classId = qstrTemp.toLongLong();
 
 	int _classState = atoi(classState.c_str());
 	if (_classState == 15){
@@ -806,10 +799,13 @@ void LobbyDialog::setCourseClassItem(CourseClassItem* ccItem,string courseId,str
 	}
 
 	bool _isTeacher = (bool)atoi(isTeacher.c_str());
-	QString _startTime = QString::fromStdString(startTime);
+	
+	QString _startTime ;
+	Util::AnsiToQString(startTime.c_str(),startTime.length(),_startTime);
 	_startTime = _startTime.mid(_startTime.lastIndexOf(' ')+1,5);
 
-	QString _endTime = QString::fromStdString(endTime);
+	QString _endTime;
+	Util::AnsiToQString(endTime.c_str(),endTime.length(),_endTime);
 	_endTime = _endTime.mid(_endTime.lastIndexOf(' ')+1,5);
 	
 	QString _teacherName;
@@ -821,7 +817,8 @@ void LobbyDialog::setCourseClassItem(CourseClassItem* ccItem,string courseId,str
 	Util::Utf8ToQString(imageUrl.c_str(),imageUrl.length(),_imageUrl);
 
 	if(_imageUrl.indexOf("://")<0){
-		_imageUrl = QString::fromStdString(Config::getConfig()->m_urlWebSite)+_imageUrl;
+		Util::AnsiToQString(Config::getConfig()->m_urlWebSite.c_str(),Config::getConfig()->m_urlWebSite.length(),qstrTemp);
+		_imageUrl = qstrTemp+_imageUrl;
 	}
 
 	ccItem->setItemParam(_courseId,_classId,_classState,_imageUrl,_isTeacher,_className,_teacherName,_startTime,_endTime);

@@ -65,9 +65,6 @@ protected:
 
     void showSysTimer();
     void flushNotifyMsgTimer();
-
-	void initChatWebStyle();
-
 	int getDevState();
     
     QString getLangString();
@@ -105,8 +102,8 @@ protected:
     int     m_idDownHeadImage;
 	int		m_idGetClassList;
     
-    QWebView * m_webViewChat;
 	QWaitDlg * m_dlgWait;
+	QMovie *   m_loadingMovie;	
 private:
     static LobbyDialog*  m_instance;
 };

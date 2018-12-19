@@ -3,10 +3,7 @@
 #include "common/Util.h"
 #include <time.h>
 #include <QString>
-#include <QWebView>
-#include <QWebElementCollection>
-#include <QWebPage>
-#include <QWebFrame>
+#include <QDomDocument>
 #include <QFileInfo>
 #include <QXmlStreamReader>
 #include "src/chat/chatmanager.h"
@@ -29,14 +26,16 @@ Chat::Chat(QObject *parent,ChatManager *chatManager,const ChatData &chatData)
 
 void Chat::sendMsgInfo(const QString &msg)
 {
-    std::string strContent;
+	ChatWidget *chatWidget = getChatWidget();
+    
+	std::string strContent;
     Util::QStringToString(msg, strContent);
     int size = strContent.length();
     if (size > (MAXTEXTLEN-1))
     {
-        if (ChatWidget *widget = getChatWidget())
-            widget->showSysMsg(tr("input too long"));
-
+        if (NULL!= chatWidget){
+            chatWidget->showSysMsg(tr("input too long"));
+		}
         return;
     }
 	int nLen = msg.length();
@@ -53,8 +52,9 @@ void Chat::sendMsgInfo(const QString &msg)
 	int wchMgsLen = wcslen(wchMgs);
     if (wchMgsLen > (MAXTEXTLEN-1))
     {
-        if (ChatWidget *widget = getChatWidget())
-            widget->showSysMsg(tr("input too long"));
+		if (NULL!= chatWidget){
+			chatWidget->showSysMsg(tr("input too long"));
+		}
     }
     else
     {
@@ -72,117 +72,141 @@ void Chat::sendMsg(QString str)
 	QString strHtml = str;
 	strHtml = strHtml.remove(0, strHtml.indexOf("<body"));
 	strHtml = strHtml.left(strHtml.lastIndexOf("</html>"));
-	QWebView webView;
-	webView.setHtml(strHtml);
 
-    QWebElementCollection collectionBody = webView.page()->currentFrame()->findAllElements("body");
-    for (int i = 0; i < collectionBody.count(); i++)
-    {
-        collectionBody.at(i).removeAttribute("style");
-    }
+	QDomDocument docDom;
+	docDom.setContent(strHtml);
 
-    QWebElementCollection collectionSpan = webView.page()->currentFrame()->findAllElements("span");
-    for (int i = 0; i < collectionSpan.count(); i++)
-    {
-        collectionSpan.at(i).removeAttribute("style");
-    }
+	QDomNodeList nodeList = docDom.elementsByTagName("body");
+	for(int i=0;i<nodeList.count();i++){
+		QDomNode node = nodeList.at(i);
+		if(!node.hasAttributes()){
+			continue;
+		}
+		node.attributes().removeNamedItem(QString("style"));
+	}
 
-    QWebElementCollection collectionStyle = webView.page()->currentFrame()->findAllElements("p");
-    for (int i = 0; i < collectionStyle.count(); i++)
-    {
-        collectionStyle.at(i).removeAttribute("style");
-    }
+	nodeList = docDom.elementsByTagName("span");
+	for(int i=0;i<nodeList.count();i++){
+		QDomNode node = nodeList.at(i);
+		if(!node.hasAttributes()){
+			continue;
+		}
+		node.attributes().removeNamedItem(QString("style"));
+	}
 
-    QWebElementCollection collectionBR = webView.page()->currentFrame()->findAllElements("br");
-    for (int i = 0; i < collectionBR.count(); i++)
-    {
-        collectionBR.at(i).replace("\n");
-    }
-	QWebElementCollection collection = webView.page()->currentFrame()->findAllElements("img");
-	for (int i = 0; i < collection.count(); ++i)
-	{
-		QString src = collection.at(i).attribute("src","");
-        int pos = src.lastIndexOf(":/");
-		if (pos != 0)
-		{
-            if (src.indexOf("qrc:/") == 0)
-            {
-                src = src.right(src.length() - 3);
-                collection.at(i).setAttribute("src", src);
-            }
-            else
-            {
-                collection.at(i).removeAttribute("style");
-                //src = src.right(src.length() - pos - 1);
-                QString md5 = "";
-                Util::CaleFileMd5(src,md5);
-                collection.at(i).setAttribute("src",md5+'.'+QFileInfo(src).suffix());
-                if(ChatUpDownServer::copyFileToMD5Path(src))
-                    m_chatManager->upLoadFile(this,src);
-            }
+	nodeList = docDom.elementsByTagName("p");
+	for(int i=0;i<nodeList.count();i++){
+		QDomNode node = nodeList.at(i);
+		if(!node.hasAttributes()){
+			continue;
+		}
+		node.attributes().removeNamedItem(QString("style"));
+	}
+
+	nodeList = docDom.elementsByTagName("img");
+	for(int i=0;i<nodeList.count();i++){
+		QDomNode node = nodeList.at(i);
+		if(!node.hasAttributes()){
+			continue;
+		}
+
+		QDomNamedNodeMap attriMap = node.attributes();
+		if(!attriMap.contains(QString("src"))){
+			continue;
+		}
+
+		QString imgSrc = attriMap.namedItem(QString("src")).toAttr().value();
+		if(imgSrc.indexOf(":/") == 0){
+			attriMap.namedItem(QString("src")).toAttr().setValue(QString("qrc")+imgSrc);
+		}else{
+			node.attributes().removeNamedItem(QString("style"));
+			QString md5 = "";
+			Util::CaleFileMd5(imgSrc,md5);
+			attriMap.namedItem(QString("src")).toAttr().setValue(md5+'.'+QFileInfo(imgSrc).suffix());
+			if(ChatUpDownServer::copyFileToMD5Path(imgSrc))
+				m_chatManager->upLoadFile(this,imgSrc);
 		}
 	}
-	strHtml = webView.page()->currentFrame()->toHtml();
-	strHtml = strHtml.remove(0, strHtml.indexOf("<body"));
-	strHtml = strHtml.left(strHtml.lastIndexOf("</html>"));
 
+	strHtml = docDom.toString();
+	strHtml = strHtml.remove(0, QString("<body>").length());
+	strHtml = strHtml.left(strHtml.lastIndexOf("</body>"));
 	sendMsgInfo(strHtml);
+
+	showChatMsg(strHtml,m_sMsgInfo._nSendUserId,m_sMsgInfo._nSendUserId);
+	return;
+}
+
+void Chat::showChatMsg(const QString& msgHtml,__int64 sendUserId,__int64 userId)
+{
+	if(msgHtml.isNull()||msgHtml.isEmpty()){
+		return;
+	}
+
+	ChatWidget *chatWidget = getChatWidget();
+	if(NULL==chatWidget){
+		return;
+	}
+
+	QString contentHtml = QString("<body>%1</body>").arg(msgHtml);
+	QDomDocument docDom;
+	docDom.setContent(contentHtml);
+
+	QDomNodeList nodeList = docDom.elementsByTagName("img");
+	for(int i=0;i<nodeList.count();i++){
+		QDomNode node = nodeList.at(i);
+		if(!node.hasAttributes()){
+			continue;
+		}
+
+		QDomNamedNodeMap attriMap = node.attributes();
+		if(!attriMap.contains(QString("src"))){
+			continue;
+		}
+
+		QString imgSrc = attriMap.namedItem(QString("src")).toAttr().value();
+		if(imgSrc.indexOf("qrc:/") ==0){
+			continue;
+		}
+		QString picCachePath = Env::GetUserPicCachePath(m_chatData.m_sendUserId) + imgSrc;
+		picCachePath.replace("\\","/");
+		
+		if(!Util::isFileExists(picCachePath)){
+			m_chatManager->downLoadFile(this,imgSrc);
+		}
+
+		imgSrc = QString("file:///") + picCachePath;
+		attriMap.namedItem(QString("src")).toAttr().setValue(imgSrc);
+
+		if(!attriMap.contains(QString("height"))){
+			QDomAttr attrNode = docDom.createAttribute("height");
+			attrNode.setValue("60");
+			attriMap.setNamedItem(attrNode);
+		}
+	}
+
+	contentHtml = docDom.toString();
+	contentHtml = contentHtml.remove(0,contentHtml.lastIndexOf("<body>")+QString("<body>").length());
+	contentHtml = contentHtml.left(contentHtml.indexOf("</body>"));
+
+	CHAT_MSG msg;
+	msg.content = contentHtml;
+	msg._nSendUserId = sendUserId;
+	msg._nUserId = userId;
+
+	chatWidget->recvMsg(msg);
 }
 
 void Chat::recvMsg(biz::SLTextMsgInfo info)
 {
 	QString html =  QString::fromWCharArray(info._szMsg);
-    QString content = "";
-
-    QWebView webView;
-    webView.setHtml(html);
-    QWebElementCollection collection = webView.page()->currentFrame()->findAllElements("p");
-    for (int i = 0; i < collection.count(); i++)
-    {
-        QString x = collection.at(i).toInnerXml();
-        QWebElementCollection imgs = collection.at(i).findAll("img");
-        int j = imgs.count();
-        for (j = 0; j < imgs.count(); j++)
-        {
-            QString img = imgs.at(j).toOuterXml();
-            QString imagePath = imgs.at(j).attribute("src");
-            QString imgR;
-            if (imagePath.indexOf(":/") != 0)
-            {
-                m_chatManager->downLoadFile(this,imagePath);
-                QString picCachePath = Env::GetUserPicCachePath(m_chatData.m_sendUserId) + imagePath;
-                picCachePath.replace("\\","/");
-                QImage img(picCachePath);                        
-                imagePath = "file:///" + picCachePath;
-                if (img.size().width() >= 60 || img.size().height() <= 60)
-                    imgR = QString("<img src=\"%1\" onClick=\"toShowBigPic(this)\" width=\"60\" height=\"60\"/>").arg(imagePath);
-                else
-                    imgR = QString("<img src=\"%1\" onClick=\"toShowBigPic(this)\"/>").arg(imagePath);
-            }
-            else
-            {
-                imgR = QString("<img src=\"qrc%1\" />").arg(imagePath);
-            }
-
-            x.replace(img, imgR);
-        }        
-        content += x;
-         if (x != "\n")
-             content += "\n";
-    }  
-    content.replace("\n","<br />");
-	Msg msg;
-	msg.content = content;
-	msg._nSendUserId = info._nSendUserId;
-	msg._nUserId = m_chatData.m_sendUserId;
-	QVariant var;
-	var.setValue(msg);
-	emit recvMsgSignal(var);
+	showChatMsg(html,info._nSendUserId,m_chatData.m_sendUserId);
+	
+	return;
 }
 
 void Chat::recvHttpResult(HttpResult httpResult,ChatUserHttpData userData)
 {
-	emit refresh();
 }
 
 Chat::~Chat()
@@ -230,20 +254,16 @@ void Chat::setWidget(QWidget* widget,ChatType type)
 	{
 	case PRIVATE_CHAT:
 		{
-		connect(((PrivateChatWidget*)m_widget)->getChatWidget(), SIGNAL(sg_sendMsg(QString)), this, SLOT(sendMsg(QString)));
-		connect(this, SIGNAL(refresh()), ((PrivateChatWidget*)m_widget)->getChatWidget(), SLOT(refresh()));
-		connect(this, SIGNAL(recvMsgSignal(QVariant)), ((PrivateChatWidget*)m_widget)->getChatWidget(), SLOT(recvMsg(QVariant)));
-		connect(m_widget, SIGNAL(sg_destory()), this, SLOT(destoryMyself()));
-		SLUserInfo userInfo = biz::GetBizInterface()->GetUserInfoDataContainer()->GetUserInfoById(m_chatData.m_recvUserId);
-		((PrivateChatWidget*)m_widget)->setTitleText(QString::fromWCharArray(userInfo.szRealName));
-		break;
+			connect(((PrivateChatWidget*)m_widget)->getChatWidget(), SIGNAL(sg_sendMsg(QString)), this, SLOT(sendMsg(QString)));
+			connect(m_widget, SIGNAL(sg_destory()), this, SLOT(destoryMyself()));
+			SLUserInfo userInfo = biz::GetBizInterface()->GetUserInfoDataContainer()->GetUserInfoById(m_chatData.m_recvUserId);
+			((PrivateChatWidget*)m_widget)->setTitleText(QString::fromWCharArray(userInfo.szRealName));
+			break;
 		}
 	case CLASS_CHAT:
 		{
-		connect((ChatWidget*)m_widget, SIGNAL(sg_sendMsg(QString)), this, SLOT(sendMsg(QString)));
-		connect(this, SIGNAL(refresh()), (ChatWidget*)m_widget, SLOT(refresh()));
-		connect(this, SIGNAL(recvMsgSignal(QVariant)), (ChatWidget*)m_widget, SLOT(recvMsg(QVariant)));
-		break;
+			connect((ChatWidget*)m_widget, SIGNAL(sg_sendMsg(QString)), this, SLOT(sendMsg(QString)));
+			break;
 		}
 	}
 }
