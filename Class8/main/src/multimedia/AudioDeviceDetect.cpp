@@ -250,7 +250,7 @@ void AudioDeviceDetect::startDetectAudioInDevice(QString& micName,QString& spkNa
 	m_outSelDevName = spkName;
 
 	if(m_tidPlayback == 0){
-		m_tidPlayback = startTimer(2000);
+		m_tidPlayback = startTimer(3000);
 	}
 
 	return;
@@ -266,14 +266,15 @@ void AudioDeviceDetect::stopDetectAudioInDevice()
 		killTimer(m_tidPlayback);
 		m_tidPlayback = 0;
 	}
+
+	closeOutAudioDevice();
+
 	if(NULL==m_inAudio){
 		return;
 	}
 
 	m_inAudio->stop();
 	SAFE_DELETE(m_inAudio);
-
-	closeOutAudioDevice();
 }
 
 int AudioDeviceDetect::getAudioInDeviceVolume()
@@ -345,5 +346,11 @@ void AudioDeviceDetect::timerEvent(QTimerEvent * event)
 		m_tidPlayback=0;
 
 		openOutAudioDevice(m_outSelDevName,m_fmtOutAudio,m_bufInAudio);
+
+		if(NULL!=m_inAudio){
+			m_inAudio->stop();
+			SAFE_DELETE(m_inAudio);
+			return;
+		}
 	}
 }

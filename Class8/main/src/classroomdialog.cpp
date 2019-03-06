@@ -114,7 +114,14 @@ ClassRoomDialog::ClassRoomDialog(QWidget *parent)
 	if(pMediaMgr)
 	{
 		pMediaMgr->setPlayVideo(true);
+		
 		connect(pMediaMgr,SIGNAL(initFinished()),this,SLOT(onMediaInitFinish()));
+
+		pMediaMgr->setMicVolume(50);
+		pMediaMgr->setSpeakersVolume(50);
+
+		ui.slider_micVolume->setValue(pMediaMgr->getMicVolume());
+		ui.slider_spkVolume->setValue(pMediaMgr->getSpeakersVolume());
 	}
 
 	this->windowShowMaxmized();
@@ -211,8 +218,8 @@ void ClassRoomDialog::initUI()
 
 	ui.slider_micVolume->setRange(0,100);
 	ui.slider_spkVolume->setRange(0,100);
-	ui.slider_micVolume->setValue(CMediaPublishMgr::getInstance()->getMicVolume());
-	ui.slider_spkVolume->setValue(CMediaPublishMgr::getInstance()->getSpeakersVolume());
+	ui.slider_micVolume->setValue(50);
+	ui.slider_spkVolume->setValue(50);
 
 	ui.gifIconpushButton_showSettingDlg->hide();
 }
@@ -2859,6 +2866,8 @@ void ClassRoomDialog::onMediaInitFinish()
         return;
     }
 
+	CMediaPublishMgr::getInstance()->setSpeakersVolume(50);
+	CMediaPublishMgr::getInstance()->setMicVolume(50);
     CMediaPublishMgr::getInstance()->setMediaUrl(userInfo.szPushUrl,userInfo.szPullUrl);
     CMediaPublishMgr::getInstance()->setPublishParam(ClassSeeion::GetInst()->IsTeacher());
 

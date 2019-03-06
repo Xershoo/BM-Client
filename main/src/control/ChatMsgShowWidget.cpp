@@ -171,7 +171,7 @@ void QChatMsgShowItem::addUserMsg(const QString& qstrMsg)
 		m_textUserMsg->setStyleSheet(QString("QTextEdit#textEdit_ChatMsg{background-color:none;"
 			"font-family: \"Microsoft YaHei\";"
 			"font-size: 13px;"
-			"color: rgb(211, 211, 211);"
+			"color: rgb(255, 255, 255);"
 			"border: none;}"));
 
 		left = CHAT_USER_IMAGE_SIZE + 30;
